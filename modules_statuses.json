@@ -1,0 +1,18 @@
+{
+    "RestaurantManagement": true,
+    "Resturants": true,
+    "Restaurant": true,
+    "Order": true,
+    "OrderManagement": true,
+    "Delivery": true,
+    "Users": true,
+    "Core": true,
+    "Orders": true,
+    "DeliveriesSystem": true,
+    "UserManagement": true,
+    "Migration": true,
+    "CreateRestaurantsTabel": true,
+    "Restaurants": true,
+    "Deliveries": true,
+    "Payments": true
+}
