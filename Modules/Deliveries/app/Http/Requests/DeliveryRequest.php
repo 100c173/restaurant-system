@@ -14,13 +14,13 @@ class DeliveryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'       => ['required', 'string', 'max:255'],
-            'last_name'        => ['required', 'string', 'max:255'],
-            'phone_number'     => ['required', 'string', 'regex:/^05[0-9]{8}$/'],
+            'email'            => ['required' , 'string'],
+            'password'         => ['required','string','min:8'],   
+            'name'             => ['required', 'string', 'max:255'],
+            'phone_number'     => ['required', 'string', 'regex:/^09[0-9]{8}$/'],
             'national_id'      => ['required', 'string', 'max:20', 'unique:delivery_requests,national_id'],
-            'city'             => ['required', 'string', 'max:255'],
-            'address'          => ['required', 'string', 'max:500'],
-            'vehicle_type'     => ['required', 'in:Car,Motorcycle,Bicycle'],
+            
+            'vehicle_type'     => ['required'],
             'vehicle_number'   => ['required', 'string', 'max:50'],
             'experience_note'  => ['nullable', 'string', 'max:1000'],
 
@@ -31,6 +31,8 @@ class DeliveryRequest extends FormRequest
             'driving_license'  => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
+
+
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(

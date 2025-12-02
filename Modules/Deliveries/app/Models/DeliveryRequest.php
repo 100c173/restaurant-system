@@ -3,6 +3,7 @@
 namespace Modules\Deliveries\Models;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,11 +18,14 @@ class DeliveryRequest extends Model
      * The attributes that are mass assignable.
      */
         protected $fillable = [
-        'user_id',
-        'first_name',
-        'last_name',
+        'name',
+        'email',
         'phone_number',
         'national_id',
+        'password',
+        'otp_code',
+        'otp_expires_at',
+        'email_verified_at',
         'city',
         'address',
         'personal_photo',
@@ -39,5 +43,7 @@ class DeliveryRequest extends Model
     public function customer():BelongsTo{
         return $this->belongsTo(User::class,'user_id');
     }
+
+
 
 }

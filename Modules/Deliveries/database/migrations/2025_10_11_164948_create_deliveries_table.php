@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,11 +12,33 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete(); // نفس المستخدم بعد الموافقة
-            $table->string('vehicle_type')->nullable(); // نوع المركبة: سيارة، دراجة، الخ
+
+            // المعلومات الأساسية
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+
+            // بيانات التواصل
+            $table->string('phone_number');
+
+            // بيانات السائق
+            $table->string('national_id')->nullable();
+            $table->string('city')->nullable();
+            $table->string('address')->nullable();
+
+            // وثائق شخصية
+            $table->string('personal_photo')->nullable();
+            $table->string('id_card_front')->nullable();
+            $table->string('id_card_back')->nullable();
+            $table->string('driving_license')->nullable();
+
+            // بيانات المركبة
+            $table->string('vehicle_type')->nullable();
             $table->string('vehicle_number')->nullable();
-            $table->boolean('is_available')->default(true); // هل السائق متاح الآن
-            $table->decimal('rating', 3, 2)->default(0); // متوسط تقييمه من المطاعم
+            $table->string('vehicle_photo')->nullable();
+
+            // حالة السائق داخل النظام (فعال/معطل)
+            $table->boolean('is_active')->default(true);
+            
             $table->timestamps();
         });
     }

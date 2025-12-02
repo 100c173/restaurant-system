@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Route;
 ** Authentication User Login/Register/Logout/Me
 */
 
+Route::post('/register',[AuthenticationController::class,'register']);
 Route::post('/login',[AuthenticationController::class,'login'])->middleware('throttle:5,1');;
-Route::post('/register',[AuthenticationController::class,'Register']);
+
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

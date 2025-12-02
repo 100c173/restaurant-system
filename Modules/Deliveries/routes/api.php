@@ -5,6 +5,6 @@ use Modules\Deliveries\Http\Controllers\DeliveriesController;
 
 
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::post('delivery-request',[DeliveriesController::class,'DeliveryRequest']);
-});
+Route::post('/delivery/request-otp', [DeliveriesController::class, 'sendOtp'])->name('delivery.sendOtp');
+Route::post('/delivery/verifyOtp', [DeliveriesController::class, 'verifyOtp'])->name('delivery.verifyOtp');
+Route::post('/delivery/complete-request', [DeliveriesController::class, 'DeliveryRequest'])->name('delivery.complete-request');

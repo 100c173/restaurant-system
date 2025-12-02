@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Deliveries\Models\Delivery;
 use Modules\Orders\Models\Order;
 use Modules\Restaurants\Models\Restaurant;
 use Spatie\Permission\Traits\HasRoles;
@@ -58,5 +59,9 @@ class User extends Authenticatable
 
     public function orders():HasMany{
         return $this->hasMany(Order::class,'customer_id');
+    }
+
+    public function delivery(): HasOne{
+        return $this->hasOne(Delivery::class);
     }
 }

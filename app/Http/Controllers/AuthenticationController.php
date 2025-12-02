@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
+
 use App\Models\User;
+use App\Services\Auth\AuthenticateService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\AuthenticationRequest\LoginUserRequest;
 use App\Http\Requests\AuthenticationRequest\StoreUserRequest;
+use App\Http\Requests\AuthenticationRequest\StoreDeliveryRequest;
 
 class AuthenticationController extends Controller
 {
+
+    public function __construct(public AuthenticateService $service){}
+
+
     /**
      * Register new user
      *
@@ -21,28 +28,12 @@ class AuthenticationController extends Controller
      *
      * @throws ValidationException
      */
-    public function Register(StoreUserRequest $request): JsonResponse
+    public function register(StoreUserRequest $request): JsonResponse
     {
-
         // Validate with strong password rules
         $validated = $request->validated();
 
-        // Create user with hashed password
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-        ]);
-
-        // assigni user role
-        $user->assignRole('customer');
-
-        // Generate limited-scope token
-        $token = $user->createToken(
-            name: 'auth_token',
-            expiresAt: now()->addHours(24) // Token expiration
-        )->plainTextToken;
-
+        [$user,$token] = $this->service->register($validated);
 
 
         return response()->json([
@@ -67,20 +58,7 @@ class AuthenticationController extends Controller
     {
         $credentials = $request->validated();
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        // Verify credentials and account status
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect'],
-            ]);
-        }
-
-        // Generate new token with expiration
-        $token = $user->createToken(
-            name: 'auth_token',
-            expiresAt: now()->addHours(24) // Token expiration
-        )->plainTextToken;
+        [$user,$token] = $this->service->login($credentials);
 
         return response()->json([
             'message' => "Login successful",
@@ -90,6 +68,7 @@ class AuthenticationController extends Controller
             'roles'      => $user->getRoleNames(),
             'user'       => $user->only('id', 'name', 'email'),
         ]);
+
     }
 
     /**
@@ -100,8 +79,7 @@ class AuthenticationController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        // Revoke current token
-        $request->user()->currentAccessToken()->delete();
+        $this->service->logout($request);   
 
         return response()->json([
             'message' => 'Successfully logged out'
@@ -124,21 +102,7 @@ class AuthenticationController extends Controller
 
     public function refreshToke(Request $request): JsonResponse
     {
-        //gate the current token 
-        $user = $request->user();
-
-        if (!$user) {
-            return response()->json(["message" => 'Unauthenticated'], 401);
-        }
-
-        //delete all tokens related with the current user
-        $user()->currentAccessToken()->delete();
-
-        //create a new token
-        $newToken = $user->createToken(
-            name: 'auth_token',
-            expiresAt: now()->addHours(24),
-        )->plainTextToken;
+        [$newToken] = $this->service->refreshToke($request);
 
         return response()->json([
             'message' => 'Token refreshed successfully',
