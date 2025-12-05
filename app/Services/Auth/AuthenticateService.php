@@ -38,9 +38,15 @@ class AuthenticateService
         $user = User::where('email', $credentials['email'])->first();
 
         // Verify credentials and account status
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (!$user ) {
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect'],
+                'email' => ['User not found. Please check your email.'],
+            ]);
+        }
+        if(!Hash::check($credentials['password'], $user->password))
+        {
+            throw ValidationException::withMessages([
+                'password' => ['Incorrect password'],
             ]);
         }
 
