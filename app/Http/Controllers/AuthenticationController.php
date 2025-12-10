@@ -4,20 +4,23 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 
+use App\Http\Requests\AuthenticationRequest\ForgetPassword;
+use App\Http\Requests\SendOtpRequest;
+use App\Http\Requests\VerifyOtpRequest;
 use App\Models\User;
 use App\Services\Auth\AuthenticateService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\AuthenticationRequest\LoginUserRequest;
 use App\Http\Requests\AuthenticationRequest\StoreUserRequest;
-use App\Http\Requests\AuthenticationRequest\StoreDeliveryRequest;
 
 class AuthenticationController extends Controller
 {
 
-    public function __construct(public AuthenticateService $service){}
+    public function __construct(public AuthenticateService $service)
+    {
+    }
 
 
     /**
@@ -33,7 +36,7 @@ class AuthenticationController extends Controller
         // Validate with strong password rules
         $validated = $request->validated();
 
-        [$user,$token] = $this->service->register($validated);
+        [$user, $token] = $this->service->register($validated);
 
 
         return response()->json([
@@ -41,7 +44,7 @@ class AuthenticationController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => '24 hours',
-            'role'       => $user->getRoleNames(),
+            'role' => $user->getRoleNames(),
             'user' => $user->only('id', 'name', 'email'),
         ], 201);
     }
@@ -58,15 +61,15 @@ class AuthenticationController extends Controller
     {
         $credentials = $request->validated();
 
-        [$user,$token] = $this->service->login($credentials);
+        [$user, $token] = $this->service->login($credentials);
 
         return response()->json([
             'message' => "Login successful",
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => '24 hours',
-            'roles'      => $user->getRoleNames(),
-            'user'       => $user->only('id', 'name', 'email'),
+            'roles' => $user->getRoleNames(),
+            'user' => $user->only('id', 'name', 'email'),
         ]);
 
     }
@@ -79,7 +82,7 @@ class AuthenticationController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        $this->service->logout($request);   
+        $this->service->logout($request);
 
         return response()->json([
             'message' => 'Successfully logged out'
@@ -111,5 +114,39 @@ class AuthenticationController extends Controller
             'expires_in' => '24 hours',
         ]);
 
+    }
+
+    public function sendOtp(SendOtpRequest $request): JsonResponse
+    {
+        $expiresAt = $this->service->sendOtp($request->validated());
+
+        return response()->json([
+            'message' => 'OTP sent successfully',
+            'expires_at' => $expiresAt->toDateTimeString(),
+        ]);
+
+    }
+    public function verifyOtp(VerifyOtpRequest $request): JsonResponse
+    {
+        $deliveryRequest = $this->service->verifyOtp($request->validated());
+
+        if (!$deliveryRequest) {
+            return response()->json(['error' => 'Invalid or expired OTP'], 400);
+        }
+        return response()->json(['message' => 'OTP verified successfully']);
+    }
+
+    public function forgetPassword(ForgetPassword $request)
+    {
+        $data = $request->validated();
+
+        $user = $this->service->resetPassword($data);
+
+        return response()->json([
+            'message' => 'Password has been reset successfully.',
+            'user' => [
+                'email' => $user->email
+            ]
+        ], 200);
     }
 }

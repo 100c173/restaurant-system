@@ -19,9 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password')->nullable();
 
-            $table->string('otp_code',6)->nullable();
-            $table->timestamp('otp_expires_at')->nullable();
-            $table->timestamp('email_verified_at')->nullable();
 
             $table->string('phone_number')->nullable();
             $table->string('national_id')->nullable(); // رقم الهوية أو الجواز

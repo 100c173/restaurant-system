@@ -2,10 +2,15 @@
 
 namespace App\Services\Auth;
 
+use App\Models\OtpCode;
 use App\Models\User;
+use App\Notifications\PasswordChangedNotification;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
+use Modules\Deliveries\Notifications\SendOtpNotification;
 
 class AuthenticateService
 {
@@ -84,5 +89,64 @@ class AuthenticateService
         )->plainTextToken;
 
         return [$newToken];
+    }
+    public function sendOtp(array $data)
+    {
+        $email = $data['email'];
+        $otpCode = rand(100000, 999999);
+        $expiresAt = Carbon::now()->addMinutes(10);
+
+        OtpCode::updateOrCreate(
+            attributes: ['email' => $email],
+            values: [
+                'otp_code' => $otpCode,
+                'otp_expires_at' => $expiresAt,
+            ]
+        );
+        
+        Notification::route('mail', $email)->notify(new SendOtpNotification($otpCode));
+    
+        return $expiresAt;
+    }
+
+    public function verifyOtp(array $data)
+    {
+        $email = $data['email'];
+        $code = $data['otp_code'];
+
+        $otpCode = OtpCode::where('email', $email)
+            ->where('otp_code', $code)
+            ->where('otp_expires_at', '>', Carbon::now())
+            ->first();
+
+        if ($otpCode) {
+            $user = User::where('email',$email )->first();
+            $user->update([
+                'email_verified_at' => now(),
+            ]);
+            $this->resetCode($otpCode);
+        }
+        return $otpCode;
+    }
+
+    public function resetCode(OtpCode $otpCode)
+    {
+        $otpCode->otp_expires_at = null;
+        $otpCode->otp_code = null;
+        $otpCode->save();
+    }
+
+    public function resetPassword(array $data)
+    {
+        $user = User::where('email' , $data['email'])->first();
+
+        $user->update([
+            'password' => Hash::make($data['new_password']),
+        ]);
+
+        $user->notify(new PasswordChangedNotification());
+
+        return $user;
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\Deliveries\Http\Requests;
 
+use App\Rules\EmailVerifiedRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -14,7 +15,7 @@ class DeliveryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email'            => ['required' , 'string'],
+            'email'            => ['required' , 'string' ,'exists:users,email' , new EmailVerifiedRule() ],
             'password'         => ['required','string','min:8'],   
             'name'             => ['required', 'string', 'max:255'],
             'phone_number'     => ['required', 'string', 'regex:/^09[0-9]{8}$/'],

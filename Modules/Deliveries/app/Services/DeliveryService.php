@@ -3,99 +3,45 @@
 namespace Modules\Deliveries\Services;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use Modules\Deliveries\Events\UserRequestedToBecomeDriver;
 use Modules\Deliveries\Models\DeliveryRequest;
-use Modules\Deliveries\Notifications\SendOtpNotification;
+
 
 class DeliveryService
 {
-    public function sendOtp(array $data)
-    {
-        $email = $data['email'];
-        $otpCode = rand(100000, 999999);
-        $expiresAt = Carbon::now()->addMinutes(15);
-
-        DeliveryRequest::updateOrCreate(
-            attributes: ['email' => $email],
-            values: [
-                'otp_code' => $otpCode,
-                'otp_expires_at' => $expiresAt,
-            ]
-        );
-
-        Notification::route('mail', $email)->notify(new SendOtpNotification($otpCode));
-
-        return $expiresAt;
-    }
-
-    public function verifyOtp(array $data)
-    {
-        $email = $data['email'];
-        $otpCode = $data['otp_code'];
-
-        $deliveryRequest = DeliveryRequest::where('email', $email)
-            ->where('otp_code', $otpCode)
-            ->where('otp_expires_at', '>', Carbon::now())
-            ->first();
-
-        if ($deliveryRequest) {
-
-            $deliveryRequest->update([
-                'email_verified_at' => now(),
-            ]);
-            $this->resetCode($deliveryRequest);
-        }
-        return $deliveryRequest;
-    }
-
-    public function resetCode(DeliveryRequest $deliveryRequest)
-    {
-        $deliveryRequest->otp_expires_at = null;
-        $deliveryRequest->otp_code = null;
-        $deliveryRequest->save();
-    }
-
-
 
     public function saveDeliveryRequest($request)
     {
         $data = $request->validated();
 
-        // البحث عن المستخدم إذا كان موجود مسبقًا
+        // Search for the user if they already exist
         $user = User::where('email', $data['email'])->first();
 
-        // لو المستخدم موجود ومسجل بالتطبيق العادي
+        // If the user is present and registered with the regular application
         if ($user) {
 
-            // نتأكد أن كلمة السر المدخلة تطابق الباسورد الحقيقي
+            // We make sure that the entered password matches the real password
             if (!Hash::check($data['password'], $user->password)) {
                 throw ValidationException::withMessages([
-                    'email' => ['You already have an account with this email. Please enter your correct password or use another email.'],
+                    'password' => ['You already have an account with this email. Please enter your correct password or use another email.'],
                 ]);
             }
 
-            // نزيل كلمة السر من الطلب — لأنها ليست مطلوبة الآن
+            // Remove the password from the request — because it is not required now 
             unset($data['password']);
 
-            // نربط الطلب بالمستخدم
+            // We link the request to the user
             $data['user_id'] = $user->id;
         }
 
-        // الحصول على سجل الطلب الحالي عبر الإيميل (لأن الـ OTP سبق وتم التحقق)
+        // Get the current order history via email (because the OTP has already been verified)
         $deliveryRequest = DeliveryRequest::where('email', $data['email'])->firstOrFail();
 
-        if (!$deliveryRequest->email_verified_at) {
-            throw ValidationException::withMessages([
-                'error' => 'Email is not verified'
-            ]);
-        }
 
-        // حفظ ملفات الطلب
+        // Save order files
         $pathPrefix = 'uploads/delivery/';
 
         if ($request->hasFile('personal_photo')) {
@@ -118,7 +64,7 @@ class DeliveryService
             $data['vehicle_photo'] = $request->file('vehicle_photo')->store($pathPrefix, 'public');
         }
 
-        // تحديث بيانات الطلب النهائي
+        // Update final order data
         $deliveryRequest->update([
             'name' => $data['name'],
             'phone_number' => $data['phone_number'],
@@ -132,12 +78,12 @@ class DeliveryService
             'vehicle_type' => $data['vehicle_type'] ?? null,
             'vehicle_number' => $data['vehicle_number'] ?? null,
             'vehicle_photo' => $data['vehicle_photo'] ?? null,
-            'status' => 'pending', // الطلب ينتظر موافقة الإدارة
+            'status' => 'pending', 
             'password' => $data['password'] ?? null,
             'user_id' => $user->id ?? null,
         ]);
 
-        // Dispatch event لإعلام الإدارة
+        // Dispatch event to notify management
         UserRequestedToBecomeDriver::dispatch($deliveryRequest);
 
         return $deliveryRequest;
