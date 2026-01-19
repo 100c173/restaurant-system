@@ -25,6 +25,7 @@ class VerifyOtpRequest extends FormRequest
         return [
             'email' => 'required|email',
             'otp_code' => 'required|string',
+            'purpose' => 'nullable',
         ];
     }
 

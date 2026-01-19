@@ -9,12 +9,15 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
 use Modules\Deliveries\Notifications\SendOtpNotification;
+use Str;
+
 
 class AuthenticateService
 {
-    public function register(array $data)
+    public function registerAsCustomer(array $data)
     {
         // Create user with hashed password
         $user = User::create([
@@ -35,21 +38,18 @@ class AuthenticateService
         return [$user, $token];
     }
 
-
-
     public function login(array $credentials)
     {
 
         $user = User::where('email', $credentials['email'])->first();
 
         // Verify credentials and account status
-        if (!$user ) {
+        if (!$user) {
             throw ValidationException::withMessages([
                 'email' => ['User not found. Please check your email.'],
             ]);
         }
-        if(!Hash::check($credentials['password'], $user->password))
-        {
+        if (!Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'password' => ['Incorrect password'],
             ]);
@@ -97,15 +97,17 @@ class AuthenticateService
         $expiresAt = Carbon::now()->addMinutes(10);
 
         OtpCode::updateOrCreate(
-            attributes: ['email' => $email],
-            values: [
-                'otp_code' => $otpCode,
+            ['email' => $email],
+            [
+                'otp_hash' => $otpCode,
                 'otp_expires_at' => $expiresAt,
+                'verified_at' => null,
+                'reset_token' => null,
             ]
         );
-        
+
         Notification::route('mail', $email)->notify(new SendOtpNotification($otpCode));
-    
+
         return $expiresAt;
     }
 
@@ -113,40 +115,65 @@ class AuthenticateService
     {
         $email = $data['email'];
         $code = $data['otp_code'];
+        $purpose = $data['purpose'] ?? 'reset_password';
 
         $otpCode = OtpCode::where('email', $email)
-            ->where('otp_code', $code)
             ->where('otp_expires_at', '>', Carbon::now())
             ->first();
 
-        if ($otpCode) {
-            $user = User::where('email',$email )->first();
-            $user->update([
-                'email_verified_at' => now(),
-            ]);
-            $this->resetCode($otpCode);
-        }
-        return $otpCode;
-    }
+        if ($otpCode && Hash::check($code, $otpCode->otp_hash)) {
+            if ($purpose === 'register') {
 
-    public function resetCode(OtpCode $otpCode)
-    {
-        $otpCode->otp_expires_at = null;
-        $otpCode->otp_code = null;
-        $otpCode->save();
+                User::where('email', $email)->update(['email_verified_at' => now()]);
+                $otpCode->update([
+                    'otp_hash' => null,
+                    'otp_expires_at' => null,
+                    'verified_at' => null,
+                    'reset_token' => null,
+                ]);
+                return true;
+            } elseif ($purpose === 'reset_password') {
+
+                $resetToken = Str::random(60);
+                $otpCode->update(['verified_at' => now(), 'reset_token' => $resetToken]);
+                return $resetToken;
+            }
+        }
+
+        return null;
     }
 
     public function resetPassword(array $data)
     {
-        $user = User::where('email' , $data['email'])->first();
+        $resetToken = $data['reset_token'];
+        $newPassword = $data['new_password'];
+
+        $otpCode = OtpCode::where('reset_token', $resetToken)
+            ->where('verified_at', '!=', null)
+
+            ->where('otp_expires_at', '>', Carbon::now())
+            ->first();
+
+        if (!$otpCode) {
+            abort(403, 'Invalid or expired reset token.');
+        }
+
+        $user = User::where('email', $otpCode->email)->firstOrFail();
 
         $user->update([
-            'password' => Hash::make($data['new_password']),
+            'password' => Hash::make($newPassword),
         ]);
 
         $user->notify(new PasswordChangedNotification());
 
-        return $user;
+        // علّم الطلب بأنه مستخدم لمنع إعادة استخدام التوكن
+        $otpCode->update([
+            'reset_token' => null,
+            'otp_hash' => null,
+            'otp_expires_at' => null,
+            'verified_at' => null,
+        ]);
 
+        return $user;
     }
 }

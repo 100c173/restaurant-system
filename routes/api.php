@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Register a new account
+// Register as a Customer new account
 Route::post('/register', [AuthenticationController::class, 'register']);
 
 // Login with rate limiting (max 5 attempts per minute)
@@ -22,16 +22,15 @@ Route::post('/login', [AuthenticationController::class, 'login'])
     ->middleware('throttle:5,1');
 
 // Request OTP for email verification or password reset
-Route::post('/request-otp', [AuthenticationController::class, 'sendOtp'])
-    ->name('otp.request');
+Route::post('/request-otp', [AuthenticationController::class, 'sendOtp']);
 
 // Verify OTP code
-Route::post('/verify-otp', [AuthenticationController::class, 'verifyOtp'])
-    ->name('otp.verify');
+Route::post('/verify-otp', [AuthenticationController::class, 'verifyOtp']);
+
 
 // Reset password (only after email is verified)
-Route::post('/reset-password', [AuthenticationController::class, 'forgetPassword'])
-    ->name('password.reset');
+Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'])
+->middleware('throttle:5,1');
 
 
 /*
@@ -46,14 +45,10 @@ Route::post('/reset-password', [AuthenticationController::class, 'forgetPassword
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Logout and revoke active token
-    Route::post('/logout', [AuthenticationController::class, 'logout'])
-        ->name('auth.logout');
-
+    Route::post('/logout', [AuthenticationController::class, 'logout']);
     // Get the authenticated user's information
-    Route::get('/me', [AuthenticationController::class, 'user'])
-        ->name('auth.me');
+    Route::get('/me', [AuthenticationController::class, 'user']);
 
     // Refresh an expired/expiring token (if applicable in your logic)
-    Route::post('/token/refresh', [AuthenticationController::class, 'refreshToken'])
-        ->name('auth.token.refresh');
+    Route::post('/token/refresh', [AuthenticationController::class, 'refreshToken']);
 });

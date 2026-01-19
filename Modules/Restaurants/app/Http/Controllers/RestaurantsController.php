@@ -3,23 +3,28 @@
 namespace Modules\Restaurants\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Modules\Restaurants\Http\Requests\RestaurantRequest;
+use Modules\Restaurants\Http\Requests\StoreRestaurantRequest;
 use Modules\Restaurants\Services\RestaurantService;
+use Illuminate\Validation\ValidationException;
 
 class RestaurantsController extends Controller
 {
-    public function __construct(private RestaurantService $service) {}
+    public function __construct(private RestaurantService $service)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        try{
+        try {
             $restaurants = $this->service->getAllRestaurants();
             return response()->json($restaurants);
-        }catch(\Exception $e){
-            return response()->json(["error"=> $e->getMessage()]);
+        } catch (\Exception $e) {
+            return response()->json(["error" => $e->getMessage()]);
         }
     }
 
@@ -63,13 +68,30 @@ class RestaurantsController extends Controller
         return response()->json([]);
     }
 
-    public function restaurantRequest(RestaurantRequest $request)
+    /**
+     * Register as a Owner
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws ValidationException
+     */
+    public function registerAsOwner(StoreRestaurantRequest $request): JsonResponse
     {
-        try {
-            $restaurant = $this->service->makeRestaurantRequest($request->validated());
-            return response()->json($restaurant);
-        } catch (\Exception $e) {
-            return response()->json(["error" => $e->getMessage()]);
-        }
+     
+        $validated = $request->validated();
+
+        $ownerRequest = $this->service->makeRestaurantRequest($validated);
+
+        return response()->json([
+            'message' => 'Restaurant request submitted successfully',
+            'status' => 'pending',
+            'data' => [
+                'request_id' => $ownerRequest->id ?? null,
+                'restaurant_name' => $validated['restaurant_name'],
+                'address' => $validated['address'],
+                'estimated_review_time' => '3 days',
+            ],
+        ], 201);
     }
 }

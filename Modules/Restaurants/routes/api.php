@@ -6,15 +6,12 @@ use Modules\Restaurants\Http\Controllers\RestaurantsController;
 
 Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
-    Route::post('restaurants/request', [RestaurantsController::class, 'restaurantRequest'])
-        ->middleware(['role:restaurant-owner'])
-        ->name('restaurants.request');
-
     /**Restaurant */
-    Route::apiResource('restaurants', RestaurantsController::class)->names('restaurants');
-
+    Route::apiResource('restaurants', RestaurantsController::class);
 
 });
 
-    /**Menu Restaurant */
-    Route::get('/restaurant_menuItem/{id}',[MenuItemController::class,'MenuItems'])->name('menu.restaurant');
+Route::post('/restaurant-request',[RestaurantsController::class,'registerAsOwner']);
+
+/**Menu Restaurant */
+Route::get('/restaurant_menuItem/{id}',[MenuItemController::class,'MenuItems']);

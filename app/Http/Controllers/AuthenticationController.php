@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 
-use App\Http\Requests\AuthenticationRequest\ForgetPassword;
+
+use App\Http\Requests\AuthenticationRequest\ResetPasswordRequest;
 use App\Http\Requests\SendOtpRequest;
 use App\Http\Requests\VerifyOtpRequest;
 use App\Models\User;
@@ -36,7 +37,7 @@ class AuthenticationController extends Controller
         // Validate with strong password rules
         $validated = $request->validated();
 
-        [$user, $token] = $this->service->register($validated);
+        [$user, $token] = $this->service->registerAsCustomer($validated);
 
 
         return response()->json([
@@ -128,15 +129,15 @@ class AuthenticationController extends Controller
     }
     public function verifyOtp(VerifyOtpRequest $request): JsonResponse
     {
-        $deliveryRequest = $this->service->verifyOtp($request->validated());
+        $resetToken = $this->service->verifyOtp($request->validated());
 
-        if (!$deliveryRequest) {
+        if (!$resetToken) {
             return response()->json(['error' => 'Invalid or expired OTP'], 400);
         }
-        return response()->json(['message' => 'OTP verified successfully']);
+        return response()->json(['reset_token' => $resetToken]);
     }
 
-    public function forgetPassword(ForgetPassword $request)
+    public function resetPassword(ResetPasswordRequest $request)
     {
         $data = $request->validated();
 

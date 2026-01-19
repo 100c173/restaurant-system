@@ -37,4 +37,9 @@ class MenuItem extends Model
     public function restaurant():BelongsTo{
         return $this->belongsTo(Restaurant::class);
     }
+
+    public function category():BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
