@@ -19,9 +19,7 @@ class RestaurantRequest extends Model
         "owner_name",
         "owner_email",
         "restaurant_name",
-        "restaurant_email",
         "owner_phone",
-        "restaurant_phone",
         "address",
         "status",
     ];

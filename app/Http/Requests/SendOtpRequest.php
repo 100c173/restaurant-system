@@ -23,20 +23,20 @@ class SendOtpRequest extends FormRequest
     {
         return [
             "email" => ["required", "email", "exists:users,email"],
+            'purpose' => 'required|string|in:reset_password,register,email_verification',
         ];
     }
     public function messages(): array
     {
         return [
-            'email.exists' => 'This email is not registered.',
+            'email.exists' => 'An unexpected error occurred.',
         ];
     }
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
             response()->json([
-                'success' => false,
-                'message' => ' Data verification error',
+                'message' => ' OTP_SEND_FAILED',
                 'errors' => $validator->errors(),
             ], 422)
         );

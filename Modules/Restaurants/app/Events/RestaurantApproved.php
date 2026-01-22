@@ -23,8 +23,6 @@ class RestaurantApproved
     public function __construct(
         public RestaurantRequest $record,
         public ?User $owner = null,
-        public ?Restaurant $restaurant = null,
-        public bool $isNewUser = false,
     ) {}
 
     /**

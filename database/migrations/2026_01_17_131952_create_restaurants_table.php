@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('logo')->nullable();
             $table->string('cover_image')->nullable();
             $table->text('address');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected', 'suspended'])->default('pending');
             $table->decimal('commission_rate', 5, 2)->default(0);

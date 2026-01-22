@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ResetPasswordRequest extends FormRequest
+class SetPasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class ResetPasswordRequest extends FormRequest
     {
         return [
             "new_password" => ['required', 'string', 'min:8', 'confirmed'],
-            "reset_token" =>['required'],
+            "reset_token"  => ['required','string'],
         ];
     }
     public function messages(): array
@@ -40,7 +40,8 @@ class ResetPasswordRequest extends FormRequest
             'password.min' => 'Password must be at least 8 characters.',
             'password.confirmed' => 'Password confirmation does not match.',
 
-            'token.required' => 'Token is required',
+            'reset_token.required' => 'reset token is required.',
+
         ];
     }
     protected function failedValidation(Validator $validator)

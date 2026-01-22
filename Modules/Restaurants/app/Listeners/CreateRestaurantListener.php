@@ -25,8 +25,6 @@ class CreateRestaurantListener
         Restaurant::create([
             'owner_id' => $event->owner->id,
             'name' => $event->record->restaurant_name,
-            'email' => $event->record->restaurant_email,
-            'phone' => $event->record->restaurant_phone,
             'address' => $event->record->address,
         ]);
     }

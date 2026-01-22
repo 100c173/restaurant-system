@@ -20,15 +20,7 @@ class StoreRestaurantRequest extends FormRequest
 
             'owner_email' => 'required|string|email|max:255',
 
-            'restaurant_email' => 'string|email|max:255',
-
             'owner_phone' => [
-                'required',
-                'string',
-                'regex:/^\+963\s?9\d{2}\s?\d{3}\s?\d{3}$/',
-            ],
-
-            'restaurant_phone' => [
                 'required',
                 'string',
                 'regex:/^\+963\s?9\d{2}\s?\d{3}\s?\d{3}$/',

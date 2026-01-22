@@ -33,8 +33,8 @@ class CreateOwnerUserListener
                 'password' => Hash::make(Str::random(32)),
                 'password_set_at' => null,
             ]);
-            $event->isNewUser = true;
         }
+        $user->assignRole(['customer','restaurant-owner']);
         $event->owner=$user;
     }
 }

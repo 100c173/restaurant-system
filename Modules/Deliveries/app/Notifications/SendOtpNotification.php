@@ -30,10 +30,10 @@ class SendOtpNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Your OTP Code')
-            ->line('Your OTP is: ' . $this->otp)
-            ->line('This code will expire in 10 minutes.')
-            ->salutation('Thank you');
+            ->subject('تحقق من الايميل')
+            ->line('رمز التحقق الخاص بك : ' . $this->otp)
+            ->line('هذا الرمز صالح لمدة 10 دقائق من مدة إرساله')
+            ->salutation('شكرا لك.');
     }
 
     /**

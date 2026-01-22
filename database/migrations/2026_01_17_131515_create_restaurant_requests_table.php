@@ -16,8 +16,6 @@ return new class extends Migration {
             $table->string("owner_email");
             $table->string("owner_phone");
             $table->string("restaurant_name");
-            $table->string("restaurant_email")->nullable();
-            $table->string("restaurant_phone")->nullable();
             $table->string("address");
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('cancel_resone')->nullable();

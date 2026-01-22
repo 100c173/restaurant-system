@@ -2,17 +2,17 @@
 
 namespace App\Services\Auth;
 
+
 use App\Models\OtpCode;
+use App\Models\PasswordResetToken;
 use App\Models\User;
 use App\Notifications\PasswordChangedNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
-use Modules\Deliveries\Notifications\SendOtpNotification;
 use Str;
+
 
 
 class AuthenticateService
@@ -28,14 +28,10 @@ class AuthenticateService
 
         // assigni user role
         $user->assignRole('customer');
+       
 
-        // Generate limited-scope token
-        $token = $user->createToken(
-            name: 'auth_token',
-            expiresAt: now()->addHours(24) // Token expiration
-        )->plainTextToken;
+        return $user;
 
-        return [$user, $token];
     }
 
     public function login(array $credentials)
@@ -56,10 +52,7 @@ class AuthenticateService
         }
 
         // Generate new token with expiration
-        $token = $user->createToken(
-            name: 'auth_token',
-            expiresAt: now()->addHours(24) // Token expiration
-        )->plainTextToken;
+        $token = $this->createTokenWithExpiration($user);
 
         return [$user, $token];
     }
@@ -87,93 +80,48 @@ class AuthenticateService
             name: 'auth_token',
             expiresAt: now()->addHours(24),
         )->plainTextToken;
-
         return [$newToken];
     }
-    public function sendOtp(array $data)
-    {
-        $email = $data['email'];
-        $otpCode = rand(100000, 999999);
-        $expiresAt = Carbon::now()->addMinutes(10);
 
-        OtpCode::updateOrCreate(
-            ['email' => $email],
-            [
-                'otp_hash' => $otpCode,
-                'otp_expires_at' => $expiresAt,
-                'verified_at' => null,
-                'reset_token' => null,
-            ]
-        );
-
-        Notification::route('mail', $email)->notify(new SendOtpNotification($otpCode));
-
-        return $expiresAt;
-    }
-
-    public function verifyOtp(array $data)
-    {
-        $email = $data['email'];
-        $code = $data['otp_code'];
-        $purpose = $data['purpose'] ?? 'reset_password';
-
-        $otpCode = OtpCode::where('email', $email)
-            ->where('otp_expires_at', '>', Carbon::now())
-            ->first();
-
-        if ($otpCode && Hash::check($code, $otpCode->otp_hash)) {
-            if ($purpose === 'register') {
-
-                User::where('email', $email)->update(['email_verified_at' => now()]);
-                $otpCode->update([
-                    'otp_hash' => null,
-                    'otp_expires_at' => null,
-                    'verified_at' => null,
-                    'reset_token' => null,
-                ]);
-                return true;
-            } elseif ($purpose === 'reset_password') {
-
-                $resetToken = Str::random(60);
-                $otpCode->update(['verified_at' => now(), 'reset_token' => $resetToken]);
-                return $resetToken;
-            }
-        }
-
-        return null;
-    }
 
     public function resetPassword(array $data)
     {
-        $resetToken = $data['reset_token'];
-        $newPassword = $data['new_password'];
+        $token = $data['reset_token'];
 
-        $otpCode = OtpCode::where('reset_token', $resetToken)
-            ->where('verified_at', '!=', null)
+        $reset = PasswordResetToken::where('expires_at', '>', now())
+            ->get()
+            ->first(fn($row) => Hash::check($token, $row->token));
 
-            ->where('otp_expires_at', '>', Carbon::now())
-            ->first();
-
-        if (!$otpCode) {
-            abort(403, 'Invalid or expired reset token.');
+        if (!$reset) {
+            return null;
         }
 
-        $user = User::where('email', $otpCode->email)->firstOrFail();
+        $user = User::where('email', $reset->email)->firstOrFail();
 
         $user->update([
-            'password' => Hash::make($newPassword),
+            'password' => Hash::make($data['new_password']),
+            'email_verified_at' => $user->email_verified_at ?? now(),
         ]);
+
+        $reset->delete();
 
         $user->notify(new PasswordChangedNotification());
 
-        // علّم الطلب بأنه مستخدم لمنع إعادة استخدام التوكن
-        $otpCode->update([
-            'reset_token' => null,
-            'otp_hash' => null,
-            'otp_expires_at' => null,
-            'verified_at' => null,
+        return $user;
+    }
+
+    /**
+     * Generate token with expiration time.
+     */
+    public function createTokenWithExpiration(User $user): string
+    {
+        $token = $user->createToken('auth_token', ['*']);
+
+        // Save expiration manually
+        $token->accessToken->update([
+            'expires_at' => Carbon::now()->addHours(5) // 5 hours token validity
         ]);
 
-        return $user;
+        return $token->plainTextToken;
     }
 }

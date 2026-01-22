@@ -84,13 +84,12 @@ class RestaurantsController extends Controller
         $ownerRequest = $this->service->makeRestaurantRequest($validated);
 
         return response()->json([
-            'message' => 'Restaurant request submitted successfully',
+            'message' => 'Your request has been successfully submitted. We will contact you soon.',
             'status' => 'pending',
             'data' => [
                 'request_id' => $ownerRequest->id ?? null,
                 'restaurant_name' => $validated['restaurant_name'],
                 'address' => $validated['address'],
-                'estimated_review_time' => '3 days',
             ],
         ], 201);
     }

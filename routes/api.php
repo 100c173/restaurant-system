@@ -24,12 +24,15 @@ Route::post('/login', [AuthenticationController::class, 'login'])
 // Request OTP for email verification or password reset
 Route::post('/request-otp', [AuthenticationController::class, 'sendOtp']);
 
+// Verify OTP code 
+Route::post('/verify-otp-email', [AuthenticationController::class, 'verifyRegisterOtp']);
+
 // Verify OTP code
-Route::post('/verify-otp', [AuthenticationController::class, 'verifyOtp']);
+Route::post('/verify-otp-password', [AuthenticationController::class, 'verifyPasswordOtp']);
 
 
 // Reset password (only after email is verified)
-Route::post('/reset-password', [AuthenticationController::class, 'resetPassword'])
+Route::post('/set-password', [AuthenticationController::class, 'setPassword'])
 ->middleware('throttle:5,1');
 
 

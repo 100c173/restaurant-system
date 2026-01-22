@@ -48,17 +48,7 @@ class RestaurantRequestsTable
                     ->copyable()
                     ->icon('heroicon-o-envelope'),
 
-                TextColumn::make("restaurant_email")
-                    ->searchable()
-                    ->copyable()
-                    ->icon('heroicon-o-envelope'),
-
                 TextColumn::make("owner_phone")
-                    ->searchable()
-                    ->copyable()
-                    ->icon('heroicon-o-phone'),
-
-                TextColumn::make("restaurant_phone")
                     ->searchable()
                     ->copyable()
                     ->icon('heroicon-o-phone'),
