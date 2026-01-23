@@ -21,9 +21,10 @@ class AuthenticateService
     {
         // Create user with hashed password
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'email'    => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone'    => $data['phone'],
         ]);
 
         // assigni user role
@@ -42,12 +43,12 @@ class AuthenticateService
         // Verify credentials and account status
         if (!$user) {
             throw ValidationException::withMessages([
-                'email' => ['User not found. Please check your email.'],
+                'email' => ['not correct credentials.'],
             ]);
         }
         if (!Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
-                'password' => ['Incorrect password'],
+                'password' => ['not correct credentials.'],
             ]);
         }
 
@@ -88,22 +89,22 @@ class AuthenticateService
     {
         $token = $data['reset_token'];
 
-        $reset = PasswordResetToken::where('expires_at', '>', now())
+        $result = PasswordResetToken::where('expires_at', '>', now())
             ->get()
             ->first(fn($row) => Hash::check($token, $row->token));
 
-        if (!$reset) {
+        if (!$result) {
             return null;
         }
 
-        $user = User::where('email', $reset->email)->firstOrFail();
+        $user = User::where('email', $result->email)->firstOrFail();
 
         $user->update([
             'password' => Hash::make($data['new_password']),
             'email_verified_at' => $user->email_verified_at ?? now(),
         ]);
 
-        $reset->delete();
+        $result->delete();
 
         $user->notify(new PasswordChangedNotification());
 

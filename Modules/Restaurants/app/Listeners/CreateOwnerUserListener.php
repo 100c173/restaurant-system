@@ -31,7 +31,7 @@ class CreateOwnerUserListener
                 'email' => $event->record->owner_email,
                 'phone' => $event->record->owner_phone,
                 'password' => Hash::make(Str::random(32)),
-                'password_set_at' => null,
+                'email_verified_at' => null,
             ]);
         }
         $user->assignRole(['customer','restaurant-owner']);

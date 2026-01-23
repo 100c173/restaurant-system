@@ -78,19 +78,21 @@ class RestaurantsController extends Controller
      */
     public function registerAsOwner(StoreRestaurantRequest $request): JsonResponse
     {
-     
+
         $validated = $request->validated();
 
         $ownerRequest = $this->service->makeRestaurantRequest($validated);
 
-        return response()->json([
-            'message' => 'Your request has been successfully submitted. We will contact you soon.',
-            'status' => 'pending',
-            'data' => [
+        return self::success(
+            data: [
                 'request_id' => $ownerRequest->id ?? null,
                 'restaurant_name' => $validated['restaurant_name'],
+                'status' => 'pending',
                 'address' => $validated['address'],
+
             ],
-        ], 201);
+            message: 'Your request has been successfully submitted. We will contact you soon.',
+            status: 201
+        );
     }
 }

@@ -50,7 +50,7 @@ class AuthenticationController extends Controller
 
         return self::success(
             data: [
-                'user' => $user,
+                'user' => $user, // user UserResource
             ],
             message: "Registration successful. Please verify your email.",
             status: 201
@@ -140,9 +140,7 @@ class AuthenticationController extends Controller
         $user = $this->otpCodeService->verifyOtpForRegister($data);
 
         if (!$user) {
-            return response()->json([
-                'otp_code' => ['Invalid or expired OTP code.'],
-            ]);
+            return self::error('Invalid or expired OTP code.');
         }
 
         $token = $this->authService->createTokenWithExpiration($user);
@@ -156,9 +154,7 @@ class AuthenticationController extends Controller
         $reset_token = $this->otpCodeService->verifyOtpForPassword($data);
 
         if (!$reset_token) {
-            return response()->json([
-                'otp_code' => ['Invalid or expired OTP code.'],
-            ]);
+            return self::error('Invalid or expired OTP code.');
         }
 
         return self::success(['reset_token' => $reset_token]);

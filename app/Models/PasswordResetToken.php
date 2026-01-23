@@ -8,8 +8,8 @@ class PasswordResetToken extends Model
 {
     protected $fillable = ['email', 'token', 'expires_at'];
     protected $primaryKey = 'email'; 
-    public $incrementing = false;   
+    protected $incrementing = false;   
     protected $keyType = 'string'; 
-    public $timestamps = false;
+    protected $timestamps = false;
 
 }

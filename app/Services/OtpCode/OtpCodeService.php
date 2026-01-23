@@ -61,6 +61,8 @@ class OtpCodeService
         $otp->delete();
 
         $user = User::where('email', $email)->first();
+        
+        //verfiy user email 
         $user->update(['email_verified_at' => now()]);
 
         return $user;

@@ -35,7 +35,7 @@ class RestaurantApprovedNotification extends Notification
             ->subject('🎉 Congratulations! Your Restaurant Has Been Approved')
             ->greeting("Hello {$notifiable->name}!")
             ->line('You have been accepted as a tenant on our application.')
-            ->line('An account has been created for you. You can log in without a password, and then you can set one.')
+            ->line('An account has been created for you. Set password, and then you can login .')
             ->line('**Now you can:**')
             ->line('- Add your restaurant\'s information')
             ->line('- Manage your restaurant')

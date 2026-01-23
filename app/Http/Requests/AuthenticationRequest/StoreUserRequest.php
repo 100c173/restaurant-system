@@ -37,6 +37,12 @@ class StoreUserRequest extends FormRequest
                 'regex:/[@$!%*#?&]/', // Must contain a special character
                 */
             ],
+
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^\+963\s?9\d{2}\s?\d{3}\s?\d{3}$/',
+            ],
         ];
     }
 

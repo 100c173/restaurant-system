@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Register as a Customer new account
-Route::post('/register', [AuthenticationController::class, 'register']);
+Route::post('/register', [AuthenticationController::class, 'register'])
+->middleware('throttle:5,1');
 
 // Login with rate limiting (max 5 attempts per minute)
 Route::post('/login', [AuthenticationController::class, 'login'])
