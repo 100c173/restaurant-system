@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,7 +16,7 @@ use Modules\Orders\Models\Order;
 use Modules\Restaurants\Models\Restaurant;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable , HasApiTokens , HasRoles;
@@ -65,5 +67,15 @@ class User extends Authenticatable
 
     public function delivery(): HasOne{
         return $this->hasOne(Delivery::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool{
+        if($panel->getId() == 'admin'){
+            return $this->hasRole('super-admin');
+        }
+        if($panel->getId() == 'owner'){
+            return $this->hasRole('restaurant-owner');
+        }
+        return false ;
     }
 }

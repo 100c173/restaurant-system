@@ -13,7 +13,7 @@ class AdminSeed extends Seeder
      */
     public function run(): void
     {
-        $admin1 = User::create([
+        $admin1 = User::firstOrCreate([
             "name"=> "admin1",
             "email" => "admin1@gmail.com",
             "password"=> bcrypt("1234"),

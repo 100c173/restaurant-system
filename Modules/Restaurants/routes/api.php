@@ -11,8 +11,7 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
 });
 
-Route::post('/restaurant-request',[RestaurantsController::class,'registerAsOwner'])
-->middleware('throttl:5,1') ;
+Route::post('/restaurant-request',[RestaurantsController::class,'registerAsOwner']) ;
 
 /**Menu Restaurant */
 Route::get('/restaurant_menuItem/{id}',[MenuItemController::class,'MenuItems']);

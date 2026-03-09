@@ -12,9 +12,7 @@ return new class extends Migration {
     {
         Schema::create('restaurant_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('owner_name');
-            $table->string("owner_email")->unique();
-            $table->string("owner_phone");
+            $table->foreignId('customer_id')->constrained('users')->onDelete('cascade'); 
             $table->string("restaurant_name");
             $table->string("address");
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');

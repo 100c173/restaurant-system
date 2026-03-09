@@ -18,7 +18,12 @@ class CreateTenantsTable extends Migration
         Schema::create('tenants', function (Blueprint $table) {
             $table->string('id')->primary();
 
-            // your custom columns may go here
+                $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
+
+            $table->string('name');
+            $table->enum('status', ['pending','approved','suspended'])->default('pending');
+
+            $table->boolean('is_active')->default(true);
 
             $table->timestamps();
             $table->json('data')->nullable();

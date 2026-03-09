@@ -3,7 +3,6 @@
 namespace App\Providers\Filament;
 
 use App\Http\Middleware\EnsureUserIsOwner;
-use App\Http\Middleware\EnsureUserSuperAdmin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -59,7 +58,6 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotifications()
             ->authMiddleware([
                 Authenticate::class,
-                EnsureUserSuperAdmin::class,
             ]);
     }
 }
