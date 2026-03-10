@@ -68,6 +68,7 @@ class AuthenticationController extends Controller
      */
     public function login(LoginUserRequest $request): JsonResponse
     {
+      
         $credentials = $request->validated();
 
         [$user, $token] = $this->authService->login($credentials);
