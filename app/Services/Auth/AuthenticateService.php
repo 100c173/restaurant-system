@@ -87,24 +87,15 @@ class AuthenticateService
 
     public function resetPassword(array $data)
     {
-        $token = $data['reset_token'];
-
-        $result = PasswordResetToken::where('expires_at', '>', now())
-            ->get()
-            ->first(fn($row) => Hash::check($token, $row->token));
-
-        if (!$result) {
-            return null;
+        $user = User::where('email', $data['email'])->firstOrFail();
+        
+        if(!$user->hasVerifiedEmail()){
+            return null ;
         }
-
-        $user = User::where('email', $result->email)->firstOrFail();
 
         $user->update([
             'password' => Hash::make($data['new_password']),
-            'email_verified_at' => $user->email_verified_at ?? now(),
         ]);
-
-        $result->delete();
 
         $user->notify(new PasswordChangedNotification());
 

@@ -23,7 +23,6 @@ class SendOtpRequest extends FormRequest
     {
         return [
             "email" => ["required", "email", "exists:users,email"],
-            'purpose' => 'required|string|in:reset_password,register,email_verification',
         ];
     }
     public function messages(): array

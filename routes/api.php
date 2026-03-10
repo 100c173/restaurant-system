@@ -27,10 +27,7 @@ Route::post('/login', [AuthenticationController::class, 'login'])
 Route::post('/request-otp', [AuthenticationController::class, 'sendOtp']);
 
 // Verify OTP code 
-Route::post('/verify-otp-email', [AuthenticationController::class, 'verifyRegisterOtp']);
-
-// Verify OTP code
-Route::post('/verify-otp-password', [AuthenticationController::class, 'verifyPasswordOtp']);
+Route::post('/verify-otp-email', [AuthenticationController::class, 'verifyOtp']);
 
 
 // Reset password (only after email is verified)

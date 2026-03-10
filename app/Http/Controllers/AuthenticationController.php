@@ -143,30 +143,16 @@ class AuthenticationController extends Controller
         return self::success($data['email']);
 
     }
-    public function verifyRegisterOtp(VerifyOtpRequest $request): JsonResponse
+    public function verifyOtp(VerifyOtpRequest $request): JsonResponse
     {
         $data = $request->validated();
-        $user = $this->otpCodeService->verifyOtpForRegister($data);
+        $user = $this->otpCodeService->verifyOtp($data);
 
         if (!$user) {
             return self::error('Invalid or expired OTP code.');
         }
 
-        $token = $this->authService->createTokenWithExpiration($user);
-
-        return self::success(['user' => $user, 'token' => $token], "OTP verified successfully.");
-    }
-
-    public function verifyPasswordOtp(VerifyOtpRequest $request): JsonResponse
-    {
-        $data = $request->validated();
-        $reset_token = $this->otpCodeService->verifyOtpForPassword($data);
-
-        if (!$reset_token) {
-            return self::error('Invalid or expired OTP code.');
-        }
-
-        return self::success(['reset_token' => $reset_token]);
+        return self::success(['user' => $user], "OTP verified successfully.");
     }
 
 
@@ -181,4 +167,6 @@ class AuthenticationController extends Controller
             return self::error('Invalid or expired token.', 403);
         }
     }
+
+
 }

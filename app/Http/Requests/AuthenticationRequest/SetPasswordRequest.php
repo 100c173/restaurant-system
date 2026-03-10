@@ -26,21 +26,16 @@ class SetPasswordRequest extends FormRequest
     {
         return [
             "new_password" => ['required', 'string', 'min:8', 'confirmed'],
-            "reset_token"  => ['required','string'],
+            "email" => 'required',
         ];
     }
     public function messages(): array
     {
         return [
-            'email.required' => 'Email is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'email.exists' => 'No account is associated with this email.',
 
             'password.required' => 'Password is required.',
             'password.min' => 'Password must be at least 8 characters.',
             'password.confirmed' => 'Password confirmation does not match.',
-
-            'reset_token.required' => 'reset token is required.',
 
         ];
     }
