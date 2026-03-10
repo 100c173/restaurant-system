@@ -68,10 +68,18 @@ class AuthenticationController extends Controller
      */
     public function login(LoginUserRequest $request): JsonResponse
     {
-      
+
         $credentials = $request->validated();
 
         [$user, $token] = $this->authService->login($credentials);
+
+        if (!$user->hasVerifiedEmail()) {
+
+            return self::error(
+                "Email is not verified",
+                403,
+            );
+        }
 
         return self::success(
             [
