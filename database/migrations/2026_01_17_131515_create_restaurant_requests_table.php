@@ -12,11 +12,22 @@ return new class extends Migration {
     {
         Schema::create('restaurant_requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('users')->onDelete('cascade'); 
+
+            $table->foreignId('customer_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
             $table->string("restaurant_name");
+
             $table->string("address");
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->text('cancel_resone')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+
+            $table->enum('status', ['pending', 'approved', 'rejected'])
+                ->default('pending');
+
+            $table->text('cancel_reason')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

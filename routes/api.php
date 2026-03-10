@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\RequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,4 +56,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Refresh an expired/expiring token (if applicable in your logic)
     Route::post('/token/refresh', [AuthenticationController::class, 'refreshToken']);
+
+    // To be tenat 
+    Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
 });

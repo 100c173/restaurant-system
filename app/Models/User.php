@@ -65,6 +65,10 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Order::class,'customer_id');
     }
 
+    public function restaurantRequest(): HasMany{
+        return $this->hasMany(RestaurantRequest::class,'customer_id');
+    }
+
     public function delivery(): HasOne{
         return $this->hasOne(Delivery::class);
     }

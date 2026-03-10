@@ -9,13 +9,6 @@ use Modules\Restaurants\Models\RestaurantRequest;
 
 class RestaurantService
 {
-    public function makeRestaurantRequest(array $data)
-    {
-        // Create restaurant_request
-        $restaurant_request = RestaurantRequest::create($data);
-
-        return $restaurant_request;
-    }
 
     public function getAllRestaurants(): array
     {

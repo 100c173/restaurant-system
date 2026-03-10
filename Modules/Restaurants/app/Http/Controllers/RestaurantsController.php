@@ -1,14 +1,11 @@
 <?php
 
 namespace Modules\Restaurants\Http\Controllers;
-
 use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Modules\Restaurants\Http\Requests\RestaurantRequest;
-use Modules\Restaurants\Http\Requests\StoreRestaurantRequest;
+
 use Modules\Restaurants\Services\RestaurantService;
-use Illuminate\Validation\ValidationException;
+
 
 class RestaurantsController extends Controller
 {
@@ -66,33 +63,5 @@ class RestaurantsController extends Controller
         //
 
         return response()->json([]);
-    }
-
-    /**
-     * Register as a Owner
-     *
-     * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     *
-     * @throws ValidationException
-     */
-    public function registerAsOwner(StoreRestaurantRequest $request): JsonResponse
-    {
-
-        $validated = $request->validated();
-
-        $ownerRequest = $this->service->makeRestaurantRequest($validated);
-
-        return self::success(
-            data: [
-                'request_id' => $ownerRequest->id ?? null,
-                'restaurant_name' => $validated['restaurant_name'],
-                'status' => 'pending',
-                'address' => $validated['address'],
-
-            ],
-            message: 'Your request has been successfully submitted. We will contact you soon.',
-            status: 201
-        );
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\RestaurantRequests\Schemas;
 
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -12,28 +14,39 @@ class RestaurantRequestsForm
     {
         return $schema
             ->components([
-                TextInput::make('owner_name')
-                    ->required(),
-
-                TextInput::make('owner_email')
-                    ->email()
-                    ->required(),
-
-                TextInput::make('owner_phone')
-                    ->required(),
+                Hidden::make('customer_id')
+                    ->default(fn() => auth()->id()),
 
                 TextInput::make('restaurant_name')
-                    ->required(),
+                    ->label('Restaurant Name')
+                    ->required()
+                    ->maxLength(255),
 
-                TextInput::make('restaurant_email')
-                    ->email()
-                    ->required(),
+                TextInput::make('address')
+                    ->required()
+                    ->maxLength(255),
 
-                TextInput::make('restaurant_phone')
-                    ->required(),
+                TextInput::make('latitude')
+                    ->numeric()
+                    ->label('Latitude'),
 
-                Textarea::make('address')
-                    ->required(),
+                TextInput::make('longitude')
+                    ->numeric()
+                    ->label('Longitude'),
+
+                Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'approved' => 'Approved',
+                        'rejected' => 'Rejected',
+                    ])
+                    ->default('pending')
+                    ->disabled(),
+
+                Textarea::make('cancel_reason')
+                    ->label('Rejection Reason')
+                    ->rows(3)
+                    ->visible(fn($get) => $get('status') === 'rejected'),
             ]);
     }
 }

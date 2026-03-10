@@ -8,6 +8,7 @@ use App\Filament\Resources\RestaurantRequests\Pages\ListRestaurantRequests;
 use App\Filament\Resources\RestaurantRequests\Schemas\RestaurantRequestsForm;
 use App\Filament\Resources\RestaurantRequests\Tables\RestaurantRequestsTable;
 
+use App\Models\RestaurantRequest;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -15,7 +16,6 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Modules\Restaurants\Models\RestaurantRequest;
 
 class RestaurantRequestsResource extends Resource
 {
@@ -44,7 +44,8 @@ class RestaurantRequestsResource extends Resource
     {
         return [
             'index' => ListRestaurantRequests::route('/'),
-           // 'edit' => EditRestaurantRequests::route('/{record}/edit'),
+            'edit' => EditRestaurantRequests::route('/{record}/edit'),
+            'create' => CreateRestaurantRequests::route('/create'),
         ];
     }
 
