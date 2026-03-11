@@ -28,8 +28,6 @@ class StoreRestaurantRequest extends FormRequest
 
             'restaurant_name' => 'required|string|max:255',
 
-            'owner_email' => 'required|string|email|max:255',
-
             'description' => 'nullable|string|max:1000',
 
             'restaurant_phone' => [
