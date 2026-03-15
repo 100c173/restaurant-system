@@ -26,7 +26,7 @@ class RequestController extends Controller
 
         $validated = $request->validated();
 
-        $ownerRequest = $this->service->makeRestaurantRequest($validated , $request->file('logo') , $request->file('images'));
+        $ownerRequest = $this->service->makeRestaurantRequest($validated);
 
         return self::success(
             data: [

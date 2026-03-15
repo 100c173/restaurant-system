@@ -2,6 +2,7 @@
 
 namespace Modules\Restaurants\Listeners;
 
+use App\Models\User;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Modules\Restaurants\Events\RestaurantApproved;
@@ -22,6 +23,7 @@ class SendApprovalEmailListener
      */
     public function handle(RestaurantApproved $event): void
     {
-        $event->owner->notify(new RestaurantApprovedNotification());
+        $owner = User::find($event->record->customer_id);
+        $owner->notify(new RestaurantApprovedNotification());
     }
 }

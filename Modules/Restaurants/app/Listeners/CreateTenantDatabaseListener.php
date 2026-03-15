@@ -6,9 +6,11 @@ use App\Models\Tenant;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Modules\Restaurants\Events\RestaurantApproved;
 use Stancl\Tenancy\Database\DatabaseManager;
 use Stancl\Tenancy\Facades\Tenancy;
+use Str;
 
 class CreateTenantDatabaseListener
 {
@@ -26,9 +28,13 @@ class CreateTenantDatabaseListener
     {
         $tenant = Tenant::create([
             'id' => $event->record->id,
+            'owner_id' => $event->record->customer_id,
+            'name' => $event->record->restaurant_name,
+        
             'data' => [
                 'restaurant_id' => $event->record->id,
             ],
+
         ]);
 
         $tenant->createDomain([
@@ -36,8 +42,9 @@ class CreateTenantDatabaseListener
             'tenant_id' => $tenant->id,
         ]);
 
+
         Artisan::call('tenants:migrate');
-        
+
 
     }
 }

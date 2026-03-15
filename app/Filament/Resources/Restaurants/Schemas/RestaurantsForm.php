@@ -91,28 +91,6 @@ class RestaurantsForm
                             ->default(true),
 
 
-                        Select::make('status')
-                            ->label('Status')
-                            ->options(options: [
-                                'pending' => 'Pending',
-                                'approved' => 'Approved',
-                                'rejected' => 'Rejected',
-                            ])
-                            ->default('pending')
-                            ->disabled(fn($record) => $record && in_array($record->status, ['approved', 'rejected']))
-                            ->afterStateUpdated(function (?string $state, Restaurant $record) {
-                                if ($record && in_array($state, ['approved', 'rejected'])) {
-                                    $owner = $record->owner;
-                                    if ($owner) {
-                                        Notification::make()
-                                            ->title('Your request status has been updated')
-                                            ->body('Your restaurant status has been updated to:'. $state)
-                                            ->sendToDatabase($owner);
-                                    }
-                                }
-                            }),
-
-
                         TextInput::make('commission_rate')
                             ->label('Commission Rate %')
                             ->numeric()

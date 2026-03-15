@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->decimal('price', 10, 2);
 
             $table->integer('max_products')->nullable();
-            $table->integer('max_users')->nullable();
             $table->integer('max_orders_per_month')->nullable();
 
             $table->boolean('is_active')->default(true);

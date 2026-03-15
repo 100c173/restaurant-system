@@ -17,6 +17,7 @@ class CustomerSeeder extends Seeder
             'name' => 'customer1' ,
             'email' => "ameroniza@gmail.com",
             "password"=> bcrypt("1234"),
+            'email_verified_at' => now(),
         ]);
 
         $customer1->assignRole('customer');

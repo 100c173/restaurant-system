@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\RestaurantRequest;
+use App\Models\User;
 
 
 class RequestService
@@ -19,26 +20,19 @@ class RequestService
             'restaurant_phone' => $data['restaurant_phone'] ?? null,
         ]);
 
+        $this->notifySuperAdmin();
 
-        if ($logo) {
-            $path = $logo->store('restaurant-request', 'public');
-            $restaurantRequest->restaurantLogo()->create([
-                'path' => $path,
-                'type' => 'logo'
-            ]);
-        }
-
-        if ($images) {
-            foreach ($images as $image) {
-                $path = $image->store('restaurant_requests', 'public');
-
-                $restaurantRequest->restaurantImages()->create([
-                    'path' => $path,
-                    'type' => 'gallery'
-                ]);
-
-            }
-        }
         return $restaurantRequest;
     }
+
+private function notifySuperAdmin()
+{
+    $admin = User::where('email', 'admin1@gmail.com')->first();
+
+    \Filament\Notifications\Notification::make()
+        ->title('New restaurant request')
+        ->body(auth()->user()->name . ' want to be tenant')
+        ->success()
+        ->sendToDatabase($admin, true);
+}
 }

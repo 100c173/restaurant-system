@@ -36,21 +36,6 @@ class RestaurantsTable
                     ->label('Owner')
                     ->searchable(),
 
-                TextColumn::make('status')
-                    ->label('Status')
-                    ->getStateUsing(fn($record) => match ($record->status) {
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                        default => 'Unknown',
-                    })
-                    ->colors([
-                        'success' => 'Approved',
-                        'warning' => 'Pending',
-                        'danger' => 'Rejected',
-                    ])
-                    ->sortable()
-                    ->searchable(),
 
                 IconColumn::make('is_active')
                     ->label('Active')

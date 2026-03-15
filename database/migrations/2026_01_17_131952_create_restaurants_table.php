@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->text('address');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected', 'suspended'])->default('pending');
             $table->decimal('commission_rate', 5, 2)->default(0);
             $table->boolean('is_active')->default(true);
             $table->decimal('latitude', 10, 8)->nullable();

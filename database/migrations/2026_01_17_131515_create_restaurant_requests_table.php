@@ -18,6 +18,9 @@ return new class extends Migration {
                 ->cascadeOnDelete();
 
             $table->string("restaurant_name");
+           
+            $table->string("restaurant_phone");
+            
 
             $table->string("address");
             $table->decimal('latitude', 10, 7)->nullable();

@@ -2,6 +2,7 @@
 
 namespace Modules\Restaurants\Events;
 
+use App\Models\RestaurantRequest;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -11,7 +12,6 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Modules\Restaurants\Models\Restaurant;
-use Modules\Restaurants\Models\RestaurantRequest;
 
 class RestaurantApproved
 {
@@ -22,7 +22,6 @@ class RestaurantApproved
      */
     public function __construct(
         public RestaurantRequest $record,
-        public ?User $owner = null,
     ) {}
 
     /**

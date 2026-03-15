@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 
 class StoreRestaurantRequest extends FormRequest
@@ -26,7 +27,12 @@ class StoreRestaurantRequest extends FormRequest
     {
         return [
 
-            'restaurant_name' => 'required|string|max:255',
+            'restaurant_name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('restaurant_requests', 'restaurant_name'),
+            ],
 
             'description' => 'nullable|string|max:1000',
 
@@ -41,20 +47,13 @@ class StoreRestaurantRequest extends FormRequest
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
 
-            'logo' => [
-                'nullable',
-                'image',
-                'mimes:jpg,jpeg,png,webp',
-                'max:2048'
-            ],
+        ];
+    }
 
-            'images' => ['nullable', 'array', 'max:5'],
-
-            'images.*' => [
-                'image',
-                'mimes:jpg,jpeg,png,webp',
-                'max:4096'
-            ],
+    public function messages(): array
+    {
+        return [
+            'restaurant_name.unique' => 'this restaurant exisit',
         ];
     }
     protected function failedValidation(Validator $validator)

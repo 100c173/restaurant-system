@@ -18,7 +18,8 @@ class CreateTenantsTable extends Migration
         Schema::create('tenants', function (Blueprint $table) {
             $table->string('id')->primary();
 
-                $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
+            $table->json('data')->nullable();
+            $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
 
             $table->string('name');
             $table->enum('status', ['pending','approved','suspended'])->default('pending');
@@ -26,7 +27,7 @@ class CreateTenantsTable extends Migration
             $table->boolean('is_active')->default(true);
 
             $table->timestamps();
-            $table->json('data')->nullable();
+           
         });
     }
 
