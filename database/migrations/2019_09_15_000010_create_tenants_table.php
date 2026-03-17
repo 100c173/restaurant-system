@@ -22,7 +22,6 @@ class CreateTenantsTable extends Migration
             $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
 
             $table->string('name');
-            $table->enum('status', ['pending','approved','suspended'])->default('pending');
 
             $table->boolean('is_active')->default(true);
 
