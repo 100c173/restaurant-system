@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->index('owner_id');
-            $table->index('status');
+            
         });
     }
 
