@@ -6,6 +6,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,6 +34,8 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'email_verified_at',
     ];
+
+    protected $connection = 'mysql';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -81,5 +84,9 @@ class User extends Authenticatable implements FilamentUser
             return $this->hasRole('restaurant-owner');
         }
         return false ;
+    }
+
+    public function tenants ():BelongsToMany {
+        return $this->belongsToMany(Tenant::class , 'tenant_user');
     }
 }

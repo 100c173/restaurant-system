@@ -19,6 +19,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 
 class OwnerPanelProvider extends PanelProvider
 {
@@ -52,10 +53,16 @@ class OwnerPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
-            ->databaseNotifications()
+            ->middleware([
+                InitializeTenancyByDomain::class,
+
+            ], isPersistent: true)
+
             ->authMiddleware([
                 Authenticate::class,
                 EnsureUserIsOwner::class,
-            ]);
+            ])
+            
+            ->databaseNotifications();
     }
 }

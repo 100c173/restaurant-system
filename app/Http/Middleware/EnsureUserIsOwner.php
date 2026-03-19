@@ -3,7 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Filament\Facades\Filament;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserIsOwner
@@ -13,11 +16,26 @@ class EnsureUserIsOwner
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if (!auth()->check() || !auth()->user()->hasRole('restaurant-owner')) {
-            abort(403);
+        $user = auth()->user();
+
+        if (!$user) {
+            return redirect();
         }
+
+        $tenantId = tenant('id');
+        Log::info($tenantId);
+
+        $hasAccess = $user->tenants()->where('tenant_id', $tenantId)->exists();
+
+        if (!$hasAccess) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect(Filament::getLoginUrl());
+        }
+
         return $next($request);
     }
 }

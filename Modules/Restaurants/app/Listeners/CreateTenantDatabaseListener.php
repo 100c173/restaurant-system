@@ -27,23 +27,17 @@ class CreateTenantDatabaseListener
     public function handle(RestaurantApproved $event): void
     {
         $tenant = Tenant::create([
-            'id' => $event->record->id,
+            'id' => $event->record->restaurant_name,
             'owner_id' => $event->record->customer_id,
             'name' => $event->record->restaurant_name,
-        
-            'data' => [
-                'restaurant_id' => $event->record->id,
-            ],
-
         ]);
 
         $tenant->createDomain([
-            'domain' => $event->record->restaurant_name . '.myapp.com',
+            'domain' => $event->record->restaurant_name . '.localhost',
             'tenant_id' => $tenant->id,
         ]);
 
-
-        Artisan::call('tenants:migrate');
+        $tenant->users()->attach($event->record->customer_id);
 
 
     }
