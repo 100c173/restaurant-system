@@ -16,26 +16,19 @@ class EnsureUserIsOwner
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $user = auth()->user();
-
         if (!$user) {
             return redirect();
         }
 
-        $tenantId = tenant('id');
-        Log::info($tenantId);
-
-        $hasAccess = $user->tenants()->where('tenant_id', $tenantId)->exists();
-
-        if (!$hasAccess) {
+        if (!$user->tenants->contains(tenant('id'))) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
             return redirect(Filament::getLoginUrl());
         }
-
         return $next($request);
     }
 }

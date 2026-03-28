@@ -75,12 +75,12 @@ class User extends Authenticatable implements FilamentUser
     public function delivery(): HasOne{
         return $this->hasOne(Delivery::class);
     }
-
+    
     public function canAccessPanel(Panel $panel): bool{
         if($panel->getId() == 'admin'){
             return $this->hasRole('super-admin');
         }
-        if($panel->getId() == 'owner'){
+        if($panel->getId() == 'app'){
             return $this->hasRole('restaurant-owner');
         }
         return false ;
