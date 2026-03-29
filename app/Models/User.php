@@ -64,18 +64,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Restaurant::class,'owner_id');
     }
 
-    public function orders():HasMany{
-        return $this->hasMany(Order::class,'customer_id');
-    }
 
     public function restaurantRequest(): HasMany{
         return $this->hasMany(RestaurantRequest::class,'customer_id');
     }
 
-    public function delivery(): HasOne{
-        return $this->hasOne(Delivery::class);
-    }
-    
     public function canAccessPanel(Panel $panel): bool{
         if($panel->getId() == 'admin'){
             return $this->hasRole('super-admin');

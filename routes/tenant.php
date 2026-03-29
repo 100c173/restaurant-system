@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Tenant;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Modules\Restaurants\Models\Category;
@@ -45,14 +46,19 @@ Route::middleware([
     });
 
     Route::middleware(['web'])->get('/tenant-image/{tenantId}/{path}', function (string $tenantId, string $path) {
+        
+
         $tenant = Tenant::findOrFail($tenantId);
         tenancy()->initialize($tenant);
+
 
         $disk = Storage::disk('tenant_uploads');
 
         if (!$disk->exists($path)) {
             abort(404);
         }
+
+        Log::info( $disk->path($path));
 
         return response()->file(
             $disk->path($path),

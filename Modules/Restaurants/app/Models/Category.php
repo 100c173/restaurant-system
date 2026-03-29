@@ -17,25 +17,20 @@ class Category extends Model
      */
     protected $fillable = 
     [
-        'restaurant_id',
+        'menu_id',
         'name',
         'description',
         'img_path',
-        'position'
+        'position',
+        'is_active',
     ];
 
-    public function restaurant():BelongsTo
+    public function menu():BelongsTo
     {
-        return $this->belongsTo(Restaurant::class);
+        return $this->BelongsTo(Menu::class);
     }
 
-    public function menuItems():HasMany
-    {
+    public function menuItems():HasMany{
         return $this->hasMany(MenuItem::class);
     }
-
-    // protected static function newFactory(): CategoryFactory
-    // {
-    //     // return CategoryFactory::new();
-    // }
 }

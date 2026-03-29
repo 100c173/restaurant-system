@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Modules\Orders\Models\CartItem;
+
 
 // use Modules\Restaurants\Database\Factories\MenuItemFactory;
 
@@ -18,28 +18,28 @@ class MenuItem extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'restaurant_id',
+        'category_id',
         'name',
         'description',
         'price',
         'image',
-        'is_available'
+        'is_available',
+        'position',
+        'preparation_time',
+        'is_featured',
     ];
 
     protected $casts = [
         'is_available' => 'boolean',
     ];
 
-    public function CartItems():HasMany{
-        return $this->hasMany(CartItem::class);
-    }
-
-    public function restaurant():BelongsTo{
-        return $this->belongsTo(Restaurant::class);
-    }
-
-    public function category():BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function menuItemVariants(): HasMany
+    {
+        return $this->hasMany(MenuItemVariant::class);
     }
 }
