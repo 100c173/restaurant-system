@@ -2,6 +2,7 @@
 
 namespace Modules\Restaurants\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,22 +16,33 @@ class Category extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = 
-    [
-        'menu_id',
-        'name',
-        'description',
-        'img_path',
-        'position',
-        'is_active',
-    ];
+    protected $fillable =
+        [
+            'menu_id',
+            'name',
+            'description',
+            'img_path',
+            'position',
+            'is_active',
+        ];
 
-    public function menu():BelongsTo
+    public function menu(): BelongsTo
     {
         return $this->BelongsTo(Menu::class);
     }
 
-    public function menuItems():HasMany{
+    public function menuItems(): HasMany
+    {
         return $this->hasMany(MenuItem::class);
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeOrdered(Builder $query): Builder
+    {
+        return $query->orderBy('position')->orderBy('name');
     }
 }

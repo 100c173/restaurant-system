@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources\Categories;
 use App\Filament\App\Resources\Categories\Pages\CreateCategory;
 use App\Filament\App\Resources\Categories\Pages\EditCategory;
 use App\Filament\App\Resources\Categories\Pages\ListCategories;
+use App\Filament\App\Resources\Categories\RelationManagers\MenuItemsRelationManager;
 use App\Filament\App\Resources\Categories\Schemas\CategoryForm;
 use App\Filament\App\Resources\Categories\Tables\CategoriesTable;
 use BackedEnum;
@@ -35,7 +36,7 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            MenuItemsRelationManager::class,
         ];
     }
 
