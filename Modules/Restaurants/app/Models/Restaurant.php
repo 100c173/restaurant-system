@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Modules\Orders\Models\Order;
 
@@ -46,7 +47,7 @@ class Restaurant extends Model
         return $this->hasMany(MenuItem::class);
     }
 
-    public function orders(): HasMany{
-        return $this->hasMany(Order::class);
+    public function categories():BelongsToMany{
+        return $this->BelongsToMany(Category::class , 'restaurant_categories');
     }
 }

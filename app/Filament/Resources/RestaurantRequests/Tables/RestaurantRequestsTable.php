@@ -70,11 +70,6 @@ class RestaurantRequestsTable
                         //->visible(fn($record) => $record->status === 'pending')
                         ->action(function ($record) {
                             // Use database transaction to ensure both operations succeed or fail together
-                
-                            // Update the status first
-                            $record->update([
-                                'status' => 'approved'
-                            ]);
 
                             // Dispatch the event - if this throws an exception, the transaction will rollback
                             event(new RestaurantApproved($record));

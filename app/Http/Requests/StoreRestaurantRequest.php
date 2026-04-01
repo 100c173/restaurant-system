@@ -47,6 +47,8 @@ class StoreRestaurantRequest extends FormRequest
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
 
+            'categories.*' => 'exists:categories,id'
+
         ];
     }
 

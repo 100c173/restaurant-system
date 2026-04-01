@@ -8,6 +8,7 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 
     /**Restaurant */
     Route::apiResource('restaurants', RestaurantsController::class);
+
 });
 
 

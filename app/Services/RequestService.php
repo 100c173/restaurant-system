@@ -17,8 +17,10 @@ class RequestService
             'latitude' => $data['latitude'] ?? null,
             'longitude' => $data['longitude'] ?? null,
             'restaurant_name' => $data['restaurant_name'],
+            'categories' => $data['categories']??null ,
             'restaurant_phone' => $data['restaurant_phone'] ?? null,
         ]);
+
 
         $this->notifySuperAdmin();
 

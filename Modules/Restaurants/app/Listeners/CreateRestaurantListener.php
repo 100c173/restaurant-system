@@ -25,7 +25,7 @@ class CreateRestaurantListener
         $user = User::find($event->record->customer_id);
         $user->assignRole('restaurant-owner');
 
-        Restaurant::create([
+        $restaurant = Restaurant::create([
             'owner_id' => $user->id,
             'name' => $event->record->restaurant_name,
             'address' => $event->record->address,
@@ -33,5 +33,9 @@ class CreateRestaurantListener
             'longitude' => $event->record->longitude,
         ]);
 
+        $restaurant->categories()->sync($event->record->categories ?? []);
+        $event->record->update([
+            'status' => 'approved',
+        ]);
     }
 }

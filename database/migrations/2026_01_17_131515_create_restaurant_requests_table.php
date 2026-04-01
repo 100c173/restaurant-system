@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->foreignId('customer_id')
                 ->constrained('users')
                 ->cascadeOnDelete();
+            
+            $table->json('categories')->nullable();
 
             $table->string("restaurant_name");
            
