@@ -2,10 +2,12 @@
 
 namespace App\Filament\App\Resources\Menus\Tables;
 
+use App\Filament\App\Resources\Menus\MenuResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
@@ -18,7 +20,6 @@ class MenusTable
         return $table
             ->columns([
 
-                // Position badge — makes drag-order visible at a glance
                 TextColumn::make('position')
                     ->label('#')
                     ->sortable()
@@ -26,14 +27,24 @@ class MenusTable
                     ->color('gray')
                     ->width('60px'),
 
-                // Menu name — primary identifier
                 TextColumn::make('name')
                     ->label('Menu name')
                     ->sortable()
                     ->searchable()
-                    ->weight('medium'),
+                    ->weight('medium')
+                    ->description('Click to open'),
 
-                // Active / inactive status
+                TextColumn::make('categories_count')
+                    ->label('Categories')
+                    ->counts('categories')
+                    ->badge()
+                    ->color(fn(int $state): string => $state > 0 ? 'info' : 'gray')
+                    ->formatStateUsing(
+                        fn(int $state): string => $state > 0
+                        ? "{$state} " . str('category')->plural($state)
+                        : 'No categories'
+                    ),
+
                 IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
@@ -41,9 +52,8 @@ class MenusTable
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger')
-                    ->tooltip(fn (bool $state): string => $state ? 'Active' : 'Inactive'),
+                    ->tooltip(fn(bool $state): string => $state ? 'Active' : 'Inactive'),
 
-                // Availability window — shown as a readable time range
                 TextColumn::make('available_from')
                     ->label('Available from')
                     ->time('H:i')
@@ -56,7 +66,6 @@ class MenusTable
                     ->placeholder('—')
                     ->sortable(),
 
-                // Timestamps
                 TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime('d M Y')
@@ -72,6 +81,11 @@ class MenusTable
 
             ->defaultSort('position', 'asc')
 
+            // Every row click opens the view page
+            ->recordUrl(
+                fn($record): string => MenuResource::getUrl('view', ['record' => $record])
+            )
+
             ->filters([
                 TernaryFilter::make('is_active')
                     ->label('Status')
@@ -81,16 +95,18 @@ class MenusTable
             ])
 
             ->actions([
-                EditAction::make()
+                // View action mirrors the row click
+                ViewAction::make()
                     ->iconButton()
-                    ->tooltip('Edit menu'),
+                    ->tooltip('Open menu'),
 
+                // Delete stays as a direct action on the list
                 DeleteAction::make()
                     ->iconButton()
                     ->tooltip('Delete menu')
                     ->requiresConfirmation()
                     ->modalHeading('Delete menu')
-                    ->modalDescription('Are you sure you want to delete this menu? All categories and items inside it will be affected.')
+                    ->modalDescription('Are you sure? All categories inside this menu will be affected.')
                     ->modalSubmitActionLabel('Yes, delete it'),
             ])
 

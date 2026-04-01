@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources\Categories;
 use App\Filament\App\Resources\Categories\Pages\CreateCategory;
 use App\Filament\App\Resources\Categories\Pages\EditCategory;
 use App\Filament\App\Resources\Categories\Pages\ListCategories;
+use App\Filament\App\Resources\Categories\Pages\ViewCategories;
 use App\Filament\App\Resources\Categories\RelationManagers\MenuItemsRelationManager;
 use App\Filament\App\Resources\Categories\Schemas\CategoryForm;
 use App\Filament\App\Resources\Categories\Tables\CategoriesTable;
@@ -45,7 +46,8 @@ class CategoryResource extends Resource
         return [
             'index' => ListCategories::route('/'),
             'create' => CreateCategory::route('/create'),
-            'edit' => EditCategory::route('/{record}/edit'),
+            'view'   => ViewCategories::route('/{record}'),
+          //  'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 }

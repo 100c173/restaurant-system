@@ -2,8 +2,8 @@
 
 namespace App\Filament\App\Resources\Categories\RelationManagers;
 
+use App\Filament\App\Resources\MenuItems\Schemas\MenuItemForm;
 use App\Filament\App\Resources\MenuItems\Tables\MenuItemsTable;
-use App\Filament\Resources\MenuItemResource\Schemas\MenuItemForm;
 use Filament\Actions\AssociateAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
@@ -15,7 +15,7 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
-use Filament\Tables\Columns\TextColumn;
+
 use Filament\Tables\Table;
 
 class MenuItemsRelationManager extends RelationManager

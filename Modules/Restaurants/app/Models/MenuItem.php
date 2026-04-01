@@ -43,7 +43,7 @@ class MenuItem extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function menuItemVariants(): HasMany
+    public function variants(): HasMany
     {
         return $this->hasMany(MenuItemVariant::class);
     }
@@ -62,6 +62,27 @@ class MenuItem extends Model
         return $query->orderBy('position')->orderBy('name');
     }
 
+    /**
+     * Returns true if this item has at least one variant defined.
+     * When variants exist, the base price becomes a "from $X" display price.
+     */
+    public function hasVariants(): bool
+    {
+        return $this->variants()->exists();
+    }
+
+    /**
+     * Returns the lowest variant price, or the base price if no variants.
+     */
+    public function startingPrice(): string
+    {
+        if ($this->hasVariants()) {
+            $min = $this->variants()->available()->min('price');
+            return number_format($min ?? $this->price, 2);
+        }
+
+        return number_format($this->price, 2);
+    }
 
     /**
      * Returns a human-readable preparation time string.

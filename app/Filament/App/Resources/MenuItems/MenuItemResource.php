@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources\MenuItems;
 use App\Filament\App\Resources\MenuItems\Pages\CreateMenuItem;
 use App\Filament\App\Resources\MenuItems\Pages\EditMenuItem;
 use App\Filament\App\Resources\MenuItems\Pages\ListMenuItems;
+use App\Filament\App\Resources\MenuItems\RelationManagers\VariantsRelationManager;
 use App\Filament\App\Resources\MenuItems\Schemas\MenuItemForm;
 use App\Filament\App\Resources\MenuItems\Tables\MenuItemsTable;
 use BackedEnum;
@@ -35,7 +36,7 @@ class MenuItemResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            VariantsRelationManager::class,
         ];
     }
 

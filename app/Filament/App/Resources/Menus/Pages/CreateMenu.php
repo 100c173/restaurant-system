@@ -13,7 +13,7 @@ class CreateMenu extends CreateRecord
     // Redirect to list after creation
     protected function getRedirectUrl(): string
     {
-        return $this->getResource()::getUrl('index');
+        return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
 
     // Success notification

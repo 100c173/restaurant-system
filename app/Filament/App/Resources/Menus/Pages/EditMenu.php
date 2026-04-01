@@ -26,7 +26,7 @@ class EditMenu extends EditRecord
     // Redirect back to list after saving
     protected function getRedirectUrl(): string
     {
-        return $this->getResource()::getUrl('index');
+        return $this->getResource()::getUrl('view', ['record' => $this->record]);
     }
 
     // Success notification
