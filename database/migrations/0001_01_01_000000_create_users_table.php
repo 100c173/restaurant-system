@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable() ; 
             $table->boolean('is_active')->default(true);
-            $table->timestamp('last_login_at')->nullable();
-            $table->ipAddress('last_login_ip')->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
