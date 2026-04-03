@@ -2,14 +2,13 @@
 
 namespace App\Services\OtpCode;
 use App\Models\OtpCode;
-use App\Models\PasswordResetToken;
 use App\Models\User;
+use App\Notifications\SendOtpNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use App\Exceptions\OtpSendFailedException;
-use Modules\Deliveries\Notifications\SendOtpNotification;
-use Str;
 use Throwable;
+
 
 class OtpCodeService
 {

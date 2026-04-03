@@ -9,8 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use Stancl\Tenancy\Events\TenancyInitialized;
 use Stancl\Tenancy\Events\TenantCreated;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
+
 
 class AppServiceProvider extends ServiceProvider
 {
