@@ -8,7 +8,7 @@ use Modules\Restaurants\Models\Restaurant;
 
 class Category extends Model
 {
-    protected $guarded = [];
+    protected $fillable =['name','img','is_active'];
 
     public function restaurants():BelongsToMany{
         return $this->belongsToMany(Restaurant::class,'restaurant_categories'); 

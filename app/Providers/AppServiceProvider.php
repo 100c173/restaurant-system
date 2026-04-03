@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\InitializeTenancyIfTenantDomain;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -17,10 +18,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-
     public function boot(): void
     {
-        // Override Livewire update and script routes — بدون tenancy middleware
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
                 ->middleware(['web']);
@@ -31,38 +30,33 @@ class AppServiceProvider extends ServiceProvider
                 ->middleware(['web']);
         });
 
-        // Patch upload-file and preview-file — بس إذا الطلب من tenant domain
+        // Register upload/preview routes directly with tenancy middleware
         $this->app->booted(function () {
-            collect(app('router')->getRoutes())->each(function ($route) {
-                if (
-                    in_array($route->uri(), [
-                        'livewire/upload-file',
-                        'livewire/preview-file/{filename}',
-                    ])
-                ) {
-                    $route->middleware([
-                        'web',
-                        InitializeTenancyByDomain::class,
-                    ]);
-                }
-            });
+            Route::post('/livewire/upload-file', [\Livewire\Features\SupportFileUploads\FileUploadController::class, 'handle'])
+                ->middleware(['web', InitializeTenancyIfTenantDomain::class])
+                ->name('livewire.upload-file');
+
+            Route::get('/livewire/preview-file/{filename}', [\Livewire\Features\SupportFileUploads\FileUploadController::class, 'handle'])
+                ->middleware(['web', InitializeTenancyIfTenantDomain::class])
+                ->name('livewire.preview-file');
         });
 
-        // Fix tenant_uploads URL dynamically when tenancy is initialized
         Event::listen(TenancyInitialized::class, function ($event) {
             $tenantId = $event->tenancy->tenant->id;
-
-            // استخدم الدومين الحالي بدل APP_URL
             $currentDomain = request()->getSchemeAndHttpHost();
 
+            app('filesystem')->forgetDisk('tenant_uploads');
+
             config([
+                'filesystems.disks.tenant_uploads.root' =>
+                    storage_path("tenant{$tenantId}/app/public/uploads"),
                 'filesystems.disks.tenant_uploads.url' =>
                     $currentDomain . '/tenant-image/' . $tenantId,
             ]);
 
             app('filesystem')->forgetDisk('tenant_uploads');
         });
-        // Tenant directory scaffolding on creation
+
         Event::listen(TenantCreated::class, function (TenantCreated $event) {
             $tenantId = $event->tenant->id;
 

@@ -26,6 +26,10 @@ class Category extends Model
             'is_active',
         ];
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
     public function menu(): BelongsTo
     {
         return $this->BelongsTo(Menu::class);

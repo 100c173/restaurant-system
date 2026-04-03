@@ -36,7 +36,13 @@ class Restaurant extends Model
         "opening_time",
         "closing_time",
     ];
-
+    protected $casts = [
+        'latitude' => 'float',
+        'longitude' => 'float',
+        'is_active' => 'boolean',
+        'opening_time' => 'string',
+        'closing_time' => 'string',
+    ];
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -47,7 +53,40 @@ class Restaurant extends Model
         return $this->hasMany(MenuItem::class);
     }
 
-    public function categories():BelongsToMany{
-        return $this->BelongsToMany(Category::class , 'restaurant_categories');
+    public function categories(): BelongsToMany
+    {
+        return $this->BelongsToMany(Category::class, 'restaurant_categories');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Scope: order by distance from a given coordinate.
+     * Uses the Haversine formula .
+     */
+
+    public function scopeNearBy($query, float $lat, float $lng, float $radiusKm = 10)
+    {
+        $haversine = "(6371 * acos(
+            cos(radians(?)) * cos(radians(latitude)) *
+            cos(radians(longitude) - radians(?)) +
+            sin(radians(?)) * sin(radians(latitude))
+        ))";
+        return $query
+            ->selectRaw("*, {$haversine} AS distance", [$lat, $lng, $lat])
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->having('distance', '<=', $radiusKm)
+            ->orderBy('distance');
+    }
+
+    public function isOpenNow(): bool
+    {
+        $now = now()->format('H:i:s');
+        return $now >= $this->opening_time && $now <= $this->closing_time;
+    }
+
 }
