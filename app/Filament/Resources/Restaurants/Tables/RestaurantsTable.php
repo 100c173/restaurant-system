@@ -25,6 +25,7 @@ class RestaurantsTable
 
                 ImageColumn::make('logo')
                     ->label('Logo')
+                    ->disk('public')
                     ->circular(),
 
                 TextColumn::make('name')

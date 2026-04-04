@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\Middleware\InitializeTenancyIfTenantDomain;
+use App\Models\Category;
+use App\Observers\CategoryObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
     }
     public function boot(): void
     {
+        Category::observe(CategoryObserver::class);
+        
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
                 ->middleware(['web']);

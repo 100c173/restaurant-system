@@ -38,7 +38,7 @@ class CategoryResource extends Resource
                     ->label('Cover')
                     ->image()
                     ->disk('public')
-                    ->directory('categories')        // saves to storage/app/public/categories/
+                    ->directory('categories')        
                     ->visibility('public')
                     ->required(),
             ]);
@@ -54,7 +54,9 @@ class CategoryResource extends Resource
 
                 ImageColumn::make('img')
                     ->label('Photo')
-                    ->disk('public'),
+                    ->disk('public')
+                    ->imageSize(60)
+                    ->circular(),
             ])
             ->filters([
                 //

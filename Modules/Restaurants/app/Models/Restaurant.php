@@ -83,6 +83,8 @@ class Restaurant extends Model
             ->orderBy('distance');
     }
 
+
+
     public function isOpenNow(): bool
     {
         $now = now()->format('H:i:s');

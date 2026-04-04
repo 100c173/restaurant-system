@@ -45,12 +45,16 @@ class RestaurantsForm
                         FileUpload::make('logo')
                             ->label('Logo')
                             ->image()
+                            ->disk('public')
+                            ->visibility('public')
                             ->directory('restaurants/logos')
                             ->required(),
 
                         FileUpload::make('cover_image')
                             ->label('Cover Image')
                             ->image()
+                            ->disk('public')
+                            ->visibility('public')
                             ->directory('restaurants/covers'),
                     ])->columns(2),
 

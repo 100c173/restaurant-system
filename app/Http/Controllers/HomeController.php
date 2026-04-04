@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\HomeResources\CategoryResource;
 use App\Http\Resources\HomeResources\RestaurantResource;
+use App\Models\Category;
 use App\Services\HomeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -16,10 +17,10 @@ class HomeController extends Controller
 
     public function getHomeData(Request $request)
     {
-        $latitude  = $request->has('latitude') ? $request->float('latitude') : null;
+        $latitude = $request->has('latitude') ? $request->float('latitude') : null;
         $longitude = $request->has('longitude') ? $request->float('longitude') : null;
-        $radiusKm  = $request->float('radiusKm',10);
-        $perPage   = $request->integer('perPage',8);
+        $radiusKm = $request->float('radiusKm', 10);
+        $perPage = $request->integer('perPage', 8);
 
 
         $categories = Cache::remember('categories.active', now()->addHours(6), function () {
@@ -37,12 +38,35 @@ class HomeController extends Controller
                 'nearby' => RestaurantResource::collection($nearRestaurants),
                 'random' => RestaurantResource::collection($randomRestaurants),
             ],
-           
+
             'location_used' => $hasLocation,
         ];
 
         return $this->success($data, "all data fetched successfully");
 
 
+    }
+
+    public function RestaurantByCategory(Category $category, Request $request)
+    {
+        $latitude = $request->has('latitude') ? $request->float('latitude') : null;
+        $longitude = $request->has('longitude') ? $request->float('longitude') : null;
+        $radiusKm = $request->float('radiusKm', 10);
+        $perPage = $request->integer('perPage', 8);
+
+        $key = 'restaurant.by.category.' . $category->id
+            . '.lat:' . $latitude
+            . '.lng:' . $longitude
+            . '.r:'   . $radiusKm
+            . '.p:'   . $perPage;
+
+        $restaurants = Cache::remember($key, now()->addHours(6), function () use ($category, $latitude, $longitude, $radiusKm, $perPage) {
+            return $this->service->getRestaurantByCategory($category, $latitude, $longitude, $radiusKm, $perPage);
+        });
+
+        $data = [
+            'restaurants' => RestaurantResource::collection($restaurants),
+        ];
+        return $this->success($data, 'Restaurants retrieved successfully.');
     }
 }
