@@ -26,6 +26,7 @@ return new class extends Migration {
             $table->decimal('longitude', 11, 8)->nullable();
             $table->time('opening_time')->nullable();
             $table->time('closing_time')->nullable();
+            $table->integer('rate')->default(3);
             $table->timestamps();
 
             $table->index('owner_id');

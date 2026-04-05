@@ -29,8 +29,11 @@ class HomeController extends Controller
 
         $hasLocation = $latitude !== null && $longitude !== null;
 
-        $nearRestaurants = ($hasLocation) ? $this->service->getNearBy($latitude, $longitude, $radiusKm, $perPage) : collect();
-        $randomRestaurants = $this->service->getRandom($perPage);
+        $nearRestaurants = $hasLocation
+            ? $this->service->getNearBy($latitude, $longitude, $radiusKm)
+            : collect();
+
+        $randomRestaurants = $this->service->getRandom($latitude, $longitude);
 
         $data = [
             'categories' => CategoryResource::collection($categories),
@@ -38,8 +41,6 @@ class HomeController extends Controller
                 'nearby' => RestaurantResource::collection($nearRestaurants),
                 'random' => RestaurantResource::collection($randomRestaurants),
             ],
-
-            'location_used' => $hasLocation,
         ];
 
         return $this->success($data, "all data fetched successfully");
@@ -57,8 +58,8 @@ class HomeController extends Controller
         $key = 'restaurant.by.category.' . $category->id
             . '.lat:' . $latitude
             . '.lng:' . $longitude
-            . '.r:'   . $radiusKm
-            . '.p:'   . $perPage;
+            . '.r:' . $radiusKm
+            . '.p:' . $perPage;
 
         $restaurants = Cache::remember($key, now()->addHours(6), function () use ($category, $latitude, $longitude, $radiusKm, $perPage) {
             return $this->service->getRestaurantByCategory($category, $latitude, $longitude, $radiusKm, $perPage);

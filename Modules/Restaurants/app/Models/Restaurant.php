@@ -68,18 +68,23 @@ class Restaurant extends Model
      * Uses the Haversine formula .
      */
 
-    public function scopeNearBy($query, float $lat, float $lng, float $radiusKm = 10)
+    public function scopeWithDistance($query, float $lat, float $lng)
     {
         $haversine = "(6371 * acos(
-            cos(radians(?)) * cos(radians(latitude)) *
-            cos(radians(longitude) - radians(?)) +
-            sin(radians(?)) * sin(radians(latitude))
-        ))";
+        cos(radians(?)) * cos(radians(latitude)) *
+        cos(radians(longitude) - radians(?)) +
+        sin(radians(?)) * sin(radians(latitude))
+    ))";
+
         return $query
-            ->selectRaw("*, {$haversine} AS distance", [$lat, $lng, $lat])
+            ->selectRaw("restaurants.*, {$haversine} AS distance", [$lat, $lng, $lat])
             ->whereNotNull('latitude')
-            ->whereNotNull('longitude')
-            ->having('distance', '<=', $radiusKm)
+            ->whereNotNull('longitude');
+    }
+
+    public function scopeWithinRadius($query, float $radiusKm)
+    {
+        return $query->having('distance', '<=', $radiusKm)
             ->orderBy('distance');
     }
 

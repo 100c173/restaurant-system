@@ -15,22 +15,31 @@ class HomeService
     ) {
     }
 
-    public function getNearBy(float $lat, float $lng, float $radiusKm = 10, int $perPage = 8): LengthAwarePaginator
+    public function getNearBy(float $lat, float $lng, float $radiusKm = 10)
     {
         return $this->restaurant
             ->active()
             ->with('categories:id,name')
-            ->nearby($lat, $lng, $radiusKm)
-            ->paginate($perPage);
+            ->withDistance($lat, $lng)
+            ->withinRadius($radiusKm)
+            ->limit(5)
+            ->get();
     }
 
-    public function getRandom(int $perPage = 8): LengthAwarePaginator
+    public function getRandom(?float $lat = null, ?float $lng = null)
     {
-        return $this->restaurant
+        $query = $this->restaurant
             ->active()
-            ->with('categories:id,name')
+            ->with('categories:id,name');
+
+        if ($lat && $lng) {
+            $query->withDistance($lat, $lng);
+        }
+
+        return $query
             ->inRandomOrder()
-            ->paginate($perPage);
+            ->limit(6)
+            ->get();
     }
 
     public function getAllActiveCategories()
@@ -40,24 +49,15 @@ class HomeService
             ->get();
     }
 
-    public function getRestaurantByCategory($category, ?float $lat, ?float $lng, float $radiusKm = 10, int $perPage = 8): LengthAwarePaginator
-    {
-        $query = $category->restaurants();
+    public function getRestaurantByCategory( $category, ?float $lat, ?float $lng, float $radiusKm = 10, int $perPage = 8): LengthAwarePaginator {
 
-        if ($lat && $lng)
-            $query->selectRaw("
-            (6371 * acos(
-                cos(radians(?)) 
-                * cos(radians(latitude)) 
-                * cos(radians(longitude) - radians(?)) 
-                + sin(radians(?)) 
-                * sin(radians(latitude))
-            )) AS distance
-        ", [$lat, $lng, $lat])
-                ->whereNotNull('latitude')
-                ->whereNotNull('longitude')
-                ->having("distance", "<=", $radiusKm)
-                ->orderBy("distance");
+        $query = $category->restaurants()
+            ->with('categories:id,name');
+
+        if ($lat && $lng) {
+            $query->withDistance($lat, $lng)
+                ->withinRadius($radiusKm);
+        }
 
         return $query->paginate($perPage);
     }

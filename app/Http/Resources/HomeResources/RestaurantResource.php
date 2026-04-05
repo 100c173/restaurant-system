@@ -41,6 +41,8 @@ class RestaurantResource extends JsonResource
 
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
            // 'is_featured' => $this->is_featured,
+
+           'rate' => $this->rate,
         ];
     }
 }
