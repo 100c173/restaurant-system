@@ -22,7 +22,7 @@ class RestaurantResource extends JsonResource
             'address' => $this->address,
             'phone' => $this->phone,
             'logo' => $this->logo ? asset("storage/{$this->logo}") : null,
-            'cover_image' => $this->cover_image ? asset("storage/{$this->cover_image}") : null,
+            //'cover_image' => $this->cover_image ? asset("storage/{$this->cover_image}") : null,
 
             'hours' => [
                 'opens' => Carbon::parse($this->opening_time)->format('h:i A'), 
