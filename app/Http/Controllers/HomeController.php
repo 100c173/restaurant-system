@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\HomeResources\CategoryResource;
+use App\Http\Resources\HomeResources\RestaurantByCategoryResource;
 use App\Http\Resources\HomeResources\RestaurantResource;
 use App\Models\Category;
 use App\Services\HomeService;
@@ -56,7 +57,7 @@ class HomeController extends Controller
         });
 
         $data = [
-            'restaurants' => RestaurantResource::collection($restaurants),
+            'restaurants' => RestaurantByCategoryResource::collection($restaurants),
         ];
         return $this->success($data, 'Restaurants retrieved successfully.');
     }
