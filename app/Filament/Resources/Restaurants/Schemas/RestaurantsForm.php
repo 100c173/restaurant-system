@@ -47,8 +47,7 @@ class RestaurantsForm
                             ->image()
                             ->disk('public')
                             ->visibility('public')
-                            ->directory('restaurants/logos')
-                            ->required(),
+                            ->directory('restaurants/logos'),
 
                         FileUpload::make('cover_image')
                             ->label('Cover Image')

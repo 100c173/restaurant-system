@@ -27,7 +27,7 @@ class CreateTenantDatabaseListener
     public function handle(RestaurantApproved $event): void
     {
         $tenant = Tenant::create([
-            'id' => $event->record->restaurant_name,
+            //'id' => $event->record->restaurant_name,
             'owner_id' => $event->record->customer_id,
             'name' => $event->record->restaurant_name,
         ]);

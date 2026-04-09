@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Event::listen(TenantCreated::class, function (TenantCreated $event) {
-            $tenantId = $event->tenant->id;
+            $tenantId = $event->tenant->name;
 
             $directories = [
                 storage_path("tenant{$tenantId}/framework/cache"),

@@ -3,6 +3,7 @@
 namespace Modules\Restaurants\Models;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -92,8 +93,17 @@ class Restaurant extends Model
 
     public function isOpenNow(): bool
     {
-        $now = now()->format('H:i:s');
-        return $now >= $this->opening_time && $now <= $this->closing_time;
+        $now = now();
+        $open = Carbon::parse($this->opening_time);
+        $close = Carbon::parse($this->closing_time);
+
+       
+        if ($close->lessThan($open)) {
+            return $now->greaterThanOrEqualTo($open)
+                || $now->lessThanOrEqualTo($close);
+        }
+
+        return $now->between($open, $close);
     }
 
 }

@@ -15,31 +15,22 @@ class HomeService
     ) {
     }
 
-    public function getNearBy(float $lat, float $lng, float $radiusKm = 10)
-    {
-        return $this->restaurant
-            ->active()
-            ->with('categories:id,name')
-            ->withDistance($lat, $lng)
-            ->withinRadius($radiusKm)
-            ->limit(5)
-            ->get();
-    }
-
-    public function getRandom(?float $lat = null, ?float $lng = null)
+    public function getRestaurant(?float $lat = null, ?float $lng = null, float $radiusKm = 4)
     {
         $query = $this->restaurant
             ->active()
             ->with('categories:id,name');
 
         if ($lat && $lng) {
-            $query->withDistance($lat, $lng);
+            $query
+                ->withDistance($lat, $lng)
+                ->withinRadius($radiusKm)
+                ->orderBy('distance');;
+        }else{
+             $query->orderByDesc('rate');
         }
 
-        return $query
-            ->inRandomOrder()
-            ->limit(6)
-            ->get();
+        return $query->get();
     }
 
     public function getAllActiveCategories()
@@ -49,7 +40,8 @@ class HomeService
             ->get();
     }
 
-    public function getRestaurantByCategory( $category, ?float $lat, ?float $lng, float $radiusKm = 10, int $perPage = 8): LengthAwarePaginator {
+    public function getRestaurantByCategory($category, ?float $lat, ?float $lng, float $radiusKm = 10, int $perPage = 8): LengthAwarePaginator
+    {
 
         $query = $category->restaurants()
             ->with('categories:id,name');

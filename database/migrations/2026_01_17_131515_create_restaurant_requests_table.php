@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->json('categories')->nullable();
 
             $table->string("restaurant_name");
+            $table->string('custom_name')->nullable();
            
             $table->string("restaurant_phone");
             

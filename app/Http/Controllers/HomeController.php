@@ -19,28 +19,18 @@ class HomeController extends Controller
     {
         $latitude = $request->has('latitude') ? $request->float('latitude') : null;
         $longitude = $request->has('longitude') ? $request->float('longitude') : null;
-        $radiusKm = $request->float('radiusKm', 10);
-        $perPage = $request->integer('perPage', 8);
+        $radiusKm = $request->float('radiusKm', 5);
 
 
         $categories = Cache::remember('categories.active', now()->addHours(6), function () {
             return $this->service->getAllActiveCategories();
         });
 
-        $hasLocation = $latitude !== null && $longitude !== null;
-
-        $nearRestaurants = $hasLocation
-            ? $this->service->getNearBy($latitude, $longitude, $radiusKm)
-            : collect();
-
-        $randomRestaurants = $this->service->getRandom($latitude, $longitude);
+        $randomRestaurants = $this->service->getRestaurant($latitude, $longitude);
 
         $data = [
             'categories' => CategoryResource::collection($categories),
-            'restaurants' => [
-                'nearby' => RestaurantResource::collection($nearRestaurants),
-                'random' => RestaurantResource::collection($randomRestaurants),
-            ],
+            'restaurants' =>  RestaurantResource::collection($randomRestaurants),
         ];
 
         return $this->success($data, "all data fetched successfully");

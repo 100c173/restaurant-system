@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\HomeResources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,13 +23,15 @@ class RestaurantResource extends JsonResource
             'phone' => $this->phone,
             'logo' => $this->logo ? asset("storage/{$this->logo}") : null,
             'cover_image' => $this->cover_image ? asset("storage/{$this->cover_image}") : null,
-    
-            'hours' => [
-                'opens' => $this->opening_time,
-                'closes' => $this->closing_time,
-                'is_open' => $this->isOpenNow(),
-            ],
 
+            'hours' => [
+                'opens' => Carbon::parse($this->opening_time)->format('h:i A'), 
+                'closes' => Carbon::parse($this->closing_time)->format('h:i A'),
+                'is_open' => $this->isOpenNow(),
+                // 09:00:00  -> 09:00 AM
+                // 23:00:00  -> 11:00 PM
+                
+            ],
             'location' => [
                 'latitude' => $this->latitude,
                 'longitude' => $this->longitude,
@@ -40,9 +43,9 @@ class RestaurantResource extends JsonResource
             ],
 
             'categories' => CategoryResource::collection($this->whenLoaded('categories')),
-           // 'is_featured' => $this->is_featured,
+            // 'is_featured' => $this->is_featured,
 
-           'rate' => $this->rate,
+            'rate' => $this->rate,
         ];
     }
 }

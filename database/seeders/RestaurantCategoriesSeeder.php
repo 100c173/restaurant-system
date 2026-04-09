@@ -10,17 +10,20 @@ class RestaurantCategoriesSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Beverages', 'img' => 'categories/beverages.jpg'],
-            ['name' => 'Fast Food', 'img' => 'categories/fast_food.jpg'],
-            ['name' => 'Desserts', 'img' => 'categories/desserts.png'],
-            ['name' => 'Seafood', 'img' => 'categories/seafood.avif'],
-            ['name' => 'Grills', 'img' => 'categories/grills.jpg'],
-            ['name' => 'Main Dishes', 'img' => 'categories/main_dishes.png'],
-            ['name' => 'Salads', 'img' => 'categories/salads.png'],
-            ['name' => 'Appetizers', 'img' => 'categories/appetizers.avif'],
-            ['name' => 'Breakfast', 'img' => 'categories/breakfast.webp'],
-            ['name' => 'Coffee', 'img' => 'categories/coffee.jpg'],
-            ['name' => 'Tea', 'img' => 'categories/tea.avif'],
+            ['name' => 'المشروبات', 'img' => 'categories/beverages.jpg'],
+            ['name' => 'الوجبات السريعة', 'img' => 'categories/fast_food.jpg'],
+            ['name' => 'الحلويات', 'img' => 'categories/desserts.png'],
+            ['name' => 'المأكولات البحرية', 'img' => 'categories/seafood.avif'],
+            ['name' => 'مشاوي', 'img' => 'categories/grills.jpg'],
+            ['name' => 'الأطباق الرئيسية', 'img' => 'categories/main_dishes.png'],
+            ['name' => 'السلطات', 'img' => 'categories/salads.png'],
+            ['name' => 'المقبلات', 'img' => 'categories/appetizers.avif'],
+            ['name' => 'إفطار', 'img' => 'categories/breakfast.webp'],
+            ['name' => 'قهوة', 'img' => 'categories/coffee.jpg'],
+            ['name' => 'شاي', 'img' => 'categories/tea.avif'],
+            ['name' => 'شاورما', 'img' => null],
+            ['name' => 'برغر', 'img' => null],
+            ['name' => 'بيتزا', 'img' => null],
         ];
 
         foreach ($categories as $category) {
