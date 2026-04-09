@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\HomeResources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RestaurantResource extends BaseRestaurantResource
+class RestaurantByCategoryResource extends BaseRestaurantResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +17,12 @@ class RestaurantResource extends BaseRestaurantResource
     {
         return array_merge($this->baseData(), [
 
-            'cover_image' => $this->cover_image
-                ? asset("storage/{$this->cover_image}")
-                : null,
-
-            'categories' => CategoryResource::collection(
-                $this->whenLoaded('categories')
-            ),
+            'categories' => $this->whenLoaded('categories', function () {
+                return $this->categories->map(fn($cat) => [
+                    'id' => $cat->id,
+                    'name' => $cat->name,
+                ]);
+            }),
         ]);
     }
 }
