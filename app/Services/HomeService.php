@@ -15,7 +15,7 @@ class HomeService
     ) {
     }
 
-    public function getRestaurant(?float $lat = null, ?float $lng = null, float $radiusKm = 4)
+    public function getRestaurant(?float $lat = null, ?float $lng = null, float $radiusKm = 60)
     {
         $query = $this->restaurant
             ->active()
