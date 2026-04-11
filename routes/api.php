@@ -64,5 +64,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('/home',[HomeController::class,'getHomeData']);
 Route::get('/categories/{category}/restaurants', [HomeController::class, 'restaurantByCategory']);
-
-Route::post('/upload', [CloudinaryController::class, 'uploadImage']);

@@ -8,9 +8,9 @@ class TenantHelper
 {
     public static function cloudinaryFolder(string $subfolder = ''): string
     {
-        $tenantId = tenant('id'); // e.g. "restaurant_42"
-        $base = "tenants/{$tenantId}";
-        
+        $tenantId = tenant('id');
+        $base = $tenantId ? "tenants/{$tenantId}" : "central";
+
         return $subfolder ? "{$base}/{$subfolder}" : $base;
     }
 }

@@ -17,7 +17,7 @@ class RestaurantResource extends BaseRestaurantResource
         return array_merge($this->baseData(), [
 
             'cover_image' => $this->cover_image
-                ? asset("storage/{$this->cover_image}")
+                ? $this->cover_image
                 : null,
 
             'categories' => CategoryResource::collection(

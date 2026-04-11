@@ -22,7 +22,7 @@ class BaseRestaurantResource extends JsonResource
             'address' => $this->address,
             'phone' => $this->phone,
 
-            'logo' => $this->logo ? asset("storage/{$this->logo}") : null,
+            'logo' => $this->logo ? $this->logo  : null,
 
             'hours' => [
                 'opens' => Carbon::parse($this->opening_time)->format('h:i A'),
