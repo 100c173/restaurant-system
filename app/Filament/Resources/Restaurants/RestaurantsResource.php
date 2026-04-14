@@ -81,11 +81,11 @@ class RestaurantsResource extends Resource
             Section::make('Contact & Location')
                 ->columns(2)
                 ->schema([
-                    TextInput::make('address')->columnSpanFull(),
-                    TextInput::make('phone'),
-                    TextInput::make('email')->email(),
-                    TextInput::make('latitude')->numeric(),
-                    TextInput::make('longitude')->numeric(),
+                    TextInput::make('address')->columnSpanFull()->copyable(),
+                    TextInput::make('phone')->copyable(),
+                    TextInput::make('email')->email()->copyable(),
+                    TextInput::make('latitude')->numeric()->copyable(),
+                    TextInput::make('longitude')->numeric()->copyable(),
                 ]),
 
             Section::make('Hours & Settings')
@@ -115,7 +115,9 @@ class RestaurantsResource extends Resource
 
                 TextColumn::make('phone')
                     ->searchable()
-                    ->icon('heroicon-o-phone'),
+                    ->icon('heroicon-o-phone')
+                    ->copyable(),
+
 
                 TextColumn::make('address')
                     ->limit(30)
@@ -148,15 +150,23 @@ class RestaurantsResource extends Resource
                 SelectFilter::make('rate')
                     ->label('Filter by Rating')
                     ->options([
+                        '6' => '⭐⭐⭐⭐⭐⭐ (6)',
                         '5' => '⭐⭐⭐⭐⭐ (5)',
                         '4' => '⭐⭐⭐⭐ (4+)',
                         '3' => '⭐⭐⭐ (3+)',
+                        '2' => '⭐⭐ (2+)',
                     ])
                     ->query(function ($query, $state) {
                         if ($state['value']) {
                             $query->where('rate', '>=', $state['value']);
                         }
                     }),
+                SelectFilter::make('is_active')
+                    ->label('Filter by Status')
+                    ->options([
+                        1 => 'Active',
+                        0 => 'Inactive',
+                    ]),
             ])
             ->recordActions([
 
@@ -174,10 +184,12 @@ class RestaurantsResource extends Resource
                             ->icon('heroicon-o-user'),
                         TextEntry::make('owner.email')
                             ->label('Email')
-                            ->icon('heroicon-o-envelope'),
+                            ->icon('heroicon-o-envelope')
+                            ->copyable(),
                         TextEntry::make('owner.phone')
                             ->label('Phone')
-                            ->icon('heroicon-o-phone'),
+                            ->icon('heroicon-o-phone')
+                            ->copyable(),
                     ]),
 
                 // Categories Action — view-only modal with badges

@@ -35,7 +35,7 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at',
     ];
 
-    protected $connection = 'mysql';
+    protected $connection = 'central';
 
     /**
      * The attributes that should be hidden for serialization.

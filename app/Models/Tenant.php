@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Stancl\Tenancy\Database\Models\Tenant as BaseTenant;
 use Stancl\Tenancy\Contracts\TenantWithDatabase;
 use Stancl\Tenancy\Database\Concerns\HasDatabase;
@@ -38,8 +40,17 @@ class Tenant extends BaseTenant implements TenantWithDatabase
             'is_active',
         ];
     }
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'tenant_user');
+    }
+
+    public function domain(): HasOne
+    {
+        return $this->hasOne(Domain::class,'tenant_id');
     }
 }

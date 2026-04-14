@@ -8,6 +8,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -26,10 +27,10 @@ class UsersTable
                 TextColumn::make('roles.name')
                     ->label('Role')
                     ->badge()
-                    ->color(fn(string $state)   => match ($state) {
+                    ->color(fn(string $state) => match ($state) {
                         'super-admin' => 'danger',
                         'restaurant-owner' => 'info',
-                        'customer' => 'success',         
+                        'customer' => 'success',
                         default => 'gray',
                     })
                     ->sortable(),
@@ -47,6 +48,18 @@ class UsersTable
                 //
             ])
             ->recordActions([
+                // Restaurants Action — view-only modal with badges
+                Action::make('Restaurants')
+                    ->label('Restaurants')
+                    ->icon(Heroicon::BuildingStorefront)
+                    ->color('info')
+                    ->modalHeading('User Restaurants')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Close')
+                    ->modalContent(fn($record) => view(
+                        'filament.modals.user-restaurants',
+                        ['restaurants' => $record->tenants]
+                    )),
                 EditAction::make(),
                 DeleteAction::make(),
 

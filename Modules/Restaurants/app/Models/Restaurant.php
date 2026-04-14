@@ -44,6 +44,9 @@ class Restaurant extends Model
         'opening_time' => 'string',
         'closing_time' => 'string',
     ];
+
+    protected $connection = 'central';
+    
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class);

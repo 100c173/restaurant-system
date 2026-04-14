@@ -4,6 +4,6 @@
             {{ $category->name }}
         </x-filament::badge>
     @empty
-        <p class="text-sm text-gray-500">No categories assigned.</p>
+        <p class="text-sm text-gray-500">No restaurants assigned.</p>
     @endforelse
 </div>
