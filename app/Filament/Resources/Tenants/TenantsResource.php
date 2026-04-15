@@ -60,6 +60,11 @@ class TenantsResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('id')
+                ->copyable()
+                ->badge(),
+
+
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

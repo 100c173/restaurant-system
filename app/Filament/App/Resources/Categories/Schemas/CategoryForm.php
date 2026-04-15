@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\Categories\Schemas;
 
+use App\Services\CloudinaryUploadService;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -18,7 +19,7 @@ class CategoryForm
     {
         return $schema->components([
 
-       
+
             Section::make('General information')
                 ->description('Basic details about this category.')
                 ->icon('heroicon-o-tag')
@@ -55,7 +56,7 @@ class CategoryForm
                         ->inline(false),
                 ]),
 
-            
+
             Section::make('Menu assignment')
                 ->description('Assign this category to a menu. Leave empty to make it an uncategorised global category.')
                 ->icon('heroicon-o-book-open')
@@ -74,7 +75,7 @@ class CategoryForm
                         ->helperText('Only active menus are listed.'),
                 ]),
 
-            
+
             Section::make('Category image')
                 ->description('Upload an image shown next to this category in the mobile app.')
                 ->icon('heroicon-o-photo')
@@ -82,12 +83,17 @@ class CategoryForm
                     FileUpload::make('img_path')
                         ->label('Image')
                         ->image()
-                        ->disk('tenant_uploads')
-                        ->directory('categories')
-                        ->imageEditor()
-                        ->visibility('public')
-                        ->maxSize(2048)
-                        ->nullable(),
+                        ->saveUploadedFileUsing(function ($file, $record) {
+                            $uploader = new CloudinaryUploadService();
+
+                            // Delete old image if exists
+                            if ($record?->img) {
+                                $uploader->delete($record->img);
+                            }
+                            return $uploader->upload($file->getRealPath(), 'categories');
+                        })
+                        ->required(),
+
                 ])
                 ->collapsible(),
 
