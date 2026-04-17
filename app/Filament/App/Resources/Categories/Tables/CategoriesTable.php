@@ -2,8 +2,9 @@
 
 namespace App\Filament\App\Resources\Categories\Tables;
 
-use App\Filament\App\Resources\Menus\RelationManagers\CategoriesRelationManager;
+use App\Filament\App\Resources\Menus\MenuResource;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -11,7 +12,6 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class CategoriesTable
@@ -20,53 +20,60 @@ class CategoriesTable
     {
         return $table
             ->columns([
-
-                // Position badge
-                TextColumn::make('position')
-                    ->label('#')
-                    ->sortable()
-                    ->badge()
-                    ->color('gray')
-                    ->width('60px'),
-
-                // Category image thumbnail
+                // Thumbnail
                 ImageColumn::make('img_path')
-                    ->label('Image')
-                    ->disk('tenant_uploads')
-                    ->url(
-                        fn($record) => $record->img_path
-                        ? url('/tenant-image/' . tenant('id') . '/' . $record->img_path)
-                        : null
-                    )
-                    ->circular()
-                    ->visibility('public')
-                    ->width(40),
+                    ->label('')
+                    ->circular(),
 
-                // Category name
+                // Name
                 TextColumn::make('name')
-                    ->label('Category')
-                    ->sortable()
+                    ->label('Category Name')
                     ->searchable()
-                    ->weight('medium')
-                    ->description(
-                        fn($record): ?string => $record->description
-                        ? str($record->description)->limit(60)
-                        : null
-                    ),
+                    ->sortable()
+                    ->weight('semibold'),
 
-                // Menu this category belongs to
+                // Description — truncated
+                TextColumn::make('description')
+                    ->label('Description')
+                    ->limit(50)
+                    ->placeholder('—')
+                    ->toggleable(),
+
+                // Menu link — only shown when a menu is assigned
                 TextColumn::make('menu.name')
                     ->label('Menu')
-                    ->sortable()
-                    ->searchable()
                     ->badge()
-                    ->color('info')
-                    ->placeholder('— No menu —')
-                    // Hide this column when inside the relation manager
-                    // (the parent menu is already shown above the table)
-                    ->hiddenOn(CategoriesRelationManager::class),
+                    ->color('primary')
+                    ->icon('heroicon-m-book-open')
+                    ->placeholder('— Unassigned —')
+                    ->url(
+                        fn($record): ?string =>
+                        $record->menu_id
+                        ? MenuResource::getUrl(parameters: [
+                            'tableAction' => 'edit',
+                            'tableActionRecord' => $record->menu_id,
+                        ])
+                        : null
+                    )
+                    ->openUrlInNewTab(false)
+                    ->sortable(),
 
-                // Active status
+                // Items count
+                TextColumn::make('menu_items_count')
+                    ->label('Items')
+                    ->counts('menuItems')
+                    ->badge()
+                    ->color('gray')
+                    ->alignCenter(),
+
+                // Position
+                TextColumn::make('position')
+                    ->label('Position')
+                    ->sortable()
+                    ->alignCenter()
+                    ->toggleable(),
+
+                // Status
                 IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
@@ -74,63 +81,53 @@ class CategoriesTable
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger')
-                    ->tooltip(fn(bool $state): string => $state ? 'Active' : 'Inactive'),
+                    ->alignCenter(),
+            ])
 
-                // Timestamps (hidden by default)
-                TextColumn::make('created_at')
-                    ->label('Created')
-                    ->dateTime('d M Y')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+            ->filters([
+                SelectFilter::make('menu_id')
+                    ->label('Filter by Menu')
+                    ->relationship('menu', 'name')
+                    ->placeholder('All Menus'),
 
-                TextColumn::make('updated_at')
-                    ->label('Last updated')
-                    ->since()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                SelectFilter::make('is_active')
+                    ->label('Status')
+                    ->options([
+                        '1' => 'Active',
+                        '0' => 'Inactive',
+                    ]),
+            ])
+
+            ->recordActions([
+                // Edit — opens modal
+                EditAction::make()
+                    ->label('Edit')
+                    ->modalHeading('Edit Category'),
+
+                // Delete — with cascade warning
+                DeleteAction::make()
+                    ->modalHeading('Delete Category?')
+                    ->modalDescription(
+                        'Are you sure you want to delete this category? ' .
+                        'This will also permanently delete all menu items associated with it.'
+                    )
+                    ->modalSubmitActionLabel('Yes, delete category'),
+            ])
+
+            ->toolbarActions([
+                CreateAction::make()
+                    ->label('New Category')
+                    ->icon('heroicon-o-plus'),
+                    
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ])
 
             ->defaultSort('position', 'asc')
-
-            ->filters([
-                // Filter by menu
-                SelectFilter::make('menu_id')
-                    ->label('Menu')
-                    ->relationship('menu', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->hiddenOn(CategoriesRelationManager::class),
-
-                // Filter by active status
-                TernaryFilter::make('is_active')
-                    ->label('Status')
-                    ->placeholder('All categories')
-                    ->trueLabel('Active only')
-                    ->falseLabel('Inactive only'),
-            ])
-
-            ->actions([
-                EditAction::make()
-                    ->iconButton()
-                    ->tooltip('Edit category'),
-
-                DeleteAction::make()
-                    ->iconButton()
-                    ->tooltip('Delete category')
-                    ->requiresConfirmation()
-                    ->modalHeading('Delete category')
-                    ->modalDescription('Are you sure? Items inside this category may be affected.')
-                    ->modalSubmitActionLabel('Yes, delete it'),
-            ])
-
-            ->bulkActions([
-                DeleteBulkAction::make()
-                    ->requiresConfirmation(),
-            ])
-
+            ->striped()
             ->emptyStateIcon('heroicon-o-tag')
             ->emptyStateHeading('No categories yet')
-            ->emptyStateDescription('Add your first category to start organising your menu items.')
-            ->striped();
+            ->emptyStateDescription('Create your first category to get started.');
     }
 }

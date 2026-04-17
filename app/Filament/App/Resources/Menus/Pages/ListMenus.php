@@ -13,9 +13,7 @@ class ListMenus extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make()
-                ->label('New menu')
-                ->icon('heroicon-o-plus'),
+            CreateAction::make(),
         ];
     }
 }

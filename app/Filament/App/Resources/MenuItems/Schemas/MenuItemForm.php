@@ -2,137 +2,235 @@
 
 namespace App\Filament\App\Resources\MenuItems\Schemas;
 
+use App\Services\CloudinaryUploadService;
+use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Notifications\Notification;
+use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Storage;
 use Modules\Restaurants\Models\Category;
+use Modules\Restaurants\Models\Menu;
 
 class MenuItemForm
 {
     public static function configure(Schema $schema): Schema
     {
-        return $schema->components([
-
-            // Single column layout with full-width fields
-            Grid::make(1)->schema([
-
-                Section::make('Item Image')
-                    ->description('Upload a photo of this menu item')
-                    ->icon('heroicon-o-photo')
-                    ->collapsible()
+        return $schema
+            ->components([
+                Section::make('Classification')
+                    ->description('Assign this item to a menu and category.')
+                    ->columns(2)
                     ->schema([
-                        FileUpload::make('image')
-                            ->label(false)
-                            ->image()
-                            ->disk('tenant_uploads')
-                            ->imageEditor()
-                            ->imageEditorAspectRatios(['1:1', '4:3', '16:9'])
-                            ->directory('menu-items')
-                            ->visibility('public')
-                            ->maxSize(3072)
-                            ->helperText('Max 3 MB. Square (1:1) recommended.')
+                        Select::make('menu_id')
+                            ->label('Menu')
+                            ->options(Menu::ordered()->pluck('name', 'id'))
+                            ->searchable()
                             ->nullable()
-                            ->columnSpanFull(),
+                            ->placeholder('— Select a menu —')
+                            ->live()
+                            ->afterStateUpdated(fn(callable $set) => $set('category_id', null))
+                            ->dehydrated(false),
+
+                        Select::make('category_id')
+                            ->label('Category')
+                            ->required()
+                            ->searchable()
+                            ->options(function (Get $get): array {
+                                $menuId = $get('menu_id');
+
+                                return Category::query()
+                                    ->when(
+                                        filled($menuId),
+                                        fn($q) => $q->where('menu_id', $menuId)
+                                    )
+                                    ->ordered()
+                                    ->pluck('name', 'id')
+                                    ->toArray();
+                            })
+                            ->placeholder('— Select a category —'),
+
+                        Actions::make([
+                            Action::make('saveClassification')
+                                ->label('Save')
+                                ->icon('heroicon-o-check')
+                                ->action(function (Get $get, $record) {
+                                    $categoryId = $get('category_id');
+
+                                    if (blank($categoryId)) {
+                                        Notification::make()
+                                            ->title('Please select a category first.')
+                                            ->warning()
+                                            ->send();
+                                        return;
+                                    }
+
+                                    $record->update([
+                                        'category_id' => $categoryId,
+                                    ]);
+
+                                    Notification::make()
+                                        ->title('Classification saved.')
+                                        ->success()
+                                        ->send();
+                                })
+                                ->hidden(fn($record) => $record === null), // hide on Create
+                        ])->columnSpanFull(),
                     ]),
 
-                Section::make('General Information')
-                    ->description('Core details of this menu item')
-                    ->icon('heroicon-o-clipboard-document-list')
+                Section::make('Item Details')
+                    ->columns(2)
                     ->schema([
                         TextInput::make('name')
-                            ->label('Item name')
-                            ->placeholder('e.g. Classic Smash Burger…')
+                            ->label('Item Name')
                             ->required()
-                            ->maxLength(150)
+                            ->maxLength(255)
                             ->columnSpanFull(),
 
                         Textarea::make('description')
                             ->label('Description')
-                            ->placeholder('Describe the item — ingredients, taste, highlights…')
-                            ->rows(4)
-                            ->maxLength(1000)
+                            ->rows(3)
                             ->nullable()
                             ->columnSpanFull(),
 
-                        Select::make('category_id')
-                            ->label('Category')
-                            ->placeholder('Select a category…')
-                            ->options(
-                                fn() => Category::active()
-                                    ->with('menu')
-                                    ->ordered()
-                                    ->get()
-                                    ->groupBy(fn($c) => $c->menu?->name ?? 'No menu')
-                                    ->map(fn($group) => $group->pluck('name', 'id'))
-                                    ->toArray()
-                            )
-                            ->searchable()
-                            ->preload()
-                            ->required()
-                            ->helperText('Categories are grouped by their parent menu.')
-                            ->columnSpanFull(),
+                        TextInput::make('price')
+                            ->label('Base Price')
+                            ->numeric()
+                            ->prefix('$')
+                            ->default(0)
+                            ->minValue(0),
+
+                        TextInput::make('preparation_time')
+                            ->label('Prep Time (minutes)')
+                            ->numeric()
+                            ->nullable()
+                            ->minValue(0)
+                            ->suffix('min'),
+
+                        TextInput::make('position')
+                            ->label('Display Position')
+                            ->numeric()
+                            ->default(0),
+
+                        Grid::make(1)
+                            ->schema([
+                                Toggle::make('is_available')
+                                    ->label('Available')
+                                    ->default(true),
+
+                                Toggle::make('is_featured')
+                                    ->label('Featured')
+                                    ->default(false),
+                            ]),
+
+                        Actions::make([
+                            Action::make('saveDetails')
+                                ->label('Save')
+                                ->icon('heroicon-o-check')
+                                ->action(function (Get $get, $record) {
+                                    $record->update([
+                                        'name' => $get('name'),
+                                        'description' => $get('description'),
+                                        'price' => $get('price'),
+                                        'preparation_time' => $get('preparation_time'),
+                                        'position' => $get('position'),
+                                        'is_available' => $get('is_available'),
+                                        'is_featured' => $get('is_featured'),
+                                    ]);
+
+                                    Notification::make()
+                                        ->title('Details saved.')
+                                        ->success()
+                                        ->send();
+                                })
+                                ->hidden(fn($record) => $record === null),
+                        ])->columnSpanFull(),
                     ]),
 
-                Section::make('Pricing & Logistics')
-                    ->description('Price, preparation time, and display order')
-                    ->icon('heroicon-o-banknotes')
+                Section::make('Item Image')
                     ->schema([
-                        Grid::make(2)->schema([
-                            TextInput::make('price')
-                                ->label('Base price')
-                                ->numeric()
-                                ->prefix('$')
-                                ->minValue(0)
-                                ->step(0.01)
-                                ->default(0)
-                                ->required()
-                                ->extraAttributes(['class' => 'text-xl py-3']),
+                        FileUpload::make('image')
+                            ->label('Image')
+                            ->image()
+                            ->disk('local')          // temp disk, we handle the real upload manually
+                            ->directory('tmp')
+                            ->dehydrated(false),     // we save manually, don't let the form touch it
 
-                            TextInput::make('preparation_time')
-                                ->label('Preparation time')
-                                ->numeric()
-                                ->suffix('min')
-                                ->minValue(1)
-                                ->nullable()
-                                ->helperText('Shown to customers in the app.')
-                                ->extraAttributes(['class' => 'text-xl py-3']),
+                        Action::make('saveImage')
+                            ->label('Save Image')
+                            ->icon('heroicon-o-photo')
+                            ->action(function (Get $get, $record) {
+                                $uploader = new CloudinaryUploadService();
 
-                            TextInput::make('position')
-                                ->label('Display order')
-                                ->numeric()
-                                ->minValue(0)
-                                ->default(0)
-                                ->helperText('Lower numbers appear first.')
-                                ->extraAttributes(['class' => 'text-xl py-3']),
-                        ])->columns(2),
+                                $imageState = $get('image');
+
+                                if (blank($imageState)) {
+                                    Notification::make()
+                                        ->title('No image selected.')
+                                        ->warning()
+                                        ->send();
+                                    return;
+                                }
+
+                                // State is an array keyed by UUID, value is a TemporaryUploadedFile object
+                                /** @var \Livewire\Features\SupportFileUploads\TemporaryUploadedFile $tmpFile */
+                                $tmpFile = collect($imageState)->first();
+
+                                if (!$tmpFile || !$tmpFile->exists()) {
+                                    Notification::make()
+                                        ->title('Temporary file not found. Please re-select the image.')
+                                        ->warning()
+                                        ->send();
+                                    return;
+                                }
+
+                                // Get the real absolute path on disk
+                                $realPath = $tmpFile->getRealPath();
+
+                                if (!$realPath || !file_exists($realPath)) {
+                                    // getRealPath() returns the PHP tmp path which may be gone —
+                                    // fall back to the Livewire disk path instead
+                                    $disk = Storage::disk(
+                                        config('livewire.temporary_file_upload.disk', 'local')
+                                    );
+                                    $realPath = $disk->path($tmpFile->getFilename());
+                                }
+
+                                if (!file_exists($realPath)) {
+                                    Notification::make()
+                                        ->title('Could not resolve file path. Please re-select the image.')
+                                        ->warning()
+                                        ->send();
+                                    return;
+                                }
+
+                                // Delete old Cloudinary image if exists
+                                if ($record->image) {
+                                    $uploader->delete($record->image);
+                                }
+
+                                // Upload to Cloudinary
+                                $newImageUrl = $uploader->upload($realPath, 'menu-items');
+
+                                // Persist
+                                $record->update(['image' => $newImageUrl]);
+
+                                Notification::make()
+                                    ->title('Image saved successfully.')
+                                    ->success()
+                                    ->send();
+                            })
+                            ->hidden(fn($record) => $record === null),
+
                     ]),
 
-                Section::make('Visibility & Flags')
-                    ->description('Control how this item appears to customers')
-                    ->icon('heroicon-o-eye')
-                    ->schema([
-                        Grid::make(2)->schema([
-                            Toggle::make('is_available')
-                                ->label('Available')
-                                ->helperText('Unavailable items are hidden from customers immediately.')
-                                ->default(true)
-                                ->inline(false),
-
-                            Toggle::make('is_featured')
-                                ->label('Featured')
-                                ->helperText('Featured items are pinned and highlighted in the app.')
-                                ->default(false)
-                                ->inline(false),
-                        ]),
-                    ]),
-
-            ])->columnSpanFull(),
-
-        ]);
+            ]);
     }
 }

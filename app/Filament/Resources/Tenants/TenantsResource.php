@@ -4,12 +4,14 @@ namespace App\Filament\Resources\Tenants;
 
 use App\Filament\Resources\Tenants\Pages\ManageTenants;
 use App\Models\Tenant;
+use App\Models\User;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -41,9 +43,11 @@ class TenantsResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                TextInput::make('owner_id')
+                Select::make('owner_id')
                     ->label('Owner ID')
-                    ->numeric()
+                    ->relationship('owner', 'name')
+                    ->options(User::pluck('name', 'id'))
+                    ->searchable()
                     ->required(),
 
                 Toggle::make('is_active')
@@ -125,6 +129,7 @@ class TenantsResource extends Resource
                     ->successNotificationTitle('Domain updated'),
 
                 EditAction::make(),
+                DeleteAction::make(),
             ]);
     }
 

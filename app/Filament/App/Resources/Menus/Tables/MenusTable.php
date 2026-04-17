@@ -2,15 +2,14 @@
 
 namespace App\Filament\App\Resources\Menus\Tables;
 
-use App\Filament\App\Resources\Menus\MenuResource;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 
 class MenusTable
@@ -19,31 +18,26 @@ class MenusTable
     {
         return $table
             ->columns([
+                TextColumn::make('name')
+                    ->label('Menu Name')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('semibold'),
 
                 TextColumn::make('position')
-                    ->label('#')
+                    ->label('Position')
                     ->sortable()
-                    ->badge()
-                    ->color('gray')
-                    ->width('60px'),
+                    ->alignCenter(),
 
-                TextColumn::make('name')
-                    ->label('Menu name')
-                    ->sortable()
-                    ->searchable()
-                    ->weight('medium')
-                    ->description('Click to open'),
+                TextColumn::make('available_from')
+                    ->label('Available From')
+                    ->placeholder('Any time')
+                    ->alignCenter(),
 
-                TextColumn::make('categories_count')
-                    ->label('Categories')
-                    ->counts('categories')
-                    ->badge()
-                    ->color(fn(int $state): string => $state > 0 ? 'info' : 'gray')
-                    ->formatStateUsing(
-                        fn(int $state): string => $state > 0
-                        ? "{$state} " . str('category')->plural($state)
-                        : 'No categories'
-                    ),
+                TextColumn::make('available_until')
+                    ->label('Available Until')
+                    ->placeholder('Any time')
+                    ->alignCenter(),
 
                 IconColumn::make('is_active')
                     ->label('Status')
@@ -52,72 +46,58 @@ class MenusTable
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger')
-                    ->tooltip(fn(bool $state): string => $state ? 'Active' : 'Inactive'),
+                    ->alignCenter(),
 
-                TextColumn::make('available_from')
-                    ->label('Available from')
-                    ->time('H:i')
-                    ->placeholder('—')
-                    ->sortable(),
+                TextColumn::make('categories_count')
+                    ->label('Categories')
+                    ->counts('categories')
+                    ->badge()
+                    ->color('info')
+                    ->alignCenter(),
+            ])
 
-                TextColumn::make('available_until')
-                    ->label('Until')
-                    ->time('H:i')
-                    ->placeholder('—')
-                    ->sortable(),
+            ->recordActions([
+                // 1. Categories Icon Action — opens modal with infolist
+                Action::make('viewCategories')
+                    ->label('Categories')
+                    ->icon('heroicon-o-tag')
+                    ->color('info')
+                    ->modalHeading(fn($record) => "Categories for \"{$record->name}\"")
+                    ->modalContent(function ($record): \Illuminate\Contracts\View\View {
+                        return view('filament.modals.categories-modal', [
+                            'categories' => $record->categories()->ordered()->get(),
+                        ]);
+                    })
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Close'),
 
-                TextColumn::make('created_at')
-                    ->label('Created')
-                    ->dateTime('d M Y')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // 2. Edit Action — opens edit form in modal
+                EditAction::make()
+                    ->label('Edit Menu')
+                    ->icon('heroicon-o-pencil-square')
+                    ->modalHeading('Edit Menu'),
 
-                TextColumn::make('updated_at')
-                    ->label('Last updated')
-                    ->since()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // 3. Delete Action — with cascade warning
+                DeleteAction::make()
+                    ->modalHeading('Delete Menu?')
+                    ->modalDescription(
+                        'Are you sure you want to delete this menu? ' .
+                        'This will also permanently delete all categories associated with it.'
+                    )
+                    ->modalSubmitActionLabel('Yes, delete menu')
+                    ->color('danger'),
+            ])
+
+            ->toolbarActions([
+                CreateAction::make()
+                    ->label('New Menu')
+                    ->icon('heroicon-o-plus'),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
             ])
 
             ->defaultSort('position', 'asc')
-
-            // Every row click opens the view page
-            ->recordUrl(
-                fn($record): string => MenuResource::getUrl('view', ['record' => $record])
-            )
-
-            ->filters([
-                TernaryFilter::make('is_active')
-                    ->label('Status')
-                    ->placeholder('All menus')
-                    ->trueLabel('Active only')
-                    ->falseLabel('Inactive only'),
-            ])
-
-            ->actions([
-                // View action mirrors the row click
-                ViewAction::make()
-                    ->iconButton()
-                    ->tooltip('Open menu'),
-
-                // Delete stays as a direct action on the list
-                DeleteAction::make()
-                    ->iconButton()
-                    ->tooltip('Delete menu')
-                    ->requiresConfirmation()
-                    ->modalHeading('Delete menu')
-                    ->modalDescription('Are you sure? All categories inside this menu will be affected.')
-                    ->modalSubmitActionLabel('Yes, delete it'),
-            ])
-
-            ->bulkActions([
-                DeleteBulkAction::make()
-                    ->requiresConfirmation(),
-            ])
-
-            ->emptyStateIcon('heroicon-o-book-open')
-            ->emptyStateHeading('No menus yet')
-            ->emptyStateDescription('Create your first menu to start organising your categories and items.')
             ->striped();
     }
 }

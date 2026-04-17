@@ -14,24 +14,29 @@ use Filament\Pages\Page;
 use Filament\Schemas\Components\Form;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Modules\Restaurants\Models\Restaurant;
 
 class ManageRestaurant extends Page implements HasForms
 {
     use InteractsWithForms;
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-building-storefront';
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingStorefront;
     protected static ?string $navigationLabel = 'My Restaurant';
     protected static ?string $title = 'My Restaurant';
     protected static ?int $navigationSort = 1;
+    protected Restaurant $restaurant ;
+
+    public function __construct(){
+        $this->restaurant = Restaurant::where('owner_id', auth()->id())->firstOrFail();
+    }
 
     public ?array $data = [];
     protected string $view = 'filament.app.pages.manage-restaurant';
     public function mount(): void
     {
-        $restaurant = Restaurant::where('owner_id', auth()->id())->firstOrFail();
 
-        $this->form->fill($restaurant->toArray());
+        $this->form->fill($this->restaurant->toArray());
     }
 
     public function form(Schema $schema): Schema
@@ -65,8 +70,7 @@ class ManageRestaurant extends Page implements HasForms
 
     public function save(): void
     {
-        $restaurant = Restaurant::where('owner_id', auth()->id())->firstOrFail();
-        $restaurant->update($this->form->getState());
+        $this->restaurant->update($this->form->getState());
 
         Notification::make()
             ->title('Saved successfully')
