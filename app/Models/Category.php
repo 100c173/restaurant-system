@@ -10,6 +10,8 @@ class Category extends Model
 {
     protected $fillable =['name','img','is_active'];
 
+    protected $connection = 'central';
+
     public function restaurants():BelongsToMany{
         return $this->belongsToMany(Restaurant::class,'restaurant_categories'); 
         

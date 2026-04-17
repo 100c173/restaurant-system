@@ -2,15 +2,14 @@
 
 namespace Modules\Restaurants\Models;
 
+use App\Models\Category;
 use App\Models\Tenant;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Modules\Orders\Models\Order;
+
 
 // use Modules\Restaurants\Database\Factories\RestaurantFactory;
 

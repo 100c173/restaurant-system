@@ -28,7 +28,7 @@ class ManageRestaurant extends Page implements HasForms
     protected Restaurant $restaurant ;
 
     public function __construct(){
-        $this->restaurant = Restaurant::where('owner_id', auth()->id())->firstOrFail();
+        $this->restaurant = Restaurant::where('tenant_id', tenant('id'))->firstOrFail();
     }
 
     public ?array $data = [];

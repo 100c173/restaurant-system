@@ -10,6 +10,8 @@ class Domain extends Model
 {
     protected $fillable = ['domain' , 'tenant_id'];
 
+    protected $connection = 'central';
+
     public function tenant():BelongsTo{
         return $this->belongsTo(Tenant::class);
     }

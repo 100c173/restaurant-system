@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Restaurants\Models\MenuItem;
+use Stancl\Tenancy\Facades\Tenancy;
 
 class RestaurantMenuResource extends JsonResource
 {
@@ -49,7 +50,9 @@ class RestaurantMenuResource extends JsonResource
     }
     private function formatItem(MenuItem $item): array
     {
-        return [
+        
+        Tenancy::initialize($this->resource['restaurant']['tenant_id']);
+        $data = [
             'id' => $item->id,
             'name' => $item->name,
             'description' => $item->description,
@@ -59,5 +62,8 @@ class RestaurantMenuResource extends JsonResource
             'is_featured' => $item->is_featured,
             'preparation_time' => $item->formattedPreparationTime(),
         ];
+        Tenancy::end();
+
+        return $data ;
     }
 }

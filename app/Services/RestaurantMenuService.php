@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use Modules\Restaurants\Models\Category;
 use Modules\Restaurants\Models\Menu;
 use Modules\Restaurants\Models\Restaurant;
 use Stancl\Tenancy\Facades\Tenancy;
+
 
 class RestaurantMenuService
 {
@@ -25,8 +27,9 @@ class RestaurantMenuService
         $restaurant = Restaurant::with('categories:id,name')
             ->active()
             ->findOrFail($restaurantId);
-
+        
         Tenancy::initialize($restaurant->tenant_id);
+       
 
         $menus = Menu::with([
             'categories' => function ($q) {
@@ -40,13 +43,9 @@ class RestaurantMenuService
             ->active()
             ->ordered()
             ->get();
-
-        Tenancy::end();
-
         
-        $categories = $restaurant->categories->map(
-            fn($c) => $c->only(['id', 'name'])
-        );
+        $categories = Category::pluck('id','name');
+        Tenancy::end();
 
         return compact('restaurant', 'categories', 'menus');
     }
