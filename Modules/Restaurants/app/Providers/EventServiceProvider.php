@@ -5,7 +5,6 @@ namespace Modules\Restaurants\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\Restaurants\Events\RestaurantApproved;
 use Modules\Restaurants\Listeners\CreateRestaurantListener;
-use Modules\Restaurants\Listeners\CreateTenantDatabaseListener;
 use Modules\Restaurants\Listeners\SendApprovalEmailListener;
 
 class EventServiceProvider extends ServiceProvider
@@ -18,7 +17,6 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         RestaurantApproved::class => [
             CreateRestaurantListener::class,
-            CreateTenantDatabaseListener::class,
             SendApprovalEmailListener::class,
         ],
     ];

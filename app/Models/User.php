@@ -60,11 +60,6 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function restaurant ():HasOne{
-        return $this->hasOne(Restaurant::class,'owner_id');
-    }
-
-
     public function restaurantRequest(): HasMany{
         return $this->hasMany(RestaurantRequest::class,'customer_id');
     }
@@ -78,8 +73,7 @@ class User extends Authenticatable implements FilamentUser
         }
         return false ;
     }
-
-    public function tenants ():BelongsToMany {
-        return $this->belongsToMany(Tenant::class , 'tenant_user');
+    public function tenants ():HasMany {
+        return $this->hasMany(Tenant::class , 'owner_id');
     }
 }

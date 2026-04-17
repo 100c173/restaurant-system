@@ -12,7 +12,8 @@ return new class extends Migration {
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');            
+            $table->string('tenant_id');
+            $table->foreign('tenant_id')->references('id')->on('tenants')->cascadeOnDelete();            
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('logo')->nullable();
@@ -29,7 +30,7 @@ return new class extends Migration {
             $table->integer('rate')->default(3);
             $table->timestamps();
 
-            $table->index('owner_id');
+            $table->index('tenant_id');
             
         });
     }

@@ -2,6 +2,7 @@
 
 namespace Modules\Restaurants\Listeners;
 
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,11 +23,22 @@ class CreateRestaurantListener
      */
     public function handle(RestaurantApproved $event): void
     {
+        $tenant = Tenant::create([
+            //'id' => $event->record->restaurant_name,
+            'owner_id' => $event->record->customer_id,
+            'name' => $event->record->restaurant_name,
+        ]);
+
+        $tenant->createDomain([
+            'domain' => $event->record->restaurant_name . '.localhost',
+            'tenant_id' => $tenant->id,
+        ]);
+
         $user = User::find($event->record->customer_id);
         $user->assignRole('restaurant-owner');
 
         $restaurant = Restaurant::create([
-            'owner_id' => $user->id,
+            'tenant_id' => $tenant->id,
             'name' => $event->record->restaurant_name,
             'address' => $event->record->address,
             'latitude' => $event->record->latitude,

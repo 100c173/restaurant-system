@@ -2,6 +2,7 @@
 
 namespace Modules\Restaurants\Models;
 
+use App\Models\Tenant;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +22,7 @@ class Restaurant extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        "owner_id",
+        "tenant_id",
         "name",
         "description",
         "logo",
@@ -47,14 +48,9 @@ class Restaurant extends Model
 
     protected $connection = 'central';
     
-    public function owner(): BelongsTo
+    public function tenant(): BelongsTo
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function menuItems(): HasMany
-    {
-        return $this->hasMany(MenuItem::class);
+        return $this->belongsTo(Tenant::class,'tenant_id');
     }
 
     public function categories(): BelongsToMany

@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Restaurants\Models\MenuItem;
+
+class RestaurantMenuResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        ['restaurant' => $restaurant, 'categories' => $categories, 'menus' => $menus] = $this->resource;
+
+        return [
+            'restaurant' => [
+                'id' => $restaurant->id,
+                'name' => $restaurant->name,
+                'description' => $restaurant->description,
+                'logo' => $restaurant->logo,
+                'cover_image' => $restaurant->cover_image,
+                'address' => $restaurant->address,
+                'phone' => $restaurant->phone,
+                'email' => $restaurant->email,
+                'is_open_now' => $restaurant->isOpenNow(),
+                'opening_time' => $restaurant->opening_time,
+                'closing_time' => $restaurant->closing_time,
+            ],
+
+            'categories' => $categories,   // already shaped as [['id','name'], ...]
+
+            'menu_items' => $menus->mapWithKeys(function ($menu) {
+                $grouped = $menu->categories->mapWithKeys(function ($category) {
+                    return [
+                        $category->name => $category->menuItems->map(
+                            fn($item) => $this->formatItem($item)
+                        )->values(),
+                    ];
+                });
+
+                return [$menu->name => $grouped];
+            }),
+        ];
+    }
+    private function formatItem(MenuItem $item): array
+    {
+        return [
+            'id' => $item->id,
+            'name' => $item->name,
+            'description' => $item->description,
+            'price' => $item->startingPrice(),
+            'has_variants' => $item->hasVariants(),
+            'image' => $item->image,
+            'is_featured' => $item->is_featured,
+            'preparation_time' => $item->formattedPreparationTime(),
+        ];
+    }
+}
