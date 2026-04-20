@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources\MenuItems;
 use App\Filament\App\Resources\MenuItems\Pages\CreateMenuItem;
 use App\Filament\App\Resources\MenuItems\Pages\EditMenuItem;
 use App\Filament\App\Resources\MenuItems\Pages\ListMenuItems;
+use App\Filament\App\Resources\MenuItems\Pages\ManageVariants;
 use App\Filament\App\Resources\MenuItems\Schemas\MenuItemForm;
 use App\Filament\App\Resources\MenuItems\Tables\MenuItemsTable;
 use BackedEnum;
@@ -47,6 +48,7 @@ class MenuItemResource extends Resource
     {
         return [
             'index' => ManageMenuItems::route('/'),
+            'variants' => ManageVariants::route('/{record}/variants'),
             /*
             'create' => CreateMenuItem::route('/create'),
             'edit' => EditMenuItem::route('/{record}/edit'),

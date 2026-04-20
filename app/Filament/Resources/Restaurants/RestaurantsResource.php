@@ -179,14 +179,14 @@ class RestaurantsResource extends Resource
                     ->modalSubmitAction(false)           // no submit button
                     ->modalCancelActionLabel('Close')
                     ->infolist([                          // read-only infolist inside modal
-                        TextEntry::make('owner.name')
+                        TextEntry::make('tenant.owner.name')
                             ->label('Name')
                             ->icon('heroicon-o-user'),
-                        TextEntry::make('owner.email')
+                        TextEntry::make('tenant.owner.email')
                             ->label('Email')
                             ->icon('heroicon-o-envelope')
                             ->copyable(),
-                        TextEntry::make('owner.phone')
+                        TextEntry::make('tenant.owner.phone')
                             ->label('Phone')
                             ->icon('heroicon-o-phone')
                             ->copyable(),

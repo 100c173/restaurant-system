@@ -2,6 +2,8 @@
 
 namespace App\Filament\App\Resources\MenuItems\Tables;
 
+use App\Filament\App\Resources\MenuItems\MenuItemResource;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -36,8 +38,8 @@ class MenuItemsTable
                     ->weight('semibold')
                     ->description(
                         fn($record): ?string => $record->description
-                            ? str($record->description)->limit(60)
-                            : null
+                        ? str($record->description)->limit(60)
+                        : null
                     ),
 
                 TextColumn::make('category.name')
@@ -97,7 +99,7 @@ class MenuItemsTable
                             ->options(Menu::ordered()->pluck('name', 'id'))
                             ->placeholder('All Menus')
                             ->live()
-                            ->afterStateUpdated(fn (callable $set) => $set('category_id', null)),
+                            ->afterStateUpdated(fn(callable $set) => $set('category_id', null)),
 
                         Select::make('category_id')
                             ->label('Category')
@@ -122,14 +124,14 @@ class MenuItemsTable
                         $query
                             ->when(
                                 filled($data['menu_id'] ?? null),
-                                fn (Builder $q) => $q->whereHas(
+                                fn(Builder $q) => $q->whereHas(
                                     'category',
-                                    fn (Builder $q) => $q->where('menu_id', $data['menu_id'])
+                                    fn(Builder $q) => $q->where('menu_id', $data['menu_id'])
                                 )
                             )
                             ->when(
                                 filled($data['category_id'] ?? null),
-                                fn (Builder $q) => $q->where('category_id', $data['category_id'])
+                                fn(Builder $q) => $q->where('category_id', $data['category_id'])
                             );
                     })
                     // Keep the filter indicator clean
@@ -165,6 +167,11 @@ class MenuItemsTable
             ->filtersFormColumns(3)
 
             ->recordActions([
+                Action::make('variants')
+                    ->label('Variants')
+                    ->icon('heroicon-o-squares-2x2')
+                    ->url(fn($record) => MenuItemResource::getUrl('variants', ['record' => $record])),
+
                 EditAction::make()
                     ->modalHeading('Edit Menu Item')
                     ->mutateFormDataUsing(function (array $data, $record): array {
