@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Deliveries\Models\Delivery;
 use Modules\Orders\Models\Order;
 use Modules\Restaurants\Models\Restaurant;
+use Modules\UserDietSection\Models\UserHealthProfile;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
@@ -75,5 +76,9 @@ class User extends Authenticatable implements FilamentUser
     }
     public function tenants ():HasMany {
         return $this->hasMany(Tenant::class , 'owner_id');
+    }
+
+    public function healthProfile():HasOne{
+        return $this->hasOne(UserHealthProfile::class , 'user_id');
     }
 }

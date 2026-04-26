@@ -1,0 +1,11 @@
+{
+    "name": "UserDietSection",
+    "alias": "userdietsection",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\UserDietSection\\Providers\\UserDietSectionServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/userdietsection",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\UserDietSection\\": "app/",
+            "Modules\\UserDietSection\\Database\\Factories\\": "database/factories/",
+            "Modules\\UserDietSection\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\UserDietSection\\Tests\\": "tests/"
+        }
+    }
+}
