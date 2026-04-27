@@ -59,11 +59,6 @@ class ShamCashAccountsResource extends Resource
                 ->required()
                 ->saveUploadedFileUsing(function ($file, $record) {
                     $uploader = new CloudinaryUploadService();
-
-                    if ($record?->barcode_image) {
-                        $uploader->delete($record->barcode_image);
-                    }
-
                     return $uploader->upload($file->getRealPath(), 'shamCash');
                 }),
 
@@ -85,11 +80,13 @@ class ShamCashAccountsResource extends Resource
                         ->maxLength(255),
 
                     TextInput::make('account_number')
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->copyable(),
 
                     TextInput::make('code')
                         ->required()
-                        ->maxLength(255),
+                        ->maxLength(255)
+                        ->copyable(),
 
                     Toggle::make('is_active')
                         ->label('Active'),
