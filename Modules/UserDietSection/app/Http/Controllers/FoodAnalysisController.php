@@ -14,18 +14,11 @@ class FoodAnalysisController extends Controller
 {
     public function __construct(
         private readonly ImageAnalysisOrchestratorService $orchestrator,
-        private readonly FoodAnalysisService $foodService,
-        private readonly NutritionLabelService $labelService,
     ) {
     }
     public function scan(AnalyzeMealRequest $request, string $type): JsonResponse
     {
-        $analyzer = match ($type) {
-            'meal' => $this->foodService,
-            'tabel' => $this->labelService,
-        };
-
-        $result = $this->orchestrator->analyze($request->file('image'), $analyzer);
+        $result = $this->orchestrator->analyze($request->file('image'), $type);
 
         return $this->success($result);
     }
