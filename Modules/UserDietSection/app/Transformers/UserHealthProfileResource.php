@@ -21,7 +21,7 @@ class UserHealthProfileResource extends JsonResource
             'weight_kg' => $this->weight_kg,
 
             'activity_level' => $this->activity_level,
-            'goal' => $this->goals,
+            'goal' => $this->goal,
 
             'created_at' => $this->created_at,
         ];
