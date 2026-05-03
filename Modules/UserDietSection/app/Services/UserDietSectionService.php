@@ -9,10 +9,15 @@ class UserDietSectionService
 {
     public function store($data)
     {
-        if (UserHealthProfile::where('user_id',auth()->id())->exists()) {
+        if (UserHealthProfile::where('user_id', auth()->id())->exists()) {
             return throw new Exception('User already exsits');
         }
         $data['user_id'] = auth()->id();
         return UserHealthProfile::create($data);
+    }
+
+    public function getHealthProfile()
+    {
+        return auth()->user()->healthProfile()->firstOrFail();
     }
 }

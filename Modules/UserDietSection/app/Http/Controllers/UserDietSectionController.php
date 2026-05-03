@@ -17,10 +17,17 @@ class UserDietSectionController extends Controller
     {
         $healthProfile = $this->service->store($request->validated());
         if ($healthProfile)
-            return $this->success(new UserHealthProfileResource ($healthProfile), 'health profile created successful');
+            return $this->success(new UserHealthProfileResource($healthProfile), 'health profile created successful');
         else
             return $this->error('Operation failed');
+    }
 
-
+    public function healthProfile()
+    {
+        $healthProfile = $this->service->gethealthProfile();
+        if ($healthProfile)
+            return $this->success(new UserHealthProfileResource($healthProfile), 'health profile fetched successful');
+        else
+            return $this->error('Operation failed');
     }
 }
