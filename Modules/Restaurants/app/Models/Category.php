@@ -21,7 +21,7 @@ class Category extends Model
             'menu_id',
             'name',
             'description',
-            'img_path',
+            'image',
             'position',
             'is_active',
         ];
@@ -29,11 +29,6 @@ class Category extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
-
-    public function menu(): BelongsTo
-    {
-        return $this->BelongsTo(Menu::class);
-    }
 
     public function menuItems(): HasMany
     {

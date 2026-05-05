@@ -12,15 +12,13 @@ return new class extends Migration {
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('img_path')->nullable();
+            $table->string('image')->nullable();
             $table->unsignedInteger('position')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
 
-            $table->index('menu_id');
             $table->index('position');
         });
     }

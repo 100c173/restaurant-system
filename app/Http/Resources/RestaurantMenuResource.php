@@ -16,7 +16,7 @@ class RestaurantMenuResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        ['restaurant' => $restaurant, 'categories' => $categories, 'menus' => $menus] = $this->resource;
+        ['restaurant' => $restaurant, 'categories' => $categories] = $this->resource;
 
         return [
             'restaurant' => [
@@ -33,21 +33,18 @@ class RestaurantMenuResource extends JsonResource
                 'closing_time' => $restaurant->closing_time,
             ],
 
-            'categories' => $categories,   // already shaped as [['id','name'], ...]
-
-            'menu_items' => $menus->mapWithKeys(function ($menu) {
-                $grouped = $menu->categories->mapWithKeys(function ($category) {
-                    return [
-                        $category->name => $category->menuItems->map(
-                            fn($item) => $this->formatItem($item)
-                        )->values(),
-                    ];
-                });
-
-                return [$menu->name => $grouped];
+            'categories' => $categories->map(function ($category) {
+                return [
+                    'id' => $category->id,
+                    'name' => $category->name,
+                    'items' => $category->menuItems->map(
+                        fn($item) => $this->formatItem($item)
+                    )->values(),
+                ];
             }),
         ];
     }
+
     private function formatItem(MenuItem $item): array
     {
         
@@ -57,7 +54,6 @@ class RestaurantMenuResource extends JsonResource
             'name' => $item->name,
             'description' => $item->description,
             'price' => $item->startingPrice(),
-            'has_variants' => $item->hasVariants(),
             'image' => $item->image,
             'is_featured' => $item->is_featured,
             'preparation_time' => $item->formattedPreparationTime(),

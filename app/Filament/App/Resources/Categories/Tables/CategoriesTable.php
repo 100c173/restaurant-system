@@ -21,7 +21,7 @@ class CategoriesTable
         return $table
             ->columns([
                 // Thumbnail
-                ImageColumn::make('img_path')
+                ImageColumn::make('image')
                     ->label('')
                     ->circular(),
 
@@ -38,25 +38,6 @@ class CategoriesTable
                     ->limit(50)
                     ->placeholder('—')
                     ->toggleable(),
-
-                // Menu link — only shown when a menu is assigned
-                TextColumn::make('menu.name')
-                    ->label('Menu')
-                    ->badge()
-                    ->color('primary')
-                    ->icon('heroicon-m-book-open')
-                    ->placeholder('— Unassigned —')
-                    ->url(
-                        fn($record): ?string =>
-                        $record->menu_id
-                        ? MenuResource::getUrl(parameters: [
-                            'tableAction' => 'edit',
-                            'tableActionRecord' => $record->menu_id,
-                        ])
-                        : null
-                    )
-                    ->openUrlInNewTab(false)
-                    ->sortable(),
 
                 // Items count
                 TextColumn::make('menu_items_count')
@@ -85,11 +66,6 @@ class CategoriesTable
             ])
 
             ->filters([
-                SelectFilter::make('menu_id')
-                    ->label('Filter by Menu')
-                    ->relationship('menu', 'name')
-                    ->placeholder('All Menus'),
-
                 SelectFilter::make('is_active')
                     ->label('Status')
                     ->options([

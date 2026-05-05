@@ -34,14 +34,6 @@ class CategoriesForm
                             ->nullable()
                             ->columnSpanFull(),
 
-                        Select::make('menu_id')
-                            ->label('Menu')
-                            ->relationship('menu', 'name')
-                            ->options(Menu::ordered()->pluck('name', 'id'))
-                            ->searchable()
-                            ->nullable()
-                            ->placeholder('— No menu assigned —'),
-
                         TextInput::make('position')
                             ->label('Display Position')
                             ->numeric()

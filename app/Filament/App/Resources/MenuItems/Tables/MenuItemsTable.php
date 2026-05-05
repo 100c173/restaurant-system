@@ -19,7 +19,6 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\Restaurants\Models\Category;
-use Modules\Restaurants\Models\Menu;
 
 class MenuItemsTable
 {
@@ -49,16 +48,10 @@ class MenuItemsTable
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('category.menu.name')
-                    ->label('Menu')
-                    ->badge()
-                    ->color('warning')
-                    ->sortable()
-                    ->placeholder('— No menu —'),
 
                 TextColumn::make('price')
                     ->label('Price')
-                    ->money('USD')
+                    ->money('SYP')
                     ->sortable()
                     ->alignEnd(),
 
@@ -90,57 +83,28 @@ class MenuItemsTable
             ])
 
             ->filters([
-                // Replace both SelectFilters with a single custom Filter
-                // that owns both form fields — this gives us full ->live() support
-                Filter::make('menu_and_category')
+                Filter::make('category')
                     ->form([
-                        Select::make('menu_id')
-                            ->label('Menu')
-                            ->options(Menu::ordered()->pluck('name', 'id'))
-                            ->placeholder('All Menus')
-                            ->live()
-                            ->afterStateUpdated(fn(callable $set) => $set('category_id', null)),
-
                         Select::make('category_id')
                             ->label('Category')
                             ->placeholder('All Categories')
                             ->searchable()
-                            ->options(function (Get $get): array {
-                                $menuId = $get('menu_id');
-
-                                if (blank($menuId)) {
-                                    return [];
-                                }
-
-                                return Category::query()
-                                    ->where('menu_id', $menuId)
+                            ->options(
+                                fn() => Category::query()
+                                    ->active()
                                     ->ordered()
                                     ->pluck('name', 'id')
-                                    ->toArray();
-                            }),
+                                    ->toArray()
+                            ),
                     ])
-                    ->columns(2)
                     ->query(function (Builder $query, array $data): void {
-                        $query
-                            ->when(
-                                filled($data['menu_id'] ?? null),
-                                fn(Builder $q) => $q->whereHas(
-                                    'category',
-                                    fn(Builder $q) => $q->where('menu_id', $data['menu_id'])
-                                )
-                            )
-                            ->when(
-                                filled($data['category_id'] ?? null),
-                                fn(Builder $q) => $q->where('category_id', $data['category_id'])
-                            );
+                        $query->when(
+                            filled($data['category_id'] ?? null),
+                            fn(Builder $q) => $q->where('category_id', $data['category_id'])
+                        );
                     })
-                    // Keep the filter indicator clean
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
-
-                        if (filled($data['menu_id'] ?? null)) {
-                            $indicators[] = 'Menu: ' . Menu::find($data['menu_id'])?->name;
-                        }
 
                         if (filled($data['category_id'] ?? null)) {
                             $indicators[] = 'Category: ' . Category::find($data['category_id'])?->name;

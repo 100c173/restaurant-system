@@ -29,32 +29,16 @@ class MenuItemForm
                     ->description('Assign this item to a menu and category.')
                     ->columns(2)
                     ->schema([
-                        Select::make('menu_id')
-                            ->label('Menu')
-                            ->options(Menu::ordered()->pluck('name', 'id'))
-                            ->searchable()
-                            ->nullable()
-                            ->placeholder('— Select a menu —')
-                            ->live()
-                            ->afterStateUpdated(fn(callable $set) => $set('category_id', null))
-                            ->dehydrated(false),
-
                         Select::make('category_id')
                             ->label('Category')
                             ->required()
                             ->searchable()
-                            ->options(function (Get $get): array {
-                                $menuId = $get('menu_id');
-
-                                return Category::query()
-                                    ->when(
-                                        filled($menuId),
-                                        fn($q) => $q->where('menu_id', $menuId)
-                                    )
+                            ->options(
+                                fn() => Category::query()
                                     ->ordered()
                                     ->pluck('name', 'id')
-                                    ->toArray();
-                            })
+                                    ->toArray()
+                            )
                             ->placeholder('— Select a category —'),
 
                         Actions::make([
@@ -103,7 +87,7 @@ class MenuItemForm
                         TextInput::make('price')
                             ->label('Base Price')
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('SYP')
                             ->default(0)
                             ->minValue(0),
 

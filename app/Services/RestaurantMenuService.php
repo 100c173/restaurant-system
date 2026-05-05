@@ -13,30 +13,20 @@ class RestaurantMenuService
 {
     public function getMenuData(int $restaurantId): array
     {
-       
-        $restaurant = Restaurant::with('categories:id,name')
-            ->active()
+        $restaurant = Restaurant::active()
             ->findOrFail($restaurantId);
-        
-        Tenancy::initialize($restaurant->tenant_id);
-       
 
-        $menus = Menu::with([
-            'categories' => function ($q) {
-                $q->active()
-                    ->ordered()
-                    ->with([
-                        'menuItems' => fn($q) => $q->available()->ordered(),
-                    ]);
-            },
+        Tenancy::initialize($restaurant->tenant_id);
+
+        $categories = Category::with([
+            'menuItems' => fn($q) => $q->available()->ordered(),
         ])
             ->active()
             ->ordered()
             ->get();
-        
-        $categories = Category::pluck('id','name');
+
         Tenancy::end();
 
-        return compact('restaurant', 'categories', 'menus');
+        return compact('restaurant', 'categories');
     }
 }

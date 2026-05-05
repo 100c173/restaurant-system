@@ -22,9 +22,7 @@ return new class extends Migration {
             $table->unsignedInteger('preparation_time')->nullable(); // in minutes
             $table->boolean('is_featured')->default(false);
             $table->timestamps();
-
-            $table->index( 'category_id');
-            $table->index('is_available');
+            $table->index(['category_id', 'is_available']);
         });
     }
 

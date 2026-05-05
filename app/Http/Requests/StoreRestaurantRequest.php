@@ -34,7 +34,7 @@ class StoreRestaurantRequest extends FormRequest
                 Rule::unique('restaurants','name'),
             ],
 
-            'description' => 'nullable|string|max:1000',
+            'description' => 'nullable',
 
             'restaurant_phone' => [
                 'required',

@@ -48,6 +48,8 @@ class CategoryResource extends Resource
         return $table
             ->recordTitleAttribute('name')
             ->columns([
+                TextColumn::make('id'),
+                
                 TextColumn::make('name')
                     ->searchable(),
 
