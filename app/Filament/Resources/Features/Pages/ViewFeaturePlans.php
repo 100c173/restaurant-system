@@ -7,6 +7,7 @@ use App\Models\Plan;
 use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
@@ -52,22 +53,15 @@ class ViewFeaturePlans extends Page implements HasTable
                     $assigned = $this->record->plans()->pluck('plans.id');
 
                     return [
-                        Forms\Components\Select::make('plan_id')
+                        Select::make('plan_id')
                             ->label('Plan')
                             ->required()
                             ->searchable()
-                            ->getSearchResultsUsing(function (string $search) use ($assigned) {
-                                return Plan::whereNotIn('id', $assigned)
-                                           ->where('is_active', true)
-                                           ->where(fn ($q) => $q
-                                               ->where('name', 'like', "%{$search}%")
-                                               ->orWhere('code', 'like', "%{$search}%")
-                                           )
-                                           ->orderBy('price')
-                                           ->limit(20)
-                                           ->pluck('name', 'id');
-                            })
-                            ->getOptionLabelUsing(fn ($value) => Plan::find($value)?->name)
+                            ->options(
+                                fn()=> Plan::query()
+                                    ->pluck('name','id')
+                                    ->toArray()
+                            )
                             ->helperText('Search by name or code. Only plans without this feature are shown.'),
 
                         Forms\Components\TextInput::make('value')

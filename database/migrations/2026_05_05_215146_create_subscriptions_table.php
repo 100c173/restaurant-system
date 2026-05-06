@@ -12,26 +12,35 @@ return new class extends Migration {
     {
         Schema::create('subscriptions', function (Blueprint $table) {
 
-            // tenant_id is a string in stancl/tenancy (UUID or custom ID)
+            $table->id();
+
             $table->string('tenant_id');
             $table->foreign('tenant_id')
                 ->references('id')
                 ->on('tenants')
                 ->cascadeOnDelete();
 
-            $table->foreignId('plan_id')->constrained()->restrictOnDelete();
+            $table->foreignId('plan_id')
+                ->constrained()
+                ->restrictOnDelete();
 
-            $table->enum('status', ['pending', 'active', 'expired', 'cancelled'])
-                ->default('pending');
+            // Copied from plan at creation time, never changes with plan edits
+            $table->decimal('price', 10, 2)->default(0);
+            $table->enum('billing_interval', ['daily', 'weekly', 'monthly', 'yearly', 'lifetime'])
+                ->default('monthly');
+
+            $table->enum('status', ['trial', 'active', 'past_due', 'cancelled', 'expired'])
+                ->default('trial')
+                ->index();
 
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
+            $table->timestamp('trial_ends_at')->nullable();
+            $table->timestamp('cancelled_at')->nullable();
 
-            // Reference the tenant fills in when submitting payment proof
             $table->string('payment_reference')->nullable();
             $table->text('notes')->nullable();
 
-            // Admin who activated this subscription
             $table->foreignId('activated_by')
                 ->nullable()
                 ->constrained('users')
@@ -40,7 +49,6 @@ return new class extends Migration {
 
             $table->timestamps();
 
-            // Only one active subscription per tenant at a time
             $table->index(['tenant_id', 'status']);
         });
     }

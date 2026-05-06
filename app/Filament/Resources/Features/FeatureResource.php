@@ -154,21 +154,11 @@ class FeatureResource extends Resource
                                 ->label('Plan')
                                 ->required()
                                 ->searchable()
-                                ->getSearchResultsUsing(function (string $search) use ($record) {
-                                    $assigned = $record->plans()->pluck('plans.id');
-
-                                    return Plan::whereNotIn('id', $assigned)
-                                        ->where('is_active', true)
-                                        ->where(
-                                            fn($q) => $q
-                                                ->where('name', 'like', "%{$search}%")
-                                                ->orWhere('code', 'like', "%{$search}%")
-                                        )
-                                        ->orderBy('price')
-                                        ->limit(20)
-                                        ->pluck('name', 'id');
-                                })
-                                ->getOptionLabelUsing(fn($value) => Plan::find($value)?->name)
+                                ->options(
+                                    fn() => Plan::query()
+                                        ->pluck('name', 'id')
+                                        ->toArray()
+                                )
                                 ->helperText('Search by name or code. Only plans without this feature are shown.'),
 
                             TextInput::make('value')

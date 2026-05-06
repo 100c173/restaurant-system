@@ -17,6 +17,8 @@ class Plan extends Model
         'is_active' => 'boolean',
     ];
 
+    protected $connection = 'central' ;
+
     public function features(): BelongsToMany
     {
         return $this->belongsToMany(Feature::class, 'plan_feature')

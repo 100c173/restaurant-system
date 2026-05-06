@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Feature extends Model
 {
     protected $fillable = ['name', 'code', 'type', 'description'];
+    protected $connection = 'central' ;
 
     public function plans(): BelongsToMany
     {
