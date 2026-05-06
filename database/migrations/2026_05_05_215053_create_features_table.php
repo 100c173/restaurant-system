@@ -10,16 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('table_images', function (Blueprint $table) {
+        Schema::create('features', function (Blueprint $table) {
             $table->id();
-            $table->morphs('imageable'); // create imageable_id imageable_type
-            $table->string('path');
-            $table->enum('type', [
-                'logo',
-                'profile',
-                'gallery'
-            ])->nullable();
-
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->enum('type', ['boolean', 'limit', 'text'])->default('boolean');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_images');
+        Schema::dropIfExists('features');
     }
 };

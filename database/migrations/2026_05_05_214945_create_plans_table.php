@@ -13,16 +13,11 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Free / Basic / Pro
-            $table->string('slug')->unique(); // free, basic, pro
-
-            $table->decimal('price', 10, 2)->default(0); // 0 free plan
-            $table->string('interval')->default('monthly'); // monthly / yearly
-
-            $table->integer('trial_days')->default(0);
-            $table->json('features')->nullable();
-             $table->boolean('is_active')->default(true);
-             
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->decimal('price', 10, 2)->default(0);
+            $table->enum('billing_interval', ['monthly', 'yearly', 'lifetime'])->default('monthly');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
