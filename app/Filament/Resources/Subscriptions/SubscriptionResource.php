@@ -190,7 +190,7 @@ class SubscriptionResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                TextColumn::make('tenant.data.name')
+                TextColumn::make('tenant.name')
                     ->label('Tenant')
                     ->searchable()
                     ->sortable()
@@ -206,7 +206,7 @@ class SubscriptionResource extends Resource
 
                 TextColumn::make('price')
                     ->label('Price')
-                    ->money('USD')
+                    ->money('SPY')
                     ->sortable(),
 
                 TextColumn::make('billing_interval')
@@ -350,13 +350,12 @@ class SubscriptionResource extends Resource
                         DateTimePicker::make('starts_at')
                             ->label('Start date')
                             ->default(now())
-                            ->required()
-                            ->seconds(false),
+                            ->required(),
+                      
 
                         DateTimePicker::make('ends_at')
                             ->label('End date')
                             ->required()
-                            ->seconds(false)
                             ->default(now()->addMonth()),
 
                         Textarea::make('notes')

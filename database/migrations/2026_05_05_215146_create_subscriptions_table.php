@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->enum('billing_interval', ['daily', 'weekly', 'monthly', 'yearly', 'lifetime'])
                 ->default('monthly');
 
-            $table->enum('status', ['trial', 'active', 'past_due', 'cancelled', 'expired'])
+            $table->enum('status', ['trial', 'active', 'past_due', 'cancelled', 'expired','pending'])
                 ->default('trial')
                 ->index();
 

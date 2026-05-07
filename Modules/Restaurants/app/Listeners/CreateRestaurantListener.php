@@ -2,6 +2,8 @@
 
 namespace Modules\Restaurants\Listeners;
 
+use App\Models\Plan;
+use App\Models\Subscription;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Queue\InteractsWithQueue;
@@ -48,6 +50,17 @@ class CreateRestaurantListener
         ]);
 
         $restaurant->categories()->sync($event->record->categories ?? []);
+
+        $plan = Plan::where('code','FREE')->firstOrFail() ; 
+        Subscription::create([
+            'tenant_id'        => $tenant->id,
+            'plan_id'          => $plan->id , 
+            'price'            => $plan->price ,
+            'billing_interval' => $plan->billing_interval,
+            'status'           => 'active',
+            'starts_at'        => now(),
+
+        ]);
         $event->record->update([
             'status' => 'approved',
         ]);

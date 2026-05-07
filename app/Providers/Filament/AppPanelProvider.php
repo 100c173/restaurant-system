@@ -3,6 +3,8 @@
 namespace App\Providers\Filament;
 
 use App\Filament\App\Pages\ManageRestaurant;
+use App\Filament\App\Pages\SubscribeToPlan;
+use App\Filament\App\Pages\SubscriptionPlans;
 use App\Http\Middleware\EnsureUserIsOwner;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -37,7 +39,9 @@ class AppPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/App/Pages'), for: 'App\Filament\App\Pages')
             ->pages([
                 Dashboard::class,
-                ManageRestaurant::class
+                ManageRestaurant::class,
+                SubscriptionPlans::class,
+                SubscribeToPlan::class, 
             ])
             ->discoverWidgets(in: app_path('Filament/App/Widgets'), for: 'App\Filament\App\Widgets')
             ->widgets([

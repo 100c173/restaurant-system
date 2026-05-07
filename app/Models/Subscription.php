@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Stancl\Tenancy\Database\Models\Tenant;
+
 
 class Subscription extends Model
 {
