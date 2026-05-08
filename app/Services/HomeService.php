@@ -37,7 +37,7 @@ class HomeService
     {
         return $this->categoty
             //   ->active()
-            ->get();
+            ->get(['id','name']);
     }
 
     public function getRestaurantByCategory($category, ?float $lat, ?float $lng, float $radiusKm = 10, int $perPage = 8): LengthAwarePaginator

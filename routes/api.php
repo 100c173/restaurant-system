@@ -63,3 +63,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::get('/home',[HomeController::class,'getHomeData']);
 Route::get('/categories/{category}/restaurants', [HomeController::class, 'restaurantByCategory']);
 Route::get('restaurants/{restaurant}/menu', [RestaurantController::class, 'menu']);
+Route::get('restaurant-categories',[HomeController::class,'categories']);

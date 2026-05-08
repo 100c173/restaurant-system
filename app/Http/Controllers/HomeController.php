@@ -61,4 +61,10 @@ class HomeController extends Controller
         ];
         return $this->success($data, 'Restaurants retrieved successfully.');
     }
+
+    public function categories()
+    {
+        $categories = $this->service->getAllActiveCategories();
+        return $this->success($categories);
+    }
 }
