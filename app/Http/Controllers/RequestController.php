@@ -34,7 +34,7 @@ class RequestController extends Controller
                 'restaurant_name' => $validated['restaurant_name'],
                 'status' => 'pending',
                 'address' => $validated['address'],
-                'description' => $validated['description'],
+                'phone'   => $validated['restaurant_phone'],
 
             ],
             message: 'Your request has been successfully submitted. We will contact you soon.',

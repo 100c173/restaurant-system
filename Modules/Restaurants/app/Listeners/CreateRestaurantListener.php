@@ -43,8 +43,7 @@ class CreateRestaurantListener
             'tenant_id' => $tenant->id,
             'name' => $event->record->restaurant_name,
             'address' => $event->record->address,
-            'description' => $event->record->description,
-            'phone' => $event->record->phone,
+            'phone' => $event->record->restaurant_phone,
             'latitude' => $event->record->latitude,
             'longitude' => $event->record->longitude,
         ]);

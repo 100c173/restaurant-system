@@ -14,8 +14,7 @@ class RequestService
         $restaurantRequest = RestaurantRequest::create([
             'customer_id' => auth()->id(),
             'address' => $data['address'],
-            'description' => $data['description']??null,
-            'phone' => $data['restaurant_phone'] ?? null,
+            'restaurant_phone' => $data['restaurant_phone'] ?? null,
             'latitude' => $data['latitude'] ?? null,
             'longitude' => $data['longitude'] ?? null,
             'restaurant_name' => $data['restaurant_name'],
