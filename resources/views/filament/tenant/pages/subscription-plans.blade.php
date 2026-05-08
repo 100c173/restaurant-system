@@ -1,4 +1,3 @@
-{{-- resources/views/filament/tenant/pages/subscription-plans.blade.php --}}
 <x-filament-panels::page>
 
     {{-- ── Post-submit success banner ── --}}
