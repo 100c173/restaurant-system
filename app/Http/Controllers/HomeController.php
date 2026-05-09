@@ -24,7 +24,7 @@ class HomeController extends Controller
 
 
         $categories = Cache::remember('categories.active', now()->addHours(6), function () {
-            return $this->service->getAllActiveCategories();
+            return $this->service->getAllActiveCategoriesWithPhoto();
         });
 
         $randomRestaurants = $this->service->getRestaurant($latitude, $longitude);
@@ -64,7 +64,7 @@ class HomeController extends Controller
 
     public function categories()
     {
-        $categories = $this->service->getAllActiveCategories();
+        $categories = $this->service->getAllActiveCategoriesWithoutPhoto();
         return $this->success($categories);
     }
 }

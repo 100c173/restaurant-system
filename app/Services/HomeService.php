@@ -33,7 +33,13 @@ class HomeService
         return $query->get();
     }
 
-    public function getAllActiveCategories()
+    public function getAllActiveCategoriesWithPhoto()
+    {
+        return $this->categoty
+            //   ->active()
+            ->get(['id','name','img']);
+    }
+    public function getAllActiveCategoriesWithoutPhoto()
     {
         return $this->categoty
             //   ->active()
