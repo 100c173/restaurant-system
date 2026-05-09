@@ -111,7 +111,7 @@ class AuthenticateService
 
         // Save expiration manually
         $token->accessToken->update([
-            'expires_at' => Carbon::now()->addHours(5) // 5 hours token validity
+            'expires_at' => Carbon::now()->addHours(2000) // 5 hours token validity
         ]);
 
         return $token->plainTextToken;
