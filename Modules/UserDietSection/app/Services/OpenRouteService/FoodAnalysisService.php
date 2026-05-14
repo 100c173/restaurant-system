@@ -4,16 +4,16 @@ namespace Modules\UserDietSection\Services\OpenRouteService;
 
 class FoodAnalysisService extends BaseOpenRouterService
 {
-    public function analyze(string $imageUrl): array
+    public function analyze(string $imageUrl, $description = null): array
     {
-        $prompt = $this->buildPrompt();
+        $prompt = $this->buildPrompt($description);
 
         $response = $this->sendRequest($prompt, $imageUrl);
 
         return $this->parseResponse($response);
     }
 
-    private function buildPrompt(): string
+    private function buildPrompt($description = null): string
     {
         return <<<TEXT
             You are a professional nutrition expert and food recognition AI.
@@ -48,6 +48,11 @@ class FoodAnalysisService extends BaseOpenRouterService
             "confidence": "high"
             }
         TEXT;
+        if (!is_null($description)) {
+            $basePrompt .= "\n\nADDITIONAL CONTEXT:\nThe user provided the following description of the meal ingredients (it may be in Arabic or another language):\n"
+                . $description .
+                "\nUse this information to improve accuracy, but ALWAYS keep the response in English and follow the required JSON format strictly.";
+        }
     }
 
     private function parseResponse(string $response): array

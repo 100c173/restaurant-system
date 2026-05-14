@@ -18,7 +18,7 @@ class FoodAnalysisController extends Controller
     }
     public function scan(AnalyzeMealRequest $request, string $type): JsonResponse
     {
-        $result = $this->orchestrator->analyze($request->file('image'), $type);
+        $result = $this->orchestrator->analyze($request->file('image'), $request->file('description') , $type);
 
         return $this->success($result);
     }

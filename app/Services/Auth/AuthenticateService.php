@@ -79,7 +79,7 @@ class AuthenticateService
         //create a new token
         $newToken = $user->createToken(
             name: 'auth_token',
-            expiresAt: now()->addHours(24),
+            expiresAt: now()->addHours(2000),
         )->plainTextToken;
         return [$newToken];
     }

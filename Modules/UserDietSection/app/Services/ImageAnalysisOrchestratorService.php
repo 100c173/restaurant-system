@@ -16,7 +16,7 @@ class ImageAnalysisOrchestratorService
     ) {
     }
 
-    public function analyze(UploadedFile $file, string $type): array
+    public function analyze(UploadedFile $file, $description , string $type): array
     {
         $analyzer = match ($type) {
             'meal' => $this->foodService,
@@ -26,7 +26,7 @@ class ImageAnalysisOrchestratorService
         $imageUrl = $this->cloudinary->upload($file->getRealPath(), 'temp-analysis');
 
         try {
-            return $analyzer->analyze($imageUrl);
+            return $analyzer->analyze($imageUrl, $description);
         } finally {
             // Always delete — even if analysis throws
             $this->cloudinary->delete($imageUrl);

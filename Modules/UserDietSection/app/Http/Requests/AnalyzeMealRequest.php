@@ -13,6 +13,7 @@ class AnalyzeMealRequest extends FormRequest
     {
         return [
             'image' => ['required', 'image', 'max:5120'], // 5MB
+            'description' => 'nullable',
         ];
     }
 
