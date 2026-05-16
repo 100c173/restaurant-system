@@ -47,10 +47,11 @@ class AuthenticationController extends Controller
             'email' => $validated['email'],
             'purpose' => 'register'
         ]);
-
+        $user->makeHidden('roles');
         return self::success(
-            data: [
-                'user' => $user, // user UserResource
+            [
+                'user' => $user,
+                'roles' => $user->getRoleNames(),
             ],
             message: "Registration successful. Please verify your email.",
             status: 201
