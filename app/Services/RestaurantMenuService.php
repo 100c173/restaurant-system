@@ -4,8 +4,8 @@ namespace App\Services;
 
 use Modules\Restaurants\Models\Category;
 use Modules\Restaurants\Models\Menu;
+use Modules\Restaurants\Models\MenuItem;
 use Modules\Restaurants\Models\Restaurant;
-use PhpParser\Node\Expr\FuncCall;
 use Stancl\Tenancy\Facades\Tenancy;
 
 
@@ -17,16 +17,33 @@ class RestaurantMenuService
             ->findOrFail($restaurantId);
 
         Tenancy::initialize($restaurant->tenant_id);
+        try {
+            $categories = Category::with([
+                'menuItems' => fn($q) => $q->available()->ordered(),
+            ])
+                ->active()
+                ->ordered()
+                ->get();
+            return compact('restaurant', 'categories');
+        } finally {
 
-        $categories = Category::with([
-            'menuItems' => fn($q) => $q->available()->ordered(),
-        ])
-            ->active()
-            ->ordered()
-            ->get();
+            Tenancy::end();
+        }
 
-        Tenancy::end();
+    }
 
-        return compact('restaurant', 'categories');
+    public function getItem(int $restaurantId, int $itemId): array
+    {
+        $restaurant = Restaurant::active()
+            ->findOrFail($restaurantId); 
+
+        Tenancy::initialize($restaurant->tenant_id);
+
+        try {
+            $item = MenuItem::findOrFail($itemId);
+            return compact('restaurant','item');
+        } finally {
+            Tenancy::end();
+        }
     }
 }

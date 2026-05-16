@@ -37,29 +37,14 @@ class RestaurantMenuResource extends JsonResource
                 return [
                     'id' => $category->id,
                     'name' => $category->name,
-                    'items' => $category->menuItems->map(
-                        fn($item) => $this->formatItem($item)
+                    'items' => ItemResource::collection(
+                        $category->menuItems->map(fn($item) => [
+                            'item' => $item,
+                            'restaurant' => $this->resource['restaurant'],
+                        ])
                     )->values(),
                 ];
             }),
         ];
-    }
-
-    private function formatItem(MenuItem $item): array
-    {
-        
-        Tenancy::initialize($this->resource['restaurant']['tenant_id']);
-        $data = [
-            'id' => $item->id,
-            'name' => $item->name,
-            'description' => $item->description,
-            'price' => $item->startingPrice(),
-            'image' => $item->image,
-            'is_featured' => $item->is_featured,
-            'preparation_time' => $item->formattedPreparationTime(),
-        ];
-        Tenancy::end();
-
-        return $data ;
     }
 }
