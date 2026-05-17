@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RestaurantController;
@@ -57,11 +58,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // To be tenat 
     Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
+
+    //Add to cart
+    Route::post('/cart', [CartController::class, 'store']);   // add item
+    Route::delete('/cart/{item_id}',[CartController::class, 'destroy']); // remove item
+    Route::delete('/cart' , [CartController::class, 'clear']); // clear the cart
 });
 
 
+// get home data : restaurant + restaurant-categories
 Route::get('/home',[HomeController::class,'getHomeData']);
+
+//get restaurant by restaurant
 Route::get('/categories/{category}/restaurants', [HomeController::class, 'restaurantByCategory']);
+
+//get restaurant menu items
 Route::get('restaurants/{restaurant}/menu', [RestaurantController::class, 'menu']);
+
+//get all restaurant-categories
 Route::get('restaurant-categories',[HomeController::class,'categories']);
+
+//get item details (cached 5 minutes)
 Route::get('/restaurants/{restaurant}/menu/{menu_item}', [RestaurantController::class, 'getItem']);
+

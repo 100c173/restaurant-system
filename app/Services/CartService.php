@@ -18,16 +18,20 @@ class CartService
      * - Item is available
      * - Cart belongs to only one tenant (no cross-restaurant mixing)
      */
-    public function addItem(string $restaurantId, int $itemId, int $quantity = 1): Cart
+    public function addItem($data): Cart
     {
-        // 1. Resolve the tenant
-        $restaurant = Restaurant::active()
-            ->findOrFail($restaurantId);
+        $restaurantId = $data['restaurant_id'];
+        $itemId = $data['item_id'];
+        $quantity = $data['quantity'];
+        $description = $data['description'];
 
-        Tenancy::initialize($restaurant->tenant_id);
+        // 1. Resolve the tenant
+        $restaurant = Restaurant::findOrFail($restaurantId);
 
         // 2. Enforce single-restaurant rule BEFORE switching DB
         $this->assertSingleTenant($restaurant->tenant_id);
+
+        Tenancy::initialize($restaurant->tenant_id);
 
         // 3. Switch to tenant DB and validate the item
         $item = MenuItem::where('id', $itemId)
@@ -36,19 +40,33 @@ class CartService
         ;
 
         // 4. Write to central DB with denormalized snapshot
-        return Cart::updateOrCreate(
-            [
+
+        $cart = Cart::where([
+            'user_id' => auth()->id(),
+            'tenant_id' => $restaurant->tenant_id,
+            'item_id' => $itemId,
+        ])->first();
+        if ($cart) {
+            // Row exists → increment
+            $cart->increment('quantity', $quantity);
+            $cart->update([
+                'unit_price' => $item->price,
+                'item_name' => $item->name,
+                'description' => $description,
+            ]);
+        } else {
+            // New row → insert with concrete int
+            $cart = Cart::create([
                 'user_id' => auth()->id(),
                 'tenant_id' => $restaurant->tenant_id,
                 'item_id' => $itemId,
-            ],
-            [
-                'quantity' => DB::raw("quantity + {$quantity}"),
-                'unit_price' => $item->price,   // snapshot at add-time
+                'quantity' => $quantity,        // plain int, safe for INSERT
+                'unit_price' => $item->price,
                 'item_name' => $item->name,
-                'description' => $item->description,
-            ]
-        );
+                'description' => $description,
+            ]);
+        }
+        return $cart;
     }
 
     /**
@@ -66,5 +84,16 @@ class CartService
                 incoming: $incomingTenantId
             );
         }
+    }
+
+    public function deleteAllitem()
+    {
+        Cart::query()->delete();
+    }
+
+    public function removeItem($itemId)
+    {
+        $item = Cart::where('item_id', $itemId)->firstOrFail();
+        $item->delete();
     }
 }

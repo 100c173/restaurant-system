@@ -19,6 +19,7 @@ class ItemResource extends JsonResource
         Tenancy::initialize($this->resource['restaurant']['tenant_id']);
         $data = [
             'id' => $item->id,
+            'restaurant_id' => $restaurant->id,
             'name' => $item->name,
             'description' => $item->description,
             'price' => $item->startingPrice(),

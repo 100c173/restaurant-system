@@ -1,6 +1,7 @@
 <?php
-/*
+
 namespace App\Http\Controllers;
+
 
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\RestaurantMenuResource;
@@ -9,7 +10,6 @@ use App\Services\RestaurantMenuService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\FuncCall;
 
 class RestaurantController extends Controller
 {
@@ -50,27 +50,6 @@ class RestaurantController extends Controller
 
         return self::success(new ItemResource($data), 'Item retrieved successfully.');
     }
-    public function addToCart(AddToCartRequest $request)
-    {
-        try {
-            $cart = $this->cartService->addItem();
-
-            return CartResource::make($cart);
-
-        } catch (CartTenantMismatchException $e) {
-            return response()->json([
-                'error' => 'cart_tenant_mismatch',
-                'message' => 'Your cart has items from another restaurant.',
-                'existing_tenant' => $e->existing,
-            ], 409);
-
-        } catch (ModelNotFoundException) {
-            return response()->json([
-                'error' => 'item_unavailable',
-                'message' => 'This item is no longer available.',
-            ], 422);
-        }
-    }
 
 }
-**/
+

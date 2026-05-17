@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Cache;
 use Modules\Restaurants\Models\Category;
 use Modules\Restaurants\Models\Menu;
 use Modules\Restaurants\Models\MenuItem;
 use Modules\Restaurants\Models\Restaurant;
+use PhpParser\Node\Expr\FuncCall;
 use Stancl\Tenancy\Facades\Tenancy;
 
 
@@ -34,16 +36,23 @@ class RestaurantMenuService
 
     public function getItem(int $restaurantId, int $itemId): array
     {
-        $restaurant = Restaurant::active()
-            ->findOrFail($restaurantId); 
+        return Cache::remember(
+            "restaurant:$restaurantId:item:$itemId",
+            300,
+            function () use ($restaurantId, $itemId) {
 
-        Tenancy::initialize($restaurant->tenant_id);
+                $restaurant = Restaurant::active()
+                    ->findOrFail($restaurantId);
 
-        try {
-            $item = MenuItem::findOrFail($itemId);
-            return compact('restaurant','item');
-        } finally {
-            Tenancy::end();
-        }
+                Tenancy::initialize($restaurant->tenant_id);
+
+                try {
+                    $item = MenuItem::findOrFail($itemId);
+                    return compact('restaurant', 'item');
+                } finally {
+                    Tenancy::end();
+                }
+            }
+        );
     }
 }
