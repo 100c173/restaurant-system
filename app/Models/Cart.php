@@ -13,6 +13,8 @@ class Cart extends Model
         'tenant_id',
         'item_id',
         'item_name',
+        'variant_name',
+        'variant_id',
         'description',
         'unit_price',
         'quantity',

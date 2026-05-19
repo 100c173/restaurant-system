@@ -22,12 +22,14 @@ return new class extends Migration {
 
             // Keep as string — this is a cross-DB soft reference
             $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('variant_id');
 
             // Denormalize a price snapshot at add-time (critical for orders)
             $table->decimal('unit_price', 10, 2);
 
             // Denormalize name for resilience (item could be renamed/deleted)
             $table->string('item_name');
+            $table->string('variant_name');
 
             $table->string('description')->nullable();
             $table->integer('quantity')->default(0);
@@ -35,7 +37,7 @@ return new class extends Migration {
             $table->timestamps();
 
             // Prevent duplicate item rows per user per tenant
-            $table->unique(['user_id', 'tenant_id', 'item_id']);
+            $table->unique(['user_id', 'tenant_id', 'item_id','variant_id']);
         });
     }
 

@@ -47,7 +47,7 @@ class RestaurantMenuService
                 Tenancy::initialize($restaurant->tenant_id);
 
                 try {
-                    $item = MenuItem::findOrFail($itemId);
+                    $item = MenuItem::with(['variants'])->findOrFail($itemId);
                     return compact('restaurant', 'item');
                 } finally {
                     Tenancy::end();

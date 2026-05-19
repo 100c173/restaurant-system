@@ -16,7 +16,7 @@ class RestaurantMenuResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        ['restaurant' => $restaurant, 'categories' => $categories] = $this->resource;
+        ['restaurant' => $restaurant, 'categories' => $categories , 'details'=>$details] = $this->resource;
 
         return [
             'restaurant' => [
@@ -41,6 +41,7 @@ class RestaurantMenuResource extends JsonResource
                         $category->menuItems->map(fn($item) => [
                             'item' => $item,
                             'restaurant' => $this->resource['restaurant'],
+                            'details' => $this->resource['details'],
                         ])
                     )->values(),
                 ];

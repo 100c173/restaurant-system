@@ -56,7 +56,8 @@ class ManageVariants extends Page implements HasTable
         return [
             TextColumn::make('name'),
             TextColumn::make('price')
-                ->label('add to price'),
+                ->money('SYP')
+                ->label('price'),
 
             IconColumn::make('is_available')
                 ->label('Available')

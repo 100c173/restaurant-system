@@ -24,6 +24,7 @@ class RestaurantController extends Controller
     {
         try {
             $data = $this->menuService->getMenuData($restaurant);
+            $data['details'] = false ;
         } catch (ModelNotFoundException) {
             return self::error('Restaurant not found.', 404);
         } catch (\Throwable $e) {
@@ -41,13 +42,13 @@ class RestaurantController extends Controller
     {
         try {
             $data = $this->menuService->getItem($restaurant, $menu_item);
+            $data['details'] = true ;
         } catch (ModelNotFoundException $e) {
             return self::error($e->getMessage(), 404);
         } catch (\Throwable $e) {
             report($e);
             return self::error('Could not load the item. Please try again.', 500);
         }
-
         return self::success(new ItemResource($data), 'Item retrieved successfully.');
     }
 

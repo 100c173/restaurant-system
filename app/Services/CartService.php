@@ -22,6 +22,7 @@ class CartService
     {
         $restaurantId = $data['restaurant_id'];
         $itemId = $data['item_id'];
+        $variantId = $data['variant_id'];
         $quantity = $data['quantity'];
         $description = $data['description'];
 
@@ -39,31 +40,36 @@ class CartService
             ->firstOrFail(); // throws if item doesn't exist or unavailable
         ;
 
+        $itemVariant = $item->variants()->findOrFail($variantId);
+
         // 4. Write to central DB with denormalized snapshot
 
         $cart = Cart::where([
             'user_id' => auth()->id(),
             'tenant_id' => $restaurant->tenant_id,
             'item_id' => $itemId,
+            'variant_id' => $variantId,
         ])->first();
         if ($cart) {
             // Row exists → increment
             $cart->increment('quantity', $quantity);
             $cart->update([
-                'unit_price' => $item->price,
+                'unit_price' => $itemVariant->price,
                 'item_name' => $item->name,
                 'description' => $description,
             ]);
         } else {
             // New row → insert with concrete int
             $cart = Cart::create([
-                'user_id' => auth()->id(),
-                'tenant_id' => $restaurant->tenant_id,
-                'item_id' => $itemId,
-                'quantity' => $quantity,        // plain int, safe for INSERT
-                'unit_price' => $item->price,
-                'item_name' => $item->name,
-                'description' => $description,
+                'user_id'      => auth()->id(),
+                'tenant_id'    => $restaurant->tenant_id,
+                'item_id'      => $itemId,
+                'variant_id'   =>$variantId,
+                'item_name'    => $item->name,
+                'variant_name' =>$itemVariant->name,
+                'quantity'     => $quantity,        // plain int, safe for INSERT
+                'unit_price'   => $itemVariant->price,
+                'description'  => $description,
             ]);
         }
         return $cart;
