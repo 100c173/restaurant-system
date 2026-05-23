@@ -2,12 +2,16 @@
 
 namespace App\Filament\App\Resources\MenuItems;
 
-use App\Filament\App\Resources\MenuItems\Pages\CreateMenuItem;
-use App\Filament\App\Resources\MenuItems\Pages\EditMenuItem;
-use App\Filament\App\Resources\MenuItems\Pages\ListMenuItems;
-use App\Filament\App\Resources\MenuItems\Pages\ManageVariants;
+
+
+
 use App\Filament\App\Resources\MenuItems\Schemas\MenuItemForm;
 use App\Filament\App\Resources\MenuItems\Tables\MenuItemsTable;
+use App\Filament\App\Resources\MenuItems\Pages\ManageModifiers;
+use App\Filament\App\Resources\MenuItems\Pages\ManageVariants;
+
+
+
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -23,7 +27,7 @@ class MenuItemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
     protected static string|UnitEnum|null $navigationGroup = 'Menu info';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -39,20 +43,15 @@ class MenuItemResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => ManageMenuItems::route('/'),
-            'variants' => ManageVariants::route('/{record}/variants'),
-            /*
-            'create' => CreateMenuItem::route('/create'),
-            'edit' => EditMenuItem::route('/{record}/edit'),
-            */
+            'index'     => ManageMenuItems::route('/'),
+            'variants'  => ManageVariants::route('/{record}/variants'),
+            'modifiers' => ManageModifiers::route('/{record}/modifiers'),
         ];
     }
 }

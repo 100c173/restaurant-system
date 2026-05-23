@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
@@ -46,6 +47,17 @@ class MenuItem extends Model
     public function variants(): HasMany
     {
         return $this->hasMany(MenuItemVariant::class);
+    }
+
+    public function modifierGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            ModifierGroup::class,
+            'menu_item_modifier_group_modifiers',
+            'menu_item_id',
+            'modifier_group_id',
+        )->withPivot(['modifier_id', 'price_override', 'is_available'])
+            ->withTimestamps();
     }
 
     public function scopeAvailable(Builder $query): Builder

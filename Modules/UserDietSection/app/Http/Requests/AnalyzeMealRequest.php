@@ -12,7 +12,7 @@ class AnalyzeMealRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required', 'image', 'max:5120'], // 5MB
+            'image' => ['required', 'max:5120'], // 5MB
             'description' => 'nullable',
         ];
     }

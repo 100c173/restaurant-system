@@ -4,11 +4,9 @@ namespace App\Filament\App\Resources\MenuItems\Tables;
 
 use App\Filament\App\Resources\MenuItems\MenuItemResource;
 use Filament\Actions\Action;
-use Filament\Actions\CreateAction;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Tables\Grouping\Group;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -47,7 +45,6 @@ class MenuItemsTable
                     ->color('primary')
                     ->sortable()
                     ->searchable(),
-
 
                 TextColumn::make('price')
                     ->label('Price')
@@ -131,11 +128,6 @@ class MenuItemsTable
             ->filtersFormColumns(3)
 
             ->recordActions([
-                Action::make('variants')
-                    ->label('Variants')
-                    ->icon('heroicon-o-squares-2x2')
-                    ->url(fn($record) => MenuItemResource::getUrl('variants', ['record' => $record])),
-
                 EditAction::make()
                     ->modalHeading('Edit Menu Item')
                     ->mutateFormDataUsing(function (array $data, $record): array {
@@ -144,10 +136,26 @@ class MenuItemsTable
                         return $data;
                     }),
 
-                DeleteAction::make()
-                    ->modalHeading('Delete Menu Item?')
-                    ->modalDescription('Are you sure you want to delete this item? This action cannot be undone.')
-                    ->modalSubmitActionLabel('Yes, delete item'),
+                ActionGroup::make([
+                    Action::make('variants')
+                        ->label('Variants')
+                        ->icon('heroicon-o-squares-2x2')
+                        ->url(fn($record) => MenuItemResource::getUrl('variants', ['record' => $record])),
+
+                    Action::make('modifiers')
+                        ->label('Modifiers')
+                        ->icon('heroicon-o-adjustments-horizontal')
+                        ->url(fn($record) => MenuItemResource::getUrl('modifiers', ['record' => $record])),
+
+                    DeleteAction::make()
+                        ->modalHeading('Delete Menu Item?')
+                        ->modalDescription('Are you sure you want to delete this item? This action cannot be undone.')
+                        ->modalSubmitActionLabel('Yes, delete item'),
+                ])
+                ->label('More')
+                ->button()
+                ->icon('heroicon-m-ellipsis-vertical')
+                ->color('gray'),
             ])
             ->striped()
             ->emptyStateIcon('heroicon-o-clipboard-document-list')

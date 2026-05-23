@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('modifiers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('modifier_group_id')->constrained()->cascadeOnDelete();
             $table->string('name'); // "Extra cheese", "No onions"
             $table->decimal('price', 10, 2)->default(0); // 0 = free
             $table->boolean('is_available')->default(true);
