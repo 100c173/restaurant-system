@@ -32,13 +32,18 @@ class ItemResource extends JsonResource
             'preparation_time' => $item->formattedPreparationTime(),
         ];
 
-        if ($details)
+        if ($details) {
             $data['variants'] = MenuItemVariantResource::collection(
                 $item->variants->map(fn($variant) => [
                     'variant' => $variant,
                     'restaurant' => $this->resource['restaurant'],
                 ])
             )->values();
+
+            $data['modifier_groups'] = ModifierGroupResource::collection(
+                $item->modifierGroups
+            )->values();
+        }
 
         Tenancy::end();
 

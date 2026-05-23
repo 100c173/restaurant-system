@@ -33,4 +33,15 @@ class ModifierGroup extends Model
             ->withTimestamps();
     }
 
+    public function modifiers(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Modifier::class,
+            'menu_item_modifier_group_modifiers',
+            'modifier_group_id',
+            'modifier_id'
+        )->withPivot(['menu_item_id', 'price_override', 'is_available'])
+            ->withTimestamps();
+    }
+
 }

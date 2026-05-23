@@ -47,7 +47,16 @@ class RestaurantMenuService
                 Tenancy::initialize($restaurant->tenant_id);
 
                 try {
-                    $item = MenuItem::with(['variants'])->findOrFail($itemId);
+                    $item = MenuItem::with([
+                        'variants',
+                        'modifierGroups' => function ($query) use ($itemId) {
+                            $query->with([
+                                'modifiers' => function ($q) use ($itemId) {
+                                    $q->wherePivot('menu_item_id', $itemId);
+                                }
+                            ]);
+                        },
+                    ])->findOrFail($itemId);
                     return compact('restaurant', 'item');
                 } finally {
                     Tenancy::end();
