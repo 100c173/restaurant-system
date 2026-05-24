@@ -59,6 +59,12 @@ class MenuItem extends Model
         )->withPivot(['modifier_id', 'price_override', 'is_available'])
             ->withTimestamps();
     }
+    // MenuItem.php
+    public function modifierGroupsWithModifiers(): HasMany
+    {
+        return $this->hasMany(MenuItemModifier::class)
+            ->with('modifierGroup', 'modifier');
+    }
 
     public function scopeAvailable(Builder $query): Builder
     {

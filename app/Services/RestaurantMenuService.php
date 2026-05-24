@@ -49,13 +49,8 @@ class RestaurantMenuService
                 try {
                     $item = MenuItem::with([
                         'variants',
-                        'modifierGroups' => function ($query) use ($itemId) {
-                            $query->with([
-                                'modifiers' => function ($q) use ($itemId) {
-                                    $q->wherePivot('menu_item_id', $itemId);
-                                }
-                            ]);
-                        },
+                        'modifierGroupsWithModifiers.modifierGroup',
+                        'modifierGroupsWithModifiers.modifier',
                     ])->findOrFail($itemId);
                     return compact('restaurant', 'item');
                 } finally {

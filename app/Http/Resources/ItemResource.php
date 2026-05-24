@@ -40,9 +40,26 @@ class ItemResource extends JsonResource
                 ])
             )->values();
 
-            $data['modifier_groups'] = ModifierGroupResource::collection(
-                $item->modifierGroups
-            )->values();
+            $data['modifier_groups'] = $item->modifierGroupsWithModifiers
+                ->groupBy('modifier_group_id')
+                ->map(function ($rows) {
+                    $group = $rows->first()->modifierGroup;
+                    return [
+                        'id' => $group->id,
+                        'name' => $group->name,
+                        'is_required' => $group->is_required,
+                        'is_multiple' => $group->is_multiple,
+                        'min_selections' => $group->min_selections,
+                        'max_selections' => $group->max_selections,
+                        'modifiers' => $rows->map(fn($row) => [
+                            'id' => $row->modifier->id,
+                            'name' => $row->modifier->name,
+                            'price' => $row->modifier->price,
+                            'price_override' => $row->price_override,
+                            'is_available' => $row->is_available,
+                        ])->values(),
+                    ];
+                })->values();
         }
 
         Tenancy::end();
