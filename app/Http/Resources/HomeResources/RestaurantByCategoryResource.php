@@ -19,7 +19,7 @@ class RestaurantByCategoryResource extends BaseRestaurantResource
 
             'categories' => $this->whenLoaded('categories', function () {
                 return $this->categories->map(fn($cat) => [
-                    'id' => $cat->id,
+                    //'id' => $cat->id,
                     'name' => $cat->name,
                 ]);
             }),

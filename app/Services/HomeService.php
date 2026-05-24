@@ -50,7 +50,7 @@ class HomeService
     {
 
         $query = $category->restaurants()
-            ->with('categories:id,name');
+            ->with('categories:name');
 
         if ($lat && $lng) {
             $query->withDistance($lat, $lng)

@@ -51,7 +51,7 @@ class HomeController extends Controller
             . '.lng:' . $longitude
             . '.r:' . $radiusKm
             . '.p:' . $perPage;
-
+        
         $restaurants = Cache::remember($key, now()->addHours(6), function () use ($category, $latitude, $longitude, $radiusKm, $perPage) {
             return $this->service->getRestaurantByCategory($category, $latitude, $longitude, $radiusKm, $perPage);
         });

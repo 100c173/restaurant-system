@@ -16,7 +16,7 @@ class RestaurantMenuResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        ['restaurant' => $restaurant, 'categories' => $categories , 'details'=>$details] = $this->resource;
+        ['restaurant' => $restaurant, 'categories' => $categories, 'details' => $details] = $this->resource;
 
         return [
             'restaurant' => [
@@ -31,6 +31,15 @@ class RestaurantMenuResource extends JsonResource
                 'is_open_now' => $restaurant->isOpenNow(),
                 'opening_time' => $restaurant->opening_time,
                 'closing_time' => $restaurant->closing_time,
+                'location' => [
+                    'latitude' => $restaurant->latitude,
+                    'longitude' => $restaurant->longitude,
+                    'distance_km' => isset($restaurant->distance)
+                        ? round($restaurant->distance, 2)
+                        : null,
+                ],
+
+                'rate' => $restaurant->rate,
             ],
 
             'categories' => $categories->map(function ($category) {
