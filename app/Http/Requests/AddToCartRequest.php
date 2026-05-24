@@ -28,7 +28,8 @@ class AddToCartRequest extends FormRequest
             'item_id'       => ['required', 'integer', 'min:1'],
             'variant_id'    => ['required','integer','min:1'],
             'quantity'      => ['sometimes', 'integer', 'min:1', 'max:99'],
-            'description'   => ['sometimes' , 'string']
+            'description'   => ['sometimes' , 'string'],
+            'modifiers_id'  => ['array'],
         ];
     }
     public function messages(): array
