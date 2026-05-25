@@ -20,6 +20,7 @@ class HomeService
         $query = $this->restaurant
             ->active()
             ->with('categories:id,name');
+        
 
         if ($lat && $lng) {
             $query

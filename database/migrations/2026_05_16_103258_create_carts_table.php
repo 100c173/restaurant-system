@@ -24,15 +24,17 @@ return new class extends Migration {
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('variant_id');
 
-            // Denormalize a price snapshot at add-time (critical for orders)
-            $table->decimal('unit_price', 10, 2);
+            // snapshot 
+            $table->decimal('unit_price', 10, 2); 
 
-            // Denormalize name for resilience (item could be renamed/deleted)
-            $table->string('item_name');
-            $table->string('variant_name');
+            //snapshot at add-time
+            $table->string('item_name'); 
+            $table->string('variant_name'); 
 
             $table->string('description')->nullable();
             $table->integer('quantity')->default(0);
+
+            $table->text('special_note')->nullable();
 
             $table->timestamps();
 

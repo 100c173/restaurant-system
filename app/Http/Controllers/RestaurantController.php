@@ -20,11 +20,13 @@ class RestaurantController extends Controller
     }
 
 
-    public function menu(int $restaurant): JsonResponse
+    public function menu(int $restaurant, Request $request): JsonResponse
     {
         try {
-            $data = $this->menuService->getMenuData($restaurant);
-            $data['details'] = false ;
+            $latitude = $request->has('latitude') ? $request->float('latitude') : null;
+            $longitude = $request->has('longitude') ? $request->float('longitude') : null;
+            $data = $this->menuService->getMenuData($restaurant,$latitude, $longitude );
+            $data['details'] = false;
         } catch (ModelNotFoundException) {
             return self::error('Restaurant not found.', 404);
         } catch (\Throwable $e) {
@@ -42,7 +44,7 @@ class RestaurantController extends Controller
     {
         try {
             $data = $this->menuService->getItem($restaurant, $menu_item);
-            $data['details'] = true ;
+            $data['details'] = true;
         } catch (ModelNotFoundException $e) {
             return self::error($e->getMessage(), 404);
         } catch (\Throwable $e) {

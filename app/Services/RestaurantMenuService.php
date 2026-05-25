@@ -13,12 +13,19 @@ use Stancl\Tenancy\Facades\Tenancy;
 
 class RestaurantMenuService
 {
-    public function getMenuData(int $restaurantId): array
+    public function getMenuData(int $restaurantId, ?float $lat = null, ?float $lng = null, float $radiusKm = 60): array
     {
-        $restaurant = Restaurant::active()
-            ->findOrFail($restaurantId);
+        $query = Restaurant::active();
+
+        if ($lat && $lng) {
+            $query->withDistance($lat, $lng)
+                ->withinRadius($radiusKm);
+        }
+
+        $restaurant = $query->findOrFail($restaurantId);
 
         Tenancy::initialize($restaurant->tenant_id);
+
         try {
             $categories = Category::with([
                 'menuItems' => fn($q) => $q->available()->ordered(),
@@ -26,12 +33,12 @@ class RestaurantMenuService
                 ->active()
                 ->ordered()
                 ->get();
-            return compact('restaurant', 'categories');
-        } finally {
 
+            return compact('restaurant', 'categories');
+
+        } finally {
             Tenancy::end();
         }
-
     }
 
     public function getItem(int $restaurantId, int $itemId): array
