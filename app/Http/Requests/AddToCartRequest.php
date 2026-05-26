@@ -6,6 +6,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Modules\Restaurants\Models\MenuItem;
+use Modules\Restaurants\Models\Restaurant;
+use Stancl\Tenancy\Facades\Tenancy;
 
 class AddToCartRequest extends FormRequest
 {
@@ -25,11 +27,11 @@ class AddToCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tenant_id' => ['required', 'string', 'exists:tenants,id'],
-            'item_id' => ['required', 'integer'],
-            'variant_id' => ['required', 'integer'],
+            'restaurant_id' => ['required', 'string', 'exists:restaurants,id'],
+            'item_id' => ['required', 'string'],
+            'variant_id' => ['required', 'string'],
             'quantity' => ['required', 'integer', 'min:1', 'max:99'],
-            'special_note' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:255'],
             'modifier_selections' => ['nullable', 'array'],
             'modifier_selections.*.modifier_group_id' => ['required_with:modifier_selections', 'integer'],
             'modifier_selections.*.modifier_id' => ['required_with:modifier_selections', 'integer'],
@@ -39,49 +41,59 @@ class AddToCartRequest extends FormRequest
     {
         return [
             function ($validator) {
-                // Load the item with its modifier groups from the tenant DB
-                // You'll need to resolve the tenant connection here
-                $item = MenuItem::with('modifierGroups.modifiers')
-                    ->find($this->item_id);
 
-                if (!$item) {
-                    $validator->errors()->add('item_id', 'Item not found.');
+                $restaurant = Restaurant::find($this->input('restaurant_id'));
+
+                if (!$restaurant) {
+                    $validator->errors()->add('restaurant_id', 'Restaurant not found.');
                     return;
                 }
 
-                $selections = collect($this->modifier_selections ?? []);
+                try {
+                    Tenancy::initialize($restaurant->tenant_id);
 
-                foreach ($item->modifierGroups as $group) {
-                    // Count how many modifiers were selected for this group
-                    $selectedForGroup = $selections->where('modifier_group_id', $group->id);
-                    $count = $selectedForGroup->count();
+                    $item = MenuItem::with('modifierGroups.modifiers')
+                        ->find($this->item_id);
 
-                    // Check required groups
-                    if ($group->is_required && $count < $group->min_selections) {
-                        $validator->errors()->add(
-                            'modifier_selections',
-                            "يجب اختيار خيار من: {$group->name}"
-                        );
+                    if (!$item) {
+                        $validator->errors()->add('item_id', 'Item not found.');
+                        return;
                     }
 
-                    // Check max selections
-                    if ($count > $group->max_selections) {
-                        $validator->errors()->add(
-                            'modifier_selections',
-                            "تجاوزت الحد المسموح في: {$group->name}"
-                        );
-                    }
+                    $selections = collect($this->modifier_selections ?? []);
 
-                    // Check that selected modifier IDs actually belong to this group
-                    $validModifierIds = $group->modifiers->pluck('id');
-                    foreach ($selectedForGroup as $sel) {
-                        if (!$validModifierIds->contains($sel['modifier_id'])) {
+                    foreach ($item->modifierGroups as $group) {
+                        $selectedForGroup = $selections->where('modifier_group_id', $group->id);
+                        $count = $selectedForGroup->count();
+
+                        if ($group->is_required && $count < $group->min_selections) {
                             $validator->errors()->add(
                                 'modifier_selections',
-                                "الخيار المحدد غير صالح في: {$group->name}"
+                                "يجب اختيار خيار من: {$group->name}"
                             );
                         }
+
+                        if ($count > $group->max_selections) {
+                            $validator->errors()->add(
+                                'modifier_selections',
+                                "تجاوزت الحد المسموح في: {$group->name}"
+                            );
+                        }
+
+                        $validModifierIds = $group->modifiers->pluck('id');
+
+                        foreach ($selectedForGroup as $sel) {
+                            if (!$validModifierIds->contains($sel['modifier_id'])) {
+                                $validator->errors()->add(
+                                    'modifier_selections',
+                                    "الخيار المحدد غير صالح في: {$group->name}"
+                                );
+                            }
+                        }
                     }
+
+                } finally {
+                    Tenancy::end(); 
                 }
             }
         ];

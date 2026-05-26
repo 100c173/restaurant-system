@@ -2,104 +2,130 @@
 
 namespace App\Services;
 
-use App\Exceptions\CartTenantMismatchException;
 use App\Models\Cart;
-use App\Models\Tenant;
-use DB;
+use App\Models\CartModifierSelection;
 use Modules\Restaurants\Models\MenuItem;
+use Modules\Restaurants\Models\MenuItemVariant;
+use Modules\Restaurants\Models\Modifier;
+use Modules\Restaurants\Models\ModifierGroup;
 use Modules\Restaurants\Models\Restaurant;
 use Stancl\Tenancy\Facades\Tenancy;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class CartService
 {
-    /**
-     * Add an item to the cart, enforcing:
-     * - Item exists in the tenant's DB
-     * - Item is available
-     * - Cart belongs to only one tenant (no cross-restaurant mixing)
-     */
-    public function addItem($data): Cart
+    public function addItem(array $data): Cart
     {
-        $restaurantId = $data['restaurant_id'];
-        $itemId = $data['item_id'];
-        $variantId = $data['variant_id'];
-        $quantity = $data['quantity'];
-        $description = $data['description'];
-
-        // 1. Resolve the tenant
-        $restaurant = Restaurant::findOrFail($restaurantId);
-
-        // 2. Enforce single-restaurant rule BEFORE switching DB
-        $this->assertSingleTenant($restaurant->tenant_id);
+        $restaurant = Restaurant::findOrFail($data['restaurant_id']);
 
         Tenancy::initialize($restaurant->tenant_id);
 
-        // 3. Switch to tenant DB and validate the item
-        $item = MenuItem::where('id', $itemId)
-            ->where('is_available', true)
-            ->firstOrFail(); // throws if item doesn't exist or unavailable
-        ;
+        try {
+            $item = MenuItem::findOrFail($data['item_id']);
+            $variant = MenuItemVariant::findOrFail($data['variant_id']);
 
-        $itemVariant = $item->variants()->findOrFail($variantId);
+            if (!$variant->is_available) {
+                throw ValidationException::withMessages([
+                    'variant_id' => 'هذا الخيار غير متاح حالياً.',
+                ]);
+            }
 
-        // 4. Write to central DB with denormalized snapshot
-
-        $cart = Cart::where([
-            'user_id' => auth()->id(),
-            'tenant_id' => $restaurant->tenant_id,
-            'item_id' => $itemId,
-            'variant_id' => $variantId,
-        ])->first();
-        if ($cart) {
-            // Row exists → increment
-            $cart->increment('quantity', $quantity);
-            $cart->update([
-                'unit_price' => $itemVariant->price,
-                'item_name' => $item->name,
-                'description' => $description,
-            ]);
-        } else {
-            // New row → insert with concrete int
-            $cart = Cart::create([
-                'user_id'      => auth()->id(),
-                'tenant_id'    => $restaurant->tenant_id,
-                'item_id'      => $itemId,
-                'variant_id'   =>$variantId,
-                'item_name'    => $item->name,
-                'variant_name' =>$itemVariant->name,
-                'quantity'     => $quantity,        // plain int, safe for INSERT
-                'unit_price'   => $itemVariant->price,
-                'description'  => $description,
-            ]);
-        }
-        return $cart;
-    }
-
-    /**
-     * Enforce the single-restaurant constraint.
-     * If the cart already has items from a different tenant, reject or clear.
-     */
-    private function assertSingleTenant(string $incomingTenantId): void
-    {
-        $existingTenantId = Cart::where('user_id', auth()->id())
-            ->value('tenant_id');
-
-        if ($existingTenantId && $existingTenantId !== $incomingTenantId) {
-            throw new CartTenantMismatchException(
-                existing: $existingTenantId,
-                incoming: $incomingTenantId
+            $modifierSnapshots = $this->resolveModifierSnapshots(
+                $data['modifier_selections'] ?? []
             );
+
+        } finally {
+            Tenancy::end();
         }
+
+        $modifiersTotal = collect($modifierSnapshots)->sum('price');
+        $unitPrice = $variant->price + $modifiersTotal;
+
+        // Use the central connection explicitly
+        $cart = DB::connection('central')->transaction(function () use ($data, $item, $variant, $unitPrice, $modifierSnapshots, $restaurant) {
+
+            // Find existing cart row to get current quantity
+            $existing = Cart::where([
+                'user_id' => auth()->id(),
+                'tenant_id' => $restaurant->tenant_id,
+                'item_id' => $data['item_id'],
+                'variant_id' => $data['variant_id'],
+            ])->first();
+
+            $newQuantity = ($existing ? $existing->quantity : 0) + (int) $data['quantity'];
+
+            $cart = Cart::updateOrCreate(
+                [
+                    'user_id' => auth()->id(),
+                    'tenant_id' => $restaurant->tenant_id,
+                    'item_id' => $data['item_id'],
+                    'variant_id' => $data['variant_id'],
+                ],
+                [
+                    'unit_price' => $unitPrice,
+                    'item_name' => $item->name,
+                    'variant_name' => $variant->name,
+                    'description' => $item->description,
+                    'quantity' => $newQuantity,  // plain int now ✓
+                ]
+            );
+
+            $cart->modifierSelections()->delete();
+
+            foreach ($modifierSnapshots as $snapshot) {
+                $cart->modifierSelections()->create($snapshot);
+            }
+
+            return $cart;
+        });
+
+        return $cart->load('modifierSelections');
     }
 
-    public function deleteAllitem()
+    // -------------------------------------------------------------------------
+    // Called while tenancy is already initialized — no need to init again
+    // -------------------------------------------------------------------------
+    private function resolveModifierSnapshots(array $selections): array
     {
-        Cart::query()->delete();
+        if (empty($selections)) {
+            return [];
+        }
+
+        $snapshots = [];
+
+        foreach ($selections as $selection) {
+            $group = ModifierGroup::find($selection['modifier_group_id']);
+            $modifier = Modifier::find($selection['modifier_id']);
+
+            if (!$group || !$modifier) {
+                throw ValidationException::withMessages([
+                    'modifier_selections' => 'Modifier not found.',
+                ]);
+            }
+
+            $snapshots[] = [
+                'modifier_group_id' => $group->id,
+                'modifier_group_name' => $group->name,
+                'modifier_id' => $modifier->id,
+                'modifier_name' => $modifier->name,
+                'price' => $modifier->price,
+            ];
+        }
+
+        return $snapshots;
     }
 
-    public function removeItem($itemId)
+    public function removeItem(int $cartId): void
     {
-        $item = Cart::where('item_id', $itemId)->firstOrFail();
-        $item->delete();
+        Cart::where('id', $cartId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail()
+            ->delete();
+    }
+
+    public function clearCart(): void
+    {
+        Cart::where('user_id', auth()->id())->delete();
     }
 }

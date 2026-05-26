@@ -60,7 +60,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
 
     //Add to cart
-    Route::post('/cart', [CartController::class, 'store']);   // add item
+    Route::post('/cart', [CartController::class, 'add']);   // add item
     Route::delete('/cart/{item_id}',[CartController::class, 'destroy']); // remove item
     Route::delete('/cart' , [CartController::class, 'clear']); // clear the cart
 });

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Cart extends Model
 {
-        protected $fillable = [
+    protected $fillable = [
         'user_id',
         'tenant_id',
         'item_id',
@@ -22,9 +22,9 @@ class Cart extends Model
 
     protected $casts = [
         'unit_price' => 'decimal:2',
-        'quantity'   => 'integer',
+        'quantity' => 'integer',
     ];
-    protected $connection = 'central' ; 
+    protected $connection = 'central';
 
     // ─── Relationships ────────────────────────────────────────────
 
@@ -36,6 +36,10 @@ class Cart extends Model
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
+    }
+    public function modifierSelections()
+    {
+        return $this->hasMany(CartModifierSelection::class);
     }
 
     // ─── Computed ─────────────────────────────────────────────────

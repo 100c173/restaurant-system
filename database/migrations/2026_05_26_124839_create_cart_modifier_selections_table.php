@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('cart_modifier_selection', function (Blueprint $table) {
+        Schema::create('cart_modifier_selections', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
@@ -28,12 +28,10 @@ return new class extends Migration {
             $table->timestamps();
 
             // Prevent duplicate selections within the same cart item
-            $table->unique([
-                'cart_id',
-                'modifier_group_id',
-                'modifier_id'
-            ]);
-
+            $table->unique(
+                ['cart_id', 'modifier_group_id', 'modifier_id'],
+                'cart_mod_sel_unique'
+            );
         });
     }
 
@@ -42,6 +40,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('cart_modifier_selection');
+        Schema::dropIfExists('cart_modifier_selections');
     }
 };
