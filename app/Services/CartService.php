@@ -43,7 +43,7 @@ class CartService
         $unitPrice = $variant->price + $modifiersTotal;
 
         // Use the central connection explicitly
-        $cart = DB::connection('central')->transaction(function () use ($data, $item, $variant, $unitPrice, $modifierSnapshots, $restaurant) {
+        $cart = DB::transaction(function () use ($data, $item, $variant, $unitPrice, $modifierSnapshots, $restaurant) {
 
             // Find existing cart row to get current quantity
             $existing = Cart::where([
@@ -67,7 +67,7 @@ class CartService
                     'item_name' => $item->name,
                     'variant_name' => $variant->name,
                     'description' => $item->description,
-                    'quantity' => $newQuantity,  // plain int now ✓
+                    'quantity' => $newQuantity,  
                 ]
             );
 
@@ -83,9 +83,7 @@ class CartService
         return $cart->load('modifierSelections');
     }
 
-    // -------------------------------------------------------------------------
-    // Called while tenancy is already initialized — no need to init again
-    // -------------------------------------------------------------------------
+
     private function resolveModifierSnapshots(array $selections): array
     {
         if (empty($selections)) {
