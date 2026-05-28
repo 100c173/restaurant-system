@@ -40,6 +40,10 @@ class ItemResource extends JsonResource
                 ])
             )->values();
 
+            if($data['variants']->isEmpty()){
+                $data['price'] =  $item->startingPrice();
+            }
+
             $data['modifier_groups'] = $item->modifierGroupsWithModifiers
                 ->groupBy('modifier_group_id')
                 ->map(function ($rows) {

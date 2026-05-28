@@ -59,7 +59,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // To be tenat 
     Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
 
-    //Add to cart
+    //cart
     Route::post('/cart', [CartController::class, 'add']);   // add item
     Route::delete('/cart/{item_id}',[CartController::class, 'destroy']); // remove item
     Route::delete('/cart' , [CartController::class, 'clear']); // clear the cart
