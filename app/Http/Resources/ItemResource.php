@@ -26,7 +26,7 @@ class ItemResource extends JsonResource
             'restaurant_id' => $restaurant->id,
             'name' => $item->name,
             'description' => $item->description,
-            //'price' => $item->startingPrice(),
+            'price' => $item->startingPrice(),
             'image' => $item->image,
             'is_featured' => $item->is_featured,
             'preparation_time' => $item->formattedPreparationTime(),
@@ -40,9 +40,6 @@ class ItemResource extends JsonResource
                 ])
             )->values();
 
-            if($data['variants']->isEmpty()){
-                $data['price'] =  $item->startingPrice();
-            }
 
             $data['modifier_groups'] = $item->modifierGroupsWithModifiers
                 ->groupBy('modifier_group_id')
