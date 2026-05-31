@@ -29,7 +29,7 @@ class AddToCartRequest extends FormRequest
         return [
             'restaurant_id' => ['required', 'string', 'exists:restaurants,id'],
             'item_id' => ['required', 'string'],
-            'variant_id' => ['required', 'string'],
+            'variant_id' => ['nullable', 'string'],
             'quantity' => ['required', 'integer', 'min:1', 'max:99'],
             'description' => ['nullable', 'string', 'max:255'],
             'modifier_selections' => ['nullable', 'array'],

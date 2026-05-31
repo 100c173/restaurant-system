@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('fingerprint');
 
             $table->string('tenant_id');
             $table->foreign('tenant_id')
@@ -22,24 +23,24 @@ return new class extends Migration {
 
             // Keep as string — this is a cross-DB soft reference
             $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('variant_id');
+            $table->unsignedBigInteger('variant_id')->nullable();
 
             // snapshot 
-            $table->decimal('unit_price', 10, 2); 
+            $table->decimal('unit_price', 10, 2);
 
             //snapshot at add-time
-            $table->string('item_name'); 
-            $table->string('variant_name'); 
+            $table->string('item_name');
+            $table->string('variant_name')->nullable();
 
             $table->string('description')->nullable();
-            $table->integer('quantity')->default(0);
+            $table->integer('quantity')->default(1);
 
             $table->text('special_note')->nullable();
 
             $table->timestamps();
+            $table->index('fingerprint');
+            $table->unique(['user_id', 'tenant_id', 'fingerprint']);
 
-            // Prevent duplicate item rows per user per tenant
-            $table->unique(['user_id', 'tenant_id', 'item_id','variant_id']);
         });
     }
 

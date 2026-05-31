@@ -23,12 +23,19 @@ class CartService
 
         try {
             $item = MenuItem::findOrFail($data['item_id']);
-            $variant = MenuItemVariant::findOrFail($data['variant_id']);
+            $variant = null;
+            $basePrice = $item->price;
 
-            if (!$variant->is_available) {
-                throw ValidationException::withMessages([
-                    'variant_id' => 'هذا الخيار غير متاح حالياً.',
-                ]);
+            if (!empty($data['variant_id'])) {
+                $variant = MenuItemVariant::findOrFail($data['variant_id']);
+
+                if (!$variant->is_available) {
+                    throw ValidationException::withMessages([
+                        'variant_id' => 'هذا الخيار غير متاح حالياً.',
+                    ]);
+                }
+
+                $basePrice = $variant->price;
             }
 
             $modifierSnapshots = $this->resolveModifierSnapshots(
@@ -40,17 +47,24 @@ class CartService
         }
 
         $modifiersTotal = collect($modifierSnapshots)->sum('price');
-        $unitPrice = $variant->price + $modifiersTotal;
+        $unitPrice = $basePrice + $modifiersTotal;
 
         // Use the central connection explicitly
         $cart = DB::transaction(function () use ($data, $item, $variant, $unitPrice, $modifierSnapshots, $restaurant) {
+
+            $fingerprint = md5(json_encode([
+                'item_id' => $data['item_id'],
+                'variant_id' => $data['variant_id'] ?? null,
+                'modifiers' => collect($data['modifier_selections'] ?? [])
+                    ->sortBy(['modifier_group_id', 'modifier_id'])
+                    ->values()
+            ]));
 
             // Find existing cart row to get current quantity
             $existing = Cart::where([
                 'user_id' => auth()->id(),
                 'tenant_id' => $restaurant->tenant_id,
-                'item_id' => $data['item_id'],
-                'variant_id' => $data['variant_id'],
+                'fingerprint' => $fingerprint,
             ])->first();
 
             $newQuantity = ($existing ? $existing->quantity : 0) + (int) $data['quantity'];
@@ -59,15 +73,16 @@ class CartService
                 [
                     'user_id' => auth()->id(),
                     'tenant_id' => $restaurant->tenant_id,
-                    'item_id' => $data['item_id'],
-                    'variant_id' => $data['variant_id'],
+                    'fingerprint' => $fingerprint,
                 ],
                 [
+                    'item_id' => $data['item_id'],
+                    'variant_id' => $data['variant_id'] ?? null,
                     'unit_price' => $unitPrice,
                     'item_name' => $item->name,
-                    'variant_name' => $variant->name,
+                    'variant_name' => $variant?->name,
                     'description' => $item->description,
-                    'quantity' => $newQuantity,  
+                    'quantity' => $newQuantity,
                 ]
             );
 

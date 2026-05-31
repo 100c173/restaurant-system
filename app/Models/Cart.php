@@ -18,6 +18,7 @@ class Cart extends Model
         'description',
         'unit_price',
         'quantity',
+        'fingerprint',
     ];
 
     protected $casts = [
