@@ -26,9 +26,9 @@ class CartService
             ->groupBy('tenant_id')
             ->map(function ($items, $tenantId) {
                 $restaurant = Restaurant::whereHas('tenant', fn($q) => $q->where('id', $tenantId))
-                    ->select('id', 'name', 'logo')
                     ->first();
                 return [
+                    'is_active' => ($restaurant->isOpenNow() && $restaurant->is_active),
                     'tenant_id' => $tenantId,
                     'restaurant_id' => $restaurant->id,
                     'restaurant_name' => $restaurant->name,
