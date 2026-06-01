@@ -15,6 +15,37 @@ use Illuminate\Validation\ValidationException;
 
 class CartService
 {
+    public function getGroupedCart()
+    {
+        $cartItems = Cart::with('modifierSelections')
+            ->forUser(auth()->id())
+            ->get();
+
+        // Group by tenant_id, then for each group fetch the restaurant name
+        return $cartItems
+            ->groupBy('tenant_id')
+            ->map(function ($items, $tenantId) {
+                $restaurant = Restaurant::whereHas('tenant', fn($q) => $q->where('id', $tenantId))
+                    ->select('id', 'name', 'logo')
+                    ->first();
+                return [
+                    'tenant_id' => $tenantId,
+                    'restaurant_id' => $restaurant->id,
+                    'restaurant_name' => $restaurant->name,
+                    'restaurant_logo' => $restaurant->logo,
+                    'item_count' => $items->count(),
+                    'subtotal' => number_format($items->sum('line_total'), 2, '.', ''),
+                    'items' => $items->map(fn($item) => [
+                        'item_name' => $item->item_name,
+                        'variant_name' => $item->variant_name,
+                        'quantity' => $item->quantity,
+                        'modifiers_summary' => $item->modifierSelections
+                            ->pluck('modifier_name')
+                            ->join('، '),
+                    ]),
+                ];
+            })->values(); //  this resets the keys to 0, 1, 2...;
+    }
     public function addItem(array $data): Cart
     {
         $restaurant = Restaurant::findOrFail($data['restaurant_id']);

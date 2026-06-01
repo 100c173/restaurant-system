@@ -16,6 +16,12 @@ class CartController extends Controller
     ) {
     }
 
+    public function index()
+    {
+        $cart = $this->cartService->getGroupedCart();
+        return self::success($cart) ;
+    }
+
     public function add(AddToCartRequest $request)
     {
         $result = $this->cartService->addItem(
