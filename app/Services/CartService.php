@@ -28,7 +28,6 @@ class CartService
                 $restaurant = Restaurant::whereHas('tenant', fn($q) => $q->where('id', $tenantId))
                     ->first();
                 return [
-                    'cart_id'   => $items->first()->id ,
                     'is_active' => ($restaurant->isOpenNow() && $restaurant->is_active),
                     'tenant_id' => $tenantId,
                     'restaurant_id' => $restaurant->id,
@@ -161,11 +160,12 @@ class CartService
         return $snapshots;
     }
 
-    public function removeCart(int $cartId): void
+    public function removeCart(int $restaurantId): void
     {
-        Cart::where('id', $cartId)
+        $tenantId = Restaurant::where('id', $restaurantId)->value('tenant_id');
+
+        Cart::where('tenant_id', $tenantId)
             ->where('user_id', auth()->id())
-            ->firstOrFail()
             ->delete();
     }
 

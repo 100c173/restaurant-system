@@ -37,9 +37,9 @@ class CartController extends Controller
         return $this->success(null, 'your cart cleared successfully.');
     }
 
-    public function destroy($cartId)
+    public function destroy($restaurantId)
     {
-        $this->cartService->removeCart($cartId);
+        $this->cartService->removeCart($restaurantId);
         return $this->success(null, 'cart removed successfully.');
     }
 }
