@@ -31,6 +31,11 @@ class CartController extends Controller
 
     }
 
+    public function cartByRestaurant()
+    {
+        
+    }
+
     public function clear()
     {
         $this->cartService->clearCart();

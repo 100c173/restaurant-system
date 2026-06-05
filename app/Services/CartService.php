@@ -129,6 +129,16 @@ class CartService
         return $cart->load('modifierSelections');
     }
 
+    public function getCartItemsByRestaurant($restaurantId)
+    {
+        $tenantId = Restaurant::where('id', $restaurantId)->value('tenant_id');
+
+        $cartItems = Cart::with('modifierSelections')
+            ->where('tenant_id', $tenantId)
+            ->where('user_id', auth()->id())
+            ->get();
+        
+    }
 
     private function resolveModifierSnapshots(array $selections): array
     {

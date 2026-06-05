@@ -59,11 +59,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // To be tenat 
     Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
 
-    //cart
-    Route::post('/cart', [CartController::class, 'add']);   // add item
-    Route::delete('/cart/{restaurant_id}',[CartController::class, 'destroy']); // remove item
-    Route::delete('/cart' , [CartController::class, 'clear']); // clear the cart
+    //carts
+    Route::post('/cart', [CartController::class, 'add']);   // add item to cart
+    Route::delete('/cart' , [CartController::class, 'clear']); // clear the carts
     Route::get('/cart' , [CartController::class, 'index']); // get carts 
+    
+    Route::delete('/cart/{restaurant_id}',[CartController::class, 'destroy']); // remove cart
+    Route::get('/cart/{restaurant_id}' , [CartController::class, 'cartByRestaurant']); // get restaurant cart
 });
 
 

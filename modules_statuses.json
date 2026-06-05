@@ -1,4 +1,5 @@
 {
     "Restaurants": true,
-    "UserDietSection": true
+    "UserDietSection": true,
+    "Orders": true
 }
