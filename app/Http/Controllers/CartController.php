@@ -31,9 +31,10 @@ class CartController extends Controller
 
     }
 
-    public function cartByRestaurant()
+    public function cartByRestaurant($restaurantId)
     {
-        
+        $items = $this->cartService->getCartItemsByRestaurant($restaurantId);
+        return self::success($items);
     }
 
     public function clear()

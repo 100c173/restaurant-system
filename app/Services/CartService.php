@@ -129,15 +129,45 @@ class CartService
         return $cart->load('modifierSelections');
     }
 
-    public function getCartItemsByRestaurant($restaurantId)
+
+    public function getCartItemsByRestaurant(int $restaurantId): array
     {
-        $tenantId = Restaurant::where('id', $restaurantId)->value('tenant_id');
+        $restaurant = Restaurant::where('id', $restaurantId)->firstOrFail();
 
         $cartItems = Cart::with('modifierSelections')
-            ->where('tenant_id', $tenantId)
             ->where('user_id', auth()->id())
+            ->where('tenant_id', $restaurant->tenant_id)
             ->get();
-        
+
+        if ($cartItems->isEmpty()) {
+            throw ValidationException::withMessages([
+                'cart' => 'السلة فارغة.',
+            ]);
+        }
+
+        $subtotal = $cartItems->sum(fn($item) => $item->unit_price * $item->quantity);
+
+        return [
+            'tenant_id' => $restaurant->tenant_id,
+            'restaurant_name' => $restaurant->name,
+            'cart_items' => $cartItems->map(fn($item) => [
+                'item_id' => $item->id, // item in cart
+                'item_name' => $item->item_name,
+                'variant_name' => $item->variant_name,
+                'quantity' => $item->quantity,
+                'unit_price' => $item->unit_price,
+                'line_total' => number_format($item->unit_price * $item->quantity, 2, '.', ''),
+                'special_note' => $item->special_note,
+                'modifiers_summary' => $item->modifierSelections
+                    ->pluck('modifier_name')
+                    ->join('، '),
+            ]),
+            'summary' => [
+                'items_count' => $cartItems->count(),
+                'subtotal' => number_format($subtotal, 2, '.', ''),
+            ],
+        ];
+
     }
 
     private function resolveModifierSnapshots(array $selections): array
