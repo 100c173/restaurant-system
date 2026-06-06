@@ -48,4 +48,10 @@ class CartController extends Controller
         $this->cartService->removeCart($restaurantId);
         return $this->success(null, 'cart removed successfully.');
     }
+
+    public function removeItem($itemId)
+    {
+        $this->cartService->deleteItemFromCart($itemId);
+        return self::success(null,'تم حذف العنصر من السلة');
+    }
 }

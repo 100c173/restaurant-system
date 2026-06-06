@@ -141,7 +141,7 @@ class CartService
 
         if ($cartItems->isEmpty()) {
             throw ValidationException::withMessages([
-                'cart' => 'السلة فارغة.',
+                'cart' => 'السلة فارغة',
             ]);
         }
 
@@ -210,5 +210,11 @@ class CartService
     public function clearCart(): void
     {
         Cart::where('user_id', auth()->id())->delete();
+    }
+
+    public function deleteItemFromCart($itemId)
+    {
+        $item = Cart::where('id',$itemId)->firstOrFail();
+        $item->delete();
     }
 }
