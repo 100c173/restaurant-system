@@ -19,6 +19,7 @@ class TenantOrder extends Model
         'table_number',
         'customer_name',
         'customer_phone',
+        'customer_address',
         'special_instructions',
         'subtotal',
         'total',

@@ -13,18 +13,25 @@ class CheckoutRequest extends FormRequest
     {
         return [
             'tenant_id' => ['required', 'string', 'exists:tenants,id'],
+            'type' => ['nullable', 'in:delivery,pickup'],
             'payment_method' => ['required', 'in:cash,online'],
             'special_instructions' => ['nullable', 'string', 'max:500'],
 
             // Required only for delivery
             'delivery_address' => ['required_if:type,delivery', 'nullable', 'string'],
-            'delivery_lat' => ['required_if:type,delivery', 'nullable', 'numeric'],
-            'delivery_lng' => ['required_if:type,delivery', 'nullable', 'numeric'],
-            'delivery_fee' => ['required_if:type,delivery', 'nullable', 'numeric', 'min:0'],
+            'delivery_lat'     => ['nullable', 'numeric'],
+            'delivery_lng'     => ['nullable', 'numeric'],
+            'delivery_fee'     => ['required_if:type,delivery', 'nullable', 'numeric', 'min:0'],
 
             // Required only for dine_in
             'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],
         ];
+    }
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'type' => $this->input('type', 'pickup'),
+        ]);
     }
 
     /**

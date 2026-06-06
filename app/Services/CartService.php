@@ -155,9 +155,7 @@ class CartService
                 'item_name' => $item->item_name,
                 'variant_name' => $item->variant_name,
                 'quantity' => $item->quantity,
-                'unit_price' => $item->unit_price,
                 'line_total' => number_format($item->unit_price * $item->quantity, 2, '.', ''),
-                'special_note' => $item->special_note,
                 'modifiers_summary' => $item->modifierSelections
                     ->pluck('modifier_name')
                     ->join('، '),

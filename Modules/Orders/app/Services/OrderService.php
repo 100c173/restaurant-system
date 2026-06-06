@@ -19,7 +19,7 @@ class OrderService
     public function checkout(array $data): Order
     {
         $user = User::where('id',auth()->id())->firstOrFail() ;
-         
+
         // ── 1. Load cart items for this tenant ────────────────────
         $cartItems = Cart::with('modifierSelections')
             ->where('user_id', $user->id)
@@ -46,7 +46,7 @@ class OrderService
         $reference = $this->generateReference();
 
         // ── 5. Write to central DB ────────────────────────────────
-        $order = DB::connection('central')->transaction(
+        $order = DB::transaction(
             function () use ($user, $data, $restaurant, $reference, $subtotal, $deliveryFee, $discount, $total) {
 
                 $order = Order::create([
@@ -97,6 +97,7 @@ class OrderService
                     'table_number' => $data['table_number'] ?? null,
                     'customer_name' => $user->name,
                     'customer_phone' => $user->phone,
+                    'customer_address' => $user->address,
                     'special_instructions' => $data['special_instructions'] ?? null,
                     'subtotal' => $subtotal,
                     'total' => $total,

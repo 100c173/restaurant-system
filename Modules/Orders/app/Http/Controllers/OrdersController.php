@@ -14,8 +14,15 @@ class OrdersController extends Controller
     }
     public function store(CheckoutRequest $request)
     {
-        $this->service->checkout($request->validated());
-        return self::success();
+        $order = $this->service->checkout($request->validated());
+        $data = [
+            'order_id' => $order->id,
+            'reference_number' => $order->reference_number,
+            'status' => $order->status,
+            'total' => $order->total,
+            'placed_at' => $order->placed_at,
+        ];
+        return self::success($data, 'تم تأكيد طلبك بنجاح');
     }
 
 
