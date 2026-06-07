@@ -32,7 +32,7 @@ return new class extends Migration
             // Customer snapshot
             $table->string('customer_name');
             $table->string('customer_phone');
-            $table->string('customer_address');
+            $table->string('delivery_address')->nullable();
 
             $table->text('special_instructions')->nullable();
 

@@ -56,6 +56,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Refresh an expired/expiring token (if applicable in your logic)
     Route::post('/token/refresh', [AuthenticationController::class, 'refreshToken']);
 
+    //chage phone number
+    Route::post('/phone',[AuthenticationController::class, 'setPhone']);
+
     // To be tenat 
     Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
 

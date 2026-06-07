@@ -97,7 +97,7 @@ class OrderService
                     'table_number' => $data['table_number'] ?? null,
                     'customer_name' => $user->name,
                     'customer_phone' => $user->phone,
-                    'customer_address' => $user->address,
+                    'delivery_address' =>$data['delivery_address'],
                     'special_instructions' => $data['special_instructions'] ?? null,
                     'subtotal' => $subtotal,
                     'total' => $total,
@@ -150,8 +150,7 @@ class OrderService
             return 0;
         }
 
-        // Extend this later with zone-based pricing logic
-        return (float) ($data['delivery_fee'] ?? 0);
+        return 0 ; //logic to generate cost related by distance
     }
 
     private function generateReference(): string

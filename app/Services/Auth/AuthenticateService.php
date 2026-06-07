@@ -116,4 +116,13 @@ class AuthenticateService
 
         return $token->plainTextToken;
     }
+
+    public function setNewPhoneNumber($data)
+    {
+        $user = User::where('id',auth()->id())->first();
+        $user->update([
+            'phone' => $data['phone'],
+        ]);
+        return $user->phone ; 
+    }
 }

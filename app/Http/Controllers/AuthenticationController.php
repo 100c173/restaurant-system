@@ -172,5 +172,14 @@ class AuthenticationController extends Controller
         }
     }
 
+    public function setPhone(Request $request)
+    {
+        $data = $request->validate([
+            'phone' => 'required|string',
+        ]);
+        $phone = $this->authService->setNewPhoneNumber($data);
+        return $this::success($phone,'phone changed successfully');
+    }
+
 
 }

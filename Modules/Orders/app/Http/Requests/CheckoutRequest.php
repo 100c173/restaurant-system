@@ -21,10 +21,9 @@ class CheckoutRequest extends FormRequest
             'delivery_address' => ['required_if:type,delivery', 'nullable', 'string'],
             'delivery_lat'     => ['nullable', 'numeric'],
             'delivery_lng'     => ['nullable', 'numeric'],
-            'delivery_fee'     => ['required_if:type,delivery', 'nullable', 'numeric', 'min:0'],
 
             // Required only for dine_in
-            'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],
+            //'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],
         ];
     }
     protected function prepareForValidation(): void
