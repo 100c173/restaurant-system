@@ -214,7 +214,20 @@ class CartService
 
     public function deleteItemFromCart($itemId)
     {
-        $item = Cart::where('id',$itemId)->firstOrFail();
+        $item = Cart::where('id', $itemId)->firstOrFail();
         $item->delete();
+    }
+
+    public function editeQuantity($items)
+    {
+        DB::transaction(function () use ($items) {
+            foreach ($items as $item) {
+
+                $cart = Cart::where('id', $item[0]['item_id']);
+                $cart->update([
+                    'quantity' => $item[0]['quantity']
+                ]);
+            }
+        });
     }
 }

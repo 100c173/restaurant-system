@@ -68,6 +68,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/cart/restaurant/{restaurant_id}' , [CartController::class, 'cartByRestaurant']); // get restaurant cart item
     Route::delete('/cart/restaurant/{item_id}',[CartController::class, 'removeItem']); //remove Item From Cart
+    Route::post('/cart/restaurant/edite_item',[CartController::class, 'editeItemd']); // edite items quantity
 });
 
 

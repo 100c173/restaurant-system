@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\CartTenantMismatchException;
 use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\SyncCartRequest;
 use App\Http\Resources\CartResource;
 use App\Services\CartService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -53,5 +54,11 @@ class CartController extends Controller
     {
         $this->cartService->deleteItemFromCart($itemId);
         return self::success(null,'تم حذف العنصر من السلة');
+    }
+
+    public function editeItemd(SyncCartRequest $request)
+    {
+        $this->cartService->editeQuantity($request->validated());
+        return self::success(null,'item quantity edite successfuly');
     }
 }
