@@ -5,29 +5,30 @@ namespace App\Filament\Resources\Restaurants;
 use App\Filament\Resources\Restaurants\Pages\ManageRestaurants;
 use App\Services\CloudinaryUploadService;
 use BackedEnum;
-use BladeUI\Icons\Components\Icon;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Resources\Resource;
+use Filament\Notifications\Notification;
+use Filament\Resources\resource;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Alignment;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Query\Builder;
 use Modules\Restaurants\Models\Restaurant;
 use UnitEnum;
 
@@ -41,6 +42,9 @@ class RestaurantsResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = "Restaurant info";
 
+    /**
+     * CREATE modal
+     */
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
@@ -49,7 +53,6 @@ class RestaurantsResource extends Resource
                 ->columns(2)
                 ->schema([
                     TextInput::make('name')->required(),
-                    TextInput::make('custom_name'),
                     Textarea::make('description')->columnSpanFull(),
                 ]),
 
@@ -59,18 +62,15 @@ class RestaurantsResource extends Resource
                     FileUpload::make('logo')->image()
                         ->saveUploadedFileUsing(function ($file, $record) {
                             $uploader = new CloudinaryUploadService();
-
-                            // Delete old image if exists
                             if ($record?->logo) {
                                 $uploader->delete($record->logo);
                             }
                             return $uploader->upload($file->getRealPath(), 'restaurants');
                         }),
+
                     FileUpload::make('cover_image')->image()
                         ->saveUploadedFileUsing(function ($file, $record) {
                             $uploader = new CloudinaryUploadService();
-
-                            // Delete old image if exists
                             if ($record?->cover_image) {
                                 $uploader->delete($record->cover_image);
                             }
@@ -93,11 +93,270 @@ class RestaurantsResource extends Resource
                 ->schema([
                     TimePicker::make('opening_time'),
                     TimePicker::make('closing_time'),
-                    TextInput::make('commission_rate')->numeric()->suffix('%'),
                     Toggle::make('is_active')->label('Active'),
                 ]),
         ]);
+    }
 
+    /**
+     * EDIT modal — four independent sections, each with its own Save button.
+     */
+    public static function editSchema(Schema $schema): Schema
+    {
+        return $schema->components([
+
+            // ── Section 1: Basic Information ─────────────────────────────
+            Section::make('Basic Information')
+                ->columns(2)
+                ->schema([
+                    TextInput::make('name')->required(),
+                    Textarea::make('description')->columnSpanFull(),
+                ])
+                ->footerActions([
+                    Action::make('saveBasicInfo')
+                        ->label('Save Basic Info')
+                        ->action(function (Get $get, $record) {
+                            $record->update([
+                                'name' => $get('name'),
+                                'description' => $get('description'),
+                            ]);
+
+                            Notification::make()
+                                ->title('Basic information saved successfully.')
+                                ->success()
+                                ->send();
+                        }),
+                ])
+                ->footerActionsAlignment(Alignment::End),
+
+            // ── Section 2: Logo ───────────────────────────────────────────
+            Section::make('Logo')
+                ->schema([
+                    FileUpload::make('logo')
+                        ->image()
+                        ->label('Logo')
+                        ->required(false)
+                        ->afterStateHydrated(function (FileUpload $component, $record) {
+                            if ($record?->logo) {
+                                $component->state([$record->logo]);
+                            }
+                        })
+                        ->getUploadedFileUsing(function (string $file): array {
+                            return [
+                                'name' => basename(parse_url($file, PHP_URL_PATH)),
+                                'size' => 0,
+                                'type' => 'image/jpeg',
+                                'url' => $file,
+                            ];
+                        })
+                        ->dehydrated(false),
+                ])
+                ->footerActions([
+                    Action::make('saveLogo')
+                        ->label('Save Logo')
+                        ->action(function (Get $get, $record) {
+                            $uploaded = $get('logo');
+
+                            $file = is_array($uploaded)
+                                ? collect($uploaded)->first()
+                                : $uploaded;
+
+                            if (!$file || $file === $record->logo) {
+                                Notification::make()
+                                    ->title('No new logo selected.')
+                                    ->warning()
+                                    ->send();
+                                return;
+                            }
+
+                            $uploader = new CloudinaryUploadService();
+
+                            if ($record->logo) {
+                                $uploader->delete($record->logo);
+                            }
+
+                            $url = $uploader->upload($file->getRealPath(), 'restaurants');
+                            $record->update(['logo' => $url]);
+
+                            Notification::make()
+                                ->title('Logo updated successfully.')
+                                ->success()
+                                ->send();
+                        }),
+                ])
+                ->footerActionsAlignment(Alignment::End),
+
+            // ── Section 3: Cover Image ────────────────────────────────────
+            Section::make('Cover Image')
+                ->schema([
+                    FileUpload::make('cover_image')
+                        ->image()
+                        ->label('Cover Image')
+                        ->required(false)
+                        ->afterStateHydrated(function (FileUpload $component, $record) {
+                            if ($record?->cover_image) {
+                                $component->state([$record->cover_image]);
+                            }
+                        })
+                        ->getUploadedFileUsing(function (string $file): array {
+                            return [
+                                'name' => basename(parse_url($file, PHP_URL_PATH)),
+                                'size' => 0,
+                                'type' => 'image/jpeg',
+                                'url' => $file,
+                            ];
+                        })
+                        ->dehydrated(false),
+                ])
+                ->footerActions([
+                    Action::make('saveCoverImage')
+                        ->label('Save Cover Image')
+                        ->action(function (Get $get, $record) {
+                            $uploaded = $get('cover_image');
+
+                            $file = is_array($uploaded)
+                                ? collect($uploaded)->first()
+                                : $uploaded;
+
+                            if (!$file || $file === $record->cover_image) {
+                                Notification::make()
+                                    ->title('No new cover image selected.')
+                                    ->warning()
+                                    ->send();
+                                return;
+                            }
+
+                            $uploader = new CloudinaryUploadService();
+
+                            if ($record->cover_image) {
+                                $uploader->delete($record->cover_image);
+                            }
+
+                            $url = $uploader->upload($file->getRealPath(), 'restaurants');
+                            $record->update(['cover_image' => $url]);
+
+                            Notification::make()
+                                ->title('Cover image updated successfully.')
+                                ->success()
+                                ->send();
+                        }),
+                ])
+                ->footerActionsAlignment(Alignment::End),
+
+            Section::make('Sham Cach Account')
+                ->schema([
+                    FileUpload::make('sham_cach_account')
+                        ->image()
+                        ->label('Sham Cach Account')
+                        ->required(false)
+                        ->afterStateHydrated(function (FileUpload $component, $record) {
+                            if ($record?->sham_cach_account) {
+                                $component->state([$record->sham_cach_account]);
+                            }
+                        })
+                        ->getUploadedFileUsing(function (string $file): array {
+                            return [
+                                'name' => basename(parse_url($file, PHP_URL_PATH)),
+                                'size' => 0,
+                                'type' => 'image/jpeg',
+                                'url' => $file,
+                            ];
+                        })
+                        ->dehydrated(false),
+                ])
+                ->footerActions([
+                    Action::make('saveShamCachAccount')
+                        ->label('Save Sham Cach Account')
+                        ->action(function (Get $get, $record) {
+                            $uploaded = $get('sham_cach_account');
+
+                            $file = is_array($uploaded)
+                                ? collect($uploaded)->first()
+                                : $uploaded;
+
+                            if (!$file || $file === $record->sham_cach_account) {
+                                Notification::make()
+                                    ->title('No new sham cac _account barcode selected.')
+                                    ->warning()
+                                    ->send();
+                                return;
+                            }
+
+                            $uploader = new CloudinaryUploadService();
+
+                            if ($record->sham_cach_account) {
+                                $uploader->delete($record->sham_cach_account);
+                            }
+
+                            $url = $uploader->upload($file->getRealPath(), 'shamCash');
+                            $record->update(['sham_cach_account' => $url]);
+
+                            Notification::make()
+                                ->title('Sham Cach Account updated successfully.')
+                                ->success()
+                                ->send();
+                        }),
+                ])
+                ->footerActionsAlignment(Alignment::End),
+
+            // ── Section 4: Contact & Location ─────────────────────────────
+            Section::make('Contact & Location')
+                ->columns(2)
+                ->schema([
+                    TextInput::make('address')->columnSpanFull()->copyable(),
+                    TextInput::make('phone')->copyable(),
+                    TextInput::make('email')->email()->copyable(),
+                    TextInput::make('latitude')->numeric()->copyable(),
+                    TextInput::make('longitude')->numeric()->copyable(),
+                ])
+                ->footerActions([
+                    Action::make('saveContact')
+                        ->label('Save Contact & Location')
+                        ->action(function (Get $get, $record) {
+                            $record->update([
+                                'address' => $get('address'),
+                                'phone' => $get('phone'),
+                                'email' => $get('email'),
+                                'latitude' => $get('latitude'),
+                                'longitude' => $get('longitude'),
+                            ]);
+
+                            Notification::make()
+                                ->title('Contact & location saved successfully.')
+                                ->success()
+                                ->send();
+                        }),
+                ])
+                ->footerActionsAlignment(Alignment::End),
+
+            // ── Section 5: Hours & Settings ───────────────────────────────
+            Section::make('Hours & Settings')
+                ->columns(2)
+                ->schema([
+                    TimePicker::make('opening_time'),
+                    TimePicker::make('closing_time'),
+                    Toggle::make('is_active')->label('Active'),
+                ])
+                ->footerActions([
+                    Action::make('saveHoursSettings')
+                        ->label('Save Hours & Settings')
+                        ->action(function (Get $get, $record) {
+                            $record->update([
+                                'opening_time' => $get('opening_time'),
+                                'closing_time' => $get('closing_time'),
+                                'is_active' => $get('is_active'),
+                            ]);
+
+                            Notification::make()
+                                ->title('Hours & settings saved successfully.')
+                                ->success()
+                                ->send();
+                        }),
+                ])
+                ->footerActionsAlignment(Alignment::End),
+
+
+        ]);
     }
 
     public static function table(Table $table): Table
@@ -117,7 +376,6 @@ class RestaurantsResource extends Resource
                     ->searchable()
                     ->icon('heroicon-o-phone')
                     ->copyable(),
-
 
                 TextColumn::make('address')
                     ->limit(30)
@@ -144,7 +402,6 @@ class RestaurantsResource extends Resource
                 IconColumn::make('is_active')
                     ->label('Active')
                     ->boolean(),
-
             ])
             ->filters([
                 SelectFilter::make('rate')
@@ -161,6 +418,7 @@ class RestaurantsResource extends Resource
                             $query->where('rate', '>=', $state['value']);
                         }
                     }),
+
                 SelectFilter::make('is_active')
                     ->label('Filter by Status')
                     ->options([
@@ -170,15 +428,14 @@ class RestaurantsResource extends Resource
             ])
             ->recordActions([
 
-                // Owner Info Action — view-only modal
                 Action::make('ownerInfo')
                     ->label('Owner')
                     ->icon('heroicon-o-user')
                     ->color('gray')
                     ->modalHeading('Owner Information')
-                    ->modalSubmitAction(false)           // no submit button
+                    ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Close')
-                    ->infolist([                          // read-only infolist inside modal
+                    ->infolist([
                         TextEntry::make('tenant.owner.name')
                             ->label('Name')
                             ->icon('heroicon-o-user'),
@@ -192,7 +449,6 @@ class RestaurantsResource extends Resource
                             ->copyable(),
                     ]),
 
-                // Categories Action — view-only modal with badges
                 Action::make('categories')
                     ->label('Categories')
                     ->icon('heroicon-o-tag')
@@ -205,7 +461,11 @@ class RestaurantsResource extends Resource
                         ['categories' => $record->categories]
                     )),
 
-                EditAction::make(),
+                EditAction::make()
+                    ->schema(fn(Schema $schema): Schema => static::editSchema($schema))
+                    ->modalSubmitAction(false),
+
+                DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

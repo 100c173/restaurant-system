@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->text('address');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->decimal('commission_rate', 5, 2)->default(0);
+            $table->string('sham_cach_account')->nullable();
             $table->boolean('is_active')->default(true);
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
@@ -29,7 +29,6 @@ return new class extends Migration {
             $table->time('closing_time')->nullable();
             $table->integer('rate')->default(3);
             $table->timestamps();
-
             $table->index('tenant_id');
             
         });

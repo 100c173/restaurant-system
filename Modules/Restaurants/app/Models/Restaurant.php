@@ -30,7 +30,7 @@ class Restaurant extends Model
         "phone",
         "email",
         "status",
-        "commission_rate",
+        "sham_cach_account",
         "is_active",
         "latitude",
         "longitude",
