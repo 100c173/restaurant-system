@@ -7,6 +7,7 @@ use App\Filament\App\Pages\SubscribeToPlan;
 use App\Filament\App\Pages\SubscriptionPlans;
 use App\Filament\App\Resources\MenuItems\Pages\ManageModifiers;
 use App\Http\Middleware\EnsureUserIsOwner;
+use App\Models\CentralDatabaseNotification;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -64,6 +65,8 @@ class AppPanelProvider extends PanelProvider
                 InitializeTenancyByDomain::class,
 
             ], isPersistent: true)
+            ->databaseNotifications()
+            ->databaseNotificationsUsing(CentralDatabaseNotification::class)
             ->authMiddleware([
                 Authenticate::class,
                 EnsureUserIsOwner::class,

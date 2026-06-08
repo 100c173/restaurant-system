@@ -2,6 +2,7 @@
 
 namespace Modules\Orders\Services;
 use App\Models\Cart;
+use App\Models\Tenant;
 use App\Models\User;
 use DB;
 use Illuminate\Support\Str;
@@ -13,12 +14,13 @@ use Modules\Orders\Models\TenantOrderItem;
 use Modules\Orders\Models\TenantOrderItemModifier;
 use Modules\Restaurants\Models\Restaurant;
 use Stancl\Tenancy\Facades\Tenancy;
+use Filament\Notifications\Notification as FilamentNotification;
 
 class OrderService
 {
     public function checkout(array $data): Order
     {
-        $user = User::where('id',auth()->id())->firstOrFail() ;
+        $user = User::where('id', auth()->id())->firstOrFail();
 
         // ── 1. Load cart items for this tenant ────────────────────
         $cartItems = Cart::with('modifierSelections')
@@ -97,7 +99,7 @@ class OrderService
                     'table_number' => $data['table_number'] ?? null,
                     'customer_name' => $user->name,
                     'customer_phone' => $user->phone,
-                    'delivery_address' =>$data['delivery_address'],
+                    'delivery_address' => $data['delivery_address'],
                     'special_instructions' => $data['special_instructions'] ?? null,
                     'subtotal' => $subtotal,
                     'total' => $total,
@@ -139,6 +141,8 @@ class OrderService
             ->where('tenant_id', $data['tenant_id'])
             ->delete();
 
+        // ── 8. Notify admins and tenant ───────────────────
+        $this->notifyNewOrder($order);
         return $order;
     }
 
@@ -150,7 +154,7 @@ class OrderService
             return 0;
         }
 
-        return 0 ; //logic to generate cost related by distance
+        return 0; //logic to generate cost related by distance
     }
 
     private function generateReference(): string
@@ -159,5 +163,33 @@ class OrderService
         $unique = strtoupper(Str::random(6));
 
         return "ORD-{$date}-{$unique}";
+    }
+
+    private function notifyNewOrder(Order $order): void
+    {
+        // Notify all admins (admin panel)
+        $admins = User::role('admin')->get();
+
+        FilamentNotification::make()
+            ->title('طلب جديد')
+            ->body("طلب جديد #{$order->reference_number} من مطعم {$order->restaurant_name}")
+            ->icon('heroicon-o-shopping-bag')
+            ->iconColor('success')
+            ->sendToDatabase($admins);
+
+        // Notify restaurant owner (app panel)
+        $owner = Tenant::where('id', $order->tenant_id)
+            ->with('owner')
+            ->first()
+                ?->owner;
+
+        if ($owner) {
+            FilamentNotification::make()
+                ->title('لديك طلب جديد')
+                ->body("وصلك طلب جديد برقم #{$order->reference_number} بقيمة {$order->total} ليرة")
+                ->icon('heroicon-o-bell-alert')
+                ->iconColor('warning')
+                ->sendToDatabase($owner);
+        }
     }
 }
