@@ -20,6 +20,7 @@ class TenantOrderItemModifier extends Model
         'price',
     ];
 
+    protected $table = 'order_item_modifiers';
     protected $casts = [
         'price' => 'decimal:2',
     ];

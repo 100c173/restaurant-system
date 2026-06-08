@@ -34,6 +34,8 @@ class TenantOrder extends Model
         'ready_at' => 'datetime',
     ];
 
+    protected $table = 'orders';
+
     // ─── Relationships ────────────────────────────────────────────
 
     public function items(): HasMany

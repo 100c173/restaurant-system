@@ -12,6 +12,7 @@ use Modules\Orders\Models\OrderStatusLog;
 use Modules\Orders\Models\TenantOrder;
 use Modules\Orders\Models\TenantOrderItem;
 use Modules\Orders\Models\TenantOrderItemModifier;
+use Modules\Orders\Notifications\NewOrderOwnerNotification;
 use Modules\Restaurants\Models\Restaurant;
 use Stancl\Tenancy\Facades\Tenancy;
 use Filament\Notifications\Notification as FilamentNotification;
@@ -101,6 +102,7 @@ class OrderService
                     'customer_phone' => $user->phone,
                     'delivery_address' => $data['delivery_address'],
                     'special_instructions' => $data['special_instructions'] ?? null,
+                    'payment_code' => $data['payment_code'] ?? null ,
                     'subtotal' => $subtotal,
                     'total' => $total,
                 ]);
@@ -168,7 +170,7 @@ class OrderService
     private function notifyNewOrder(Order $order): void
     {
         // ── Notify all admins ─────────────────────────────────
-        $admins = User::role('admin')->get();
+        $admins = User::role('super-admin')->get();
 
         FilamentNotification::make()
             ->title('طلب جديد')
@@ -180,16 +182,11 @@ class OrderService
         // ── Notify restaurant owner ───────────────────────────
         $owner = Tenant::where('id', $order->tenant_id)
             ->with('owner')
-            ->first()
+            ->sole()
                 ?->owner;
 
         if ($owner) {
-            FilamentNotification::make()
-                ->title('لديك طلب جديد')
-                ->body("وصلك طلب جديد برقم #{$order->reference_number} بقيمة {$order->total}")
-                ->icon('heroicon-o-bell-alert')
-                ->iconColor('warning')
-                ->sendToDatabase($owner);
+            $owner->notify(new NewOrderOwnerNotification($order));
         }
     }
 }

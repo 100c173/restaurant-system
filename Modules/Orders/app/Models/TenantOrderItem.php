@@ -22,7 +22,10 @@ class TenantOrderItem extends Model
         'quantity',
         'line_total',
         'special_note',
+        'payment_code'
     ];
+
+    protected $table = 'order_items';
 
     protected $casts = [
         'unit_price' => 'decimal:2',

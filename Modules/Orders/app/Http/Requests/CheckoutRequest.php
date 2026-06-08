@@ -22,6 +22,8 @@ class CheckoutRequest extends FormRequest
             'delivery_lat'     => ['nullable', 'numeric'],
             'delivery_lng'     => ['nullable', 'numeric'],
 
+            'payment_code'     => ['required_if:payment_method,online' , 'nullable', 'numeric'],
+
             // Required only for dine_in
             //'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],
         ];

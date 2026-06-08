@@ -67,6 +67,7 @@ return new class extends Migration {
 
             // Instructions
             $table->text('special_instructions')->nullable();
+            $table->text('payment_code')->nullable();
 
             // Timestamps for key events
             $table->timestamp('placed_at')->nullable();
@@ -74,6 +75,8 @@ return new class extends Migration {
             $table->timestamp('ready_at')->nullable();
             $table->timestamp('dispatched_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
+
+            
             
             //All event timestamps (confirmed_at, ready_at etc.) are on orders itself for fast access without querying logs
 
