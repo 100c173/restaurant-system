@@ -61,4 +61,9 @@ class CartController extends Controller
         $this->cartService->editeQuantity($request->validated());
         return self::success(null,'item quantity edite successfuly');
     }
+
+    public function restaurantInfo($restaurantId){
+        $res = $this->cartService->getRestaurantInfo($restaurantId);
+        return self::success($res);
+    }
 }
