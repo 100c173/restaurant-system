@@ -66,7 +66,7 @@ class AppPanelProvider extends PanelProvider
 
             ], isPersistent: true)
             ->databaseNotifications()
-            ->databaseNotificationsUsing(CentralDatabaseNotification::class)
+            ->databaseNotificationsPolling('30s')
             ->authMiddleware([
                 Authenticate::class,
                 EnsureUserIsOwner::class,

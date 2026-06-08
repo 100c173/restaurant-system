@@ -57,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
 
             ])
             ->databaseNotifications()
-            ->databaseNotificationsUsing(CentralDatabaseNotification::class)
+            ->databaseNotificationsPolling('30s')
             ->authMiddleware([
                 Authenticate::class,
             ]);

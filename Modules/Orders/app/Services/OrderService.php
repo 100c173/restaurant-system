@@ -167,7 +167,7 @@ class OrderService
 
     private function notifyNewOrder(Order $order): void
     {
-        // Notify all admins (admin panel)
+        // ── Notify all admins ─────────────────────────────────
         $admins = User::role('admin')->get();
 
         FilamentNotification::make()
@@ -177,7 +177,7 @@ class OrderService
             ->iconColor('success')
             ->sendToDatabase($admins);
 
-        // Notify restaurant owner (app panel)
+        // ── Notify restaurant owner ───────────────────────────
         $owner = Tenant::where('id', $order->tenant_id)
             ->with('owner')
             ->first()
@@ -186,7 +186,7 @@ class OrderService
         if ($owner) {
             FilamentNotification::make()
                 ->title('لديك طلب جديد')
-                ->body("وصلك طلب جديد برقم #{$order->reference_number} بقيمة {$order->total} ليرة")
+                ->body("وصلك طلب جديد برقم #{$order->reference_number} بقيمة {$order->total}")
                 ->icon('heroicon-o-bell-alert')
                 ->iconColor('warning')
                 ->sendToDatabase($owner);
