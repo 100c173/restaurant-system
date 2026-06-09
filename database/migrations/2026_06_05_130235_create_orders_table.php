@@ -48,7 +48,6 @@ return new class extends Migration {
                 'failed',
                 'refunded',
             ])->default('pending');
-            $table->string('payment_reference')->nullable();
 
             // Financials
             $table->decimal('subtotal', 10, 2);
@@ -67,7 +66,6 @@ return new class extends Migration {
 
             // Instructions
             $table->text('special_instructions')->nullable();
-            $table->text('payment_code')->nullable();
 
             // Timestamps for key events
             $table->timestamp('placed_at')->nullable();

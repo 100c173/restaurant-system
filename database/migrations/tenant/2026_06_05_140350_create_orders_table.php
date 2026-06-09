@@ -25,6 +25,7 @@ return new class extends Migration
                 'preparing',
                 'ready',
             ])->default('pending');
+            
 
             $table->enum('type', ['delivery', 'pickup', 'dine_in']);
             $table->string('table_number')->nullable();
@@ -33,6 +34,10 @@ return new class extends Migration
             $table->string('customer_name');
             $table->string('customer_phone');
             $table->string('delivery_address')->nullable();
+
+
+            $table->string('payment_code')->nullable();
+
 
             $table->text('special_instructions')->nullable();
 
