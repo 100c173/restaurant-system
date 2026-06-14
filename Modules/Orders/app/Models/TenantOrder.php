@@ -22,6 +22,7 @@ class TenantOrder extends Model
         'delivery_address',
         'special_instructions',
         'payment_code',
+        'payment_received',
         'subtotal',
         'total',
         'confirmed_at',

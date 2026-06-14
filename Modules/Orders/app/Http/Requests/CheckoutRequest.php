@@ -14,15 +14,28 @@ class CheckoutRequest extends FormRequest
         return [
             'tenant_id' => ['required', 'string', 'exists:tenants,id'],
             'type' => ['nullable', 'in:delivery,pickup'],
-            'payment_method' => ['required', 'in:cash,online'],
+            'payment_method' => ['required', 'in:cash,shamCach'],
             'special_instructions' => ['nullable', 'string', 'max:500'],
 
             // Required only for delivery
             'delivery_address' => ['required_if:type,delivery', 'nullable', 'string'],
-            'delivery_lat'     => ['nullable', 'numeric'],
-            'delivery_lng'     => ['nullable', 'numeric'],
+            'delivery_lat' => ['required_if:type,delivery', 'numeric'],
+            'delivery_lng' => ['required_if:type,delivery', 'numeric'],
 
-            'payment_code'     => ['required_if:payment_method,online' , 'nullable', 'numeric'],
+            /*'payment_code' => [
+                'nullable',
+                'numeric',
+                'required_without:payment_received',
+                'required_if:payment_method,online',
+            ],*/
+
+            /*'payment_received' => [
+                'nullable',
+                'file',
+                'mimes:pdf',
+                'required_without:payment_code',
+                'required_if:payment_method,online',
+            ],*/
 
             // Required only for dine_in
             //'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],

@@ -14,7 +14,14 @@ class OrdersController extends Controller
     }
     public function store(CheckoutRequest $request)
     {
-        $order = $this->service->checkout($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('payment_received')) {
+            $data['payment_received'] = $request->file('payment_received')->store('payments', 'public');
+        }
+
+        $order = $this->service->checkout($data);
+
         $data = [
             'order_id' => $order->id,
             'reference_number' => $order->reference_number,
