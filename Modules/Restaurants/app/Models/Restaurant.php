@@ -30,10 +30,12 @@ class Restaurant extends Model
         "phone",
         "email",
         "status",
-        "sham_cach_account",
+        "sham_cach_account_barcode",
+        "sham_cach_account_id",
         "is_active",
         "latitude",
         "longitude",
+        "has_delivery",
         "opening_time",
         "closing_time",
     ];
@@ -41,6 +43,7 @@ class Restaurant extends Model
         'latitude' => 'float',
         'longitude' => 'float',
         'is_active' => 'boolean',
+        'has_delivery' => 'boolean',
         'opening_time' => 'string',
         'closing_time' => 'string',
     ];

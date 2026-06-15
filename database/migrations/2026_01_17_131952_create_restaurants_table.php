@@ -21,12 +21,14 @@ return new class extends Migration {
             $table->text('address');
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
-            $table->string('sham_cach_account')->nullable();
+            $table->string('sham_cach_account_barcode')->nullable();
+            $table->string('sham_cach_account_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
             $table->time('opening_time')->nullable();
             $table->time('closing_time')->nullable();
+            $table->boolean('has_delivery')->default(false);
             $table->integer('rate')->default(3);
             $table->timestamps();
             $table->index('tenant_id');

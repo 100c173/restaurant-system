@@ -18,7 +18,7 @@ class CheckoutRequest extends FormRequest
             'special_instructions' => ['nullable', 'string', 'max:500'],
 
             // Required only for delivery
-            'delivery_address' => ['required_if:type,delivery', 'nullable', 'string'],
+            'delivery_address' => ['required', 'nullable', 'string'],
             'delivery_lat' => ['required_if:type,delivery', 'numeric'],
             'delivery_lng' => ['required_if:type,delivery', 'numeric'],
 

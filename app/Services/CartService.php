@@ -151,7 +151,9 @@ class CartService
             'tenant_id' => $restaurant->tenant_id,
             'restaurant_name' => $restaurant->name,
             'restaurant_id' => $restaurant->id ,
-            'sham_cach_account' => $restaurant->sham_cach_account,
+            'has_delivery' => $restaurant->has_delivery,
+            'sham_cach_account_barcode' => $restaurant->sham_cach_account_barcode,
+            'sham_cach_account_id' => $restaurant->sham_cach_account_id,
             'cart_items' => $cartItems->map(fn($item) => [
                 'item_id' => $item->id, // item in cart
                 'item_name' => $item->item_name,
