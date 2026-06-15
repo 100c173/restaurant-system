@@ -263,20 +263,32 @@ class RestaurantsResource extends Resource
                             ];
                         })
                         ->dehydrated(false),
+
+                   
+                    TextInput::make('sham_cach_account_id')
+                        ->label('Account ID')
+                        ->columnSpanFull()
+                        ->copyable(),
                 ])
                 ->footerActions([
                     Action::make('saveShamCachAccount')
-                        ->label('Save Sham Cach Account barcode')
+                        ->label('Save Sham Cach Account')
                         ->action(function (Get $get, $record) {
-                            $uploaded = $get('sham_cach_account_barcode');
 
+                            $uploaded = $get('sham_cach_account_barcode');
+                            $sham_cach_account_id = $get('sham_cach_account_id');
+                
                             $file = is_array($uploaded)
                                 ? collect($uploaded)->first()
                                 : $uploaded;
 
-                            if (!$file || $file === $record->sham_cach_account_barcode) {
+                            if (
+                                (!$file || $file === $record->sham_cach_account_barcode)
+                                && $sham_cach_account_id === $record->sham_cach_account_id
+                            ) {
+
                                 Notification::make()
-                                    ->title('No new sham cac _account barcode selected.')
+                                    ->title('No changes detected.')
                                     ->warning()
                                     ->send();
                                 return;
@@ -284,12 +296,18 @@ class RestaurantsResource extends Resource
 
                             $uploader = new CloudinaryUploadService();
 
-                            if ($record->sham_cach_account_barcode) {
-                                $uploader->delete($record->sham_cach_account_barcode);
+                            if ($file && $file !== $record->sham_cach_account_barcode) {
+                                if ($record->sham_cach_account_barcode) {
+                                    $uploader->delete($record->sham_cach_account_barcode);
+                                }
+
+                                $url = $uploader->upload($file->getRealPath(), 'shamCash');
+                                $record->sham_cach_account_barcode = $url;
                             }
 
-                            $url = $uploader->upload($file->getRealPath(), 'shamCash');
-                            $record->update(['sham_cach_account_barcode' => $url]);
+                            
+                            $record->sham_cach_account_id = $sham_cach_account_id;
+                            $record->save();
 
                             Notification::make()
                                 ->title('Sham Cach Account updated successfully.')
