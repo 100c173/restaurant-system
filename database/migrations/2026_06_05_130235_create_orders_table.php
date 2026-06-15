@@ -59,10 +59,6 @@ return new class extends Migration {
             $table->text('delivery_address')->nullable();
             $table->decimal('delivery_lat', 10, 7)->nullable();
             $table->decimal('delivery_lng', 10, 7)->nullable();
-            $table->foreignId('driver_id')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
 
             // Instructions
             $table->text('special_instructions')->nullable();

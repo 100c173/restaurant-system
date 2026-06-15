@@ -16,10 +16,6 @@ class OrdersController extends Controller
     {
         $data = $request->validated();
 
-        if ($request->hasFile('payment_received')) {
-            $data['payment_received'] = $request->file('payment_received')->store('payments', 'public');
-        }
-
         $order = $this->service->checkout($data);
 
         $data = [

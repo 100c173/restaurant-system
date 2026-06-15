@@ -41,16 +41,15 @@ class OrderService
 
         // ── 3. Calculate financials ───────────────────────────────
         $subtotal = $cartItems->sum(fn($item) => $item->unit_price * $item->quantity);
-        $deliveryFee = $this->resolveDeliveryFee($data);
         $discount = 0; // extend later with coupon logic
-        $total = $subtotal + $deliveryFee - $discount;
+        $total = $subtotal - $discount;
 
         // ── 4. Generate reference number ──────────────────────────
         $reference = $this->generateReference();
 
         // ── 5. Write to central DB ────────────────────────────────
         $order = DB::transaction(
-            function () use ($user, $data, $restaurant, $reference, $subtotal, $deliveryFee, $discount, $total) {
+            function () use ($user, $data, $restaurant, $reference, $subtotal, $discount, $total) {
 
                 $order = Order::create([
                     'reference_number' => $reference,
@@ -62,7 +61,6 @@ class OrderService
                     'payment_method' => $data['payment_method'],
                     'payment_status' => 'pending',
                     'subtotal' => $subtotal,
-                    'delivery_fee' => $deliveryFee,
                     'discount_amount' => $discount,
                     'total' => $total,
                     'delivery_address' => $data['delivery_address'] ?? null,
@@ -97,7 +95,6 @@ class OrderService
                     'reference_number' => $order->reference_number,
                     'status' => 'pending',
                     'type' => $data['type'],
-                    'payment_received' => $data['payment_received'] ?? null,
                     'payment_code' => $data['payment_code'] ?? null,
                     'table_number' => $data['table_number'] ?? null,
                     'customer_name' => $user->name,
@@ -150,15 +147,6 @@ class OrderService
     }
 
     // ─── Helpers ──────────────────────────────────────────────────
-
-    private function resolveDeliveryFee(array $data): float
-    {
-        if ($data['type'] !== 'delivery') {
-            return 0;
-        }
-
-        return 0; //logic to generate cost related by distance
-    }
 
     private function generateReference(): string
     {

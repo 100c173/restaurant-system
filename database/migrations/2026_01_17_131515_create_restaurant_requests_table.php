@@ -34,6 +34,8 @@ return new class extends Migration {
 
             $table->text('cancel_reason')->nullable();
 
+            $table->boolean('has_delivery')->default(false);
+
             $table->softDeletes();
             $table->timestamps();
         });
