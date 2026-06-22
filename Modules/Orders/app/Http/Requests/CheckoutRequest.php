@@ -14,7 +14,7 @@ class CheckoutRequest extends FormRequest
         return [
             'tenant_id' => ['required', 'string', 'exists:tenants,id'],
             'type' => ['nullable', 'in:delivery,pickup'],
-            'payment_method' => ['required', 'in:cash,shamCach'],
+            'payment_method' => ['required', 'in:cash,shamCash'],
             'special_instructions' => ['nullable', 'string', 'max:500'],
 
             // Required only for delivery
