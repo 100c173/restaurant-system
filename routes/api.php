@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/cart/restaurant/edite_item',[CartController::class, 'editeItemd']); // edite items quantity
 });
 
+Route::middleware('auth:sanctum')->prefix('orders')->group(function () {
+    Route::get('/', [OrderController::class, 'index']);
+});
 
 // get home data : restaurant + restaurant-categories
 Route::get('/home',[HomeController::class,'getHomeData']);
