@@ -19,8 +19,8 @@ class CheckoutRequest extends FormRequest
 
             // Required only for delivery
             'delivery_address' => ['required', 'nullable', 'string'],
-            'delivery_lat' => ['required_if:type,delivery', 'numeric'],
-            'delivery_lng' => ['required_if:type,delivery', 'numeric'],
+          //  'delivery_lat' => ['required_if:type,delivery', 'numeric'],
+          //  'delivery_lng' => ['required_if:type,delivery', 'numeric'],
 
             /*'payment_code' => [
                 'nullable',
