@@ -5,5 +5,4 @@ return [
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\Filament\AppPanelProvider::class,
     App\Providers\TenancyServiceProvider::class,
-    App\Providers\BroadcastServiceProvider::class,
 ];

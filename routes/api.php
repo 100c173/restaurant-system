@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RestaurantController;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -94,3 +95,4 @@ Route::get('restaurant-categories',[HomeController::class,'categories']);
 //get item details (cached 5 minutes)
 Route::get('/restaurants/{restaurant}/menu/{menu_item}', [RestaurantController::class, 'getItem']);
 
+Broadcast::routes(['middleware' => ['auth:sanctum']]);

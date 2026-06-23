@@ -31,7 +31,6 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->renderable(function (NotFoundHttpException $e, $request) {
-            // Inspice num petitio JSON exspectet (plerumque in petitionibus API).
             if ($request->is('api/*') || $request->expectsJson()) {
                 return response()->json([
                     'message' => 'Resource not found.',
@@ -39,7 +38,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 404);
             }
         });
-
 
         $exceptions->renderable(function (ModelNotFoundException $e, $request) {
             if ($request->is('api/*') || $request->expectsJson()) {
@@ -50,13 +48,19 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
 
-        $exceptions->renderable(function (Throwable $e, $request) {
+        $exceptions->renderable(function (\Illuminate\Auth\AuthenticationException $e, $request) {
+            if ($request->is('api/*') || $request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Unauthenticated.',
+                ], 401);
+            }
+        });
 
+        $exceptions->renderable(function (Throwable $e, $request) {
             return response()->json([
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
             ], 500);
-
         });
     })->create();
