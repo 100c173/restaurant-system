@@ -16,21 +16,21 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         api: __DIR__ . '/../routes/api.php',
-        channels: __DIR__.'/../routes/channels.php',
+        channels: __DIR__ . '/../routes/channels.php',
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             // Spatie role & permission middlewares
-            'role' =>  RoleMiddleware::class,
+            'role' => RoleMiddleware::class,
             'permission' => PermissionMiddleware::class,
             'role_or_permission' => RoleOrPermissionMiddleware::class,
             'phone_number_exist' => CheckPhoneNumber::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-                $exceptions->renderable(function (NotFoundHttpException $e, $request) {
+        $exceptions->renderable(function (NotFoundHttpException $e, $request) {
             // Inspice num petitio JSON exspectet (plerumque in petitionibus API).
             if ($request->is('api/*') || $request->expectsJson()) {
                 return response()->json([
@@ -51,12 +51,12 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->renderable(function (Throwable $e, $request) {
-            // example to handle any internal error common (500)
-            if ($request->is('api/*') || $request->expectsJson()) {
-                return response()->json([
-                    'message' => 'An unexpected error occurred.',
-                    'error' => $e->getMessage()
-                ], 500);
-            }
+
+            return response()->json([
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ], 500);
+
         });
     })->create();
