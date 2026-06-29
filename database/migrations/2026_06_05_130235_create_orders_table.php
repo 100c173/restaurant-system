@@ -41,7 +41,7 @@ return new class extends Migration {
             ])->default('pending');
 
             // Payment
-            $table->enum('payment_method', ['cash', 'online']);
+            $table->enum('payment_method', ['shamCash', 'cash']);
             $table->enum('payment_status', [
                 'pending',
                 'paid',

@@ -12,33 +12,27 @@ class CheckoutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tenant_id' => ['required', 'string', 'exists:tenants,id'],
-            'type' => ['nullable', 'in:delivery,pickup'],
-            'payment_method' => ['required', 'in:cash,shamCash'],
-            'special_instructions' => ['nullable', 'string', 'max:500'],
-
-            // Required only for delivery
-            'delivery_address' => ['required', 'nullable', 'string'],
-          //  'delivery_lat' => ['required_if:type,delivery', 'numeric'],
-          //  'delivery_lng' => ['required_if:type,delivery', 'numeric'],
-
-            /*'payment_code' => [
+            'payment_code' => [
                 'nullable',
                 'numeric',
-                'required_without:payment_received',
-                'required_if:payment_method,online',
-            ],*/
+                'required_without:invoice',
+            ],
 
-            /*'payment_received' => [
+            'tenant_id' => [
+                'required',
+                'string',
+            ],
+            'reference_number' => [
+                'required',
+                'string',
+            ],
+            'invoice' => [
                 'nullable',
                 'file',
-                'mimes:pdf',
+                'mimes:jpg,jpeg,png,pdf',
                 'required_without:payment_code',
-                'required_if:payment_method,online',
-            ],*/
-
-            // Required only for dine_in
-            //'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],
+                'max:2048'
+            ],
         ];
     }
     protected function prepareForValidation(): void

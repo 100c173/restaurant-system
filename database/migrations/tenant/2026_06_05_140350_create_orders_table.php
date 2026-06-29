@@ -37,6 +37,7 @@ return new class extends Migration
 
 
             $table->string('payment_code')->nullable();
+            $table->string('invoice')->nullable();
 
 
             $table->text('special_instructions')->nullable();

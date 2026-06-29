@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'reference_number' => $this->reference_number,
             'restaurant_name' => $this->restaurant_name,
+            'tenant_id' => $this->tenant_id,
             'type' => $this->type,
             'status' => $this->status,
             'status_label' => __('orders.statuses.' . $this->status),

@@ -5,21 +5,26 @@ use App\Models\Cart;
 use App\Models\Tenant;
 use App\Models\User;
 use DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Modules\Orders\Http\Requests\CheckoutRequest;
 use Modules\Orders\Models\Order;
 use Modules\Orders\Models\OrderStatusLog;
 use Modules\Orders\Models\TenantOrder;
 use Modules\Orders\Models\TenantOrderItem;
 use Modules\Orders\Models\TenantOrderItemModifier;
 use Modules\Orders\Notifications\NewOrderOwnerNotification;
+use Modules\Orders\Notifications\OrderPaymentNotification;
 use Modules\Restaurants\Models\Restaurant;
 use Stancl\Tenancy\Facades\Tenancy;
 use Filament\Notifications\Notification as FilamentNotification;
+use Illuminate\Http\UploadedFile;
+
 
 class OrderService
 {
-    public function checkout(array $data): Order
+    public function confirme(array $data): Order
     {
         $user = User::where('id', auth()->id())->firstOrFail();
 
@@ -176,6 +181,78 @@ class OrderService
 
         if ($owner) {
             $owner->notify(new NewOrderOwnerNotification($order));
+        }
+    }
+
+    public function checkout(CheckoutRequest $request): void
+    {
+        Tenancy::initialize($request->input('tenant_id'));
+
+        try {
+            DB::transaction(function () use ($request) {
+
+                $order = TenantOrder::where(
+                    'reference_number',
+                    $request->input('reference_number')
+                )->sole();
+
+                $dataToUpdate = [];
+
+                if ($request->hasFile('invoice')) {
+
+                    /** @var UploadedFile $file */
+                    $file = $request->file('invoice');
+
+        
+                    if ($order->invoice && Storage::disk('public')->exists($order->invoice)) {
+                        Storage::disk('public')->delete($order->invoice);
+                    }
+
+                  
+                    $filename = 'invoice_' . time() . '.' . $file->getClientOriginalExtension();
+
+                    $path = $file->storeAs('invoices', $filename, 'public');
+
+                    $dataToUpdate['invoice'] = $path;
+                }
+
+                if ($request->filled('payment_code')) {
+                    $dataToUpdate['payment_code'] = $request->input('payment_code');
+                }
+
+    
+                if (!empty($dataToUpdate)) {
+                    $order->update($dataToUpdate);
+                }
+
+                $this->notifyUpdateOrder(
+                    $order->reference_number,
+                    $order->total,
+                    $request->input('tenant_id')
+                );
+            });
+
+        } finally {
+            Tenancy::end();
+        }
+    }
+
+    private function notifyUpdateOrder($reference_number, $total, $tenant_id): void
+    {
+        // ── Notify restaurant owner ───────────────────────────
+        $owner = Tenant::where('id', $tenant_id)
+            ->with('owner')
+            ->sole()
+                ?->owner;
+
+        if ($owner) {
+            $owner->notify(
+                new OrderPaymentNotification(
+                    $reference_number,
+                    $total,
+                    $tenant_id,
+                )
+            );
         }
     }
 }
