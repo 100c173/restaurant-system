@@ -4,6 +4,7 @@ namespace Modules\Orders\Services;
 use App\Models\Cart;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Services\CloudinaryUploadService;
 use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -200,20 +201,19 @@ class OrderService
 
                 if ($request->hasFile('invoice')) {
 
-                    /** @var UploadedFile $file */
                     $file = $request->file('invoice');
+                                        
+                    $cloudinaryService = new CloudinaryUploadService();
 
-        
-                    if ($order->invoice && Storage::disk('public')->exists($order->invoice)) {
-                        Storage::disk('public')->delete($order->invoice);
+
+                    if ($order->invoice ) {
+                        $cloudinaryService->delete($order->invoice);
                     }
-
-                  
-                    $filename = 'invoice_' . time() . '.' . $file->getClientOriginalExtension();
-
-                    $path = $file->storeAs('invoices', $filename, 'public');
+                    
+                    $path = $cloudinaryService->upload($file,'invoices');
 
                     $dataToUpdate['invoice'] = $path;
+
                 }
 
                 if ($request->filled('payment_code')) {
