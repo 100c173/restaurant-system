@@ -210,7 +210,7 @@ class OrderService
                         $cloudinaryService->delete($order->invoice);
                     }
                     
-                    $path = $cloudinaryService->upload($file,'invoices');
+                    $path = $cloudinaryService->upload($file->getRealPath(),'invoices');
 
                     $dataToUpdate['invoice'] = $path;
 

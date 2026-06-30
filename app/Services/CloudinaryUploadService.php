@@ -47,7 +47,6 @@ class CloudinaryUploadService
         preg_match('/\/upload\/(?:v\d+\/)?(.+)\.[a-z]+$/i', $url, $matches);
 
         if (!empty($matches[1])) {
-            dd($matches[1]);
             $this->cloudinary->uploadApi()->destroy($matches[1]);
         }
     }

@@ -110,11 +110,6 @@ class OrdersResource extends Resource
         $record->update(['subtotal' => $subtotal, 'total' => $subtotal]);
     }
 
-    // ─── Invoice helper: detect file type for preview ─────────────
-    // `invoice` stores a Cloudinary URL (same pattern as barcode_image
-    // in ShamCashAccountsResource) — no disk resolution needed, it's
-    // already a fully-qualified URL we can use as-is.
-
     protected static function isInvoicePdf(?string $url): bool
     {
         if (blank($url)) return false;
