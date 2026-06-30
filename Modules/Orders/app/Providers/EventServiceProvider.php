@@ -4,6 +4,8 @@ namespace Modules\Orders\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\Orders\Events\ChangeOrderStatus;
+use Modules\Orders\Events\SetDeliveryFee;
+use Modules\Orders\Listeners\SynsDeliveyFeeWithCentralDbListener;
 use Modules\Orders\Listeners\SynsEditStatusWithCentralDbListenr;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         ChangeOrderStatus::class =>[
             SynsEditStatusWithCentralDbListenr::class,
+        ],
+        SetDeliveryFee::class =>[
+            SynsDeliveyFeeWithCentralDbListener::class,
         ],
     ];
 

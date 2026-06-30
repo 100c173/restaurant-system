@@ -4,8 +4,10 @@ namespace App\Filament\App\Resources\Orders;
 
 use App\Filament\App\Resources\Orders\Pages\ManageOrders;
 use BackedEnum;
+use Illuminate\Support\Facades\DB;
 use Modules\Orders\Events\ChangeOrderStatus;
 use Modules\Orders\Events\OrderStatusChanged;
+use Modules\Orders\Events\SetDeliveryFee;
 use UnitEnum;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -101,17 +103,24 @@ class OrdersResource extends Resource
 
     // ─── Recalculate order totals after item edits ────────────────
 
-    protected static function recalculateTotals(TenantOrder $record): void
+    protected static function recalculateTotals(TenantOrder $record , $delivery_cost): void
     {
-       // $record->refresh();
+        DB::transaction(function () use ($record,$delivery_cost) {
 
-        $subtotal = $record->total;
+            //$record->refresh();
 
-        $record->update([
-            'subtotal' => $subtotal, 
-            'total' => $subtotal + $record->delivery_cost,
-            'delivery_cost' => $record->delivery_cost,
-        ]);
+            $subtotal = $record->subtotal;
+
+            if ($record->total == $record->subtotal) {
+                $subtotal = $record->total;
+            }
+
+            $record->update([
+                'delivery_cost' => $delivery_cost,
+                'subtotal' => $subtotal,
+                'total' => $subtotal + $delivery_cost,
+            ]);
+        });
     }
 
     protected static function isInvoicePdf(?string $url): bool
@@ -206,7 +215,7 @@ class OrdersResource extends Resource
             Section::make('Delivey Cost')
                 ->schema([
                     TextInput::make('delivery_cost')
-                    ->label('Delivery Cost')
+                        ->label('Delivery Cost')
                 ]),
         ]);
     }
@@ -359,7 +368,7 @@ class OrdersResource extends Resource
                                         ->color(fn($state) => static::statusColor($state))
                                         ->icon(fn($state) => static::statusIcon($state))
                                         ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
-                                        
+
                                     TextEntry::make('customer_name')->label('Customer'),
                                     TextEntry::make('customer_phone')->label('Phone')->copyable(),
                                     TextEntry::make('table_number')
@@ -482,13 +491,15 @@ class OrdersResource extends Resource
                         ->modalWidth('3xl')
                         ->modalSubmitActionLabel('Save Changes')
                         ->using(function (TenantOrder $record, array $data) {
-                            $record->update([
-                                'delivery_cost' => $data['delivery_cost'] ?? $record->delivery_cost,
-                            ]);
 
-                            static::recalculateTotals($record);
+                            $delivery_cost = $data['delivery_cost'] ?? $record->delivery_cost;
+
+
+                            static::recalculateTotals($record, $delivery_cost);
 
                             Notification::make()->title('Order updated.')->success()->send();
+
+                            event(new SetDeliveryFee($record));
 
                             return $record;
                         }),
