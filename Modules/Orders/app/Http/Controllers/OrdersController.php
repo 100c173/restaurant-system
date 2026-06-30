@@ -30,10 +30,26 @@ class OrdersController extends Controller
         return self::success($data, 'تم تأكيد طلبك بنجاح');
     }
 
-    public function checkout(CheckoutRequest $request){
+    public function checkout(CheckoutRequest $request)
+    {
         $this->service->checkout($request);
         return self::success('Payment process completed successfully');
 
+    }
+
+    public function deliveryCost($reference_number)
+    {
+
+        $delivery_cost = $this->service->getDeliverCost($reference_number);
+        return self::success([
+            'delivery_cost' => $delivery_cost,
+        ]);
+    }
+
+    public function cancelOrder($reference_number)
+    {
+        $this->service->cancelOrder($reference_number);
+        return self::success("order $reference_number cancelled successful");
     }
 
 

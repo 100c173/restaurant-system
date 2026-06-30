@@ -30,7 +30,7 @@ class SynsEditStatusWithCentralDbListenr
         OrderStatusLog::create([
             'order_id' => $centralOrder->id,
             'status' => $tenantOrder->status,
-            'changed_by_type' => 'restaurant',
+            'changed_by_type' => $event->actor,
             'changed_by_id' => auth()->id(),
             'created_at' => now(),
         ]);

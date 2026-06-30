@@ -18,7 +18,7 @@ class ChangeOrderStatus
     /**
      * Create a new event instance.
      */
-    public function __construct(public TenantOrder $order) {}
+    public function __construct(public TenantOrder $order , public String $actor ='system') {}
 
     /**
      * Get the channels the event should be broadcast on.

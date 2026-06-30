@@ -24,6 +24,7 @@ return new class extends Migration
                 'rejected',
                 'preparing',
                 'ready',
+                'cancelled',
             ])->default('pending');
             
 

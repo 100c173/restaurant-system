@@ -9,7 +9,9 @@ use DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Modules\Orders\Events\ChangeOrderStatus;
 use Modules\Orders\Http\Requests\CheckoutRequest;
+use Modules\Orders\Listeners\SynsEditStatusWithCentralDbListenr;
 use Modules\Orders\Models\Order;
 use Modules\Orders\Models\OrderStatusLog;
 use Modules\Orders\Models\TenantOrder;
@@ -202,15 +204,15 @@ class OrderService
                 if ($request->hasFile('invoice')) {
 
                     $file = $request->file('invoice');
-                                        
+
                     $cloudinaryService = new CloudinaryUploadService();
 
 
-                    if ($order->invoice ) {
+                    if ($order->invoice) {
                         $cloudinaryService->delete($order->invoice);
                     }
-                    
-                    $path = $cloudinaryService->upload($file->getRealPath(),'invoices');
+
+                    $path = $cloudinaryService->upload($file->getRealPath(), 'invoices');
 
                     $dataToUpdate['invoice'] = $path;
 
@@ -220,7 +222,7 @@ class OrderService
                     $dataToUpdate['payment_code'] = $request->input('payment_code');
                 }
 
-    
+
                 if (!empty($dataToUpdate)) {
                     $order->update($dataToUpdate);
                 }
@@ -253,6 +255,39 @@ class OrderService
                     $tenant_id,
                 )
             );
+        }
+    }
+
+    public function getDeliverCost($reference_number)
+    {
+        $centralOrder = Order::where('reference_number', $reference_number)->sole();
+
+        try {
+            Tenancy::initialize($centralOrder->tenant_id);
+            $order = TenantOrder::where('reference_number', $reference_number)->sole();
+            return $order->delivery_cost;
+
+        } finally {
+            Tenancy::end();
+        }
+
+    }
+
+    public function cancelOrder($reference_number)
+    {
+        $centralOrder = Order::where('reference_number', $reference_number)->sole();
+
+        try {
+            Tenancy::initialize($centralOrder->tenant_id);
+
+            $order = TenantOrder::where('reference_number', $reference_number)->sole();
+            $order->update(['status' => 'cancelled']);
+
+            event(new ChangeOrderStatus($order,'customer'));
+            
+
+        } finally {
+            Tenancy::end();
         }
     }
 }
