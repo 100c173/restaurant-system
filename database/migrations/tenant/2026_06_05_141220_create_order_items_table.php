@@ -19,8 +19,14 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             // Soft references
-            $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('variant_id')->nullable();
+            $table->foreignId('item_id')
+                ->constrained('menu_items')
+                ->cascadeOnDelete();
+
+            $table->foreignId('variant_id')
+                ->nullable()
+                ->constrained('menu_item_variants')
+                ->cascadeOnDelete();
 
             // Snapshots
             $table->string('item_name');

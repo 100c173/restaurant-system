@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,10 +18,18 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             // Soft references + snapshots
-            $table->unsignedBigInteger('modifier_group_id');
+            $table->foreignId('modifier_group_id')
+                ->constrained('modifier_groups')
+                ->cascadeOnDelete();
+
             $table->string('modifier_group_name');
-            $table->unsignedBigInteger('modifier_id');
+
+            $table->foreignId('modifier_id')
+                ->constrained('modifiers')
+                ->cascadeOnDelete();
+
             $table->string('modifier_name');
+            
             $table->decimal('price', 10, 2)->default(0);
 
             $table->timestamps();

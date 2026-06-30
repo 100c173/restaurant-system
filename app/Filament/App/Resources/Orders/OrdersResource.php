@@ -51,45 +51,48 @@ class OrdersResource extends Resource
     public static function statusColor(string $status): string
     {
         return match ($status) {
-            'pending'   => 'warning',
+            'pending' => 'warning',
             'confirmed' => 'info',
             'preparing' => 'primary',
-            'ready'     => 'success',
-            'rejected'  => 'danger',
-            default     => 'gray',
+            'ready' => 'success',
+            'rejected' => 'danger',
+            default => 'gray',
         };
     }
 
     public static function statusIcon(string $status): string
     {
         return match ($status) {
-            'pending'   => 'heroicon-m-clock',
+            'pending' => 'heroicon-m-clock',
             'confirmed' => 'heroicon-m-check-circle',
             'preparing' => 'heroicon-m-fire',
-            'ready'     => 'heroicon-m-bell',
-            'rejected'  => 'heroicon-m-x-circle',
-            default     => 'heroicon-m-question-mark-circle',
+            'ready' => 'heroicon-m-bell',
+            'rejected' => 'heroicon-m-x-circle',
+            default => 'heroicon-m-question-mark-circle',
         };
     }
 
     protected static array $statusOptions = [
-        'pending'   => 'Pending',
+        'pending' => 'Pending',
         'confirmed' => 'Confirmed',
         'preparing' => 'Preparing',
-        'ready'     => 'Ready',
-        'rejected'  => 'Rejected',
+        'ready' => 'Ready',
+        'rejected' => 'Rejected',
     ];
 
     // ─── Status Change Helper ─────────────────────────────────────
 
     protected static function applyStatusChange(TenantOrder $record, string $newStatus): void
     {
-        if ($record->status === $newStatus) return;
+        if ($record->status === $newStatus)
+            return;
 
         $updates = ['status' => $newStatus];
 
-        if ($newStatus === 'confirmed') $updates['confirmed_at'] = now();
-        if ($newStatus === 'ready')     $updates['ready_at']     = now();
+        if ($newStatus === 'confirmed')
+            $updates['confirmed_at'] = now();
+        if ($newStatus === 'ready')
+            $updates['ready_at'] = now();
 
         $record->update($updates);
         ChangeOrderStatus::dispatch($record);
@@ -100,19 +103,21 @@ class OrdersResource extends Resource
 
     protected static function recalculateTotals(TenantOrder $record): void
     {
-        $record->refresh();
+       // $record->refresh();
 
-        $subtotal = $record->items->sum(function ($item) {
-            $modifiersTotal = $item->modifiers->sum('price');
-            return ($item->unit_price + $modifiersTotal) * $item->quantity;
-        });
+        $subtotal = $record->total;
 
-        $record->update(['subtotal' => $subtotal, 'total' => $subtotal]);
+        $record->update([
+            'subtotal' => $subtotal, 
+            'total' => $subtotal + $record->delivery_cost,
+            'delivery_cost' => $record->delivery_cost,
+        ]);
     }
 
     protected static function isInvoicePdf(?string $url): bool
     {
-        if (blank($url)) return false;
+        if (blank($url))
+            return false;
 
         // Cloudinary PDF URLs end in .pdf same as any other file URL.
         return Str::endsWith(strtolower(parse_url($url, PHP_URL_PATH) ?? $url), '.pdf');
@@ -123,7 +128,7 @@ class OrdersResource extends Resource
     public static function editItemsSchema(Schema $schema): Schema
     {
         return $schema->components([
-
+            /*
             Section::make('Order Items')
                 ->schema([
                     Repeater::make('items')
@@ -197,6 +202,12 @@ class OrdersResource extends Resource
                         ->placeholder('e.g. transaction / reference code')
                         ->maxLength(255),
                 ]),
+            */
+            Section::make('Delivey Cost')
+                ->schema([
+                    TextInput::make('delivery_cost')
+                    ->label('Delivery Cost')
+                ]),
         ]);
     }
 
@@ -225,12 +236,16 @@ class OrdersResource extends Resource
                     ->label('Customer')
                     ->searchable(),
 
+                TextColumn::make('delivery_address')
+                    ->label('Delivery Address')
+                    ->searchable(),
+
                 TextColumn::make('type')
                     ->badge()
                     ->color(fn($state) => match ($state) {
                         'delivery' => 'info',
-                        'pickup'   => 'warning',
-                        'dine_in'  => 'success',
+                        'pickup' => 'warning',
+                        'dine_in' => 'success',
                     })
                     ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
 
@@ -241,7 +256,7 @@ class OrdersResource extends Resource
                     ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
 
                 TextColumn::make('total')
-                    ->money('USD')
+                    ->money('SYP')
                     ->weight(FontWeight::Bold),
 
                 TextColumn::make('created_at')
@@ -258,8 +273,8 @@ class OrdersResource extends Resource
                 SelectFilter::make('type')
                     ->options([
                         'delivery' => 'Delivery',
-                        'pickup'   => 'Pickup',
-                        'dine_in'  => 'Dine In',
+                        'pickup' => 'Pickup',
+                        'dine_in' => 'Dine In',
                     ]),
 
                 Filter::make('created_at')
@@ -267,9 +282,10 @@ class OrdersResource extends Resource
                         DatePicker::make('from')->label('From'),
                         DatePicker::make('until')->label('Until'),
                     ])
-                    ->query(fn($query, array $data) => $query
-                        ->when($data['from'], fn($q, $v) => $q->whereDate('created_at', '>=', $v))
-                        ->when($data['until'], fn($q, $v) => $q->whereDate('created_at', '<=', $v))
+                    ->query(
+                        fn($query, array $data) => $query
+                            ->when($data['from'], fn($q, $v) => $q->whereDate('created_at', '>=', $v))
+                            ->when($data['until'], fn($q, $v) => $q->whereDate('created_at', '<=', $v))
                     ),
             ])
             ->filtersFormColumns(2)
@@ -334,8 +350,8 @@ class OrdersResource extends Resource
                                         ->badge()
                                         ->color(fn($state) => match ($state) {
                                             'delivery' => 'info',
-                                            'pickup'   => 'warning',
-                                            'dine_in'  => 'success',
+                                            'pickup' => 'warning',
+                                            'dine_in' => 'success',
                                         })
                                         ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
                                     TextEntry::make('status')
@@ -343,17 +359,26 @@ class OrdersResource extends Resource
                                         ->color(fn($state) => static::statusColor($state))
                                         ->icon(fn($state) => static::statusIcon($state))
                                         ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
+                                        
                                     TextEntry::make('customer_name')->label('Customer'),
                                     TextEntry::make('customer_phone')->label('Phone')->copyable(),
                                     TextEntry::make('table_number')
                                         ->label('Table')
                                         ->placeholder('—')
                                         ->visible(fn($record) => $record->type === 'dine_in'),
+
+                                    TextEntry::make('delivery_cost')
+                                        ->label('Delivery Cost')
+                                        ->placeholder('—')
+                                        ->weight(FontWeight::Bold),
+
+                                    // ->visible(fn($record) => $record->type === 'delivery'),
                                     TextEntry::make('delivery_address')
                                         ->label('Delivery Address')
                                         ->columnSpanFull()
                                         ->placeholder('—')
-                                        ->visible(fn($record) => $record->type === 'delivery'),
+                                        ->weight(FontWeight::Bold),
+                                    //->visible(fn($record) => $record->type === 'delivery'),
                                 ]),
 
                             Section::make('Items')
@@ -372,7 +397,7 @@ class OrdersResource extends Resource
                                                 ->label('Qty'),
                                             TextEntry::make('line_total')
                                                 ->label('Total')
-                                                ->money('USD'),
+                                                ->money('SPY'),
                                             RepeatableEntry::make('modifiers')
                                                 ->label('Add-ons')
                                                 ->columnSpanFull()
@@ -415,7 +440,7 @@ class OrdersResource extends Resource
                                         ->label('Invoice')
                                         ->height(200)
                                         ->url(fn($record) => $record->invoice, true)
-                                        ->visible(fn($record) => filled($record->invoice) && ! static::isInvoicePdf($record->invoice)),
+                                        ->visible(fn($record) => filled($record->invoice) && !static::isInvoicePdf($record->invoice)),
 
                                     // PDF invoice — embedded inline via iframe, view-only.
                                     TextEntry::make('invoice')
@@ -448,18 +473,17 @@ class OrdersResource extends Resource
                                 ]),
                         ]),
 
-                    EditAction::make('editItems')
-                        ->label('Edit Items')
+                    EditAction::make('writeDeliveryCost')
+                        ->label('Delivery Cost')
                         ->icon('heroicon-o-pencil-square')
                         ->color('warning')
                         ->schema(fn(Schema $schema): Schema => static::editItemsSchema($schema))
-                        ->modalHeading('Edit Order Items')
+                        ->modalHeading('Write Delivery Cost')
                         ->modalWidth('3xl')
                         ->modalSubmitActionLabel('Save Changes')
                         ->using(function (TenantOrder $record, array $data) {
                             $record->update([
-                                'special_instructions' => $data['special_instructions'] ?? $record->special_instructions,
-                                'payment_code'          => $data['payment_code'] ?? $record->payment_code,
+                                'delivery_cost' => $data['delivery_cost'] ?? $record->delivery_cost,
                             ]);
 
                             static::recalculateTotals($record);
@@ -488,9 +512,9 @@ class OrdersResource extends Resource
                         ->modalDescription('This action cannot be undone.'),
 
                 ])
-                ->icon('heroicon-m-ellipsis-vertical')
-                ->color('gray')
-                ->tooltip('More'),
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->color('gray')
+                    ->tooltip('More'),
             ])
 
             ->toolbarActions([

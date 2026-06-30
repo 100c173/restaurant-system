@@ -30,4 +30,13 @@ class OrderController extends Controller
             'orders.list_success'
         );
     }
+
+    public function deliveryCost($reference_number)
+    {
+        
+        $delivery_cost = $this->orderService->getDeliverCost($reference_number);
+        return self::success([
+            'delivery_cost' => $delivery_cost,
+        ]);
+    }
 }

@@ -35,6 +35,8 @@ return new class extends Migration
             $table->string('customer_phone');
             $table->string('delivery_address')->nullable();
 
+            $table->decimal('delivery_cost', 10, 2)->default(0.0);
+
 
             $table->string('payment_code')->nullable();
             $table->string('invoice')->nullable();

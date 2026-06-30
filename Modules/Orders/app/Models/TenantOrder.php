@@ -20,6 +20,7 @@ class TenantOrder extends Model
         'customer_name',
         'customer_phone',
         'delivery_address',
+        'delivery_cost',
         'special_instructions',
         'payment_code',
         'invoice',
