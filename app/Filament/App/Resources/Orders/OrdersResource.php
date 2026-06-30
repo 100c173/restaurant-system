@@ -18,6 +18,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
@@ -30,6 +31,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use Modules\Orders\Models\TenantOrder;
 
 class OrdersResource extends Resource
@@ -108,6 +110,19 @@ class OrdersResource extends Resource
         $record->update(['subtotal' => $subtotal, 'total' => $subtotal]);
     }
 
+    // ─── Invoice helper: detect file type for preview ─────────────
+    // `invoice` stores a Cloudinary URL (same pattern as barcode_image
+    // in ShamCashAccountsResource) — no disk resolution needed, it's
+    // already a fully-qualified URL we can use as-is.
+
+    protected static function isInvoicePdf(?string $url): bool
+    {
+        if (blank($url)) return false;
+
+        // Cloudinary PDF URLs end in .pdf same as any other file URL.
+        return Str::endsWith(strtolower(parse_url($url, PHP_URL_PATH) ?? $url), '.pdf');
+    }
+
     // ─── Edit Items Schema ────────────────────────────────────────
 
     public static function editItemsSchema(Schema $schema): Schema
@@ -176,6 +191,16 @@ class OrdersResource extends Resource
                         ->hiddenLabel()
                         ->rows(2)
                         ->placeholder('Add or update any special instructions…'),
+                ]),
+
+            // ── Payment code is editable here too, since this is the
+            //     existing pathway for editing order fields beyond status.
+            Section::make('Payment')
+                ->schema([
+                    TextInput::make('payment_code')
+                        ->label('Payment Code')
+                        ->placeholder('e.g. transaction / reference code')
+                        ->maxLength(255),
                 ]),
         ]);
     }
@@ -256,43 +281,41 @@ class OrdersResource extends Resource
 
             ->recordActions([
 
-                // ── Primary: lifecycle progression ────────────────────
-                Action::make('confirm')
-                    ->label('Confirm')
-                    ->icon('heroicon-m-check-circle')
-                    ->color('info')
-                    ->visible(fn(TenantOrder $record) => $record->status === 'pending')
-                    ->requiresConfirmation()
-                    ->modalHeading('Confirm this order?')
-                    ->modalDescription('The customer will be notified that their order is confirmed.')
-                    ->action(function (TenantOrder $record) {
-                        static::applyStatusChange($record, 'confirmed');
-                        Notification::make()->title('Order confirmed.')->success()->send();
-                    }),
+                // ── Status: single flexible action replacing the rigid
+                //     confirm/preparing/ready chain. Staff can jump to
+                //     any status from any status via a simple select.
+                Action::make('changeStatus')
+                    ->label('Change Status')
+                    ->icon('heroicon-m-arrow-path')
+                    ->color(fn(TenantOrder $record) => static::statusColor($record->status))
+                    ->form([
+                        Select::make('status')
+                            ->label('New Status')
+                            ->options(static::$statusOptions)
+                            ->default(fn(TenantOrder $record) => $record->status)
+                            ->required()
+                            ->native(false),
 
-                Action::make('markPreparing')
-                    ->label('Preparing')
-                    ->icon('heroicon-m-fire')
-                    ->color('primary')
-                    ->visible(fn(TenantOrder $record) => $record->status === 'confirmed')
-                    ->requiresConfirmation()
-                    ->modalHeading('Mark as preparing?')
-                    ->action(function (TenantOrder $record) {
-                        static::applyStatusChange($record, 'preparing');
-                        Notification::make()->title('Order is now being prepared.')->success()->send();
-                    }),
+                        Textarea::make('reason')
+                            ->label('Reason (optional)')
+                            ->rows(2)
+                            ->visible(fn($get) => $get('status') === 'rejected'),
+                    ])
+                    ->modalHeading('Update Order Status')
+                    ->modalSubmitActionLabel('Update')
+                    ->action(function (TenantOrder $record, array $data) {
+                        $previousStatus = $record->status;
+                        static::applyStatusChange($record, $data['status']);
 
-                Action::make('markReady')
-                    ->label('Ready')
-                    ->icon('heroicon-m-bell')
-                    ->color('success')
-                    ->visible(fn(TenantOrder $record) => $record->status === 'preparing')
-                    ->requiresConfirmation()
-                    ->modalHeading('Mark as ready?')
-                    ->modalDescription('This will notify the customer / driver that the order is ready.')
-                    ->action(function (TenantOrder $record) {
-                        static::applyStatusChange($record, 'ready');
-                        Notification::make()->title('Order is ready.')->success()->send();
+                        if ($previousStatus === $data['status']) {
+                            Notification::make()->title('Status unchanged.')->info()->send();
+                            return;
+                        }
+
+                        Notification::make()
+                            ->title('Status updated to ' . static::$statusOptions[$data['status']] . '.')
+                            ->success()
+                            ->send();
                     }),
 
                 // ── Secondary: view, edit, reject ─────────────────────
@@ -300,6 +323,9 @@ class OrdersResource extends Resource
 
                     ViewAction::make()
                         ->label('View Order')
+                        // Larger, more distinct shape than the default eye
+                        // icon — easier to land a click/tap on.
+                        ->icon('heroicon-o-document-magnifying-glass')
                         ->modalWidth('2xl')
                         ->infolist([
                             Section::make('Order Info')
@@ -377,6 +403,40 @@ class OrdersResource extends Resource
                                     TextEntry::make('total')->money('USD')->weight(FontWeight::Bold),
                                 ]),
 
+                            // ── Payment: code + invoice file preview ──
+                            // `invoice` is a Cloudinary URL, same pattern
+                            // as `barcode_image` on ShamCashAccountsResource
+                            // — used directly, no disk/asset() resolution.
+                            Section::make('Payment')
+                                ->columns(2)
+                                ->schema([
+                                    TextEntry::make('payment_code')
+                                        ->label('Payment Code')
+                                        ->copyable()
+                                        ->placeholder('—'),
+
+                                    // Image invoice — view-only thumbnail preview.
+                                    ImageEntry::make('invoice')
+                                        ->label('Invoice')
+                                        ->height(200)
+                                        ->url(fn($record) => $record->invoice, true)
+                                        ->visible(fn($record) => filled($record->invoice) && ! static::isInvoicePdf($record->invoice)),
+
+                                    // PDF invoice — embedded inline via iframe, view-only.
+                                    TextEntry::make('invoice')
+                                        ->label('Invoice (PDF)')
+                                        ->columnSpanFull()
+                                        ->visible(fn($record) => filled($record->invoice) && static::isInvoicePdf($record->invoice))
+                                        ->formatStateUsing(fn() => '')
+                                        ->view('filament.infolists.invoice-pdf-preview')
+                                        ->viewData(fn($record) => ['invoiceUrl' => $record->invoice]),
+
+                                    TextEntry::make('invoice')
+                                        ->label('Invoice')
+                                        ->placeholder('No invoice uploaded')
+                                        ->visible(fn($record) => blank($record->invoice)),
+                                ]),
+
                             Section::make('Special Instructions')
                                 ->visible(fn($record) => filled($record->special_instructions))
                                 ->schema([
@@ -397,7 +457,6 @@ class OrdersResource extends Resource
                         ->label('Edit Items')
                         ->icon('heroicon-o-pencil-square')
                         ->color('warning')
-                        ->visible(fn(TenantOrder $record) => in_array($record->status, ['pending', 'confirmed', 'preparing']))
                         ->schema(fn(Schema $schema): Schema => static::editItemsSchema($schema))
                         ->modalHeading('Edit Order Items')
                         ->modalWidth('3xl')
@@ -405,6 +464,7 @@ class OrdersResource extends Resource
                         ->using(function (TenantOrder $record, array $data) {
                             $record->update([
                                 'special_instructions' => $data['special_instructions'] ?? $record->special_instructions,
+                                'payment_code'          => $data['payment_code'] ?? $record->payment_code,
                             ]);
 
                             static::recalculateTotals($record);
@@ -418,7 +478,7 @@ class OrdersResource extends Resource
                         ->label('Reject Order')
                         ->icon('heroicon-m-x-circle')
                         ->color('danger')
-                        ->visible(fn(TenantOrder $record) => in_array($record->status, ['pending', 'confirmed']))
+                        ->visible(fn(TenantOrder $record) => $record->status !== 'rejected')
                         ->form([
                             Textarea::make('reason')
                                 ->label('Reason for rejection (optional)')
