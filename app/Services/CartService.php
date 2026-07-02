@@ -147,11 +147,14 @@ class CartService
 
         $subtotal = $cartItems->sum(fn($item) => $item->unit_price * $item->quantity);
 
+        $payByShamCach = $restaurant->sham_cach_account_barcode ? true : false ;
+
         return [
             'tenant_id' => $restaurant->tenant_id,
             'restaurant_name' => $restaurant->name,
             'restaurant_id' => $restaurant->id ,
             'has_delivery' => $restaurant->has_delivery,
+            'payByShamCach' => $payByShamCach,
             'cart_items' => $cartItems->map(fn($item) => [
                 'item_id' => $item->id, // item in cart
                 'item_name' => $item->item_name,
