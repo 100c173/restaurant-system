@@ -258,14 +258,16 @@ class OrderService
         }
     }
 
-    public function getDeliverCost($reference_number)
+    public function getorderCost($reference_number)
     {
         $centralOrder = Order::where('reference_number', $reference_number)->sole();
 
         try {
+            $centralOrder = Order::where('reference_number', $reference_number)->sole();
+            $resturant = $centralOrder->tenant->restaurant ;
             Tenancy::initialize($centralOrder->tenant_id);
-            $order = TenantOrder::where('reference_number', $reference_number)->sole();
-            return $order->delivery_cost;
+            $tenantOrder = TenantOrder::where('reference_number', $reference_number)->sole();
+            return [$tenantOrder,$resturant];
 
         } finally {
             Tenancy::end();

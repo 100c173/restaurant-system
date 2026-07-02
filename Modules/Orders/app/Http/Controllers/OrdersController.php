@@ -37,12 +37,21 @@ class OrdersController extends Controller
 
     }
 
-    public function deliveryCost($reference_number)
+    public function orderCost($reference_number)
     {
 
-        $delivery_cost = $this->service->getDeliverCost($reference_number);
+        [$teantOrder ,$restaurant]  = $this->service->getorderCost($reference_number);
         return self::success([
-            'delivery_cost' => $delivery_cost,
+            'order_info' =>[
+                'restaurant_id' => $restaurant->id,
+                'subtotal' => $teantOrder->subtotal,
+                'total' => $teantOrder->total ,
+                'delivery_fee' => $teantOrder->delivery_fee ,
+                'type' => $teantOrder->type , 
+                'delivery_address' => $teantOrder->delivery_address,
+                'sham_cash_account_barcode' => $restaurant->sham_cach_account_barcode,
+                'sham_cach_account_id' => $restaurant->sham_cach_account_id,
+            ],
         ]);
     }
 

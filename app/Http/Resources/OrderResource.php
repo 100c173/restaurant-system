@@ -14,7 +14,7 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $restaurant = $this->tenant->restaurant;
+       // $restaurant = $this->tenant->restaurant;
         return [
             'id' => $this->id,
             'reference_number' => $this->reference_number,
@@ -22,8 +22,8 @@ class OrderResource extends JsonResource
             'restaurant_name' => $this->restaurant_name,
             'tenant_id' => $this->tenant_id,
             'type' => $this->type,
-            'sham_cash_account_barcode' => $restaurant->sham_cach_account_barcode,
-            'sham_cash_account_id' => $restaurant->sham_cash_account_id,
+            //'sham_cash_account_barcode' => $restaurant->sham_cach_account_barcode,
+            //'sham_cash_account_id' => $restaurant->sham_cash_account_id,
             'status' => $this->status,
             'status_label' => __('orders.statuses.' . $this->status),
             'total' => $this->total,
