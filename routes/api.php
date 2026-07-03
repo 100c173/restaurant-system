@@ -77,7 +77,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware('auth:sanctum')->prefix('orders')->group(function () {
-    Route::get('/', [OrderController::class, 'index']);
+    Route::get('/', [OrderController::class, 'index']); //get my orders
 });
 
 // get home data : restaurant + restaurant-categories

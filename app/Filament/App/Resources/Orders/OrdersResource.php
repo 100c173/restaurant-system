@@ -103,9 +103,9 @@ class OrdersResource extends Resource
 
     // ─── Recalculate order totals after item edits ────────────────
 
-    protected static function recalculateTotals(TenantOrder $record , $delivery_cost): void
+    protected static function recalculateTotals(TenantOrder $record, $delivery_cost): void
     {
-        DB::transaction(function () use ($record,$delivery_cost) {
+        DB::transaction(function () use ($record, $delivery_cost) {
 
             //$record->refresh();
 
@@ -263,6 +263,13 @@ class OrdersResource extends Resource
                     ->color(fn($state) => static::statusColor($state))
                     ->icon(fn($state) => static::statusIcon($state))
                     ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
+
+                TextColumn::make('invoice')
+                    ->label('Payment Status')
+                    ->badge()
+                    ->formatStateUsing(fn($record) => $record->invoice ? 'Paid' : 'Pending')
+                    ->color(fn($record) => $record->invoice ? 'success' : 'warning'),
+
 
                 TextColumn::make('total')
                     ->money('SYP')

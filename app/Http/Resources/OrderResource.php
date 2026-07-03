@@ -24,6 +24,7 @@ class OrderResource extends JsonResource
             'type' => $this->type,
             //'sham_cash_account_barcode' => $restaurant->sham_cach_account_barcode,
             //'sham_cash_account_id' => $restaurant->sham_cash_account_id,
+            'paied' => ($this->payment)? true : false ,
             'status' => $this->status,
             'status_label' => __('orders.statuses.' . $this->status),
             'total' => $this->total,

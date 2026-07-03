@@ -232,6 +232,8 @@ class OrderService
                     $order->total,
                     $request->input('tenant_id')
                 );
+
+                event(new ChangeOrderStatus($order , 'customer'));
             });
 
         } finally {

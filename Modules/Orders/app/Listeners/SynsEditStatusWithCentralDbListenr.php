@@ -25,7 +25,8 @@ class SynsEditStatusWithCentralDbListenr
         $tenantOrder = $event->order;
         $centralOrder = Order::where('id', $tenantOrder->central_order_id)->sole();
         $centralOrder->update([
-            'status' => $tenantOrder->status
+            'status' => $tenantOrder->status,
+            'payment_status' => ($tenantOrder->invoice) ? 'paid' : 'pending' ,
         ]);
         OrderStatusLog::create([
             'order_id' => $centralOrder->id,
