@@ -233,7 +233,7 @@ class OrderService
                     $request->input('tenant_id')
                 );
 
-                event(new ChangeOrderStatus($order , 'customer'));
+                event(new ChangeOrderStatus($order, 'customer'));
             });
 
         } finally {
@@ -266,10 +266,10 @@ class OrderService
 
         try {
             $centralOrder = Order::where('reference_number', $reference_number)->sole();
-            $resturant = $centralOrder->tenant->restaurant ;
+            $resturant = $centralOrder->tenant->restaurant;
             Tenancy::initialize($centralOrder->tenant_id);
             $tenantOrder = TenantOrder::where('reference_number', $reference_number)->sole();
-            return [$tenantOrder,$resturant];
+            return [$tenantOrder, $resturant];
 
         } finally {
             Tenancy::end();
@@ -287,11 +287,51 @@ class OrderService
             $order = TenantOrder::where('reference_number', $reference_number)->sole();
             $order->update(['status' => 'cancelled']);
 
-            event(new ChangeOrderStatus($order,'customer'));
-            
+            event(new ChangeOrderStatus($order, 'customer'));
+
 
         } finally {
             Tenancy::end();
         }
+    }
+
+    public function getOrderDetails($reference_number)
+    {
+        $centralOrder = Order::where('reference_number', $reference_number)->sole();
+        $tenant_id = $centralOrder->tenant_id;
+
+        try {
+            Tenancy::initialize($tenant_id);
+
+            $order = TenantOrder::with('items.modifiers')
+                ->where('reference_number', $reference_number)
+                ->sole();
+
+            $data = $order->items->map(function ($item) {
+                return [
+                    'item_name' => $item->item_name,
+                    'variant_name' => $item->variant_name,
+                    'unit_price' => (float) $item->unit_price,
+                    'quantity' => $item->quantity,
+                    'line_total' => (float) $item->line_total,
+                    'modifier_groups' => $item->modifiers
+                        ->groupBy('modifier_group_name')
+                        ->map(function ($modifiers, $groupName) {
+                            return [
+                                'name' => $groupName,
+                                'modifiers' => $modifiers->map(fn($m) => [
+                                    'modifier_name' => $m->modifier_name,
+                                    'price' => (float) $m->price,
+                                ])->values(),
+                            ];
+                        })
+                        ->values(),
+                ];
+            });
+        } finally {
+            Tenancy::end();
+        }
+
+        return $data;
     }
 }

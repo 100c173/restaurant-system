@@ -61,5 +61,10 @@ class OrdersController extends Controller
         return self::success("order $reference_number cancelled successful");
     }
 
+    public function orderDetails($reference_number){
+        $order_details = $this->service->getOrderDetails($reference_number);
+        return  self::success($order_details) ;
+    }
+
 
 }
