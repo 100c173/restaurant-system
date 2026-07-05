@@ -18,7 +18,7 @@ class ConfirmeRequest extends FormRequest
             'special_instructions' => ['nullable', 'string', 'max:500'],
 
             // Required only for delivery
-            'delivery_address' => ['required', 'nullable', 'string'],
+            'delivery_address' => ['required_if:type,delivery', 'nullable', 'string'],
 
             // Required only for dine_in
             //'table_number' => ['required_if:type,dine_in', 'nullable', 'string'],
