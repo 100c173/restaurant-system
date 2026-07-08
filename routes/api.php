@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 // Register as a Customer new account
 Route::post('/register', [AuthenticationController::class, 'register'])
-->middleware('throttle:5,1');
+    ->middleware('throttle:5,1');
 
 // Login with rate limiting (max 5 attempts per minute)
 Route::post('/login', [AuthenticationController::class, 'login'])
@@ -36,7 +36,7 @@ Route::post('/verify-otp-email', [AuthenticationController::class, 'verifyOtp'])
 
 // Reset password (only after email is verified)
 Route::post('/set-password', [AuthenticationController::class, 'setPassword'])
-->middleware('throttle:5,1');
+    ->middleware('throttle:5,1');
 
 
 /*
@@ -59,21 +59,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/token/refresh', [AuthenticationController::class, 'refreshToken']);
 
     //chage phone number
-    Route::post('/phone',[AuthenticationController::class, 'setPhone']);
+    Route::post('/phone', [AuthenticationController::class, 'setPhone']);
 
     // To be tenat 
-    Route::post('/restaurant-request',[RequestController::class,'restaurantRequest']) ;
+    Route::post('/restaurant-request', [RequestController::class, 'restaurantRequest']);
 
     //carts
     Route::post('/cart', [CartController::class, 'add']);   // add item to cart
-    Route::delete('/cart' , [CartController::class, 'clear']); // clear the carts
-    Route::get('/cart' , [CartController::class, 'index']); // get carts 
-    
-    Route::delete('/cart/{restaurant_id}',[CartController::class, 'destroy']); // remove cart
+    Route::delete('/cart', [CartController::class, 'clear']); // clear the carts
+    Route::get('/cart', [CartController::class, 'index']); // get carts
 
-    Route::get('/cart/restaurant/{restaurant_id}' , [CartController::class, 'cartByRestaurant']); // get restaurant cart item
-    Route::delete('/cart/restaurant/{item_id}',[CartController::class, 'removeItem']); //remove Item From Cart
-    Route::post('/cart/restaurant/edite_item',[CartController::class, 'editeItemd']); // edite items quantity
+
+    Route::delete('/cart/{restaurant_id}', [CartController::class, 'destroy']); // remove cart
+
+    Route::get('/cart/restaurant/{restaurant_id}', [CartController::class, 'cartByRestaurant']); // get restaurant cart item
+    Route::delete('/cart/restaurant/{item_id}', [CartController::class, 'removeItem']); //remove Item From Cart
+    Route::get('/cart/restaurant/item/{cart_id}', [CartController::class, 'getItemForEdit']); // return current selections for edit UI
+    Route::post('/cart/restaurant/edite_item', [CartController::class, 'editItem']); //edit Item (variant , modifiers) in Cart
+    Route::post('/cart/restaurant/edite_item_quantity', [CartController::class, 'editeItemQuantity']); // edite items quantity
 });
 
 Route::middleware('auth:sanctum')->prefix('orders')->group(function () {
@@ -81,7 +84,7 @@ Route::middleware('auth:sanctum')->prefix('orders')->group(function () {
 });
 
 // get home data : restaurant + restaurant-categories
-Route::get('/home',[HomeController::class,'getHomeData']);
+Route::get('/home', [HomeController::class, 'getHomeData']);
 
 //get restaurant by restaurant
 Route::get('/categories/{category}/restaurants', [HomeController::class, 'restaurantByCategory']);
@@ -90,7 +93,7 @@ Route::get('/categories/{category}/restaurants', [HomeController::class, 'restau
 Route::get('restaurants/{restaurant}/menu', [RestaurantController::class, 'menu']);
 
 //get all restaurant-categories
-Route::get('restaurant-categories',[HomeController::class,'categories']);
+Route::get('restaurant-categories', [HomeController::class, 'categories']);
 
 //get item details (cached 5 minutes)
 Route::get('/restaurants/{restaurant}/menu/{menu_item}', [RestaurantController::class, 'getItem']);

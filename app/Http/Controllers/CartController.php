@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\CartTenantMismatchException;
 use App\Http\Requests\AddToCartRequest;
 use App\Http\Requests\SyncCartRequest;
+use App\Http\Requests\UpdateCartItemRequest;
 use App\Http\Resources\CartResource;
 use App\Services\CartService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -20,7 +21,7 @@ class CartController extends Controller
     public function index()
     {
         $cart = $this->cartService->getGroupedCart();
-        return self::success($cart) ;
+        return self::success($cart);
     }
 
     public function add(AddToCartRequest $request)
@@ -28,7 +29,16 @@ class CartController extends Controller
         $result = $this->cartService->addItem(
             data: $request->validated()
         );
-        return self::success( $result,'Item added to cart.');
+        return self::success($result, 'Item added to cart.');
+
+    }
+
+    public function editItem(UpdateCartItemRequest $request)
+    {
+        $result = $this->cartService->editItem(
+            data: $request->validated()
+        );
+        return self::success($result, 'Item updated successfully');
 
     }
 
@@ -53,16 +63,25 @@ class CartController extends Controller
     public function removeItem($itemId)
     {
         $this->cartService->deleteItemFromCart($itemId);
-        return self::success(null,'تم حذف العنصر من السلة');
+        return self::success(null, 'تم حذف العنصر من السلة');
     }
 
-    public function editeItemd(SyncCartRequest $request)
+    public function getItemForEdit($cartId)
+    {
+        $selected = $this->cartService->getItemForEdit($cartId);
+
+        return self::success($selected);
+        
+    }
+
+    public function editeItemQuantity(SyncCartRequest $request)
     {
         $this->cartService->editeQuantity($request->validated());
-        return self::success(null,'item quantity edite successfuly');
+        return self::success(null, 'item quantity edite successfuly');
     }
 
-    public function restaurantInfo($restaurantId){
+    public function restaurantInfo($restaurantId)
+    {
         $res = $this->cartService->getRestaurantInfo($restaurantId);
         return self::success($res);
     }

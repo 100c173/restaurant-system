@@ -46,7 +46,22 @@ class CartService
                 ];
             })->values(); //  this resets the keys to 0, 1, 2...;
     }
+
     public function addItem(array $data): Cart
+    {
+        return $this->handleCartItem($data);
+    }
+
+    public function editItem(array $data): Cart
+    {
+        $cart = Cart::where('id', $data['cart_id'])
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        return $this->handleCartItem($data, $cart);
+    }
+
+    private function handleCartItem(array $data, ?Cart $existingCart = null): Cart
     {
         $restaurant = Restaurant::findOrFail($data['restaurant_id']);
 
@@ -80,55 +95,74 @@ class CartService
         $modifiersTotal = collect($modifierSnapshots)->sum('price');
         $unitPrice = $basePrice + $modifiersTotal;
 
-        // Use the central connection explicitly
-        $cart = DB::transaction(function () use ($data, $item, $variant, $unitPrice, $modifierSnapshots, $restaurant) {
+        $fingerprint = md5(json_encode([
+            'item_id' => $data['item_id'],
+            'variant_id' => $data['variant_id'] ?? null,
+            'modifiers' => collect($data['modifier_selections'] ?? [])
+                ->sortBy(['modifier_group_id', 'modifier_id'])
+                ->values()
+        ]));
 
-            $fingerprint = md5(json_encode([
-                'item_id' => $data['item_id'],
-                'variant_id' => $data['variant_id'] ?? null,
-                'modifiers' => collect($data['modifier_selections'] ?? [])
-                    ->sortBy(['modifier_group_id', 'modifier_id'])
-                    ->values()
-            ]));
+        return DB::transaction(function () use ($data, $existingCart, $restaurant, $item, $variant, $unitPrice, $modifierSnapshots, $fingerprint) {
 
-            // Find existing cart row to get current quantity
-            $existing = Cart::where([
-                'user_id' => auth()->id(),
-                'tenant_id' => $restaurant->tenant_id,
-                'fingerprint' => $fingerprint,
-            ])->first();
+            if ($existingCart) {
 
-            $newQuantity = ($existing ? $existing->quantity : 0) + (int) $data['quantity'];
-
-            $cart = Cart::updateOrCreate(
-                [
-                    'user_id' => auth()->id(),
-                    'tenant_id' => $restaurant->tenant_id,
-                    'fingerprint' => $fingerprint,
-                ],
-                [
+                $existingCart->update([
                     'item_id' => $data['item_id'],
                     'variant_id' => $data['variant_id'] ?? null,
                     'unit_price' => $unitPrice,
                     'item_name' => $item->name,
                     'variant_name' => $variant?->name,
                     'description' => $item->description,
-                    'quantity' => $newQuantity,
-                ]
-            );
+                    'quantity' => (int) $data['quantity'],
+                    'fingerprint' => $fingerprint,
+                ]);
 
-            $cart->modifierSelections()->delete();
+                $cart = $existingCart;
 
-            foreach ($modifierSnapshots as $snapshot) {
-                $cart->modifierSelections()->create($snapshot);
+            } else {
+
+                $existing = Cart::where([
+                    'user_id' => auth()->id(),
+                    'tenant_id' => $restaurant->tenant_id,
+                    'fingerprint' => $fingerprint,
+                ])->first();
+
+                $newQuantity = ($existing ? $existing->quantity : 0) + (int) $data['quantity'];
+
+                $cart = Cart::updateOrCreate(
+                    [
+                        'user_id' => auth()->id(),
+                        'tenant_id' => $restaurant->tenant_id,
+                        'fingerprint' => $fingerprint,
+                    ],
+                    [
+                        'item_id' => $data['item_id'],
+                        'variant_id' => $data['variant_id'] ?? null,
+                        'unit_price' => $unitPrice,
+                        'item_name' => $item->name,
+                        'variant_name' => $variant?->name,
+                        'description' => $item->description,
+                        'quantity' => $newQuantity,
+                    ]
+                );
             }
 
-            return $cart;
+            $this->syncModifiers($cart, $modifierSnapshots);
+
+            return $cart->load('modifierSelections');
         });
 
-        return $cart->load('modifierSelections');
     }
 
+    private function syncModifiers(Cart $cart, array $modifierSnapshots): void
+    {
+        $cart->modifierSelections()->delete();
+
+        foreach ($modifierSnapshots as $snapshot) {
+            $cart->modifierSelections()->create($snapshot);
+        }
+    }
 
     public function getCartItemsByRestaurant(int $restaurantId): array
     {
@@ -147,12 +181,12 @@ class CartService
 
         $subtotal = $cartItems->sum(fn($item) => $item->unit_price * $item->quantity);
 
-        $payByShamCach = $restaurant->sham_cach_account_barcode ? true : false ;
+        $payByShamCach = $restaurant->sham_cach_account_barcode ? true : false;
 
         return [
             'tenant_id' => $restaurant->tenant_id,
             'restaurant_name' => $restaurant->name,
-            'restaurant_id' => $restaurant->id ,
+            'restaurant_id' => $restaurant->id,
             'has_delivery' => $restaurant->has_delivery,
             'payByShamCach' => $payByShamCach,
             'cart_items' => $cartItems->map(fn($item) => [
@@ -234,5 +268,68 @@ class CartService
                 ]);
             }
         });
+    }
+
+    public function getItemForEdit($cartId): array
+    {
+        $cart = Cart::where('id', $cartId)
+            ->where('user_id', auth()->id())
+            ->with('modifierSelections')
+            ->firstOrFail();
+
+        Tenancy::initialize($cart->tenant_id);
+
+        try {
+            $item = MenuItem::with(['variants', 'modifierGroupsWithModifiers.modifierGroup', 'modifierGroupsWithModifiers.modifier'])
+                ->findOrFail($cart->item_id);
+
+            $selectedModifierIds = $cart->modifierSelections
+                ->pluck('modifier_id')
+                ->all();
+
+            return [
+                'cart_id' => $cart->id,
+                'quantity' => $cart->quantity,
+
+                'item' => [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'description' => $item->description,
+                    'price' => $item->price,
+                ],
+                
+                'variants' => $item->variants->map(fn($v) => [
+                    'id' => $v->id,
+                    'name' => $v->name,
+                    'price' => $v->price,
+                    'is_available' => $v->is_available,
+                    'selected' => $v->id === $cart->variant_id,
+                ]),
+
+                'modifier_groups' => $item->modifierGroupsWithModifiers
+                    ->groupBy('modifier_group_id')
+                    ->map(function ($rows) use ($selectedModifierIds) {
+                        $group = $rows->first()->modifierGroup;
+
+                        return [
+                            'id' => $group->id,
+                            'name' => $group->name,
+                            //'min' => $group->min_selections,
+                            //'max' => $group->max_selections,
+                            'modifiers' => $rows->map(fn($row) => [
+                                'id' => $row->modifier->id,
+                                'name' => $row->modifier->name,
+                                'price' => $row->price_override ?? $row->modifier->price,
+                                'is_available' => $row->is_available,
+                                'selected' => in_array($row->modifier_id, $selectedModifierIds, true),
+                            ])->values(),
+                        ];
+                    })
+                    ->values(),
+            ];
+
+        } finally {
+            Tenancy::end();
+        }
     }
 }
