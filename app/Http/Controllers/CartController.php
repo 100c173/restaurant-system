@@ -6,6 +6,7 @@ use App\Exceptions\CartTenantMismatchException;
 use App\Http\Requests\AddToCartRequest;
 use App\Http\Requests\SyncCartRequest;
 use App\Http\Requests\UpdateCartItemRequest;
+use App\Http\Requests\UpdateItemInCart;
 use App\Http\Resources\CartResource;
 use App\Services\CartService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -33,8 +34,9 @@ class CartController extends Controller
 
     }
 
-    public function editItem(UpdateCartItemRequest $request,$cartId)
+    public function editItem(AddToCartRequest $request,$cartId)
     {
+        
         $result = $this->cartService->editItem(
             $request->validated(),
             $cartId
