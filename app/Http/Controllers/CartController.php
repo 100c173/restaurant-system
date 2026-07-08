@@ -33,10 +33,11 @@ class CartController extends Controller
 
     }
 
-    public function editItem(UpdateCartItemRequest $request)
+    public function editItem(UpdateCartItemRequest $request,$cartId)
     {
         $result = $this->cartService->editItem(
-            data: $request->validated()
+            $request->validated(),
+            $cartId
         );
         return self::success($result, 'Item updated successfully');
 

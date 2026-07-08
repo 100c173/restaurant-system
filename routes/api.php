@@ -75,7 +75,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/cart/restaurant/{restaurant_id}', [CartController::class, 'cartByRestaurant']); // get restaurant cart item
     Route::delete('/cart/restaurant/{item_id}', [CartController::class, 'removeItem']); //remove Item From Cart
     Route::get('/cart/restaurant/item/{cart_id}', [CartController::class, 'getItemForEdit']); // return current selections for edit UI
-    Route::post('/cart/restaurant/edite_item', [CartController::class, 'editItem']); //edit Item (variant , modifiers) in Cart
+    Route::post('/cart/restaurant/edite_item/{cart_id}', [CartController::class, 'editItem']); //edit Item (variant , modifiers) in Cart
     Route::post('/cart/restaurant/edite_item_quantity', [CartController::class, 'editeItemQuantity']); // edite items quantity
 });
 

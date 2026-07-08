@@ -52,9 +52,9 @@ class CartService
         return $this->handleCartItem($data);
     }
 
-    public function editItem(array $data): Cart
+    public function editItem(array $data,$cartId): Cart
     {
-        $cart = Cart::where('id', $data['cart_id'])
+        $cart = Cart::where('id', $cartId)
             ->where('user_id', auth()->id())
             ->firstOrFail();
 
@@ -297,7 +297,7 @@ class CartService
                     'description' => $item->description,
                     'price' => $item->price,
                 ],
-                
+
                 'variants' => $item->variants->map(fn($v) => [
                     'id' => $v->id,
                     'name' => $v->name,
