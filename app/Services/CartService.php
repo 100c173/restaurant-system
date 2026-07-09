@@ -36,6 +36,7 @@ class CartService
                     'item_count' => $items->count(),
                     'subtotal' => number_format($items->sum('line_total'), 2, '.', ''),
                     'items' => $items->map(fn($item) => [
+                        'item_id'=> $item->id,
                         'item_name' => $item->item_name,
                         'variant_name' => $item->variant_name,
                         'quantity' => $item->quantity,
