@@ -115,7 +115,7 @@ class CartService
             if ($existingCart) {
                 if ($existing) {
                     $existingCart->update([
-                        'quantity' => (int) $existingCart->quantity + 1 ,
+                        'quantity' => ((int) $data['quantity']) ? (int) $data['quantity'] : (int) $existingCart->quantity + 1 ,
                     ]);
                 } else {
                     $existingCart->update([
