@@ -295,6 +295,7 @@ class CartService
                 'item' => [
                     'id' => $item->id,
                     'name' => $item->name,
+                    'preparation_time' => $item->preparation_time,
                     'description' => $item->description,
                     'price' => $item->price,
                 ],
