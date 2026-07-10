@@ -36,7 +36,7 @@ class CartService
                     'item_count' => $items->count(),
                     'subtotal' => number_format($items->sum('line_total'), 2, '.', ''),
                     'items' => $items->map(fn($item) => [
-                        'item_id'=> $item->id,
+                        'item_id' => $item->id,
                         'item_name' => $item->item_name,
                         'variant_name' => $item->variant_name,
                         'quantity' => $item->quantity,
@@ -53,7 +53,7 @@ class CartService
         return $this->handleCartItem($data);
     }
 
-    public function editItem(array $data,$cartId): Cart
+    public function editItem(array $data, $cartId): Cart
     {
         $cart = Cart::where('id', $cartId)
             ->where('user_id', auth()->id())
@@ -106,28 +106,33 @@ class CartService
 
         return DB::transaction(function () use ($data, $existingCart, $restaurant, $item, $variant, $unitPrice, $modifierSnapshots, $fingerprint) {
 
-            if ($existingCart) {
+            $existing = Cart::where([
+                'user_id' => auth()->id(),
+                'tenant_id' => $restaurant->tenant_id,
+                'fingerprint' => $fingerprint,
+            ])->first();
 
-                $existingCart->update([
-                    'item_id' => $data['item_id'],
-                    'variant_id' => $data['variant_id'] ?? null,
-                    'unit_price' => $unitPrice,
-                    'item_name' => $item->name,
-                    'variant_name' => $variant?->name,
-                    'description' => $item->description,
-                    'quantity' => (int) $data['quantity'],
-                    'fingerprint' => $fingerprint,
-                ]);
+            if ($existingCart) {
+                if ($existing) {
+                    $existingCart->update([
+                        'quantity' => (int) $existingCart->quantity + 1 ,
+                    ]);
+                } else {
+                    $existingCart->update([
+                        'item_id' => $data['item_id'],
+                        'variant_id' => $data['variant_id'] ?? null,
+                        'unit_price' => $unitPrice,
+                        'item_name' => $item->name,
+                        'variant_name' => $variant?->name,
+                        'description' => $item->description,
+                        'quantity' => (int) $data['quantity'],
+                        'fingerprint' => $fingerprint,
+                    ]);
+                }
 
                 $cart = $existingCart;
 
             } else {
-
-                $existing = Cart::where([
-                    'user_id' => auth()->id(),
-                    'tenant_id' => $restaurant->tenant_id,
-                    'fingerprint' => $fingerprint,
-                ])->first();
 
                 $newQuantity = ($existing ? $existing->quantity : 0) + (int) $data['quantity'];
 
