@@ -107,9 +107,9 @@ class FoodResource extends Resource
                     ->searchable()
                     ->toggleable(),
 
-                TextColumn::make('category')
-                    ->badge()
-                    ->sortable(),
+               // TextColumn::make('category')
+                //    ->badge()
+                //    ->sortable(),
 
                 TextColumn::make('data_type')
                     ->label('Data type')

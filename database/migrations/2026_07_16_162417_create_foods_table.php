@@ -13,9 +13,7 @@ return new class extends Migration {
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
 
-            // USDA FoodData Central identifier -- unique, indexed, never duplicated
-            // elsewhere; every other table references foods.id, not this column.
-            $table->unsignedInteger('fdc_id');
+            // USDA FoodData Central identifier  
 
             $table->string('name_ar');                 // Arabic ingredient name
             $table->string('name_en')->nullable();      // English query/description used to find the match
