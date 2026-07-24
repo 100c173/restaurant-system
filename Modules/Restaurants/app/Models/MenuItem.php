@@ -49,6 +49,11 @@ class MenuItem extends Model
         return $this->hasMany(MenuItemVariant::class);
     }
 
+    public function ingredients(): HasMany
+    {
+        return $this->hasMany(MenuItemIngredient::class);
+    }
+
     public function modifierGroups(): BelongsToMany
     {
         return $this->belongsToMany(

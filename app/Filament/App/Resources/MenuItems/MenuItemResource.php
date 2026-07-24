@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources\MenuItems;
 
 
 
+use App\Filament\App\Resources\MenuItems\Pages\ManageIngredients;
 use App\Filament\App\Resources\MenuItems\Schemas\MenuItemForm;
 use App\Filament\App\Resources\MenuItems\Tables\MenuItemsTable;
 use App\Filament\App\Resources\MenuItems\Pages\ManageModifiers;
@@ -52,6 +53,7 @@ class MenuItemResource extends Resource
             'index'     => ManageMenuItems::route('/'),
             'variants'  => ManageVariants::route('/{record}/variants'),
             'modifiers' => ManageModifiers::route('/{record}/modifiers'),
+            'ingredients' => ManageIngredients::route('/{record}/ingredients'),
         ];
     }
 }

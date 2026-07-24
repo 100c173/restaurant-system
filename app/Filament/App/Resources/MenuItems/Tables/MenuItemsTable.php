@@ -137,6 +137,7 @@ class MenuItemsTable
                     }),
 
                 ActionGroup::make([
+
                     Action::make('variants')
                         ->label('Variants')
                         ->icon('heroicon-o-squares-2x2')
@@ -146,16 +147,21 @@ class MenuItemsTable
                         ->label('Modifiers')
                         ->icon('heroicon-o-adjustments-horizontal')
                         ->url(fn($record) => MenuItemResource::getUrl('modifiers', ['record' => $record])),
+                        
+                    Action::make('ingredients')
+                        ->label('Ingredients')
+                        ->icon('heroicon-o-beaker')
+                        ->url(fn($record) => MenuItemResource::getUrl('ingredients', ['record' => $record])),
 
                     DeleteAction::make()
                         ->modalHeading('Delete Menu Item?')
                         ->modalDescription('Are you sure you want to delete this item? This action cannot be undone.')
                         ->modalSubmitActionLabel('Yes, delete item'),
                 ])
-                ->label('More')
-                ->button()
-                ->icon('heroicon-m-ellipsis-vertical')
-                ->color('gray'),
+                    ->label('More')
+                    ->button()
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->color('gray'),
             ])
             ->striped()
             ->emptyStateIcon('heroicon-o-clipboard-document-list')
