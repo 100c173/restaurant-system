@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Broadcast;
@@ -61,6 +62,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //chage phone number
     Route::post('/phone', [AuthenticationController::class, 'setPhone']);
 
+    //change password
+    Route::post('/changePassword', [ProfileController::class, 'changePassword']);
+
+    //change user name
+    Route::post('/changeName', [ProfileController::class, 'changeName']);
+    
     // To be tenat 
     Route::post('/restaurant-request', [RequestController::class, 'restaurantRequest']);
 
