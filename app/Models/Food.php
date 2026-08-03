@@ -27,4 +27,9 @@ class Food extends Model
     {
         return $this->hasMany(FoodNutrient::class);
     }
+   
+    public function portions(): HasMany
+    {
+        return $this->hasMany(FoodPortion::class);
+    }
 }

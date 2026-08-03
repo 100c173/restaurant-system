@@ -40,5 +40,9 @@ class MenuItemIngredient extends Model
     public function measureUnit(){
         return $this->belongsTo(MeasureUnit::class,'measure_unit_id');
     }
+    public function portion(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\FoodPortion::class, 'portion_id');
+    }
 
 }

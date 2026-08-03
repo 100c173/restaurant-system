@@ -4,36 +4,45 @@ namespace Modules\Restaurants\Services;
 
 use Modules\Restaurants\Models\MenuItem;
 use Modules\Restaurants\Models\MenuItemIngredient;
+use App\Models\FoodPortion;
 
-/**
- * Simple on purpose — no validation logic in here ,
- *  because the Filament form already validates before this is ever called. T
- *  he service's only job is "given clean data, persist it."
- */
 class MenuItemIngredientService
 {
     public function add(MenuItem $menuItem, array $data): MenuItemIngredient
     {
-        return $menuItem->ingredients()->create([
-            'food_id' => $data['food_id'],
-            'quantity_grams' => $data['quantity_grams'] ?? 100,
-            'notes' => $data['notes'] ?? null,
+        return MenuItemIngredient::create($this->resolve($data) + [
+            'menu_item_id' => $menuItem->id,
         ]);
     }
 
-    public function update(MenuItemIngredient $ingredient, array $data): MenuItemIngredient
+    public function update(MenuItemIngredient $record, array $data): MenuItemIngredient
     {
-        $ingredient->update([
-            'food_id' => $data['food_id'],
-            'quantity_grams' => $data['quantity_grams'] ?? 100,
-            'notes' => $data['notes'] ?? null,
-        ]);
+        $record->update($this->resolve($data));
 
-        return $ingredient;
+        return $record;
     }
 
-    public function remove(MenuItemIngredient $ingredient): void
+    public function remove(MenuItemIngredient $record): void
     {
-        $ingredient->delete();
+        $record->delete();
+    }
+
+    /**
+     * Resolves the form's food_id/portion_id/quantity into the columns
+     * menu_item_ingredients actually stores.
+     */
+    private function resolve(array $data): array
+    {
+        $portion = FoodPortion::findOrFail($data['portion_id']);
+        $quantity = (float) $data['quantity'];
+
+        return [
+            'food_id' => $data['food_id'],
+            'quantity' => $quantity,
+            'measure_unit_id' => $portion->measure_unit_id,
+            'portion_id' => $portion->id,
+            'quantity_grams' => round($quantity * (float) $portion->gram_weight, 2),
+            'notes' => $data['notes'] ?? null,
+        ];
     }
 }
