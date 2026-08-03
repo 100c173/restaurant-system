@@ -25,7 +25,7 @@ class FoodResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Food Database';
 
-    protected static string|BackedEnum|null $navigationIcon =Heroicon::OutlinedCake;
+    protected static string|BackedEnum|null $navigationIcon =Heroicon::OutlinedRocketLaunch;
 
     protected static ?string $navigationLabel = 'Foods';
 
