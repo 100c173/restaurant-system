@@ -3,9 +3,13 @@
 namespace App\Services;
 
 use App\Exports\FoodNutrientsExport;
+use App\Exports\FoodPortionsExport;
 use App\Exports\FoodsExport;
+use App\Exports\MeasureUnitsExport;
 use App\Imports\FoodNutrientsImport;
+use App\Imports\FoodPortionsImport;
 use App\Imports\FoodsImport;
+use App\Imports\MeasureUnitsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -50,12 +54,37 @@ class FoodImportExportService
         $import = new FoodNutrientsImport;
 
         Excel::import($import, $filePath);
-        
+
 
         return [
             'imported' => $import->imported,
             'skipped' => $import->skipped,
             'errors' => $import->errors,
         ];
+    }
+    public function importMeasureUnits(string $path): array
+    {
+        $import = new MeasureUnitsImport();
+        Excel::import($import, $path);
+
+        return ['imported' => $import->imported, 'skipped' => $import->skipped, 'errors' => $import->errors];
+    }
+
+    public function exportMeasureUnits()
+    {
+        return Excel::download(new MeasureUnitsExport(), 'measure_units.xlsx');
+    }
+
+    public function importFoodPortions(string $path): array
+    {
+        $import = new FoodPortionsImport();
+        Excel::import($import, $path);
+
+        return ['imported' => $import->imported, 'skipped' => $import->skipped, 'errors' => $import->errors];
+    }
+
+    public function exportFoodPortions()
+    {
+        return Excel::download(new FoodPortionsExport(), 'food_portions.xlsx');
     }
 }
