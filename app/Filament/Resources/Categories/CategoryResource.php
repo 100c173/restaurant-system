@@ -20,6 +20,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use UnitEnum;
 
 class CategoryResource extends Resource
@@ -49,7 +51,7 @@ class CategoryResource extends Resource
             ->recordTitleAttribute('name')
             ->columns([
                 TextColumn::make('id'),
-                
+
                 TextColumn::make('name')
                     ->searchable(),
 
@@ -77,6 +79,7 @@ class CategoryResource extends Resource
                         FileUpload::make('img')
                             ->label('Cover')
                             ->image()
+                            ->storeFiles(false)
                             ->required(false)
                             // Render the existing Cloudinary URL as a preview thumbnail
                             ->getUploadedFileUsing(function (string $file): array {
@@ -84,40 +87,44 @@ class CategoryResource extends Resource
                                     'name' => basename(parse_url($file, PHP_URL_PATH)),
                                     'size' => 0,
                                     'type' => 'image/jpeg',
-                                    'url'  => $file,
+                                    'url' => $file,
                                 ];
                             }),
                     ])
-                    ->action(function (array $data, Category $record): void {
-                        $uploaded = $data['img'] ?? null;
-                        $file = is_array($uploaded)
-                            ? collect($uploaded)->first()
-                            : $uploaded;
+                    ->action(
+                        function (array $data, Category $record): void {
+                            $uploaded = $data['img'] ?? null;
+                            $file = is_array($uploaded)
+                                ? collect($uploaded)->first()
+                                : $uploaded;
 
-                        // No new file — the existing URL came back unchanged
-                        if (! $file || $file === $record->img) {
+                            Log::info($file);
+
+
+                            if (!$file instanceof UploadedFile) {
+                                Notification::make()
+                                    ->title('Invalid file.')
+                                    ->danger()
+                                    ->send();
+                                return;
+                            }
+
+                            $uploader = new CloudinaryUploadService();
+
+                            if ($record->img) {
+                                $uploader->delete($record->img);
+                            }
+
+                            $url = $uploader->upload($file->getRealPath(), 'categories');
+
+                            $record->update(['img' => $url]);
+
                             Notification::make()
-                                ->title('No new photo selected.')
-                                ->warning()
+                                ->title('Photo updated successfully.')
+                                ->success()
                                 ->send();
-                            return;
                         }
-
-                        $uploader = new CloudinaryUploadService();
-
-                        if ($record->img) {
-                            $uploader->delete($record->img);
-                        }
-
-                        $url = $uploader->upload($file->getRealPath(), 'categories');
-
-                        $record->update(['img' => $url]);
-
-                        Notification::make()
-                            ->title('Photo updated successfully.')
-                            ->success()
-                            ->send();
-                    }),
+                    ),
 
                 DeleteAction::make(),
             ])

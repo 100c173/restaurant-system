@@ -29,12 +29,14 @@ class MenuItem extends Model
         'position',
         'preparation_time',
         'is_featured',
+        'is_nutritionally_analyzed'
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'is_available' => 'boolean',
         'is_featured' => 'boolean',
+        'is_nutritionally_analyzed' => 'boolean',
         'position' => 'integer',
         'preparation_time' => 'integer',
     ];

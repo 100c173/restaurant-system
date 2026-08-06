@@ -72,11 +72,21 @@ class MenuItemsTable
                 IconColumn::make('is_available')
                     ->label('Available')
                     ->boolean()
-                    ->trueIcon('heroicon-o-check-circle')
+                    ->trueIcon('heroicon-o-check-badge')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger')
                     ->alignCenter(),
+
+                IconColumn::make('is_nutritionally_analyzed')
+                    ->label('Analyzed')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-badge')
+                    ->falseIcon('heroicon-o-minus-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->alignCenter()
+                    ->toggleable(),
             ])
 
             ->filters([
@@ -147,7 +157,7 @@ class MenuItemsTable
                         ->label('Modifiers')
                         ->icon('heroicon-o-adjustments-horizontal')
                         ->url(fn($record) => MenuItemResource::getUrl('modifiers', ['record' => $record])),
-                        
+
                     Action::make('ingredients')
                         ->label('Ingredients')
                         ->icon('heroicon-o-beaker')

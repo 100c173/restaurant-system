@@ -33,7 +33,7 @@ class AppPanelProvider extends PanelProvider
     {
         return $panel
             ->id('app')
-            ->path('app')
+            ->path('owner')
             ->login()
             ->colors([
                 'primary' => Color::Amber,

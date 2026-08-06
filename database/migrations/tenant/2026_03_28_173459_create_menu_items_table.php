@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->unsignedInteger('position')->default(0);
             $table->unsignedInteger('preparation_time')->nullable(); // in minutes
             $table->boolean('is_featured')->default(false);
+            $table->boolean('is_nutritionally_analyzed')->default(false);
             $table->timestamps();
             $table->index(['category_id', 'is_available']);
         });

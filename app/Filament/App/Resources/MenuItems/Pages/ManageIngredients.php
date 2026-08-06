@@ -12,9 +12,11 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\Page;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -53,38 +55,39 @@ class ManageIngredients extends Page implements HasTable
                 ->allowHtml()
                 ->live()
                 ->getSearchResultsUsing(
-                    fn (string $search) => Food::query()
+                    fn(string $search) => Food::query()
                         ->where('name_ar', 'like', "%{$search}%")
                         ->orWhere('name_en', 'like', "%{$search}%")
                         ->limit(50)
                         ->get()
-                        ->mapWithKeys(fn ($food) => [$food->id => self::foodOptionLabel($food)])
+                        ->mapWithKeys(fn($food) => [$food->id => self::foodOptionLabel($food)])
                         ->toArray()
                 )
-                ->getOptionLabelUsing(fn ($value) => Food::find($value)?->name_ar)
+                ->getOptionLabelUsing(fn($value) => Food::find($value)?->name_ar)
                 ->required()
                 ->unique(
                     table: 'menu_item_ingredients',
                     column: 'food_id',
-                    modifyRuleUsing: fn ($rule) => $rule->where('menu_item_id', $this->record->id),
+                    modifyRuleUsing: fn($rule) => $rule->where('menu_item_id', $this->record->id),
                     ignoreRecord: true,
                 )
                 ->validationMessages([
                     'unique' => 'This ingredient is already added to this item.',
                 ])
                 // Changing the ingredient invalidates whatever unit/portion was picked before
-                ->afterStateUpdated(fn (Set $set) => $set('portion_id', null)),
+                ->afterStateUpdated(fn(Set $set) => $set('portion_id', null)),
 
             Select::make('portion_id')
                 ->label('Unit')
                 ->live()
                 ->required()
                 ->native(false)
-                ->disabled(fn (Get $get): bool => blank($get('food_id')))
-                ->options(fn (Get $get): array => self::portionOptionsFor($get('food_id')))
-                ->helperText(fn (Get $get): string => blank($get('food_id'))
-                    ? 'Pick an ingredient first.'
-                    : ''),
+                ->allowHtml()
+                ->disabled(fn(Get $get): bool => blank($get('food_id')))
+                ->options(fn(Get $get): array => self::portionOptionsFor($get('food_id')))
+                ->helperText( 'اختر طريقة قياس هذا المكون. الغرامات الموضحة هي وزن وحدة واحدة من هذا المكون لهذا الطعام المحدد')
+                ->hintIcon(Heroicon::OutlinedInformationCircle)
+                ->hintIconTooltip('تأتي الأوزان من بيانات مرجعية لوزارة الزراعة الأمريكية وتختلف باختلاف الطعام - فـ "كوب واحد" من الأرز و "كوب واحد" من السبانخ ليسا بنفس الوزن بالجرام'),
 
             TextInput::make('quantity')
                 ->label('Quantity')
@@ -95,10 +98,10 @@ class ManageIngredients extends Page implements HasTable
                 ->default(1)
                 ->live(onBlur: true),
 
-            Placeholder::make('quantity_grams_preview')
+            TextEntry::make('quantity_grams_preview')
                 ->label('Total weight')
                 ->live()
-                ->content(fn (Get $get): string => self::previewGrams($get) . ' g'),
+                ->state(fn(Get $get): string => self::previewGrams($get) . ' g'),
 
             Textarea::make('notes')
                 ->label('Notes')
@@ -113,12 +116,12 @@ class ManageIngredients extends Page implements HasTable
         return [
             TextColumn::make('food.name_ar')
                 ->label('Ingredient')
-                ->description(fn ($record) => $record->food?->description),
+                ->description(fn($record) => $record->food?->description),
 
             TextColumn::make('portion_display')
                 ->label('Amount')
                 ->state(function (MenuItemIngredient $record): string {
-                    if (! $record->portion) {
+                    if (!$record->portion) {
                         return "{$record->quantity}";
                     }
 
@@ -197,16 +200,42 @@ class ManageIngredients extends Page implements HasTable
             ->where('food_id', $foodId)
             ->with('measureUnit')
             ->get()
-            ->mapWithKeys(fn (FoodPortion $portion) => [$portion->id => self::portionLabel($portion)])
+            ->mapWithKeys(fn(FoodPortion $portion) => [$portion->id => self::portionOptionLabel($portion)])
             ->toArray();
     }
+    /**
+     * Rich two-line label for the Select dropdown: bold "amount unit (modifier)"
+     * on top, muted "≈ Xg" underneath -- so users read the unit first and the
+     * weight as supporting context, not as one run-on string.
+     */
+    private static function portionOptionLabel(FoodPortion $portion): string
+    {
+        $amount = self::trimNumber((float) $portion->amount, 3);
+        $unit = $portion->measureUnit?->name_ar ?? 'unit';
+        $modifier = $portion->modifier ? " ({$portion->modifier})" : '';
+        $gramWeight = self::trimNumber((float) $portion->gram_weight, 2);
 
+        //if($unit == 'undetermined')$unit='';
+
+        $primary = e("{$amount} {$unit}{$modifier}");
+        $secondary = e("≈ {$gramWeight}g");
+
+
+        return <<<HTML
+        <div class="leading-tight">
+            <div class="font-medium">{$primary}</div>
+            <div class="text-xs text-gray-500">{$secondary}</div>
+        </div>
+        HTML;
+    }
     private static function portionLabel(FoodPortion $portion): string
     {
         $amount = self::trimNumber((float) $portion->amount, 3);
-        $unit = $portion->measureUnit?->name_en ?? 'unit';
+        $unit = $portion->measureUnit?->name_ar ?? 'unit';
         $modifier = $portion->modifier ? " ({$portion->modifier})" : '';
         $gramWeight = self::trimNumber((float) $portion->gram_weight, 2);
+
+        //if($unit == 'undetermined')$unit='';
 
         return "{$amount} {$unit}{$modifier} ≈ {$gramWeight}g";
     }
@@ -225,7 +254,7 @@ class ManageIngredients extends Page implements HasTable
 
         $portion = FoodPortion::find($portionId);
 
-        if (! $portion) {
+        if (!$portion) {
             return '0';
         }
 
