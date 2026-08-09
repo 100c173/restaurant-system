@@ -77,6 +77,9 @@ class FoodPortionResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('food_id')
+                    ->label('ID'),
+                    
                 TextColumn::make('food.name_ar')
                     ->label('Food')
                     ->searchable()

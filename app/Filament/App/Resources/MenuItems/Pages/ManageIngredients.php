@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources\MenuItems\Pages;
 use App\Filament\App\Resources\MenuItems\MenuItemResource;
 use App\Models\Food;
 use App\Models\FoodPortion;
+use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -13,6 +14,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
@@ -85,7 +87,7 @@ class ManageIngredients extends Page implements HasTable
                 ->allowHtml()
                 ->disabled(fn(Get $get): bool => blank($get('food_id')))
                 ->options(fn(Get $get): array => self::portionOptionsFor($get('food_id')))
-                ->helperText( 'اختر طريقة قياس هذا المكون. الغرامات الموضحة هي وزن وحدة واحدة من هذا المكون لهذا الطعام المحدد')
+                ->helperText('اختر طريقة قياس هذا المكون. الغرامات الموضحة هي وزن وحدة واحدة من هذا المكون لهذا الطعام المحدد')
                 ->hintIcon(Heroicon::OutlinedInformationCircle)
                 ->hintIconTooltip('تأتي الأوزان من بيانات مرجعية لوزارة الزراعة الأمريكية وتختلف باختلاف الطعام - فـ "كوب واحد" من الأرز و "كوب واحد" من السبانخ ليسا بنفس الوزن بالجرام'),
 
@@ -142,6 +144,27 @@ class ManageIngredients extends Page implements HasTable
     protected function getTableHeaderActions(): array
     {
         return [
+            Action::make('analyze')
+                ->label('Analyze Meal')
+                ->icon('heroicon-o-calculator')
+                ->color('primary')
+                ->disabled(fn(): bool => !MenuItemIngredient::where('menu_item_id', $this->record->id)->exists())
+                ->tooltip(fn(): ?string => MenuItemIngredient::where('menu_item_id', $this->record->id)->exists()
+                    ? null
+                    : 'Add at least one ingredient before analyzing.')
+                ->action(function (): void {
+                    $analysis = app(MenuItemIngredientService::class)->analyze($this->record);
+
+                    Notification::make()
+                        ->title('Meal analyzed')
+                        ->body(
+                            "Total weight: {$analysis->total_grams} g"
+                            . ($analysis->energy_kcal !== null ? " — {$analysis->energy_kcal} kcal" : ' — no energy data available')
+                        )
+                        ->success()
+                        ->send();
+                }),
+
             CreateAction::make()
                 ->label('Add Ingredient')
                 ->modalHeading('Add Ingredient')
