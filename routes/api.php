@@ -99,6 +99,10 @@ Route::get('/categories/{category}/restaurants', [HomeController::class, 'restau
 //get restaurant menu items
 Route::get('restaurants/{restaurant}/menu', [RestaurantController::class, 'menu']);
 
+//get meal analysis
+Route::get('restaurants/{restaurant}/menu-items/{menuItem}/analysis', [RestaurantController::class, 'showMealAnalysis'])
+            ->whereNumber(['restaurant', 'menuItem']);
+
 //get all restaurant-categories
 Route::get('restaurant-categories', [HomeController::class, 'categories']);
 

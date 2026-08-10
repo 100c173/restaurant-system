@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Modules\Restaurants\Models\Category;
 use Modules\Restaurants\Models\Menu;
 use Modules\Restaurants\Models\MenuItem;
+use Modules\Restaurants\Models\MenuItemAnalysis;
 use Modules\Restaurants\Models\Restaurant;
 use PhpParser\Node\Expr\FuncCall;
 use Stancl\Tenancy\Facades\Tenancy;
@@ -65,5 +68,24 @@ class RestaurantMenuService
                 }
             }
         );
+    }
+
+    public function showAnalysis(int $restaurantId, int $menuItemId)
+    {
+        $restaurant = Restaurant::findOrFail($restaurantId);
+
+        Tenancy::initialize($restaurant->tenant_id);
+
+        try {
+            $analysis = MenuItemAnalysis::query()
+                ->where('menu_item_id', $menuItemId)
+                ->with('menuItem')
+                ->first();
+
+
+            return($analysis);
+        } finally {
+            Tenancy::end();
+        }
     }
 }

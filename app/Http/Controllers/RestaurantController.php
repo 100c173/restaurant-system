@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Resources\ItemResource;
+use App\Http\Resources\MenuItemAnalysisResource;
 use App\Http\Resources\RestaurantMenuResource;
 use App\Services\CartService;
 use App\Services\RestaurantMenuService;
@@ -52,6 +53,14 @@ class RestaurantController extends Controller
             return self::error('Could not load the item. Please try again.', 500);
         }
         return self::success(new ItemResource($data), 'Item retrieved successfully.');
+    }
+
+    public function showMealAnalysis(int $restaurantId, int $menuItemId){
+        $analysis = $this->menuService->showAnalysis($restaurantId ,$menuItemId );
+        if(!  $analysis){
+            return self::error('This menu item has not been analyzed yet.',404);
+        }
+        return self::success(MenuItemAnalysisResource::make($analysis));
     }
 
 }

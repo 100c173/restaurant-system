@@ -47,7 +47,12 @@ class MenuItemIngredientService
 
     public function remove(MenuItemIngredient $record): void
     {
+        $menuItem = $record->menuItem;
         $record->delete();
+
+        //Reanalysis
+        $this->analyze($menuItem);
+
     }
 
     /**
@@ -75,7 +80,7 @@ class MenuItemIngredientService
             ->get()
             ->groupBy('food_id')
             ->map(fn ($rows) => $rows->keyBy('nutrient_id'));
-
+        
         $totals = array_fill_keys(array_keys(self::NUTRIENT_PRIORITY), null);
         $warnings = [];
         $totalGrams = 0.0;
@@ -85,8 +90,9 @@ class MenuItemIngredientService
             $totalGrams += $grams;
 
             $foodNutrients = $nutrientsByFood->get($ingredient->food_id, collect());
+            
             $foodName = $ingredient->food?->name_ar ?? "Food #{$ingredient->food_id}";
-
+           
             foreach (self::NUTRIENT_PRIORITY as $column => $nutrientIds) {
                 $amountPer100g = $this->resolveAmount($foodNutrients, $nutrientIds);
 
