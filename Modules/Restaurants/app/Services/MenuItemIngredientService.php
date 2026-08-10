@@ -115,6 +115,9 @@ class MenuItemIngredientService
         foreach ($warnings as $column => $foods) {
             $warnings[$column] = array_values(array_unique($foods));
         }
+        $menuItem->update([
+            'is_nutritionally_analyzed' =>true,
+        ]);
 
         return MenuItemAnalysis::updateOrCreate(
             ['menu_item_id' => $menuItem->id],

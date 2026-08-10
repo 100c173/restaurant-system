@@ -30,6 +30,7 @@ class ItemResource extends JsonResource
             'image' => $item->image,
             'is_featured' => $item->is_featured,
             'preparation_time' => $item->formattedPreparationTime(),
+            'is_nutritionally_analyzed' => $item->is_nutritionally_analyzed,
         ];
 
         if ($details) {
