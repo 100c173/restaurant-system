@@ -18,6 +18,7 @@ use App\Models\Domain;
 use App\Models\Plan;
 use App\Models\Subscription;
 use App\Models\Tenant;
+use App\Services\PlanLimitChecker;
 use BackedEnum;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -25,6 +26,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Modules\Restaurants\Models\MenuItem;
+use Modules\Restaurants\Models\MenuItemIngredient;
 use Stancl\Tenancy\Facades\Tenancy;
 use UnitEnum;
 
@@ -62,56 +64,22 @@ class MenuItemResource extends Resource
             'ingredients' => ManageIngredients::route('/{record}/ingredients'),
         ];
     }
+    // MenuItemResource.php
     public static function canCreate(): bool
     {
-        $user = auth()->user();
+        return PlanLimitChecker::check(
+            featureKey: 'MAX_MENU_ITEMS',
+            countCallback: fn() => MenuItem::count(),
+            limitReachedBodyTemplate: 'خطتك تسمح بإضافة {limit} عناصر فقط.',
+        );
+    }
 
-        $domain = Domain::where('domain', request()->getHost())->first();
-
-
-        if (!$domain) {
-            return false;
-        }
-
-        $tenant = Tenant::find($domain->tenant_id);
-
-        // Make sure this tenant actually belongs to the logged-in user
-        if (!$tenant || $tenant->owner_id !== $user->id) {
-            return false;
-        }   
-
-
-        $subscription = Subscription::where('tenant_id', $tenant->id)
-            ->firstOrFail();
-
-
-        $plan = Plan::findOrFail($subscription->plan_id);
-
-        Tenancy::initialize($tenant->id);
-
-        try {
-            $limit = $plan->featureValue('MAX_MENU_ITEMS');
-
-            // Unlimited
-            if ($limit === null) {
-                return true;
-            }
-
-            $count = MenuItem::count();
-            if ($count >= $limit) {
-                Notification::make()
-                    ->title('تم الوصول للحد الأقصى')
-                    ->body("خطتك تسمح بإضافة {$limit} عناصر فقط.")
-                    ->danger()
-                    ->send();
-
-                return false;
-            }
-
-            return true;
-
-        } finally {
-            Tenancy::end();
-        }
+    public static function canAnalysis(): bool
+    {
+        return PlanLimitChecker::check(
+            featureKey: 'MAX_ANALYZED_MENU_ITEMS',
+            countCallback: fn() => MenuItemIngredient::count(),
+            limitReachedBodyTemplate: 'خطتك تسمح بتحليل {limit} عناصر فقط.',
+        );
     }
 }

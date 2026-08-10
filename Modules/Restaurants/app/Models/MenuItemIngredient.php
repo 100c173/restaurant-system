@@ -3,6 +3,7 @@
 namespace Modules\Restaurants\Models;
 
 use App\Models\Food;
+use App\Models\FoodPortion;
 use App\Models\MeasureUnit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,7 +43,7 @@ class MenuItemIngredient extends Model
     }
     public function portion(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\FoodPortion::class, 'portion_id');
+        return $this->belongsTo(FoodPortion::class, 'portion_id');
     }
 
 }

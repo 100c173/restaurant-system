@@ -152,6 +152,8 @@ class ManageIngredients extends Page implements HasTable
                 ->tooltip(fn(): ?string => MenuItemIngredient::where('menu_item_id', $this->record->id)->exists()
                     ? null
                     : 'Add at least one ingredient before analyzing.')
+                ->authorize(fn (): bool => MenuItemResource::canAnalysis())
+
                 ->action(function (): void {
                     $analysis = app(MenuItemIngredientService::class)->analyze($this->record);
 
