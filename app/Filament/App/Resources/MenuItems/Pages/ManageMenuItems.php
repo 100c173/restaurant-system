@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Filament\App\Resources\MenuItems\Pages;
+
 use App\Filament\App\Resources\MenuItems\MenuItemResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ManageRecords;
@@ -14,8 +16,8 @@ class ManageMenuItems extends ManageRecords
             CreateAction::make()
                 ->label('New Item')
                 ->icon('heroicon-o-plus')
+                ->authorize(fn (): bool => MenuItemResource::canCreate())
                 ->mutateFormDataUsing(function (array $data): array {
-                    // Read the active menu filter from the table's live state
                     $activeMenuId = $this->tableFilters['menu']['value'] ?? null;
 
                     if (filled($activeMenuId)) {
