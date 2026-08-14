@@ -29,7 +29,7 @@ class AuthenticateService
 
         // assigni user role
         $user->assignRole('customer');
-       
+
 
         return $user;
 
@@ -66,7 +66,7 @@ class AuthenticateService
 
     public function refreshToke(Request $request)
     {
-        //gate the current token 
+        //gate the current token
         $user = $request->user();
 
         if (!$user) {
@@ -88,7 +88,7 @@ class AuthenticateService
     public function resetPassword(array $data)
     {
         $user = User::where('email', $data['email'])->firstOrFail();
-        
+
         if(!$user->hasVerifiedEmail()){
             return null ;
         }
@@ -123,6 +123,6 @@ class AuthenticateService
         $user->update([
             'phone' => $data['phone'],
         ]);
-        return $user->phone ; 
+        return $user->phone ;
     }
 }

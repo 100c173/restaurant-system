@@ -119,7 +119,7 @@ class AuthenticationController extends Controller
     {
         // Return only essential user information
         return self::success([
-            'user' => $request->user()->only('id', 'name', 'email'),
+            'user' => $request->user()->only('id', 'name', 'email','phone'),
         ]);
     }
 
