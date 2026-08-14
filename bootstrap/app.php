@@ -56,11 +56,11 @@ return Application::configure(basePath: dirname(__DIR__))
             }
         });
 
-        $exceptions->renderable(function (Throwable $e, $request) {
+       /* $exceptions->renderable(function (Throwable $e, $request) {
             return response()->json([
                 'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
             ], 500);
-        });
+        });*/
     })->create();
