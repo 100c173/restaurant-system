@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
@@ -27,14 +26,14 @@ class AddToCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'restaurant_id' => ['required', 'string', 'exists:restaurants,id'],
-            'item_id' => ['required', 'string'],
-            'variant_id' => ['nullable', 'string'],
-            'quantity' => ['required', 'integer', 'min:1', 'max:99'],
-            'description' => ['nullable', 'string', 'max:255'],
-            'modifier_selections' => ['nullable', 'array'],
+            'restaurant_id'                           => ['required', 'string', 'exists:restaurants,id'],
+            'item_id'                                 => ['required', 'string'],
+            'variant_id'                              => ['nullable', 'string'],
+            'quantity'                                => ['required', 'integer', 'min:1', 'max:99'],
+            'description'                             => ['nullable', 'string', 'max:255'],
+            'modifier_selections'                     => ['nullable', 'array'],
             'modifier_selections.*.modifier_group_id' => ['required_with:modifier_selections', 'integer'],
-            'modifier_selections.*.modifier_id' => ['required_with:modifier_selections', 'integer'],
+            'modifier_selections.*.modifier_id'       => ['required_with:modifier_selections', 'integer'],
         ];
     }
     public function after(): array
@@ -44,7 +43,7 @@ class AddToCartRequest extends FormRequest
 
                 $restaurant = Restaurant::find($this->input('restaurant_id'));
 
-                if (!$restaurant) {
+                if (! $restaurant) {
                     $validator->errors()->add('restaurant_id', 'Restaurant not found.');
                     return;
                 }
@@ -55,16 +54,23 @@ class AddToCartRequest extends FormRequest
                     $item = MenuItem::with('modifierGroups.modifiers')
                         ->find($this->item_id);
 
-                    if (!$item) {
+                    if (! $item) {
                         $validator->errors()->add('item_id', 'Item not found.');
                         return;
+                    }
+
+                    if ($item->variants()->exists() && ! $this->filled('variant_id')) {
+                        $validator->errors()->add(
+                            'variant_id',
+                            'يجب اختيار Variant لهذا العنصر.'
+                        );
                     }
 
                     $selections = collect($this->modifier_selections ?? []);
 
                     foreach ($item->modifierGroups as $group) {
                         $selectedForGroup = $selections->where('modifier_group_id', $group->id);
-                        $count = $selectedForGroup->count();
+                        $count            = $selectedForGroup->count();
 
                         if ($group->is_required && $count < $group->min_selections) {
                             $validator->errors()->add(
@@ -83,7 +89,7 @@ class AddToCartRequest extends FormRequest
                         $validModifierIds = $group->modifiers->pluck('id');
 
                         foreach ($selectedForGroup as $sel) {
-                            if (!$validModifierIds->contains($sel['modifier_id'])) {
+                            if (! $validModifierIds->contains($sel['modifier_id'])) {
                                 $validator->errors()->add(
                                     'modifier_selections',
                                     "الخيار المحدد غير صالح في: {$group->name}"
@@ -93,7 +99,7 @@ class AddToCartRequest extends FormRequest
                     }
 
                 } finally {
-                    Tenancy::end(); 
+                    Tenancy::end();
                 }
             }
         ];

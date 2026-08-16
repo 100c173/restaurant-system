@@ -30,7 +30,7 @@ class OrderStatusChanged implements ShouldBroadcast , ShouldQueue
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('orders.' . $this->order->id),
+            new PrivateChannel('orders.' . $this->order->central_order_id),
         ];
     }
     public function broadcastAs(): string
@@ -41,7 +41,7 @@ class OrderStatusChanged implements ShouldBroadcast , ShouldQueue
     public function broadcastWith(): array
     {
         return [
-            'order_id' => $this->order->id,
+            'order_id' => $this->order->central_order_id,
             'reference_number' => $this->order->reference_number,
             'status' => $this->order->status,
             'confirmed_at' => $this->order->confirmed_at?->toIso8601String(),

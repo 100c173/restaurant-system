@@ -44,7 +44,7 @@ class OtpCodeService
     {
         $email = $data['email'];
         $code = $data['otp_code'];
-    
+
 
         $otp = OtpCode::where('email', $email)
             ->where('expires_at', '>', now())
@@ -59,8 +59,8 @@ class OtpCodeService
         $otp->delete();
 
         $user = User::where('email', $email)->first();
-        
-        //verfiy user email 
+
+        //verfiy user email
         $user->update(['email_verified_at' => now()]);
 
         return $user;

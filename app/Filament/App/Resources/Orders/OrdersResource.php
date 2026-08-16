@@ -1,22 +1,16 @@
 <?php
-
 namespace App\Filament\App\Resources\Orders;
 
 use App\Filament\App\Resources\Orders\Pages\ManageOrders;
 use BackedEnum;
-use Illuminate\Support\Facades\DB;
-use Modules\Orders\Events\ChangeOrderStatus;
-use Modules\Orders\Events\OrderStatusChanged;
-use Modules\Orders\Events\SetDeliveryFee;
-use UnitEnum;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -33,8 +27,13 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Modules\Orders\Events\ChangeOrderStatus;
+use Modules\Orders\Events\OrderStatusChanged;
+use Modules\Orders\Events\SetDeliveryFee;
 use Modules\Orders\Models\TenantOrder;
+use UnitEnum;
 
 class OrdersResource extends Resource
 {
@@ -53,48 +52,52 @@ class OrdersResource extends Resource
     public static function statusColor(string $status): string
     {
         return match ($status) {
-            'pending' => 'warning',
+            'pending'   => 'warning',
             'confirmed' => 'info',
             'preparing' => 'primary',
-            'ready' => 'success',
-            'rejected' => 'danger',
-            default => 'gray',
+            'ready'     => 'success',
+            'rejected'  => 'danger',
+            default     => 'gray',
         };
     }
 
     public static function statusIcon(string $status): string
     {
         return match ($status) {
-            'pending' => 'heroicon-m-clock',
+            'pending'   => 'heroicon-m-clock',
             'confirmed' => 'heroicon-m-check-circle',
             'preparing' => 'heroicon-m-fire',
-            'ready' => 'heroicon-m-bell',
-            'rejected' => 'heroicon-m-x-circle',
-            default => 'heroicon-m-question-mark-circle',
+            'ready'     => 'heroicon-m-bell',
+            'rejected'  => 'heroicon-m-x-circle',
+            default     => 'heroicon-m-question-mark-circle',
         };
     }
 
     protected static array $statusOptions = [
-        'pending' => 'Pending',
+        'pending'   => 'Pending',
         'confirmed' => 'Confirmed',
         'preparing' => 'Preparing',
-        'ready' => 'Ready',
-        'rejected' => 'Rejected',
+        'ready'     => 'Ready',
+        'rejected'  => 'Rejected',
     ];
 
     // ─── Status Change Helper ─────────────────────────────────────
 
     protected static function applyStatusChange(TenantOrder $record, string $newStatus): void
     {
-        if ($record->status === $newStatus)
+        if ($record->status === $newStatus) {
             return;
+        }
 
         $updates = ['status' => $newStatus];
 
-        if ($newStatus === 'confirmed')
+        if ($newStatus === 'confirmed') {
             $updates['confirmed_at'] = now();
-        if ($newStatus === 'ready')
+        }
+
+        if ($newStatus === 'ready') {
             $updates['ready_at'] = now();
+        }
 
         $record->update($updates);
         ChangeOrderStatus::dispatch($record);
@@ -117,16 +120,17 @@ class OrdersResource extends Resource
 
             $record->update([
                 'delivery_cost' => $delivery_cost,
-                'subtotal' => $subtotal,
-                'total' => $subtotal + $delivery_cost,
+                'subtotal'      => $subtotal,
+                'total'         => $subtotal + $delivery_cost,
             ]);
         });
     }
 
     protected static function isInvoicePdf(?string $url): bool
     {
-        if (blank($url))
+        if (blank($url)) {
             return false;
+        }
 
         // Cloudinary PDF URLs end in .pdf same as any other file URL.
         return Str::endsWith(strtolower(parse_url($url, PHP_URL_PATH) ?? $url), '.pdf');
@@ -215,7 +219,7 @@ class OrdersResource extends Resource
             Section::make('Delivey Cost')
                 ->schema([
                     TextInput::make('delivery_cost')
-                        ->label('Delivery Cost')
+                        ->label('Delivery Cost'),
                 ]),
         ]);
     }
@@ -253,8 +257,8 @@ class OrdersResource extends Resource
                     ->badge()
                     ->color(fn($state) => match ($state) {
                         'delivery' => 'info',
-                        'pickup' => 'warning',
-                        'dine_in' => 'success',
+                        'pickup'   => 'warning',
+                        'dine_in'  => 'success',
                     })
                     ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
 
@@ -269,7 +273,6 @@ class OrdersResource extends Resource
                     ->badge()
                     ->formatStateUsing(fn($record) => $record->invoice ? 'Paid' : 'Pending')
                     ->color(fn($record) => $record->invoice ? 'success' : 'warning'),
-
 
                 TextColumn::make('total')
                     ->money('SYP')
@@ -289,8 +292,8 @@ class OrdersResource extends Resource
                 SelectFilter::make('type')
                     ->options([
                         'delivery' => 'Delivery',
-                        'pickup' => 'Pickup',
-                        'dine_in' => 'Dine In',
+                        'pickup'   => 'Pickup',
+                        'dine_in'  => 'Dine In',
                     ]),
 
                 Filter::make('created_at')
@@ -350,8 +353,8 @@ class OrdersResource extends Resource
 
                     ViewAction::make()
                         ->label('View Order')
-                        // Larger, more distinct shape than the default eye
-                        // icon — easier to land a click/tap on.
+                    // Larger, more distinct shape than the default eye
+                    // icon — easier to land a click/tap on.
                         ->icon('heroicon-o-document-magnifying-glass')
                         ->modalWidth('2xl')
                         ->infolist([
@@ -366,8 +369,8 @@ class OrdersResource extends Resource
                                         ->badge()
                                         ->color(fn($state) => match ($state) {
                                             'delivery' => 'info',
-                                            'pickup' => 'warning',
-                                            'dine_in' => 'success',
+                                            'pickup'   => 'warning',
+                                            'dine_in'  => 'success',
                                         })
                                         ->formatStateUsing(fn($state) => str($state)->replace('_', ' ')->title()),
                                     TextEntry::make('status')
@@ -456,7 +459,7 @@ class OrdersResource extends Resource
                                         ->label('Invoice')
                                         ->height(200)
                                         ->url(fn($record) => $record->invoice, true)
-                                        ->visible(fn($record) => filled($record->invoice) && !static::isInvoicePdf($record->invoice)),
+                                        ->visible(fn($record) => filled($record->invoice) && ! static::isInvoicePdf($record->invoice)),
 
                                     // PDF invoice — embedded inline via iframe, view-only.
                                     TextEntry::make('invoice')
@@ -501,7 +504,6 @@ class OrdersResource extends Resource
 
                             $delivery_cost = $data['delivery_cost'] ?? $record->delivery_cost;
 
-
                             static::recalculateTotals($record, $delivery_cost);
 
                             Notification::make()->title('Order updated.')->success()->send();
@@ -528,6 +530,11 @@ class OrdersResource extends Resource
                         ->requiresConfirmation()
                         ->modalHeading('Reject this order?')
                         ->modalDescription('This action cannot be undone.'),
+
+                    DeleteAction::make()
+                        ->modalHeading('Delete Order?')
+                        ->modalDescription('This action cannot be undone.')
+                        ->modalSubmitActionLabel('Yes, delete item'),
 
                 ])
                     ->icon('heroicon-m-ellipsis-vertical')
