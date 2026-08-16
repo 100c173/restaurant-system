@@ -44,6 +44,7 @@ class OrderStatusChanged implements ShouldBroadcast , ShouldQueue
             'order_id' => $this->order->central_order_id,
             'reference_number' => $this->order->reference_number,
             'status' => $this->order->status,
+            'delivery_cost' =>$this->order->delivery_cost,
             'confirmed_at' => $this->order->confirmed_at?->toIso8601String(),
             'ready_at' => $this->order->ready_at?->toIso8601String(),
             'updated_at' => $this->order->updated_at->toIso8601String(),
