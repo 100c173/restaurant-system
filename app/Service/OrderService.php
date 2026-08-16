@@ -12,6 +12,7 @@ class OrderService
     {
         return Order::query()
             ->where('user_id', $userId)
+            ->where('status' , '!=' , 'cancelled')
             ->when($filters['status'] ?? null, fn ($query, $status) => $query->where('status', $status))
             ->when($filters['type'] ?? null, fn ($query, $type) => $query->where('type', $type))
             ->latest('placed_at')
@@ -29,6 +30,6 @@ class OrderService
         }finally{
             Tenancy::end();
         }
-        
+
     }
 }
