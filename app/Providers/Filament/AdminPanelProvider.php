@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\OrderChart;
+use App\Filament\Widgets\RestaurantStats;
 use App\Http\Middleware\EnsureUserIsOwner;
 use App\Models\CentralDatabaseNotification;
 use Filament\Http\Middleware\Authenticate;
@@ -41,8 +43,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+              //  AccountWidget::class,
+              //  FilamentInfoWidget::class,
+              RestaurantStats::class,
+              OrderChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,
