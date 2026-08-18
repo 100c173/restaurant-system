@@ -46,14 +46,15 @@ class CreateRestaurantListener
             'phone' => $event->record->restaurant_phone,
             'latitude' => $event->record->latitude,
             'longitude' => $event->record->longitude,
+            'is_active' => false,
         ]);
 
         $restaurant->categories()->sync($event->record->categories ?? []);
 
-        $plan = Plan::where('code','FREE')->firstOrFail() ; 
+        $plan = Plan::where('code','FREE')->firstOrFail() ;
         Subscription::create([
             'tenant_id'        => $tenant->id,
-            'plan_id'          => $plan->id , 
+            'plan_id'          => $plan->id ,
             'price'            => $plan->price ,
             'billing_interval' => $plan->billing_interval,
             'status'           => 'active',

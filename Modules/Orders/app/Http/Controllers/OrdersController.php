@@ -46,7 +46,7 @@ class OrdersController extends Controller
                 'restaurant_id'             => $restaurant->id,
                 'subtotal'                  => $teantOrder->subtotal,
                 'total'                     => $teantOrder->total,
-                'delivery_fee'              => $teantOrder->delivery_fee,
+                'delivery_fee'              => $teantOrder->delivery_cost,
                 'type'                      => $teantOrder->type,
                 'delivery_address'          => $teantOrder->delivery_address,
                 'sham_cash_account_barcode' => $restaurant->sham_cach_account_barcode,

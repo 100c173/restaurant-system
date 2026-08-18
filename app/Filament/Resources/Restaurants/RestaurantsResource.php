@@ -264,7 +264,7 @@ class RestaurantsResource extends Resource
                         })
                         ->dehydrated(false),
 
-                   
+
                     TextInput::make('sham_cach_account_id')
                         ->label('Account ID')
                         ->columnSpanFull()
@@ -277,7 +277,7 @@ class RestaurantsResource extends Resource
 
                             $uploaded = $get('sham_cach_account_barcode');
                             $sham_cach_account_id = $get('sham_cach_account_id');
-                
+
                             $file = is_array($uploaded)
                                 ? collect($uploaded)->first()
                                 : $uploaded;
@@ -305,7 +305,7 @@ class RestaurantsResource extends Resource
                                 $record->sham_cach_account_barcode = $url;
                             }
 
-                            
+
                             $record->sham_cach_account_id = $sham_cach_account_id;
                             $record->save();
 
@@ -483,7 +483,7 @@ class RestaurantsResource extends Resource
                     ->schema(fn(Schema $schema): Schema => static::editSchema($schema))
                     ->modalSubmitAction(false),
 
-                DeleteAction::make(),
+                //DeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
