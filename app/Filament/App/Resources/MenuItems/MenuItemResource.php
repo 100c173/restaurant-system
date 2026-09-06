@@ -61,7 +61,7 @@ class MenuItemResource extends Resource
             'index' => ManageMenuItems::route('/'),
             'variants' => ManageVariants::route('/{record}/variants'),
             'modifiers' => ManageModifiers::route('/{record}/modifiers'),
-            'ingredients' => ManageIngredients::route('/{record}/ingredients'),
+           // 'ingredients' => ManageIngredients::route('/{record}/ingredients'),
         ];
     }
     // MenuItemResource.php
