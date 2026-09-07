@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class MeasureUnit extends Model
+class FoodForm extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'code', 'name_ar', 'name_en', 'dimension',
-        'base_factor', 'is_system', 'is_active',
-    ];
+    protected $fillable = ['code', 'name_ar', 'name_en', 'group', 'is_active'];
 
     protected function casts(): array
     {
         return [
-            'base_factor' => 'decimal:6',
-            'is_system' => 'boolean',
             'is_active' => 'boolean',
         ];
+    }
+
+    public function foodSourceRecords(): HasMany
+    {
+        return $this->hasMany(FoodSourceRecord::class);
     }
 
     public function foodPortions(): HasMany
