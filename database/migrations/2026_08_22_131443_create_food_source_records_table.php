@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->timestamp('valid_from')->nullable()->index();
             $table->timestamp('valid_to')->nullable()->index();
             $table->timestamp('imported_at')->nullable();
-            $table->string('payload_hash', 64)->nullable()->index();
+           // $table->string('payload_hash', 64)->nullable()->index();
            // $table->json('source_payload')->nullable(); // immutable import evidence, never user-edited
             $table->text('notes')->nullable();
             $table->timestamps();

@@ -40,7 +40,7 @@ class SubscriptionResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'id';
     protected static string|UnitEnum|null $navigationGroup = 'Subscriptions';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 5;
 
 
     // ── Shared status options ─────────────────────────────────────
@@ -351,7 +351,7 @@ class SubscriptionResource extends Resource
                             ->label('Start date')
                             ->default(now())
                             ->required(),
-                      
+
 
                         DateTimePicker::make('ends_at')
                             ->label('End date')

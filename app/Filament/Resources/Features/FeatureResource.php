@@ -33,7 +33,7 @@ class FeatureResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static string|UnitEnum|null $navigationGroup = 'Subscriptions';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 5;
 
     public static function form(Schema $schema): Schema
     {

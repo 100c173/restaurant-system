@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Filament\Resources\RestaurantRequests;
 
 use App\Filament\Resources\RestaurantRequests\Pages\CreateRestaurantRequests;
@@ -7,7 +6,6 @@ use App\Filament\Resources\RestaurantRequests\Pages\EditRestaurantRequests;
 use App\Filament\Resources\RestaurantRequests\Pages\ListRestaurantRequests;
 use App\Filament\Resources\RestaurantRequests\Schemas\RestaurantRequestsForm;
 use App\Filament\Resources\RestaurantRequests\Tables\RestaurantRequestsTable;
-
 use App\Models\RestaurantRequest;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -22,9 +20,9 @@ class RestaurantRequestsResource extends Resource
 {
     protected static ?string $model = RestaurantRequest::class;
 
-    protected static string|UnitEnum|null $navigationGroup = "Requests";
-
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+    protected static string|UnitEnum|null $navigationGroup = 'Operations';
+    protected static ?int $navigationSort                       = 6;
 
     public static function form(Schema $schema): Schema
     {
@@ -46,8 +44,8 @@ class RestaurantRequestsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListRestaurantRequests::route('/'),
-            'edit' => EditRestaurantRequests::route('/{record}/edit'),
+            'index'  => ListRestaurantRequests::route('/'),
+            'edit'   => EditRestaurantRequests::route('/{record}/edit'),
             'create' => CreateRestaurantRequests::route('/create'),
         ];
     }

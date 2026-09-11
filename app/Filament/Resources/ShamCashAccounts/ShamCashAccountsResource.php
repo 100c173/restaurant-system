@@ -34,7 +34,7 @@ class ShamCashAccountsResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
     protected static ?string $recordTitleAttribute = 'account_name';
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 6;
     protected static string|UnitEnum|null $navigationGroup = "Settings";
 
     /**

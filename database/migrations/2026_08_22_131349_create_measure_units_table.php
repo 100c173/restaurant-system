@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('dimension', 24)->nullable()->index(); // mass, volume, count, household
             $table->decimal('base_factor', 14, 6)->nullable(); // only for fixed base-unit conversions
             $table->string('img')->nullable();
-            $table->boolean('is_system')->default(true)->index();
             $table->boolean('is_active')->default(true)->index();
             $table->timestamps();
         });

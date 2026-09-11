@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('food_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
+            $table->string('name');
+            $table->foreignId('parent_id')->nullable()->constrained('food_categories')->nullOnDelete();
             $table->timestamps();
         });
     }

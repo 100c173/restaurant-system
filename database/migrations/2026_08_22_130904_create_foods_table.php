@@ -13,7 +13,6 @@ return new class extends Migration {
     {
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('fdc_id')->nullable()->unique();
            // $table->string('local_code', 64)->nullable()->unique();
             $table->string('name_ar');
             $table->string('name_en')->nullable();

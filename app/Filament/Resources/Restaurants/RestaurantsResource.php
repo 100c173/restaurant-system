@@ -39,6 +39,7 @@ class RestaurantsResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingStorefront;
 
     protected static ?string $recordTitleAttribute = 'name';
+    protected static ?int $navigationSort       = 3;
 
     protected static string|UnitEnum|null $navigationGroup = "Restaurant info";
 

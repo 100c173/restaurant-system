@@ -12,7 +12,7 @@ class MeasureUnit extends Model
 
     protected $fillable = [
         'code', 'name_ar', 'name_en', 'dimension',
-        'base_factor', 'is_system', 'is_active',
+        'base_factor', 'img', 'is_active',
     ];
 
     protected function casts(): array
