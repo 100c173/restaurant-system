@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,10 +17,14 @@ class RecipeIngredient extends Model
     protected function casts(): array
     {
         return [
-            'amount' => 'decimal:4',
+            'amount'                 => 'decimal:4',
             'is_added_after_cooking' => 'boolean',
-            'sort_order' => 'integer',
+            'sort_order'             => 'integer',
         ];
+    }
+    public function food(): BelongsTo// the ingredient itself
+    {
+        return $this->belongsTo(Food::class);
     }
 
     public function recipe(): BelongsTo

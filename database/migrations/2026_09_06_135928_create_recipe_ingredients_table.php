@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('food_id')->constrained('foods')->restrictOnDelete(); // the ingredient
             $table->foreignId('food_form_id')->nullable()->constrained('food_forms')->nullOnDelete();
             $table->foreignId('measure_unit_id')->constrained('measure_units')->restrictOnDelete();
-            $table->decimal('amount', 12, 4);
+            $table->decimal('amount', 12, 4);//The actual weight used for the same food_form_id
             // True for ingredients added after cooking is complete (e.g. finishing oil),
             // so they're excluded from the pre-cook weight and can be shown/toggled separately.
             $table->boolean('is_added_after_cooking')->default(false)->index();

@@ -12,10 +12,6 @@ class FoodForm
     {
         return $schema
             ->components([
-                TextInput::make("fdc_id")
-                    ->label("FDC ID")
-                    ->numeric()
-                    ->unique(ignoreRecord: true),
 
                 TextInput::make('name_ar')
                     ->label('الاسم بالعربي')

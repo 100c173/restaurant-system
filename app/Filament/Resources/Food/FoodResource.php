@@ -7,6 +7,9 @@ use App\Filament\Resources\Food\Pages\EditFood;
 use App\Filament\Resources\Food\Pages\ListFood;
 use App\Filament\Resources\Food\Schemas\FoodForm;
 use App\Filament\Resources\Food\Tables\FoodTable;
+use App\Filament\Resources\Food\RelationManagers\AliasesRelationManager;
+use App\Filament\Resources\Food\RelationManagers\PortionsRelationManager;
+use App\Filament\Resources\Food\RelationManagers\SourceRecordsRelationManager;
 use App\Models\Food;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -35,12 +38,14 @@ class FoodResource extends Resource
         return FoodTable::configure($table);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
+public static function getRelations(): array
+{
+    return [
+        'sourceRecords' => SourceRecordsRelationManager::class, // keyed: required for nested-resource redirects
+        PortionsRelationManager::class,
+        AliasesRelationManager::class,
+    ];
+}
 
     public static function getPages(): array
     {

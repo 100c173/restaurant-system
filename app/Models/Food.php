@@ -15,8 +15,8 @@ class Food extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fdc_id', 'name_ar', 'name_en', 'food_category_id',
-        'is_active', 
+        'name_ar', 'name_en', 'food_category_id',
+        'is_active',
     ];
 
     protected $table = 'foods';
