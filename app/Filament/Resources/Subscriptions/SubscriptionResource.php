@@ -41,6 +41,8 @@ class SubscriptionResource extends Resource
     protected static ?string $recordTitleAttribute = 'id';
     protected static string|UnitEnum|null $navigationGroup = 'Subscriptions';
     protected static ?int $navigationSort = 5;
+    protected static bool $shouldRegisterNavigation = false;
+
 
 
     // ── Shared status options ─────────────────────────────────────

@@ -40,6 +40,8 @@ class OrdersResource extends Resource
     protected static string|UnitEnum|null $navigationGroup = 'Operations';
 
     protected static ?int $navigationSort = 6;
+    protected static bool $shouldRegisterNavigation = false;
+
 
     // ─── Helpers ──────────────────────────────────────────────────
 

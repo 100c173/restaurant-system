@@ -32,6 +32,7 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?int $navigationSort       = 3;
+    protected static bool $shouldRegisterNavigation = false;
 
     protected static string|UnitEnum|null $navigationGroup = "Restaurant info";
 

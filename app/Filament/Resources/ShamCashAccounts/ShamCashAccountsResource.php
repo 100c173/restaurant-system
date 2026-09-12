@@ -36,6 +36,8 @@ class ShamCashAccountsResource extends Resource
     protected static ?string $recordTitleAttribute = 'account_name';
     protected static ?int $navigationSort = 6;
     protected static string|UnitEnum|null $navigationGroup = "Settings";
+    protected static bool $shouldRegisterNavigation = false;
+
 
     /**
      * CREATE modal — unchanged.
