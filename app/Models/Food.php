@@ -34,7 +34,7 @@ class Food extends Model
         return $this->belongsTo(FoodCategory::class, 'food_category_id');
     }
 
-    public function sourceRecords(): HasMany
+    public function foodSourceRecords(): HasMany
     {
         return $this->hasMany(FoodSourceRecord::class);
     }

@@ -13,7 +13,7 @@ use Filament\Tables\Table;
 
 class SourceRecordsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'sourceRecords';
+    protected static string $relationship = 'foodSourceRecords';
 
     protected static ?string $relatedResource = FoodSourceRecordResource::class;
 

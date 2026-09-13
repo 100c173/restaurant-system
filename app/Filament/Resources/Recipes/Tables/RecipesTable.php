@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Filament\Resources\Recipes\Tables;
-
 
 use App\Enums\RecipeStatus;
 use App\Filament\Resources\Food\FoodResource;
@@ -22,7 +20,7 @@ class RecipesTable
                 TextColumn::make('food.name_ar')
                     ->label('الطبق')
                     ->searchable()
-                    ->url(fn ($record) => FoodResource::getUrl('edit', ['record' => $record->food_id])),
+                    ->url(fn($record) => FoodResource::getUrl('edit', ['record' => $record->food_id])),
 
                 TextColumn::make('servings')->label('الحصص'),
 
@@ -34,7 +32,7 @@ class RecipesTable
                 TextColumn::make('status')
                     ->label('الحالة')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => RecipeStatus::from($state)->name),
+                    ->formatStateUsing(fn(RecipeStatus $state) => $state->name),
 
                 TextColumn::make('created_at')
                     ->label('تاريخ الإضافة')
@@ -45,7 +43,7 @@ class RecipesTable
             ->filters([
                 SelectFilter::make('status')
                     ->label('الحالة')
-                    ->options(collect(RecipeStatus::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name])),
+                    ->options(collect(RecipeStatus::cases())->mapWithKeys(fn($c) => [$c->value => $c->name])),
             ])
             ->recordActions([EditAction::make(), DeleteAction::make()])
             ->toolbarActions([BulkActionGroup::make([DeleteBulkAction::make()])]);

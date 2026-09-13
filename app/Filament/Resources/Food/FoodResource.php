@@ -41,7 +41,7 @@ class FoodResource extends Resource
 public static function getRelations(): array
 {
     return [
-        'sourceRecords' => SourceRecordsRelationManager::class, // keyed: required for nested-resource redirects
+        'foodSourceRecords' => SourceRecordsRelationManager::class, // keyed: required for nested-resource redirects
         PortionsRelationManager::class,
         AliasesRelationManager::class,
     ];

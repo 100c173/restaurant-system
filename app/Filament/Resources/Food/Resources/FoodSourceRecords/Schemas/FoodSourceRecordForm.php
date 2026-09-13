@@ -120,6 +120,9 @@ class FoodSourceRecordForm
                                 ->numeric()
                                 ->required(),
 
+                            TextInput::make('unit')
+                                ->label('الوحدة'),
+
                             Select::make('method')
                                 ->label('طريقة القياس')
                                 ->options(collect(NutrientValueMethod::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name])),
