@@ -15,12 +15,12 @@ return new class extends Migration {
         Schema::create('food_source_records', function (Blueprint $table) {
             $table->id();
             $table->foreignId('food_id')->constrained('foods')->cascadeOnDelete();
-            $table->enum('source_type',  array_column(FoodSourceType::cases(), 'value'))->index(); // usda_fdc, local_reference, restaurant_measurement, lab
+            $table->string('source_type')->index(); // usda_fdc, local_reference, EMFID
             $table->string('source_name')->nullable();
             $table->string('external_ref', 128)->nullable(); // FDC id, lab report number, publication ref
             $table->string('data_type', 64)->nullable(); // Foundation, SR Legacy, Branded, local
             $table->foreignId('food_form_id')->nullable()->constrained('food_forms')->nullOnDelete();
-            //$table->string('region_code', 12)->nullable()->index();
+            $table->string('country', 12)->nullable()->index();
            // $table->enum('scope_type', array_column(FoodSourceType::cases(),'value'))->default(FoodSourceType::USDA_FDC)->index(); // USDA , Local, RESTAURANT_MEASUREMENT
            // $table->unsignedBigInteger('scope_id')->nullable()->index();
             $table->enum('status', array_column(FoodSourceStatus::cases(),'value'))->default(FoodSourceStatus::ACTIVE)->index(); // active, superseded, rejected

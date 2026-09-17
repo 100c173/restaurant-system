@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Filament\Resources\Food\Resources\FoodSourceRecords\Schemas;
 
 use App\Enums\ConfidenceLevel;
+use App\Enums\Country;
 use App\Enums\FoodSourceStatus;
 use App\Enums\FoodSourceType;
 use App\Enums\NutrientValueMethod;
@@ -21,15 +21,20 @@ class FoodSourceRecordForm
     public static function configure(Schema $schema): Schema
     {
         return $schema->components([
-
             Section::make('بيانات المصدر')
                 ->columns(2)
                 ->schema([
                     Select::make('source_type')
                         ->label('نوع المصدر')
-                        ->options(collect(FoodSourceType::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name]))
+                        ->options(FoodSourceType::class) // now clean — enum implements HasLabel
                         ->required()
                         ->live(),
+
+                    Select::make('country')
+                        ->label('بلد المصدر')
+                        ->options(Country::class)
+                        ->searchable()
+                        ->helperText('بلد الدراسة/المصدر الأصلي — قد يختلف عن بلد الطبق نفسه'),
 
                     TextInput::make('source_name')
                         ->label('اسم المصدر')
@@ -37,9 +42,9 @@ class FoodSourceRecordForm
 
                     TextInput::make('external_ref')
                         ->label('المرجع الخارجي')
-                        ->helperText(fn ($get) => $get('source_type') === FoodSourceType::USDA_FDC->value
-                            ? 'أدخل رقم fdc_id من قاعدة بيانات USDA'
-                            : 'رابط أو رقم مرجعي للدراسة أو المصدر')
+                        ->helperText(fn($get) => $get('source_type') === FoodSourceType::USDA_FDC->value
+                                ? 'أدخل رقم fdc_id من قاعدة بيانات USDA'
+                                : 'رابط أو رقم مرجعي للدراسة أو المصدر')
                         ->maxLength(128),
 
                     TextInput::make('data_type')
@@ -64,7 +69,7 @@ class FoodSourceRecordForm
                 ->schema([
                     Select::make('status')
                         ->label('الحالة')
-                        ->options(collect(FoodSourceStatus::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name]))
+                        ->options(collect(FoodSourceStatus::cases())->mapWithKeys(fn($c) => [$c->value => $c->name]))
                         ->default(FoodSourceStatus::ACTIVE)
                         ->required(),
 
@@ -95,16 +100,18 @@ class FoodSourceRecordForm
                         ->label('')
                         ->columns(4)
                         ->defaultItems(0)
-                        // Pre-seeds one row per active nutrient on CREATE only;
-                        // on EDIT the relationship loads the real saved rows.
-                        ->default(fn () => Nutrient::query()
-                            ->where('is_active', true)
-                            ->orderBy('display_order')
-                            ->get()
-                            ->map(fn (Nutrient $n) => [
-                                'nutrient_id' => $n->id,
-                                'unit' => $n->unit,
-                            ])->toArray())
+                    /*
+                    // Pre-seeds one row per active nutrient on CREATE only;
+                    // on EDIT the relationship loads the real saved rows.
+                        ->default(fn() => Nutrient::query()
+                                ->where('is_active', true)
+                                ->orderBy('display_order')
+                                ->get()
+                                ->map(fn(Nutrient $n) => [
+                                    'nutrient_id' => $n->id,
+                                    'unit'        => $n->unit,
+                                ])->toArray())
+                            */
                         ->schema([
                             Select::make('nutrient_id')
                                 ->label('العنصر الغذائي')
@@ -113,7 +120,7 @@ class FoodSourceRecordForm
                                 ->preload()
                                 ->required()
                                 ->live()
-                                ->afterStateUpdated(fn ($state, callable $set) => $set('unit', Nutrient::find($state)?->unit)),
+                                ->afterStateUpdated(fn($state, callable $set) => $set('unit', Nutrient::find($state)?->unit)),
 
                             TextInput::make('amount_per_100g')
                                 ->label('القيمة')
@@ -125,14 +132,14 @@ class FoodSourceRecordForm
 
                             Select::make('method')
                                 ->label('طريقة القياس')
-                                ->options(collect(NutrientValueMethod::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name])),
+                                ->options(collect(NutrientValueMethod::cases())->mapWithKeys(fn($c) => [$c->value => $c->name])),
 
                             Select::make('confidence_level')
                                 ->label('مستوى الثقة')
-                                ->options(collect(ConfidenceLevel::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name]))
+                                ->options(collect(ConfidenceLevel::cases())->mapWithKeys(fn($c) => [$c->value => $c->name]))
                                 ->default(ConfidenceLevel::REFERENCE),
                         ])
-                        ->itemLabel(fn (array $state): ?string => Nutrient::find($state['nutrient_id'] ?? null)?->name_ar)
+                        ->itemLabel(fn(array $state): ?string => Nutrient::find($state['nutrient_id'] ?? null)?->name_ar)
                         ->collapsible(),
                 ]),
         ]);

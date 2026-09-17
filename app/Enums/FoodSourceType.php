@@ -2,10 +2,20 @@
 
 namespace App\Enums;
 
-enum FoodSourceType: string
+use Filament\Support\Contracts\HasLabel;
+
+enum FoodSourceType: string implements HasLabel
 {
-    case USDA_FDC = 'usda_fdc';
+    case USDA_FDC        = 'usda_fdc';
     case LOCAL_REFERENCE = 'local_reference';
-    case RESTAURANT_MEASUREMENT = 'restaurant_measurement';
-    case LAB = 'lab';
+    case EMFID           = 'emfid';
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::USDA_FDC => 'USDA (FoodData Central)',
+            self::LOCAL_REFERENCE => 'مرجع محلي',
+            self::EMFID => 'EMFID',
+        };
+    }
 }

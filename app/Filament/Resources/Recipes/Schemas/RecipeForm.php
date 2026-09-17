@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Filament\Resources\Recipes\Schemas;
 
-
 use App\Enums\RecipeStatus;
+use App\Models\FoodSourceRecord;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,14 +17,21 @@ class RecipeForm
             Section::make('بيانات الوصفة')
                 ->columns(2)
                 ->schema([
-                    Select::make('food_id')
-                        ->label('الطبق (الغذاء المرتبط)')
-                        ->relationship('food', 'name_ar')
+
+                    Select::make('food_source_record_id')
+                        ->label('سجل المصدر (الطبق المرتبط)')
+                        ->relationship('sourceRecord', 'id')
+                        ->getOptionLabelFromRecordUsing(fn(FoodSourceRecord $sr) => sprintf(
+                            '%s — %s (%s)',
+                            $sr->food?->name_ar,
+                            $sr->source_type->getLabel(),
+                            $sr->country->getLabel() ?? '—',
+                        ))
                         ->searchable()
                         ->preload()
                         ->required()
-                        ->default(fn () => request()->query('food_id'))
-                        ->disabledOn('edit'), // the food↔recipe link shouldn't change after creation
+                        ->default(fn() => request()->query('food_source_record_id'))
+                        ->disabledOn('edit'),
 
                     TextInput::make('servings')
                         ->label('عدد الحصص')
@@ -43,7 +49,7 @@ class RecipeForm
 
                     Select::make('status')
                         ->label('الحالة')
-                        ->options(collect(RecipeStatus::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name]))
+                        ->options(collect(RecipeStatus::cases())->mapWithKeys(fn($c) => [$c->value => $c->name]))
                         ->default(RecipeStatus::DRAFT)
                         ->required(),
                 ]),

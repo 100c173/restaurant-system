@@ -14,8 +14,10 @@ return new class extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
-            // The dish itself, stored as a food row with is_recipe = true.
-            $table->foreignId('food_id')->unique()->constrained('foods')->cascadeOnDelete();
+            $table->foreignId('food_source_record_id')
+                ->unique()
+                ->constrained('food_source_records')
+                ->cascadeOnDelete();
             $table->unsignedSmallInteger('servings')->default(1);
             $table->decimal('weight_before_cooking_g', 10, 2)->nullable();
             $table->decimal('weight_after_cooking_g', 10, 2)->nullable();

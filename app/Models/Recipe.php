@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use App\Enums\RecipeStatus;
@@ -14,28 +13,26 @@ class Recipe extends Model
 
     protected $fillable = [
         'food_id', 'servings', 'weight_before_cooking_g',
-        'weight_after_cooking_g', 'status', 'notes',
+        'weight_after_cooking_g', 'status', 'notes','food_source_record_id'
     ];
 
     protected function casts(): array
     {
         return [
-            'servings' => 'integer',
+            'servings'                => 'integer',
             'weight_before_cooking_g' => 'decimal:2',
-            'weight_after_cooking_g' => 'decimal:2',
-            'status' => RecipeStatus::class,
+            'weight_after_cooking_g'  => 'decimal:2',
+            'status'                  => RecipeStatus::class,
         ];
     }
 
-    /** The dish itself, as a food row (name, category, and where its own source
-     * records/nutrient values get stored once totals are calculated and saved). */
-    public function food(): BelongsTo
-    {
-        return $this->belongsTo(Food::class);
-    }
 
     public function ingredients(): HasMany
     {
         return $this->hasMany(RecipeIngredient::class)->orderBy('sort_order');
+    }
+    public function sourceRecord(): BelongsTo
+    {
+        return $this->belongsTo(FoodSourceRecord::class, 'food_source_record_id');
     }
 }

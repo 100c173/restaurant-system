@@ -17,10 +17,14 @@ class RecipesTable
     {
         return $table
             ->columns([
-                TextColumn::make('food.name_ar')
+                TextColumn::make('sourceRecord.food.name_ar')
                     ->label('الطبق')
                     ->searchable()
-                    ->url(fn($record) => FoodResource::getUrl('edit', ['record' => $record->food_id])),
+                    ->url(fn($record) => FoodResource::getUrl('edit', ['record' => $record->sourceRecord->food_id])),
+
+                TextColumn::make('sourceRecord.source_type')
+                    ->label('المصدر')
+                    ->badge(),
 
                 TextColumn::make('servings')->label('الحصص'),
 

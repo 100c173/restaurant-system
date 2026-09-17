@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Filament\Resources\Food\Resources\FoodSourceRecords\Tables;
 
+use App\Enums\Country;
 use App\Enums\FoodSourceStatus;
 use App\Enums\FoodSourceType;
 use Filament\Actions\BulkActionGroup;
@@ -21,8 +21,11 @@ class FoodSourceRecordsTable
             ->columns([
                 TextColumn::make('source_type')
                     ->label('نوع المصدر')
+                    ->badge(),
+                TextColumn::make('country')
+                    ->label('البلد')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => FoodSourceType::from($state)->name),
+                    ->color('gray'),
 
                 TextColumn::make('external_ref')
                     ->label('المرجع')
@@ -34,13 +37,13 @@ class FoodSourceRecordsTable
                 TextColumn::make('status')
                     ->label('حالة السجل')
                     ->badge()
-                    ->color(fn ($state) => match ($state) {
-                        FoodSourceStatus::ACTIVE->value => 'success',
+                    ->color(fn($state) => match ($state) {
+                        FoodSourceStatus::ACTIVE->value     => 'success',
                         FoodSourceStatus::SUPERSEDED->value => 'warning',
-                        FoodSourceStatus::REJECTED->value => 'danger',
-                        default => 'gray',
+                        FoodSourceStatus::REJECTED->value   => 'danger',
+                        default                             => 'gray',
                     })
-                    ->formatStateUsing(fn ($state) => FoodSourceStatus::from($state)->name),
+                    ->formatStateUsing(fn($state) => FoodSourceStatus::from($state)->name),
 
                 TextColumn::make('priority')
                     ->label('الأولوية')
@@ -65,11 +68,14 @@ class FoodSourceRecordsTable
             ->filters([
                 SelectFilter::make('source_type')
                     ->label('نوع المصدر')
-                    ->options(collect(FoodSourceType::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name])),
+                    ->options(FoodSourceType::class),
 
+                SelectFilter::make('country')
+                    ->label('البلد')
+                    ->options(Country::class),
                 SelectFilter::make('status')
                     ->label('حالة السجل')
-                    ->options(collect(FoodSourceStatus::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name])),
+                    ->options(collect(FoodSourceStatus::cases())->mapWithKeys(fn($c) => [$c->value => $c->name])),
             ])
             ->defaultSort('priority')
             ->recordActions([EditAction::make(), DeleteAction::make()])

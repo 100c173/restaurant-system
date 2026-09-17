@@ -10,7 +10,7 @@ class RecipeIngredient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'recipe_id', 'food_id', 'food_form_id', 'measure_unit_id',
+        'recipe_id', 'food_source_record_id', 'food_form_id', 'measure_unit_id',
         'amount', 'is_added_after_cooking', 'sort_order',
     ];
 
@@ -22,9 +22,9 @@ class RecipeIngredient extends Model
             'sort_order'             => 'integer',
         ];
     }
-    public function food(): BelongsTo// the ingredient itself
+    public function sourceRecord(): BelongsTo
     {
-        return $this->belongsTo(Food::class);
+        return $this->belongsTo(FoodSourceRecord::class, 'food_source_record_id');
     }
 
     public function recipe(): BelongsTo

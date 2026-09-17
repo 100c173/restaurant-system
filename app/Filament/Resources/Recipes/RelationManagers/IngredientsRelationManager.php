@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Recipes\RelationManagers;
 
+use App\Models\FoodSourceRecord;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
@@ -23,13 +24,21 @@ class IngredientsRelationManager extends RelationManager
     public function form(Schema $schema): Schema
     {
         return $schema->components([
-            Select::make('food_id')
-                ->label('المكوّن (الغذاء)')
-                // an ingredient can't itself be a dish that has its own recipe
-                ->relationship('food', 'name_ar', fn ($query) => $query->whereDoesntHave('recipe'))
-                ->searchable()
-                ->preload()
-                ->required(),
+
+                Select::make('food_source_record_id')
+                        ->label('سجل المصدر (الطبق المرتبط)')
+                        ->relationship('sourceRecord', 'id',fn ($query) => $query->whereDoesntHave('recipe'))
+                        ->getOptionLabelFromRecordUsing(fn(FoodSourceRecord $sr) => sprintf(
+                            '%s — %s — (%s)',
+                            $sr->food?->name_ar,
+                            $sr->source_type->getLabel(),
+                            $sr->country->getLabel() ?? '—',
+                        ))
+                        ->searchable()
+                        ->preload()
+                        ->required()
+                        ->default(fn() => request()->query('food_source_record_id'))
+                        ->disabledOn('edit'),
 
             Select::make('food_form_id')
                 ->label('حالة المكوّن')
