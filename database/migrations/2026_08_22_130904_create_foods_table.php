@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('name_ar');
             $table->string('name_en')->nullable();
             $table->foreignId('food_category_id')->nullable()->constrained('food_categories')->nullOnDelete();
+            $table->string('img')->nullable();
             //$table->foreignId('canonical_food_id')->nullable()->constrained('foods')->nullOnDelete();
             //$table->enum('status', array_column(FoodSourceStatus::cases(), 'value'))->default(FoodSourceStatus::ACTIVE)->index();
            // $table->string('region_code', 12)->nullable()->index();

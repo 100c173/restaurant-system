@@ -18,7 +18,7 @@ class FoodSourceRecord extends Model
     protected $fillable = [
         'food_id', 'source_type', 'source_name', 'external_ref', 'data_type',
         'food_form_id', 'status', 'priority', 'is_preferred',
-        'valid_from', 'valid_to', 'imported_at', 'payload_hash', 'notes', 'fdc_id','country'
+        'valid_from', 'valid_to', 'imported_at', 'payload_hash', 'notes', 'fdc_id','country','img'
     ];
 
     protected function casts(): array

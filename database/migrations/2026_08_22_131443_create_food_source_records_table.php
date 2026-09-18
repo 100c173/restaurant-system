@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('data_type', 64)->nullable(); // Foundation, SR Legacy, Branded, local
             $table->foreignId('food_form_id')->nullable()->constrained('food_forms')->nullOnDelete();
             $table->string('country', 12)->nullable()->index();
+            $table->string('img')->nullable();
            // $table->enum('scope_type', array_column(FoodSourceType::cases(),'value'))->default(FoodSourceType::USDA_FDC)->index(); // USDA , Local, RESTAURANT_MEASUREMENT
            // $table->unsignedBigInteger('scope_id')->nullable()->index();
             $table->enum('status', array_column(FoodSourceStatus::cases(),'value'))->default(FoodSourceStatus::ACTIVE)->index(); // active, superseded, rejected

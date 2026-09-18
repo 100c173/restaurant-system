@@ -9,6 +9,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -19,6 +20,14 @@ class FoodSourceRecordsTable
     {
         return $table
             ->columns([
+                /*ImageColumn::make('img')
+                    ->label('الغذاء')
+                    ->getStateUsing(function ($record) {
+                        return asset('storage/'. $record->img);
+                    })->imageHeight(70)
+                    ->imageWidth(70)
+                    ->circular(),*/
+
                 TextColumn::make('source_type')
                     ->label('نوع المصدر')
                     ->badge(),

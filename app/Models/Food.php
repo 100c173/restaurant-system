@@ -16,7 +16,7 @@ class Food extends Model
 
     protected $fillable = [
         'name_ar', 'name_en', 'food_category_id',
-        'is_active',
+        'is_active','img'
     ];
 
     protected $table = 'foods';

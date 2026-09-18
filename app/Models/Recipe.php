@@ -13,7 +13,7 @@ class Recipe extends Model
 
     protected $fillable = [
         'food_id', 'servings', 'weight_before_cooking_g',
-        'weight_after_cooking_g', 'status', 'notes','food_source_record_id'
+        'weight_after_cooking_g', 'status', 'notes','food_source_record_id',
     ];
 
     protected function casts(): array

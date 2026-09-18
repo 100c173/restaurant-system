@@ -1,6 +1,7 @@
 <?php
 namespace App\Filament\Resources\Food\Schemas;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -32,6 +33,11 @@ class FoodForm
                     ->searchable()
                     ->preload()
                     ->required(),
+
+                FileUpload::make('img')
+                    ->label('صورة عن الطعام')
+                    ->disk('public')
+                    ->directory('food_imgs'),
 
                 Toggle::make('is_active')
                     ->label('فعال')

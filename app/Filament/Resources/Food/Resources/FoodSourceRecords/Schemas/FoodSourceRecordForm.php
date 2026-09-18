@@ -8,11 +8,14 @@ use App\Enums\FoodSourceType;
 use App\Enums\NutrientValueMethod;
 use App\Models\Nutrient;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Image;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
@@ -23,6 +26,7 @@ class FoodSourceRecordForm
         return $schema->components([
             Section::make('بيانات المصدر')
                 ->columns(2)
+                ->columnSpanFull()
                 ->schema([
                     Select::make('source_type')
                         ->label('نوع المصدر')
@@ -64,36 +68,9 @@ class FoodSourceRecordForm
                         ]),
                 ]),
 
-            Section::make('حالة السجل وأولويته')
-                ->columns(3)
-                ->schema([
-                    Select::make('status')
-                        ->label('الحالة')
-                        ->options(collect(FoodSourceStatus::cases())->mapWithKeys(fn($c) => [$c->value => $c->name]))
-                        ->default(FoodSourceStatus::ACTIVE)
-                        ->required(),
-
-                    TextInput::make('priority')
-                        ->label('الأولوية')
-                        ->numeric()
-                        ->default(100)
-                        ->helperText('الرقم الأصغر له أولوية أعلى عند التعارض بين المصادر'),
-
-                    Toggle::make('is_preferred')
-                        ->label('مصدر مفضل؟')
-                        ->inline(false),
-
-                    DateTimePicker::make('valid_from')->label('صالح من'),
-                    DateTimePicker::make('valid_to')->label('صالح حتى'),
-                    DateTimePicker::make('imported_at')->label('تاريخ الاستيراد'),
-                ]),
-
-            Textarea::make('notes')
-                ->label('ملاحظات')
-                ->columnSpanFull(),
-
             Section::make('القيم الغذائية لكل 100 غرام')
                 ->description('يتم تعبئة كل عنصر غذائي نشط تلقائياً عند إنشاء سجل جديد')
+                ->columnSpanFull()
                 ->schema([
                     Repeater::make('nutrientValues')
                         ->relationship()
@@ -141,6 +118,44 @@ class FoodSourceRecordForm
                         ])
                         ->itemLabel(fn(array $state): ?string => Nutrient::find($state['nutrient_id'] ?? null)?->name_ar)
                         ->collapsible(),
+                ]),
+            
+            Section::make('حالة السجل وأولويته')
+                ->columns(3)
+                ->schema([
+                    Select::make('status')
+                        ->label('الحالة')
+                        ->options(collect(FoodSourceStatus::cases())->mapWithKeys(fn($c) => [$c->value => $c->name]))
+                        ->default(FoodSourceStatus::ACTIVE)
+                        ->required(),
+
+                    TextInput::make('priority')
+                        ->label('الأولوية')
+                        ->numeric()
+                        ->default(100)
+                        ->helperText('الرقم الأصغر له أولوية أعلى عند التعارض بين المصادر'),
+
+                    Toggle::make('is_preferred')
+                        ->label('مصدر مفضل؟')
+                        ->inline(false),
+
+                   // DateTimePicker::make('valid_from')->label('صالح من'),
+                   // DateTimePicker::make('valid_to')->label('صالح حتى'),
+                   // DateTimePicker::make('imported_at')->label('تاريخ الاستيراد'),
+                ]),
+
+            Section::make('المعلومات الإضافية')
+                ->columns(2)
+                ->schema([
+                  /*  FileUpload::make('img')
+                        ->label('صورة الغذاء من المصدر ')
+                        ->disk('public')
+                        ->directory('food_source_image')
+                        ->columnSpanFull(),*/
+
+                    Textarea::make('notes')
+                        ->label('ملاحظات')
+                        ->columnSpanFull(),
                 ]),
         ]);
     }
