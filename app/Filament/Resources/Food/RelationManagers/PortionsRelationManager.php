@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Filament\Resources\Food\RelationManagers;
 
 use App\Enums\ConfidenceLevel;
@@ -7,7 +6,7 @@ use App\Enums\PortionBasis;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -52,18 +51,24 @@ class PortionsRelationManager extends RelationManager
 
             Select::make('basis')
                 ->label('أساس التقدير')
-                ->options(collect(PortionBasis::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name])),
+                ->options(collect(PortionBasis::cases())->mapWithKeys(fn($c) => [$c->value => $c->name])),
 
             Select::make('confidence_level')
                 ->label('مستوى الثقة')
-                ->options(collect(ConfidenceLevel::cases())->mapWithKeys(fn ($c) => [$c->value => $c->name]))
+                ->options(collect(ConfidenceLevel::cases())->mapWithKeys(fn($c) => [$c->value => $c->name]))
                 ->default(ConfidenceLevel::REFERENCE),
+
+            KeyValue::make('evidence')
+                ->label('Evidence')
+                ->keyLabel('Key')
+                ->valueLabel('Value')
+                ->nullable(),
 
             Toggle::make('is_default')
                 ->label('الوحدة الافتراضية؟'),
 
-            DateTimePicker::make('valid_from')->label('صالح من'),
-            DateTimePicker::make('valid_to')->label('صالح حتى'),
+            //DateTimePicker::make('valid_from')->label('صالح من'),
+            // DateTimePicker::make('valid_to')->label('صالح حتى'),
         ]);
     }
 
