@@ -9,7 +9,7 @@ fat_g,usda_fdc,1004,1,100,Total lipid (fat),G
 carbohydrate_g,usda_fdc,1005,1,100,"Carbohydrate, by difference",G
 fiber_g,usda_fdc,1079,1,100,"Fiber, total dietary",G
 sugars_g,usda_fdc,2000,1,100,"Sugars, total including NLEA",G
-sugars_g,usda_fdc,1063,1,110,Total Sugars,G
+sugars_g,usda_fdc,1063,1,110,"""Sugars, Total NLEA""",G
 ash_g,usda_fdc,1007,1,100,Ash,G
 fat_sat_g,usda_fdc,1258,1,100,"Fatty acids, total saturated",G
 fat_mono_g,usda_fdc,1292,1,100,"Fatty acids, total monounsaturated",G

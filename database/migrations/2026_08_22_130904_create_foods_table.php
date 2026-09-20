@@ -1,34 +1,28 @@
 <?php
 
-use App\Enums\FoodSourceStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration
+{
     public function up(): void
     {
+        // A food is a CONCEPT ("chickpeas", "tabbouleh"). Its cooked/raw variants and its
+        // nutrient numbers live in food_source_records. Dish vs ingredient is not stored:
+        // a food is a dish when it has a recipe (computed, never a column).
         Schema::create('foods', function (Blueprint $table) {
             $table->id();
-           // $table->string('local_code', 64)->nullable()->unique();
-            $table->string('name_ar');
+            $table->string('name_ar')->index();
             $table->string('name_en')->nullable();
+            $table->string('scientific_name')->nullable(); // Latin binomial for plants/animals (INFOODS good practice)
             $table->foreignId('food_category_id')->nullable()->constrained('food_categories')->nullOnDelete();
             $table->string('img')->nullable();
-            //$table->foreignId('canonical_food_id')->nullable()->constrained('foods')->nullOnDelete();
-            //$table->enum('status', array_column(FoodSourceStatus::cases(), 'value'))->default(FoodSourceStatus::ACTIVE)->index();
-           // $table->string('region_code', 12)->nullable()->index();
             $table->boolean('is_active')->default(true)->index();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('foods');

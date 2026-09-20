@@ -23,12 +23,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesInSystem::class,
             AdminSeed::class,
-            RestaurantOwnerSeeder::class,
-            CustomerSeeder::class,
-            RestaurantCategoriesSeeder::class,
-            PlanSeeder::class ,
             NutrientSeeder::class,
             MeasureUnitSeeder::class,
+            DataSourceSeeder::class
         ]);
     }
 }
