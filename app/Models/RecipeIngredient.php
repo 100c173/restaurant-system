@@ -1,14 +1,20 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * One line of a recipe: an existing food_source_record used as an ingredient, in a given
+ * amount and unit. amount is in measure_unit's unit, NOT grams — resolving grams requires
+ * joining through food_portions (see decisions-and-principles.md).
+ *
+ * food_form_id must equal ingredientRecord.food_form_id or be null; the app enforces this,
+ * it is not a database constraint.
+ */
 class RecipeIngredient extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'recipe_id', 'food_source_record_id', 'food_form_id', 'measure_unit_id',
         'amount', 'is_added_after_cooking', 'sort_order',
@@ -17,14 +23,10 @@ class RecipeIngredient extends Model
     protected function casts(): array
     {
         return [
-            'amount'                 => 'decimal:4',
+            'amount' => 'decimal:4',
             'is_added_after_cooking' => 'boolean',
-            'sort_order'             => 'integer',
+            'sort_order' => 'integer',
         ];
-    }
-    public function sourceRecord(): BelongsTo
-    {
-        return $this->belongsTo(FoodSourceRecord::class, 'food_source_record_id');
     }
 
     public function recipe(): BelongsTo
@@ -32,10 +34,10 @@ class RecipeIngredient extends Model
         return $this->belongsTo(Recipe::class);
     }
 
-    /** The ingredient food (e.g. brown lentils, raw) — not the dish being built. */
-    public function ingredient(): BelongsTo
+    /** The ingredient itself (e.g. garlic, raw — a food_source_record, not a Food directly). */
+    public function ingredientRecord(): BelongsTo
     {
-        return $this->belongsTo(Food::class, 'food_id');
+        return $this->belongsTo(FoodSourceRecord::class, 'food_source_record_id');
     }
 
     public function foodForm(): BelongsTo
@@ -46,15 +48,5 @@ class RecipeIngredient extends Model
     public function measureUnit(): BelongsTo
     {
         return $this->belongsTo(MeasureUnit::class);
-    }
-
-    /** Grams this ingredient contributes, converting via the measure unit's base factor when set. */
-    public function gramAmount(): float
-    {
-        $factor = $this->measureUnit->base_factor;
-
-        return $factor
-            ? (float) $this->amount * (float) $factor
-            : (float) $this->amount;
     }
 }

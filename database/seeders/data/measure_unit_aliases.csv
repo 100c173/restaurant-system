@@ -42,3 +42,31 @@ clove,clove
 فص,clove
 loaf,loaf
 رغيف,loaf
+can,can
+علبة,can
+can drained,can
+fl oz,fl_oz
+fluid ounce,fl_oz
+serving,serving
+nlea serving,serving
+حصة,serving
+bunch,bunch
+ربطة,bunch
+head,head
+heads,head
+رأس,head
+leaf,leaf
+leaves,leaf
+ورقة,leaf
+package,package
+pkg,package
+عبوة,package
+cloves,clove
+slices,slice
+pieces,piece
+small,piece
+medium,piece
+large,piece
+extra large,piece
+fruit,piece
+whole,piece

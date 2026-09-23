@@ -1,0 +1,5 @@
+data_source_code,external_ref,measure_unit_label,amount,gram_weight,description,modifier,basis
+usda_fdc_sr_legacy,173756,cup,1,200.0,,cup,usda
+usda_fdc_sr_legacy,173756,tbsp,1,12.5,,tbsp,usda
+usda_fdc_sr_legacy,173757,cup,1,164.0,,cup,usda
+usda_fdc_sr_legacy,173800,can drained,1,253.0,,can drained,usda

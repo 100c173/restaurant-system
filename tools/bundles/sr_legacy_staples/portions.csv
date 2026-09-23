@@ -1,0 +1,151 @@
+data_source_code,external_ref,measure_unit_label,amount,gram_weight,description,modifier,basis
+usda_fdc_sr_legacy,167747,cup,1.0,244.0,,cup,usda
+usda_fdc_sr_legacy,167747,fl oz,1.0,30.5,,fl oz,usda
+usda_fdc_sr_legacy,167747,lemon yields,1.0,48.0,,lemon yields,usda
+usda_fdc_sr_legacy,167747,wedge yields,1.0,5.9,,wedge yields,usda
+usda_fdc_sr_legacy,168191,"date, pitted",1.0,24.0,,"date, pitted",usda
+usda_fdc_sr_legacy,168409,cup slices,0.5,52.0,,cup slices,usda
+usda_fdc_sr_legacy,168409,"cucumber (8-1/4"")",1.0,301.0,,"cucumber (8-1/4"")",usda
+usda_fdc_sr_legacy,168462,cup,1.0,30.0,,cup,usda
+usda_fdc_sr_legacy,168462,bunch,1.0,340.0,,bunch,usda
+usda_fdc_sr_legacy,168462,leaf,1.0,10.0,,leaf,usda
+usda_fdc_sr_legacy,168462,package (10 oz),1.0,284.0,,package (10 oz),usda
+usda_fdc_sr_legacy,168463,cup,1.0,180.0,,cup,usda
+usda_fdc_sr_legacy,169097,"cup, sections",1.0,180.0,,"cup, sections",usda
+usda_fdc_sr_legacy,169097,"large (3-1/16"" dia)",1.0,184.0,,"large (3-1/16"" dia)",usda
+usda_fdc_sr_legacy,169097,"small (2-3/8"" dia)",1.0,96.0,,"small (2-3/8"" dia)",usda
+usda_fdc_sr_legacy,169097,"fruit (2-5/8"" dia)",1.0,131.0,,"fruit (2-5/8"" dia)",usda
+usda_fdc_sr_legacy,169228,"cup, cubes",1.0,82.0,,"cup, cubes",usda
+usda_fdc_sr_legacy,169228,"eggplant, peeled (yield from 1-1/4 lb)",1.0,458.0,,"eggplant, peeled (yield from 1-1/4 lb)",usda
+usda_fdc_sr_legacy,169228,"eggplant, unpeeled (approx 1-1/4 lb)",1.0,548.0,,"eggplant, unpeeled (approx 1-1/4 lb)",usda
+usda_fdc_sr_legacy,169229,"cup (1"" cubes)",1.0,99.0,,"cup (1"" cubes)",usda
+usda_fdc_sr_legacy,169230,cup,1.0,136.0,,cup,usda
+usda_fdc_sr_legacy,169230,tsp,1.0,2.8,,tsp,usda
+usda_fdc_sr_legacy,169230,clove,1.0,3.0,,clove,usda
+usda_fdc_sr_legacy,169230,cloves,3.0,9.0,,cloves,usda
+usda_fdc_sr_legacy,169291,"cup, chopped",1.0,124.0,,"cup, chopped",usda
+usda_fdc_sr_legacy,169291,"cup, sliced",1.0,113.0,,"cup, sliced",usda
+usda_fdc_sr_legacy,169291,large,1.0,323.0,,large,usda
+usda_fdc_sr_legacy,169291,medium,1.0,196.0,,medium,usda
+usda_fdc_sr_legacy,169291,slice,1.0,9.9,,slice,usda
+usda_fdc_sr_legacy,169291,small,1.0,118.0,,small,usda
+usda_fdc_sr_legacy,169292,"cup, sliced",1.0,180.0,,"cup, sliced",usda
+usda_fdc_sr_legacy,169292,"cup, mashed",0.5,120.0,,"cup, mashed",usda
+usda_fdc_sr_legacy,169721,cup,1.0,192.0,,cup,usda
+usda_fdc_sr_legacy,169757,cup,1.0,158.0,,cup,usda
+usda_fdc_sr_legacy,169760,cup,1.0,195.0,,cup,usda
+usda_fdc_sr_legacy,169761,cup,1.0,125.0,,cup,usda
+usda_fdc_sr_legacy,169975,"cup, chopped",1.0,89.0,,"cup, chopped",usda
+usda_fdc_sr_legacy,169975,"cup, shredded",1.0,70.0,,"cup, shredded",usda
+usda_fdc_sr_legacy,169975,"head, large (about 7"" dia)",1.0,1248.0,,"head, large (about 7"" dia)",usda
+usda_fdc_sr_legacy,169975,"leaf, large",1.0,33.0,,"leaf, large",usda
+usda_fdc_sr_legacy,169975,"head, medium (about 5-3/4"" dia)",1.0,908.0,,"head, medium (about 5-3/4"" dia)",usda
+usda_fdc_sr_legacy,169975,"leaf, medium",1.0,23.0,,"leaf, medium",usda
+usda_fdc_sr_legacy,169975,"head, small (about 4-1/2"" dia)",1.0,714.0,,"head, small (about 4-1/2"" dia)",usda
+usda_fdc_sr_legacy,169975,leaf,1.0,15.0,,leaf,usda
+usda_fdc_sr_legacy,169976,"cup, shredded",0.5,75.0,,"cup, shredded",usda
+usda_fdc_sr_legacy,169976,head,1.0,1262.0,,head,usda
+usda_fdc_sr_legacy,170000,"cup, chopped",1.0,160.0,,"cup, chopped",usda
+usda_fdc_sr_legacy,170000,"cup, sliced",1.0,115.0,,"cup, sliced",usda
+usda_fdc_sr_legacy,170000,tbsp chopped,1.0,10.0,,tbsp chopped,usda
+usda_fdc_sr_legacy,170000,large,1.0,150.0,,large,usda
+usda_fdc_sr_legacy,170000,"slice, large (1/4"" thick)",1.0,38.0,,"slice, large (1/4"" thick)",usda
+usda_fdc_sr_legacy,170000,"medium (2-1/2"" dia)",1.0,110.0,,"medium (2-1/2"" dia)",usda
+usda_fdc_sr_legacy,170000,"slice, medium (1/8"" thick)",1.0,14.0,,"slice, medium (1/8"" thick)",usda
+usda_fdc_sr_legacy,170000,small,1.0,70.0,,small,usda
+usda_fdc_sr_legacy,170000,"slice, thin",1.0,9.0,,"slice, thin",usda
+usda_fdc_sr_legacy,170000,rings,10.0,60.0,,rings,usda
+usda_fdc_sr_legacy,170001,cup,1.0,210.0,,cup,usda
+usda_fdc_sr_legacy,170001,tbsp chopped,1.0,15.0,,tbsp chopped,usda
+usda_fdc_sr_legacy,170001,large,1.0,128.0,,large,usda
+usda_fdc_sr_legacy,170001,"slice, large (1/4"" thick)",1.0,32.0,,"slice, large (1/4"" thick)",usda
+usda_fdc_sr_legacy,170001,medium,1.0,94.0,,medium,usda
+usda_fdc_sr_legacy,170001,"slice, medium (1/8"" thick)",1.0,12.0,,"slice, medium (1/8"" thick)",usda
+usda_fdc_sr_legacy,170001,small,1.0,60.0,,small,usda
+usda_fdc_sr_legacy,170001,"slice, thin",1.0,8.0,,"slice, thin",usda
+usda_fdc_sr_legacy,170026,"cup, diced",0.5,75.0,,"cup, diced",usda
+usda_fdc_sr_legacy,170026,"Potato large (3"" to 4-1/4"" dia)",1.0,369.0,,"Potato large (3"" to 4-1/4"" dia)",usda
+usda_fdc_sr_legacy,170026,"Potato medium (2-1/4"" to 3-1/4"" dia)",1.0,213.0,,"Potato medium (2-1/4"" to 3-1/4"" dia)",usda
+usda_fdc_sr_legacy,170026,"Potato small (1-3/4"" to 2-1/2"" dia)",1.0,170.0,,"Potato small (1-3/4"" to 2-1/2"" dia)",usda
+usda_fdc_sr_legacy,170287,cup,1.0,182.0,,cup,usda
+usda_fdc_sr_legacy,170287,tbsp,1.0,8.4,,tbsp,usda
+usda_fdc_sr_legacy,170393,cup chopped,1.0,128.0,,cup chopped,usda
+usda_fdc_sr_legacy,170393,cup grated,1.0,110.0,,cup grated,usda
+usda_fdc_sr_legacy,170393,cup strips or slices,1.0,122.0,,cup strips or slices,usda
+usda_fdc_sr_legacy,170393,"large (7-1/4"" to 8-/1/2"" long)",1.0,72.0,,"large (7-1/4"" to 8-/1/2"" long)",usda
+usda_fdc_sr_legacy,170393,medium,1.0,61.0,,medium,usda
+usda_fdc_sr_legacy,170393,"small (5-1/2"" long)",1.0,50.0,,"small (5-1/2"" long)",usda
+usda_fdc_sr_legacy,170393,slice,1.0,3.0,,slice,usda
+usda_fdc_sr_legacy,170393,"strip large (3"" long)",1.0,7.0,,"strip large (3"" long)",usda
+usda_fdc_sr_legacy,170393,strip medium,1.0,4.0,,strip medium,usda
+usda_fdc_sr_legacy,170394,tbsp,1.0,9.7,,tbsp,usda
+usda_fdc_sr_legacy,170394,cup slices,0.5,78.0,,cup slices,usda
+usda_fdc_sr_legacy,170394,carrot,1.0,46.0,,carrot,usda
+usda_fdc_sr_legacy,170419,cup,1.0,145.0,,cup,usda
+usda_fdc_sr_legacy,170420,cup,1.0,160.0,,cup,usda
+usda_fdc_sr_legacy,170440,cup,0.5,78.0,,cup,usda
+usda_fdc_sr_legacy,170440,"large (3"" to 4-1/4"" dia.)",1.0,300.0,,"large (3"" to 4-1/4"" dia.)",usda
+usda_fdc_sr_legacy,170440,"medium (2-1/4"" to 3-1/4"" dia.)",1.0,167.0,,"medium (2-1/4"" to 3-1/4"" dia.)",usda
+usda_fdc_sr_legacy,170440,"small (1-3/4"" to 2-1/2"" dia.)",1.0,125.0,,"small (1-3/4"" to 2-1/2"" dia.)",usda
+usda_fdc_sr_legacy,170457,cup cherry tomatoes,1.0,149.0,,cup cherry tomatoes,usda
+usda_fdc_sr_legacy,170457,"cup, chopped or sliced",1.0,180.0,,"cup, chopped or sliced",usda
+usda_fdc_sr_legacy,170457,Italian tomato,1.0,62.0,,Italian tomato,usda
+usda_fdc_sr_legacy,170457,cherry,1.0,17.0,,cherry,usda
+usda_fdc_sr_legacy,170457,"large whole (3"" dia)",1.0,182.0,,"large whole (3"" dia)",usda
+usda_fdc_sr_legacy,170457,"medium whole (2-3/5"" dia)",1.0,123.0,,"medium whole (2-3/5"" dia)",usda
+usda_fdc_sr_legacy,170457,"slice, medium (1/4"" thick)",1.0,20.0,,"slice, medium (1/4"" thick)",usda
+usda_fdc_sr_legacy,170457,plum tomato,1.0,62.0,,plum tomato,usda
+usda_fdc_sr_legacy,170457,"small whole (2-2/5"" dia)",1.0,91.0,,"small whole (2-2/5"" dia)",usda
+usda_fdc_sr_legacy,170457,"slice, thick/large (1/2"" thick)",1.0,27.0,,"slice, thick/large (1/2"" thick)",usda
+usda_fdc_sr_legacy,170457,wedge (1/4 of medium tomato),1.0,31.0,,wedge (1/4 of medium tomato),usda
+usda_fdc_sr_legacy,170457,"slice, thin/small",1.0,15.0,,"slice, thin/small",usda
+usda_fdc_sr_legacy,170457,NLEA serving,1.0,148.0,,NLEA serving,usda
+usda_fdc_sr_legacy,170688,cup,1.0,140.0,,cup,usda
+usda_fdc_sr_legacy,171284,container (6 oz),1.0,170.0,,container (6 oz),usda
+usda_fdc_sr_legacy,171284,container (8 oz),1.0,227.0,,container (8 oz),usda
+usda_fdc_sr_legacy,171284,container (4 oz),0.5,113.0,,container (4 oz),usda
+usda_fdc_sr_legacy,171284,cup (8 fl oz),1.0,245.0,,cup (8 fl oz),usda
+usda_fdc_sr_legacy,171287,large,1.0,50.0,,large,usda
+usda_fdc_sr_legacy,171287,extra large,1.0,56.0,,extra large,usda
+usda_fdc_sr_legacy,171287,jumbo,1.0,63.0,,jumbo,usda
+usda_fdc_sr_legacy,171287,cup (4.86 large eggs),1.0,243.0,,cup (4.86 large eggs),usda
+usda_fdc_sr_legacy,171287,medium,1.0,44.0,,medium,usda
+usda_fdc_sr_legacy,171287,small,1.0,38.0,,small,usda
+usda_fdc_sr_legacy,171413,tablespoon,1.0,13.5,,tablespoon,usda
+usda_fdc_sr_legacy,171413,cup,1.0,216.0,,cup,usda
+usda_fdc_sr_legacy,171413,tsp,1.0,4.5,,tsp,usda
+usda_fdc_sr_legacy,171688,"cup, quartered or chopped",1.0,125.0,,"cup, quartered or chopped",usda
+usda_fdc_sr_legacy,171688,cup slices,1.0,109.0,,cup slices,usda
+usda_fdc_sr_legacy,171688,"large (3-1/4"" dia)",1.0,223.0,,"large (3-1/4"" dia)",usda
+usda_fdc_sr_legacy,171688,"medium (3"" dia)",1.0,182.0,,"medium (3"" dia)",usda
+usda_fdc_sr_legacy,171688,"small (2-3/4"" dia)",1.0,149.0,,"small (2-3/4"" dia)",usda
+usda_fdc_sr_legacy,171688,"extra small (2-1/2"" dia)",1.0,101.0,,"extra small (2-1/2"" dia)",usda
+usda_fdc_sr_legacy,171688,NLEA serving,1.0,242.0,,NLEA serving,usda
+usda_fdc_sr_legacy,172420,cup,1.0,192.0,,cup,usda
+usda_fdc_sr_legacy,172420,tablespoon,1.0,12.0,,tablespoon,usda
+usda_fdc_sr_legacy,172421,cup,1.0,198.0,,cup,usda
+usda_fdc_sr_legacy,172421,tbsp,1.0,12.3,,tbsp,usda
+usda_fdc_sr_legacy,172544,oz,3.0,85.0,,oz,usda
+usda_fdc_sr_legacy,172544,"unit, cooked (yield from 1 lb raw meat)",1.0,313.0,,"unit, cooked (yield from 1 lb raw meat)",usda
+usda_fdc_sr_legacy,172816,oz,1.0,28.35,,oz,usda
+usda_fdc_sr_legacy,172816,"pita, large (6-1/2"" dia)",1.0,60.0,,"pita, large (6-1/2"" dia)",usda
+usda_fdc_sr_legacy,173424,"cup, chopped",1.0,136.0,,"cup, chopped",usda
+usda_fdc_sr_legacy,173424,tbsp,1.0,8.5,,tbsp,usda
+usda_fdc_sr_legacy,173424,large,1.0,50.0,,large,usda
+usda_fdc_sr_legacy,173753,cup,1.0,170.0,,cup,usda
+usda_fdc_sr_legacy,173944,"cup, mashed",1.0,225.0,,"cup, mashed",usda
+usda_fdc_sr_legacy,173944,"cup, sliced",1.0,150.0,,"cup, sliced",usda
+usda_fdc_sr_legacy,173944,"extra small (less than 6"" long)",1.0,81.0,,"extra small (less than 6"" long)",usda
+usda_fdc_sr_legacy,173944,"small (6"" to 6-7/8"" long)",1.0,101.0,,"small (6"" to 6-7/8"" long)",usda
+usda_fdc_sr_legacy,173944,"medium (7"" to 7-7/8"" long)",1.0,118.0,,"medium (7"" to 7-7/8"" long)",usda
+usda_fdc_sr_legacy,173944,"large (8"" to 8-7/8"" long)",1.0,136.0,,"large (8"" to 8-7/8"" long)",usda
+usda_fdc_sr_legacy,173944,"extra large (9"" or longer)",1.0,152.0,,"extra large (9"" or longer)",usda
+usda_fdc_sr_legacy,173944,NLEA serving,1.0,126.0,,NLEA serving,usda
+usda_fdc_sr_legacy,174370,oz,1.0,28.35,,oz,usda
+usda_fdc_sr_legacy,174370,oz,4.0,113.0,,oz,usda
+usda_fdc_sr_legacy,175202,cup,1.0,202.0,,cup,usda
+usda_fdc_sr_legacy,175202,tbsp,1.0,12.6,,tbsp,usda
+usda_fdc_sr_legacy,175203,cup,1.0,179.0,,cup,usda
+usda_fdc_sr_legacy,175203,tbsp,1.0,11.2,,tbsp,usda
+usda_fdc_sr_legacy,175205,cup,1.0,150.0,,cup,usda
+usda_fdc_sr_legacy,175205,tbsp,1.0,9.4,,tbsp,usda

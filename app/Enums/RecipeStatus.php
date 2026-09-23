@@ -2,9 +2,20 @@
 
 namespace App\Enums;
 
-enum RecipeStatus: string
+use Filament\Support\Contracts\HasLabel;
+
+enum RecipeStatus: string implements HasLabel
 {
-    case DRAFT = 'draft';
-    case PUBLISHED = 'published';
+    case Draft = 'draft';
+    case Published = 'published';
+    case Archived = 'archived';
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::Draft => 'مسودة',
+            self::Published => 'منشورة',
+            self::Archived => 'مؤرشفة',
+        };
+    }
 }
- 

@@ -2,14 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FoodAlias extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'food_id', 'name_ar', 'name_en', 'search_normalized',
         'dialect', 'region_code', 'is_preferred',
@@ -17,9 +14,7 @@ class FoodAlias extends Model
 
     protected function casts(): array
     {
-        return [
-            'is_preferred' => 'boolean',
-        ];
+        return ['is_preferred' => 'boolean'];
     }
 
     public function food(): BelongsTo

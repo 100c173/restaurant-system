@@ -14,12 +14,21 @@ Setup (one time)
 
 Commands
   verify-map   check every mapped FDC nutrient id against the real nutrient.csv (run this first)
-  search       list candidate FDC foods to fill the crosswalk
+  search       list candidate FDC foods for one search term
+  suggest      wanted-foods list -> DRAFT crosswalk (top candidates per food and form, best guess
+               pre-marked "yes"); the supervisor only reviews the pick column, then runs build
   build        crosswalk -> records.csv, nutrient_values.csv, portions.csv
   template     empty hand-entry header (record columns + nutrient codes)
 
 Crosswalk (usda_crosswalk.csv) - the one human decision per USDA record:
   fdc_id, food_form_code, food_id OR food_name_ar, [food_name_en, category_path]
+  If the file has a `pick` column (a suggest draft), build keeps only rows marked yes/y/x/1.
+
+Wanted-foods list (for suggest): food_name_ar, food_name_en, forms, [search_terms], [exclude]
+  forms = semicolon list of raw;cooked;boiled;fried;canned;dried;plain;any
+  search_terms = semicolon list of alternative English names (default: food_name_en)
+  exclude = semicolon list of words/phrases that remove a candidate (e.g. liver;yolk;green)
+  A candidate described as frozen/canned/dried/pickled is skipped unless that is the wanted form.
 """
 import argparse
 import re
@@ -34,6 +43,24 @@ DATASETS = {  # FDC food.csv data_type -> data_sources.code
     "sr_legacy_food": "usda_fdc_sr_legacy",
     "survey_fndds_food": "usda_fdc_fndds",
 }
+EXCLUDE = ("babyfood", "fast foods", "restaurant", "school lunch", "infant", "formula")
+FORM_RULES = [  # first match wins: specific cooking methods before generic ones
+    ("boiled", r"\b(hard-?boiled|boiled|poached)\b"),
+    ("fried", r"\b(fried|pan-?fried|deep-?fried)\b"),
+    ("roasted", r"\broasted\b"),
+    ("baked", r"\bbaked\b"),
+    ("grilled", r"\b(grilled|broiled)\b"),
+    ("steamed", r"\bsteamed\b"),
+    ("canned", r"\bcanned\b"),
+    ("frozen", r"\bfrozen\b"),
+    ("pickled", r"\bpickled\b"),
+    ("strained", r"\bstrained\b"),
+    ("dried", r"\b(dried|dehydrated)\b"),
+    ("cooked", r"\bcooked\b"),
+    ("raw", r"\braw\b"),
+    ("dry", r"\bdry\b"),
+]
+COOKED_FORMS = {"cooked", "boiled", "steamed", "baked", "grilled", "roasted"}
 UNIT_ALIASES = {"µg": "ug", "μg": "ug", "mcg": "ug"}
 RECORD_COLS = [
     "food_id", "food_name_ar", "food_name_en", "category_path", "food_form_code",
@@ -104,6 +131,171 @@ def cmd_search(a):
         print(f"... {len(hits) - a.limit} more; add terms or raise --limit")
 
 
+# --------------------------------------------------------------------- suggest
+def stem(w: str) -> str:
+    if w.endswith("oes") and len(w) > 4:
+        return w[:-2]
+    if w.endswith("ss") or len(w) <= 3:
+        return w
+    return w[:-1] if w.endswith("s") else w
+
+
+def words(text: str) -> list:
+    return [stem(w) for w in re.findall(r"[a-z]+", str(text).lower())]
+
+
+STATE_RULES = [
+    ("frozen", r"\bfrozen\b"),
+    ("canned", r"\bcanned\b"),
+    ("dried", r"\b(dried|dehydrated|freeze-dried)\b"),
+    ("pickled", r"\bpickled\b"),
+    ("strained", r"\bstrained\b"),
+]
+
+
+def guess_state(desc: str) -> str:
+    for state, rx in STATE_RULES:
+        if re.search(rx, desc, re.I):
+            return state
+    return ""
+
+
+def has_word(text: str, phrase: str) -> bool:
+    return re.search(rf"\b{re.escape(phrase)}\b", text) is not None
+
+
+def guess_form(desc: str) -> str:
+    for form, rx in FORM_RULES:
+        if re.search(rx, desc, re.I):
+            return form
+    return ""
+
+
+def fit_form(target: str, guess: str):
+    """(food_form_code, note) if a candidate whose description suggests `guess` fits the wanted `target`."""
+    assumed = "form not stated by USDA; assumed from your wanted list"
+    if target in ("any", "-", "\u2014", "plain", ""):
+        return ("as_sold" if guess in ("", "dry") else guess), ""
+    if target == "raw":
+        if guess == "raw":
+            return "raw", ""
+        return ("raw", assumed) if guess in ("dry", "") else None
+    if target == "dried":
+        if guess == "dried":
+            return "dried", ""
+        return ("dried", assumed) if guess in ("dry", "") else None
+    if target == "cooked":
+        return (guess, "") if guess in COOKED_FORMS else None
+    return (target, "") if guess == target else None
+
+
+def score_description(desc: str, term_words: list):
+    """None if the description does not match any term; else (score, match_label)."""
+    low = desc.lower()
+    if any(x in low for x in EXCLUDE):
+        return None
+    clean = re.sub(r"\([^)]*\)", "", desc)
+    segments = [seg for seg in clean.split(",")]
+    head = words(segments[0])
+    lead = words(" ".join(segments[:2]))
+    paren = set(words(" ".join(re.findall(r"\(([^)]*)\)", desc))))
+    have = set(words(desc))
+    best = None
+    for tw in term_words:
+        if not tw or not all(w in have for w in tw):
+            continue
+        if set(head) == set(tw):
+            cand = (60, "exact")
+        elif all(w in paren for w in tw):
+            cand = (50, "alias")
+        elif set(lead) == set(tw):
+            cand = (55, "exact")
+        elif head[: len(tw)] == tw:
+            cand = (30, "starts-with")
+        else:
+            cand = (10, "loose")
+        best = cand if best is None or cand[0] > best[0] else best
+    if best is None:
+        return None
+    score = best[0]
+    if "without salt" in low or "unsalted" in low:
+        score += 8
+    elif "with salt" in low or "salt added" in low:
+        score -= 25
+    score -= len(desc) * 0.15  # shorter = more generic
+    return round(score, 1), best[1]
+
+
+def cmd_suggest(a):
+    food = read(a.fdc_dir, "food.csv", required=True,
+                usecols=["fdc_id", "data_type", "description", "publication_date"])
+    food = food[food.data_type.isin(DATASETS)]
+    catalog = [{"fdc_id": r.fdc_id, "desc": r.description, "guess": guess_form(r.description),
+                "state": guess_state(r.description)}
+               for r in food.itertuples() if isinstance(r.description, str)]
+
+    wanted = pd.read_csv(a.wanted, dtype=str, encoding="utf-8-sig").fillna("")
+    for col in ("food_name_ar", "food_name_en"):
+        if col not in wanted.columns:
+            sys.exit(f"Wanted list needs a '{col}' column")
+
+    out = []
+    for w in wanted.to_dict("records"):
+        terms = [t.strip() for t in (w.get("search_terms") or w["food_name_en"]).split(";") if t.strip()]
+        term_words = [words(t) for t in terms]
+        targets = [t.strip().lower() for t in (w.get("forms") or "any").split(";") if t.strip()] or ["any"]
+
+        exclude = [t.strip().lower() for t in (w.get("exclude") or "").split(";") if t.strip()]
+
+        scored = []
+        for c in catalog:
+            if any(has_word(c["desc"].lower(), x) for x in exclude):
+                continue
+            res = score_description(c["desc"], term_words)
+            if res:
+                scored.append({**c, "score": res[0], "match": res[1]})
+
+        for target in targets:
+            fits = []
+            for c in scored:
+                if target == "plain" and "plain" not in c["desc"].lower():
+                    continue
+                if c["state"] and c["state"] != target and target not in ("any", "-", "\u2014", "plain", ""):
+                    continue  # frozen/canned/dried/pickled item, but that state was not asked for
+                fit = fit_form(target, c["guess"])
+                if fit:
+                    fits.append({**c, "form_code": fit[0], "form_note": fit[1]})
+            fits.sort(key=lambda c: (-c["score"], c["fdc_id"]))
+            if not fits:
+                out.append({"pick": "", "hint": "", "food_name_ar": w["food_name_ar"],
+                            "food_name_en": w["food_name_en"], "target_form": target, "food_form_code": "", "fdc_id": "",
+                            "description": "NO CANDIDATE FOUND - search manually or add the data yourself",
+                            "match": "", "form_note": "", "score": "", "rank": ""})
+            gap = (fits[0]["score"] - fits[1]["score"]) if len(fits) > 1 else None
+            for rank, c in enumerate(fits[: a.top], start=1):
+                strong = c["match"] in ("exact", "alias")
+                clear = gap is None or gap >= a.min_gap
+                confident = rank == 1 and strong and clear
+                hint = ""
+                if rank == 1 and not confident:
+                    hint = "weak name match: check" if not strong else "several similar candidates: choose one"
+                out.append({"pick": "yes" if confident else "", "hint": hint, "food_name_ar": w["food_name_ar"],
+                            "food_name_en": w["food_name_en"], "target_form": target,
+                            "food_form_code": c["form_code"], "fdc_id": c["fdc_id"],
+                            "description": c["desc"], "match": c["match"], "form_note": c["form_note"],
+                            "score": c["score"], "rank": rank})
+
+    df = pd.DataFrame(out)
+    df.to_csv(a.out, index=False, encoding="utf-8-sig")  # BOM so Excel shows Arabic correctly
+    top = df[df["rank"].astype(str) == "1"]
+    marked = int((top.pick == "yes").sum())
+    empty = int((df.fdc_id == "").sum())
+    print(f"draft: {len(df)} rows for {len(wanted)} foods -> {a.out}")
+    print(f"  clear best guess pre-marked yes: {marked} of {len(top) + empty} wanted food/form pairs")
+    print(f"  you must choose: {len(top) - marked} (several similar candidates or weak match) | no candidate at all: {empty}")
+
+
+
 # --------------------------------------------------------------------- build
 def load_nutrient_map(a, fdc_nutrient) -> pd.DataFrame:
     nut = pd.read_csv(a.nutrients, dtype=str, encoding="utf-8-sig").rename(columns={"code": "nutrient_code"})
@@ -130,14 +322,26 @@ def cmd_build(a):
     for col in ("fdc_id", "food_form_code"):
         if col not in cw.columns:
             sys.exit(f"Crosswalk needs a '{col}' column")
+    if "pick" in cw.columns:  # a suggest draft: only reviewed rows count
+        cw = cw[cw.pick.str.strip().str.lower().isin(["yes", "y", "x", "1", "true"])]
+        if cw.empty:
+            sys.exit("No rows have pick = yes in the crosswalk.")
+    cw = cw[cw.fdc_id != ""].reset_index(drop=True)
     for col in ("food_id", "food_name_ar", "food_name_en", "category_path"):
         if col not in cw.columns:
             cw[col] = ""
+    # A reviewed `suggest` draft carries extra columns (description, score, hint...). Keep only
+    # what build needs, otherwise they clash with the same-named columns in USDA's food.csv.
+    cw = cw[["fdc_id", "food_form_code", "food_id", "food_name_ar", "food_name_en", "category_path"]].copy()
     bad = cw[(cw.food_id == "") & (cw.food_name_ar == "")]
     if not bad.empty:
         sys.exit(f"Crosswalk rows without food_id or food_name_ar: fdc_id {bad.fdc_id.tolist()}")
     if cw.fdc_id.duplicated().any():
         sys.exit(f"Duplicate fdc_id in crosswalk: {cw.fdc_id[cw.fdc_id.duplicated()].tolist()}")
+    same = (cw.food_id.where(cw.food_id != "", cw.food_name_ar) + " | " + cw.food_form_code)
+    if same.duplicated().any():
+        sys.exit("More than one USDA item is picked for the same food and form (choose only one): "
+                 f"{sorted(set(same[same.duplicated(keep=False)]))}")
     wanted = set(cw.fdc_id)
 
     # ---- records ----
@@ -209,7 +413,7 @@ def cmd_build(a):
     # ---- portions ----
     por_n = 0
     por = read(a.fdc_dir, "food_portion.csv")
-    if por is not None:
+    if por is not None and por.fdc_id.isin(wanted).any():  # skip cleanly when none of the foods has portions
         mu = read(a.fdc_dir, "measure_unit.csv")
         mu_name = dict(zip(mu.id, mu.name)) if mu is not None else {}
         por = por[por.fdc_id.isin(wanted)].copy()
@@ -260,6 +464,15 @@ def main():
     s.add_argument("--fdc-dir", required=True)
     s.add_argument("--limit", type=int, default=40)
     s.set_defaults(fn=cmd_search)
+
+    g = sub.add_parser("suggest")
+    g.add_argument("--fdc-dir", required=True)
+    g.add_argument("--wanted", required=True)
+    g.add_argument("--out", default="draft_crosswalk.csv")
+    g.add_argument("--top", type=int, default=3)
+    g.add_argument("--min-gap", type=float, default=10.0,
+                   help="pre-mark the best candidate only if it beats the runner-up by this many score points")
+    g.set_defaults(fn=cmd_suggest)
 
     b = sub.add_parser("build")
     b.add_argument("--fdc-dir", required=True)

@@ -1,0 +1,4 @@
+food_id,food_name_ar,food_name_en,category_path,food_form_code,data_source_code,external_ref,notes
+,حمص,Chickpeas,,raw,usda_fdc_sr_legacy,173756,"FDC: Chickpeas (garbanzo beans, bengal gram), mature seeds, raw (published 2019-04-01)"
+,حمص,Chickpeas,,boiled,usda_fdc_sr_legacy,173757,"FDC: Chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt (published 2019-04-01)"
+,حمص,Chickpeas,,canned,usda_fdc_sr_legacy,173800,"FDC: Chickpeas (garbanzo beans, bengal gram), mature seeds, canned, drained solids (published 2019-04-01)"

@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             AdminSeed::class,
             NutrientSeeder::class,
             MeasureUnitSeeder::class,
-            DataSourceSeeder::class
+            DataSourceSeeder::class,
+            FoodFormSeeder::class,
         ]);
     }
 }

@@ -1,0 +1,113 @@
+﻿pick,hint,food_name_ar,food_name_en,target_form,food_form_code,fdc_id,description,match,form_note,score,rank
+,several similar candidates: choose one,أرز,Rice,raw,raw,168879,"Rice, white, medium-grain, raw, enriched",exact,,54.0,1
+,,أرز,Rice,raw,raw,168931,"Rice, white, short-grain, raw, unenriched",exact,,53.9,2
+yes,,أرز,Rice,raw,raw,169760,"Rice, white, medium-grain, raw, unenriched",exact,,53.7,3
+yes,,أرز,Rice,cooked,cooked,169757,"Rice, white, long-grain, regular, unenriched, cooked without salt",exact,,58.2,1
+,,أرز,Rice,cooked,cooked,168882,"Rice, white, short-grain, enriched, cooked",exact,,53.7,2
+,,أرز,Rice,cooked,cooked,169711,"Rice, white, glutinous, unenriched, cooked",exact,,53.7,3
+yes,,برغل,Bulgur wheat,raw,raw,170688,"Bulgur, dry",exact,form not stated by USDA; assumed from your wanted list,58.4,1
+yes,,برغل,Bulgur wheat,cooked,cooked,170287,"Bulgur, cooked",exact,,57.9,1
+yes,,قمح,Wheat,raw,raw,169721,"Wheat, durum",exact,form not stated by USDA; assumed from your wanted list,58.2,1
+,,قمح,Wheat,raw,raw,169719,"Wheat, hard white",exact,form not stated by USDA; assumed from your wanted list,57.5,2
+,,قمح,Wheat,raw,raw,169720,"Wheat, soft white",exact,form not stated by USDA; assumed from your wanted list,57.5,3
+,several similar candidates: choose one,طحين قمح,Wheat flour,any,as_sold,168944,"Wheat flour, whole-grain, soft wheat",exact,,54.6,1
+yes,,طحين قمح,Wheat flour,any,as_sold,169761,"Wheat flour, white, all-purpose, unenriched",exact,,53.5,2
+,,طحين قمح,Wheat flour,any,as_sold,168894,"Wheat flour, white, all-purpose, enriched, bleached",exact,,52.4,3
+,several similar candidates: choose one,خبز عربي,Pita bread,any,as_sold,174916,"Bread, pita, whole-wheat",exact,,51.4,1
+,,خبز عربي,Pita bread,any,as_sold,174915,"Bread, pita, white, enriched",exact,,50.8,2
+yes,,خبز عربي,Pita bread,any,as_sold,172816,"Bread, pita, white, unenriched",exact,,50.5,3
+yes,,عدس,Lentils,raw,raw,172420,"Lentils, raw",exact,,58.2,1
+,,عدس,Lentils,raw,raw,174284,"Lentils, pink or red, raw",exact,,56.2,2
+yes,,عدس,Lentils,boiled,boiled,172421,"Lentils, mature seeds, cooked, boiled, without salt",exact,,60.4,1
+,,عدس,Lentils,boiled,boiled,175254,"Lentils, mature seeds, cooked, boiled, with salt",exact,,27.8,2
+yes,,فاصولياء بيضاء,White beans,raw,raw,175202,"Beans, white, mature seeds, raw",exact,,50.4,1
+,,فاصولياء بيضاء,White beans,raw,raw,173749,"Beans, small white, mature seeds, raw",loose,,4.5,2
+yes,,فاصولياء بيضاء,White beans,boiled,boiled,175203,"Beans, white, mature seeds, cooked, boiled, without salt",exact,,54.6,1
+,,فاصولياء بيضاء,White beans,boiled,boiled,175249,"Beans, white, mature seeds, cooked, boiled, with salt",exact,,22.1,2
+,,فاصولياء بيضاء,White beans,boiled,boiled,173750,"Beans, small white, mature seeds, cooked, boiled, without salt",loose,,8.7,3
+yes,,فول,Fava beans,raw,raw,175205,"Broadbeans (fava beans), mature seeds, raw",exact,,53.7,1
+yes,,فول,Fava beans,boiled,boiled,173753,"Broadbeans (fava beans), mature seeds, cooked, boiled, without salt",exact,,58.0,1
+,,فول,Fava beans,boiled,boiled,173798,"Broadbeans (fava beans), mature seeds, cooked, boiled, with salt",exact,,25.4,2
+yes,,بازلاء,Green peas,raw,raw,170419,"Peas, green, raw",exact,,52.6,1
+yes,,بازلاء,Green peas,boiled,boiled,170420,"Peas, green, cooked, boiled, drained, without salt",exact,,55.5,1
+,,بازلاء,Green peas,boiled,boiled,170102,"Peas, green, cooked, boiled, drained, with salt",exact,,22.9,2
+,several similar candidates: choose one,بطاطا,Potatoes,raw,raw,170032,"Potatoes, raw, skin",exact,,57.1,1
+yes,,بطاطا,Potatoes,raw,raw,170026,"Potatoes, flesh and skin, raw",exact,,55.6,2
+,,بطاطا,Potatoes,raw,raw,170498,"Potatoes, o'brien, home-prepared",exact,form not stated by USDA; assumed from your wanted list,55.2,3
+,several similar candidates: choose one,بطاطا,Potatoes,boiled,boiled,170439,"Potatoes, boiled, cooked in skin, skin, without salt",exact,,60.2,1
+,,بطاطا,Potatoes,boiled,boiled,170438,"Potatoes, boiled, cooked in skin, flesh, without salt",exact,,60.0,2
+yes,,بطاطا,Potatoes,boiled,boiled,170440,"Potatoes, boiled, cooked without skin, flesh, without salt",exact,,59.3,3
+,,بطاطا,Potatoes,fried,,,NO CANDIDATE FOUND - search manually or add the data yourself,,,,
+yes,,بندورة,Tomatoes,raw,raw,170457,"Tomatoes, red, ripe, raw, year round average",exact,,53.4,1
+,,بندورة,Tomatoes,raw,raw,169777,"Spanish rice mix, dry mix, prepared (with canola/vegetable oil blend or diced tomatoes and margarine)",alias,form not stated by USDA; assumed from your wanted list,34.9,2
+,,بندورة,Tomatoes,raw,raw,170461,Tomato powder,starts-with,form not stated by USDA; assumed from your wanted list,28.1,3
+yes,,بصل,Onions,raw,raw,170000,"Onions, raw",exact,,58.4,1
+,,بصل,Onions,raw,raw,170008,"Onions, sweet, raw",exact,,57.3,2
+,,بصل,Onions,raw,raw,170004,"Onions, yellow, sauteed",exact,form not stated by USDA; assumed from your wanted list,56.5,3
+yes,,بصل,Onions,cooked,boiled,170001,"Onions, cooked, boiled, drained, without salt",exact,,61.2,1
+,,بصل,Onions,cooked,boiled,170100,"Onions, cooked, boiled, drained, with salt",exact,,28.7,2
+yes,,ثوم,Garlic,raw,raw,169230,"Garlic, raw",exact,,58.4,1
+,,ثوم,Garlic,raw,raw,170789,"PIZZA HUT, breadstick, parmesan garlic",loose,form not stated by USDA; assumed from your wanted list,4.3,2
+,,ثوم,Garlic,raw,raw,168318,"HORMEL ALWAYS TENDER, Pork Loin Filets, Lemon Garlic-Flavored",loose,form not stated by USDA; assumed from your wanted list,0.8,3
+,several similar candidates: choose one,خيار,Cucumber,raw,raw,169225,"Cucumber, peeled, raw",exact,,56.9,1
+yes,,خيار,Cucumber,raw,raw,168409,"Cucumber, with peel, raw",exact,,56.4,2
+,,خيار,Cucumber,raw,raw,169379,"Pickles, cucumber, sour",loose,form not stated by USDA; assumed from your wanted list,6.6,3
+yes,,كوسا,Zucchini,raw,raw,169291,"Squash, summer, zucchini, includes skin, raw",loose,,3.4,1
+yes,,كوسا,Zucchini,cooked,boiled,169292,"Squash, summer, zucchini, includes skin, cooked, boiled, drained, without salt",loose,,6.3,1
+,,كوسا,Zucchini,cooked,boiled,170534,"Squash, summer, zucchini, includes skin, cooked, boiled, drained, with salt",loose,,-26.2,2
+yes,,باذنجان,Eggplant,raw,raw,169228,"Eggplant, raw",exact,,58.0,1
+yes,,باذنجان,Eggplant,cooked,boiled,169229,"Eggplant, cooked, boiled, drained, without salt",exact,,61.0,1
+,,باذنجان,Eggplant,cooked,boiled,169352,"Eggplant, cooked, boiled, drained, with salt",exact,,28.4,2
+yes,,سبانخ,Spinach,raw,raw,168462,"Spinach, raw",exact,,58.2,1
+,,سبانخ,Spinach,raw,raw,168911,"Spaghetti, spinach, dry",loose,form not stated by USDA; assumed from your wanted list,6.6,2
+,,سبانخ,Spinach,raw,raw,168438,"Mustard spinach, (tendergreen), raw",loose,,4.8,3
+yes,,سبانخ,Spinach,cooked,boiled,168463,"Spinach, cooked, boiled, drained, without salt",exact,,61.1,1
+,,سبانخ,Spinach,cooked,boiled,170531,"Spinach, cooked, boiled, drained, with salt",exact,,28.6,2
+,,سبانخ,Spinach,cooked,boiled,168439,"Mustard spinach, (tendergreen), cooked, boiled, drained, without salt",loose,,7.7,3
+yes,,جزر,Carrots,raw,raw,170393,"Carrots, raw",exact,,58.2,1
+,,جزر,Carrots,raw,raw,174932,"Cake, pudding-type, carrot, dry mix",loose,form not stated by USDA; assumed from your wanted list,4.8,2
+,,جزر,Carrots,raw,raw,171184,"SMART SOUP, Vietnamese Carrot Lemongrass",loose,form not stated by USDA; assumed from your wanted list,4.0,3
+yes,,جزر,Carrots,cooked,boiled,170394,"Carrots, cooked, boiled, drained, without salt",exact,,61.1,1
+,,جزر,Carrots,cooked,boiled,169339,"Carrots, cooked, boiled, drained, with salt",exact,,28.6,2
+yes,,ملفوف,Cabbage,raw,raw,169975,"Cabbage, raw",exact,,58.2,1
+,,ملفوف,Cabbage,raw,raw,169336,"Cabbage, common (danish, domestic, and pointed types), stored, raw",exact,,50.1,2
+,,ملفوف,Cabbage,raw,raw,169335,"Cabbage, common (danish, domestic, and pointed types), freshly harvest, raw",exact,,48.8,3
+yes,,ملفوف,Cabbage,cooked,boiled,169976,"Cabbage, cooked, boiled, drained, without salt",exact,,61.1,1
+,,ملفوف,Cabbage,cooked,boiled,168514,"Cabbage, common, cooked, boiled, drained, with salt",exact,,27.4,2
+,several similar candidates: choose one,تفاح,Apple,raw,raw,171689,"Apples, raw, without skin",exact,,56.2,1
+,,تفاح,Apple,raw,raw,168202,"Apples, raw, golden delicious, with skin",exact,,54.0,2
+yes,,تفاح,Apple,raw,raw,171688,"Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",exact,,48.6,3
+,several similar candidates: choose one,برتقال,Orange,raw,raw,169918,"Oranges, raw, Florida",exact,,56.9,1
+,,برتقال,Orange,raw,raw,169916,"Oranges, raw, California, valencias",exact,,54.8,2
+yes,,برتقال,Orange,raw,raw,169097,"Oranges, raw, all commercial varieties",exact,,54.3,3
+yes,,موز,Banana,raw,raw,173944,"Bananas, raw",exact,,58.2,1
+,,موز,Banana,raw,raw,169394,"Pepper, banana, raw",loose,,7.2,2
+,,موز,Banana,raw,raw,167629,"Melon, banana (Navajo)",loose,form not stated by USDA; assumed from your wanted list,6.7,3
+yes,,عصير ليمون,Lemon juice,raw,raw,167747,"Lemon juice, raw",exact,,57.6,1
+,,ليمون,Lemon,raw,raw,172755,"Danish pastry, fruit, enriched (includes apple, cinnamon, raisin, lemon, raspberry, strawberry)",alias,form not stated by USDA; assumed from your wanted list,35.8,2
+,,ليمون,Lemon,raw,raw,167801,"Lemon juice from concentrate, bottled, CONCORD",starts-with,form not stated by USDA; assumed from your wanted list,23.1,3
+yes,,تمر,Dates,dried,dried,168191,"Dates, medjool",exact,form not stated by USDA; assumed from your wanted list,57.9,1
+,,تمر,Dates,dried,dried,171726,"Dates, deglet noor",exact,form not stated by USDA; assumed from your wanted list,57.3,2
+,,تمر,Dates,dried,dried,173246,"Archway Home Style Cookies, Date Filled Oatmeal",loose,form not stated by USDA; assumed from your wanted list,3.0,3
+,several similar candidates: choose one,دجاج,Chicken,raw,raw,169886,"Chicken, meatless",exact,form not stated by USDA; assumed from your wanted list,57.5,1
+,,دجاج,Chicken,raw,raw,173636,"Chicken, roasting, meat only, raw",exact,,55.0,2
+,,دجاج,Chicken,raw,raw,171524,"Chicken, broiler, rotisserie, BBQ, skin",exact,form not stated by USDA; assumed from your wanted list,54.1,3
+,several similar candidates: choose one,دجاج,Chicken,cooked,roasted,172395,"Chicken, roasting, meat only, cooked, roasted",exact,,53.2,1
+,,دجاج,Chicken,cooked,roasted,173635,"Chicken, roasting, meat and skin, cooked, roasted",exact,,52.6,2
+,,دجاج,Chicken,cooked,cooked,171451,"Chicken, broilers or fryers, meat only, cooked, stewed",exact,,51.9,3
+yes,,لحم غنم مفروم,Ground lamb,raw,raw,174370,"Lamb, ground, raw",exact,,57.5,1
+,,لحم غنم,Lamb,raw,raw,172657,"Lamb, Australian, imported, fresh, seam fat, raw",exact,,52.8,2
+,,لحم غنم,Lamb,raw,raw,172608,"Lamb, Australian, ground,  85% lean / 15% fat, raw",exact,,52.5,3
+yes,,لحم غنم مفروم,Ground lamb,cooked,grilled,172544,"Lamb, ground, cooked, broiled",exact,,55.6,1
+,,لحم غنم,Lamb,cooked,cooked,172656,"Lamb, Australian, imported, fresh, seam fat, cooked",exact,,52.4,2
+,,لحم غنم,Lamb,cooked,cooked,174891,"Lamb, Australian, imported, fresh, external fat, cooked",exact,,51.8,3
+yes,,بيض,Egg,raw,raw,171287,"Egg, whole, raw, fresh",exact,,56.7,1
+,,بيض,Egg,raw,raw,172802,Wonton wrappers (includes egg roll wrappers),alias,form not stated by USDA; assumed from your wanted list,43.4,2
+,,بيض,Egg,raw,raw,168772,"Egg custards, dry mix",starts-with,form not stated by USDA; assumed from your wanted list,26.9,3
+yes,,بيض,Egg,boiled,boiled,173424,"Egg, whole, cooked, hard-boiled",exact,,55.4,1
+,several similar candidates: choose one,لبن/زبادي,Yogurt,plain,as_sold,170886,"Yogurt, plain, low fat",exact,,56.7,1
+,,لبن/زبادي,Yogurt,plain,as_sold,170887,"Yogurt, plain, skim milk",exact,,56.4,2
+yes,,لبن/زبادي,Yogurt,plain,as_sold,171284,"Yogurt, plain, whole milk",exact,,56.2,3
+yes,,زيت زيتون,Olive oil,any,as_sold,171413,"Oil, olive, salad or cooking",exact,,50.8,1
+,,زيت زيتون,Olive oil,any,as_sold,167737,"Oil, corn, peanut, and olive",loose,,5.8,2
+,,زيت زيتون,Olive oil,any,as_sold,171443,"Mayonnaise, reduced fat, with olive oil",loose,,4.2,3

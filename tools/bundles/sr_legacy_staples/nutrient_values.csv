@@ -1,0 +1,1315 @@
+data_source_code,external_ref,nutrient_code,amount_per_100g,unit,method,sample_count,min_amount,max_amount,notes
+usda_fdc_sr_legacy,167747,ash_g,0.21,g,imported,6,0.15,0.3,A: Analytical
+usda_fdc_sr_legacy,167747,calcium_mg,6.0,mg,imported,6,3,9,A: Analytical
+usda_fdc_sr_legacy,167747,carbohydrate_g,6.9,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,167747,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,167747,energy_kcal,22.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,167747,energy_kj,91.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,167747,fat_g,0.24,g,imported,6,0.05,0.48,A: Analytical
+usda_fdc_sr_legacy,167747,fat_mono_g,0.006,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,167747,fat_poly_g,0.021,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,167747,fat_sat_g,0.04,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,167747,fiber_g,0.3,g,imported,6,0.1,0.5,A: Analytical
+usda_fdc_sr_legacy,167747,folate_ug,20.0,ug,imported,4,12,34,A: Analytical
+usda_fdc_sr_legacy,167747,iron_mg,0.08,mg,imported,4,0.07,0.09,A: Analytical
+usda_fdc_sr_legacy,167747,magnesium_mg,6.0,mg,imported,6,3,8,A: Analytical
+usda_fdc_sr_legacy,167747,niacin_mg,0.091,mg,imported,6,0.07,0.1,A: Analytical
+usda_fdc_sr_legacy,167747,phosphorus_mg,8.0,mg,imported,6,4,11,A: Analytical
+usda_fdc_sr_legacy,167747,potassium_mg,103.0,mg,imported,8,53,145,A: Analytical
+usda_fdc_sr_legacy,167747,protein_g,0.35,g,imported,6,0.3,0.4,A: Analytical
+usda_fdc_sr_legacy,167747,riboflavin_mg,0.015,mg,imported,4,0.015,0.015,A: Analytical
+usda_fdc_sr_legacy,167747,sodium_mg,1.0,mg,imported,15,,,
+usda_fdc_sr_legacy,167747,sugars_g,2.52,g,imported,4,2.21,2.7,A: Analytical
+usda_fdc_sr_legacy,167747,thiamin_mg,0.024,mg,imported,6,0.015,0.03,A: Analytical
+usda_fdc_sr_legacy,167747,vitamin_a_rae_ug,0.0,ug,imported,1,,,A: Analytical
+usda_fdc_sr_legacy,167747,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,167747,vitamin_b6_mg,0.046,mg,imported,6,0.038,0.054,A: Analytical
+usda_fdc_sr_legacy,167747,vitamin_c_mg,38.7,mg,imported,8,32.1,43.3,A: Analytical
+usda_fdc_sr_legacy,167747,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,167747,vitamin_e_mg,0.15,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,167747,vitamin_k_ug,0.0,ug,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,167747,water_g,92.31,g,imported,6,92,92.87,A: Analytical
+usda_fdc_sr_legacy,167747,zinc_mg,0.05,mg,imported,6,0.02,0.08,A: Analytical
+usda_fdc_sr_legacy,168191,ash_g,1.74,g,imported,2,1.69,1.79,A: Analytical
+usda_fdc_sr_legacy,168191,calcium_mg,64.0,mg,imported,2,60,69,A: Analytical
+usda_fdc_sr_legacy,168191,carbohydrate_g,74.97,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168191,energy_kcal,277.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168191,energy_kj,1160.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168191,fat_g,0.15,g,imported,2,0.1,0.21,A: Analytical
+usda_fdc_sr_legacy,168191,fiber_g,6.7,g,imported,2,5.9,7.4,A: Analytical
+usda_fdc_sr_legacy,168191,folate_ug,15.0,ug,imported,1,,,A: Analytical
+usda_fdc_sr_legacy,168191,iron_mg,0.9,mg,imported,2,0.79,1.01,A: Analytical
+usda_fdc_sr_legacy,168191,magnesium_mg,54.0,mg,imported,2,53,55,A: Analytical
+usda_fdc_sr_legacy,168191,niacin_mg,1.61,mg,imported,2,1.45,1.77,A: Analytical
+usda_fdc_sr_legacy,168191,phosphorus_mg,62.0,mg,imported,2,60,64,A: Analytical
+usda_fdc_sr_legacy,168191,potassium_mg,696.0,mg,imported,2,690,701,A: Analytical
+usda_fdc_sr_legacy,168191,protein_g,1.81,g,imported,2,1.67,1.96,A: Analytical
+usda_fdc_sr_legacy,168191,riboflavin_mg,0.06,mg,imported,2,0.06,0.06,A: Analytical
+usda_fdc_sr_legacy,168191,sodium_mg,1.0,mg,imported,2,0,1,A: Analytical
+usda_fdc_sr_legacy,168191,sugars_g,66.47,g,imported,2,65.21,67.72,A: Analytical
+usda_fdc_sr_legacy,168191,thiamin_mg,0.05,mg,imported,2,0.047,0.053,A: Analytical
+usda_fdc_sr_legacy,168191,vitamin_a_rae_ug,7.0,ug,imported,2,6,9,A: Analytical
+usda_fdc_sr_legacy,168191,vitamin_b6_mg,0.249,mg,imported,2,0.231,0.266,A: Analytical
+usda_fdc_sr_legacy,168191,vitamin_c_mg,0.0,mg,imported,2,0,0,A: Analytical
+usda_fdc_sr_legacy,168191,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168191,vitamin_k_ug,2.7,ug,imported,2,2.7,2.8,A: Analytical
+usda_fdc_sr_legacy,168191,water_g,21.32,g,imported,2,19.53,23.11,A: Analytical
+usda_fdc_sr_legacy,168191,zinc_mg,0.44,mg,imported,2,0.43,0.45,A: Analytical
+usda_fdc_sr_legacy,168409,ash_g,0.38,g,imported,4,0.38,0.38,A: Analytical
+usda_fdc_sr_legacy,168409,calcium_mg,16.0,mg,imported,4,16,16,A: Analytical
+usda_fdc_sr_legacy,168409,carbohydrate_g,3.63,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168409,energy_kcal,15.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,energy_kj,65.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,fat_g,0.11,g,imported,9,0.1,0.11,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,168409,fat_mono_g,0.005,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,fat_poly_g,0.032,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,fat_sat_g,0.037,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,fiber_g,0.5,g,imported,1,0.5,0.5,
+usda_fdc_sr_legacy,168409,folate_ug,7.0,ug,imported,8,7,7,A: Analytical
+usda_fdc_sr_legacy,168409,iron_mg,0.28,mg,imported,4,0.28,0.28,A: Analytical
+usda_fdc_sr_legacy,168409,magnesium_mg,13.0,mg,imported,4,13,13,A: Analytical
+usda_fdc_sr_legacy,168409,niacin_mg,0.098,mg,imported,8,0.098,0.098,A: Analytical
+usda_fdc_sr_legacy,168409,phosphorus_mg,24.0,mg,imported,4,24,24,A: Analytical
+usda_fdc_sr_legacy,168409,potassium_mg,147.0,mg,imported,4,147,147,A: Analytical
+usda_fdc_sr_legacy,168409,protein_g,0.65,g,imported,4,0.65,0.65,A: Analytical
+usda_fdc_sr_legacy,168409,riboflavin_mg,0.033,mg,imported,4,0.033,0.033,A: Analytical
+usda_fdc_sr_legacy,168409,sodium_mg,2.0,mg,imported,54,,,
+usda_fdc_sr_legacy,168409,sugars_g,1.67,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,thiamin_mg,0.027,mg,imported,4,0.027,0.027,A: Analytical
+usda_fdc_sr_legacy,168409,vitamin_a_rae_ug,5.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168409,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168409,vitamin_b6_mg,0.04,mg,imported,4,0.04,0.04,A: Analytical
+usda_fdc_sr_legacy,168409,vitamin_c_mg,2.8,mg,imported,4,2.8,2.8,A: Analytical
+usda_fdc_sr_legacy,168409,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168409,vitamin_e_mg,0.03,mg,imported,5,0.03,0.03,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,168409,vitamin_k_ug,16.4,ug,imported,4,16.4,16.4,A: Analytical
+usda_fdc_sr_legacy,168409,water_g,95.23,g,imported,2,90.12,96.41,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,168409,zinc_mg,0.2,mg,imported,4,0.2,0.2,A: Analytical
+usda_fdc_sr_legacy,168462,ash_g,1.72,g,imported,8,,,
+usda_fdc_sr_legacy,168462,calcium_mg,99.0,mg,imported,9,,,
+usda_fdc_sr_legacy,168462,carbohydrate_g,3.63,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168462,energy_kcal,23.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,energy_kj,97.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,fat_g,0.39,g,imported,7,0.25,0.5,
+usda_fdc_sr_legacy,168462,fat_mono_g,0.01,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,fat_poly_g,0.165,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,fat_sat_g,0.063,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,fiber_g,2.2,g,imported,1,,,
+usda_fdc_sr_legacy,168462,folate_ug,194.0,ug,imported,6,,,
+usda_fdc_sr_legacy,168462,iron_mg,2.71,mg,imported,10,,,
+usda_fdc_sr_legacy,168462,magnesium_mg,79.0,mg,imported,7,,,
+usda_fdc_sr_legacy,168462,niacin_mg,0.724,mg,imported,9,,,
+usda_fdc_sr_legacy,168462,phosphorus_mg,49.0,mg,imported,7,,,
+usda_fdc_sr_legacy,168462,potassium_mg,558.0,mg,imported,10,,,
+usda_fdc_sr_legacy,168462,protein_g,2.86,g,imported,9,,,
+usda_fdc_sr_legacy,168462,riboflavin_mg,0.189,mg,imported,9,,,
+usda_fdc_sr_legacy,168462,sodium_mg,79.0,mg,imported,10,,,
+usda_fdc_sr_legacy,168462,sugars_g,0.42,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168462,thiamin_mg,0.078,mg,imported,9,,,
+usda_fdc_sr_legacy,168462,vitamin_a_rae_ug,469.0,ug,imported,0,,,
+usda_fdc_sr_legacy,168462,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168462,vitamin_b6_mg,0.195,mg,imported,6,,,
+usda_fdc_sr_legacy,168462,vitamin_c_mg,28.1,mg,imported,7,,,
+usda_fdc_sr_legacy,168462,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168462,vitamin_e_mg,2.03,mg,imported,7,1.41,2.7,
+usda_fdc_sr_legacy,168462,vitamin_k_ug,482.9,ug,imported,1,,,
+usda_fdc_sr_legacy,168462,water_g,91.4,g,imported,1,87.75,94.16,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,168462,zinc_mg,0.53,mg,imported,7,,,
+usda_fdc_sr_legacy,168463,ash_g,1.81,g,imported,16,,,
+usda_fdc_sr_legacy,168463,calcium_mg,136.0,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,carbohydrate_g,3.75,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168463,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168463,energy_kcal,23.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168463,energy_kj,96.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,168463,fat_g,0.26,g,imported,16,,,
+usda_fdc_sr_legacy,168463,fat_mono_g,0.006,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168463,fat_poly_g,0.109,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168463,fat_sat_g,0.043,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,168463,fiber_g,2.4,g,imported,0,,,
+usda_fdc_sr_legacy,168463,folate_ug,146.0,ug,imported,3,,,
+usda_fdc_sr_legacy,168463,iron_mg,3.57,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,magnesium_mg,87.0,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,niacin_mg,0.49,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,phosphorus_mg,56.0,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,potassium_mg,466.0,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,protein_g,2.97,g,imported,16,,,
+usda_fdc_sr_legacy,168463,riboflavin_mg,0.236,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,sodium_mg,70.0,mg,imported,8,,,
+usda_fdc_sr_legacy,168463,sugars_g,0.43,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,168463,thiamin_mg,0.095,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,vitamin_a_rae_ug,524.0,ug,imported,0,,,
+usda_fdc_sr_legacy,168463,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168463,vitamin_b6_mg,0.242,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,vitamin_c_mg,9.8,mg,imported,12,,,
+usda_fdc_sr_legacy,168463,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,168463,vitamin_e_mg,2.08,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,168463,vitamin_k_ug,493.6,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,168463,water_g,91.21,g,imported,19,,,
+usda_fdc_sr_legacy,168463,zinc_mg,0.76,mg,imported,16,,,
+usda_fdc_sr_legacy,169097,ash_g,0.44,g,imported,70,,,
+usda_fdc_sr_legacy,169097,calcium_mg,40.0,mg,imported,0,,,
+usda_fdc_sr_legacy,169097,carbohydrate_g,11.75,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169097,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169097,energy_kcal,47.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169097,energy_kj,197.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,169097,fat_g,0.12,g,imported,4,,,
+usda_fdc_sr_legacy,169097,fat_mono_g,0.023,g,imported,0,,,
+usda_fdc_sr_legacy,169097,fat_poly_g,0.025,g,imported,0,,,
+usda_fdc_sr_legacy,169097,fat_sat_g,0.015,g,imported,0,,,
+usda_fdc_sr_legacy,169097,fiber_g,2.4,g,imported,0,,,
+usda_fdc_sr_legacy,169097,folate_ug,30.0,ug,imported,154,,,
+usda_fdc_sr_legacy,169097,iron_mg,0.1,mg,imported,64,,,
+usda_fdc_sr_legacy,169097,magnesium_mg,10.0,mg,imported,212,,,
+usda_fdc_sr_legacy,169097,niacin_mg,0.282,mg,imported,145,,,
+usda_fdc_sr_legacy,169097,phosphorus_mg,14.0,mg,imported,68,,,
+usda_fdc_sr_legacy,169097,potassium_mg,181.0,mg,imported,180,,,
+usda_fdc_sr_legacy,169097,protein_g,0.94,g,imported,69,,,
+usda_fdc_sr_legacy,169097,riboflavin_mg,0.04,mg,imported,0,,,
+usda_fdc_sr_legacy,169097,sodium_mg,0.0,mg,imported,72,,,
+usda_fdc_sr_legacy,169097,sugars_g,9.35,g,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,169097,thiamin_mg,0.087,mg,imported,148,,,
+usda_fdc_sr_legacy,169097,vitamin_a_rae_ug,11.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169097,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169097,vitamin_b6_mg,0.06,mg,imported,100,,,
+usda_fdc_sr_legacy,169097,vitamin_c_mg,53.2,mg,imported,145,,,
+usda_fdc_sr_legacy,169097,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169097,vitamin_e_mg,0.18,mg,imported,4,0.14,0.25,A: Analytical
+usda_fdc_sr_legacy,169097,vitamin_k_ug,0.0,ug,imported,10,0,0.1,A: Analytical
+usda_fdc_sr_legacy,169097,water_g,86.75,g,imported,88,,,
+usda_fdc_sr_legacy,169097,zinc_mg,0.07,mg,imported,3,,,
+usda_fdc_sr_legacy,169228,ash_g,0.66,g,imported,7,0.45,1.1,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,calcium_mg,9.0,mg,imported,7,7,10,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,carbohydrate_g,5.88,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169228,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169228,energy_kcal,25.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169228,energy_kj,104.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169228,fat_g,0.18,g,imported,6,0.1,0.3,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,fat_mono_g,0.016,g,imported,0,,,
+usda_fdc_sr_legacy,169228,fat_poly_g,0.076,g,imported,0,,,
+usda_fdc_sr_legacy,169228,fat_sat_g,0.034,g,imported,0,,,
+usda_fdc_sr_legacy,169228,fiber_g,3.0,g,imported,6,2.2,3.8,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,folate_ug,22.0,ug,imported,6,13,27,
+usda_fdc_sr_legacy,169228,iron_mg,0.23,mg,imported,7,0.17,0.27,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,magnesium_mg,14.0,mg,imported,1,12,15,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,niacin_mg,0.649,mg,imported,6,0.55,0.803,
+usda_fdc_sr_legacy,169228,phosphorus_mg,24.0,mg,imported,7,21,28,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,potassium_mg,229.0,mg,imported,7,201,259,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,protein_g,0.98,g,imported,7,0.82,1.1,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,169228,riboflavin_mg,0.037,mg,imported,6,0.03,0.05,
+usda_fdc_sr_legacy,169228,sodium_mg,2.0,mg,imported,7,1,3,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,sugars_g,3.53,g,imported,1,,,
+usda_fdc_sr_legacy,169228,thiamin_mg,0.039,mg,imported,6,0.026,0.05,
+usda_fdc_sr_legacy,169228,vitamin_a_rae_ug,1.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169228,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169228,vitamin_b6_mg,0.084,mg,imported,6,0.074,0.097,
+usda_fdc_sr_legacy,169228,vitamin_c_mg,2.2,mg,imported,6,1.4,3.2,
+usda_fdc_sr_legacy,169228,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169228,vitamin_e_mg,0.3,mg,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,169228,vitamin_k_ug,3.5,ug,imported,0,,,BFPN: Based on another form of the food or similar food; Concentration adjustment; Protein; Retention factors not used
+usda_fdc_sr_legacy,169228,water_g,92.3,g,imported,1,90.8,93.5,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169228,zinc_mg,0.16,mg,imported,1,0.11,0.23,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169229,ash_g,0.54,g,imported,2,,,
+usda_fdc_sr_legacy,169229,calcium_mg,6.0,mg,imported,18,5,9,A: Analytical
+usda_fdc_sr_legacy,169229,carbohydrate_g,8.73,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169229,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169229,energy_kcal,35.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169229,energy_kj,147.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169229,fat_g,0.23,g,imported,2,,,
+usda_fdc_sr_legacy,169229,fat_mono_g,0.02,g,imported,0,,,
+usda_fdc_sr_legacy,169229,fat_poly_g,0.093,g,imported,0,,,
+usda_fdc_sr_legacy,169229,fat_sat_g,0.044,g,imported,0,,,
+usda_fdc_sr_legacy,169229,fiber_g,2.5,g,imported,0,,,
+usda_fdc_sr_legacy,169229,folate_ug,14.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169229,iron_mg,0.25,mg,imported,18,0.17,0.36,A: Analytical
+usda_fdc_sr_legacy,169229,magnesium_mg,11.0,mg,imported,21,8,20,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169229,niacin_mg,0.6,mg,imported,0,,,
+usda_fdc_sr_legacy,169229,phosphorus_mg,15.0,mg,imported,18,10,21,A: Analytical
+usda_fdc_sr_legacy,169229,potassium_mg,123.0,mg,imported,18,93,175,A: Analytical
+usda_fdc_sr_legacy,169229,protein_g,0.83,g,imported,3,,,
+usda_fdc_sr_legacy,169229,riboflavin_mg,0.02,mg,imported,0,,,
+usda_fdc_sr_legacy,169229,sodium_mg,1.0,mg,imported,18,0,2,A: Analytical
+usda_fdc_sr_legacy,169229,sugars_g,3.2,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,169229,thiamin_mg,0.076,mg,imported,0,,,
+usda_fdc_sr_legacy,169229,vitamin_a_rae_ug,2.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169229,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169229,vitamin_b6_mg,0.086,mg,imported,0,,,
+usda_fdc_sr_legacy,169229,vitamin_c_mg,1.3,mg,imported,0,,,
+usda_fdc_sr_legacy,169229,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169229,vitamin_e_mg,0.41,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,169229,vitamin_k_ug,2.9,ug,imported,1,,,
+usda_fdc_sr_legacy,169229,water_g,89.67,g,imported,6,88.4,91.1,
+usda_fdc_sr_legacy,169229,zinc_mg,0.12,mg,imported,21,0.06,0.27,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169230,ash_g,1.5,g,imported,0,,,
+usda_fdc_sr_legacy,169230,calcium_mg,181.0,mg,imported,8,,,
+usda_fdc_sr_legacy,169230,carbohydrate_g,33.06,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169230,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169230,energy_kcal,149.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169230,energy_kj,623.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169230,fat_g,0.5,g,imported,1,,,
+usda_fdc_sr_legacy,169230,fat_mono_g,0.011,g,imported,0,,,
+usda_fdc_sr_legacy,169230,fat_poly_g,0.249,g,imported,0,,,
+usda_fdc_sr_legacy,169230,fat_sat_g,0.089,g,imported,0,,,
+usda_fdc_sr_legacy,169230,fiber_g,2.1,g,imported,0,,,
+usda_fdc_sr_legacy,169230,folate_ug,3.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169230,iron_mg,1.7,mg,imported,1,,,
+usda_fdc_sr_legacy,169230,magnesium_mg,25.0,mg,imported,8,,,
+usda_fdc_sr_legacy,169230,niacin_mg,0.7,mg,imported,1,,,
+usda_fdc_sr_legacy,169230,phosphorus_mg,153.0,mg,imported,8,,,
+usda_fdc_sr_legacy,169230,potassium_mg,401.0,mg,imported,8,,,
+usda_fdc_sr_legacy,169230,protein_g,6.36,g,imported,8,,,
+usda_fdc_sr_legacy,169230,riboflavin_mg,0.11,mg,imported,1,,,
+usda_fdc_sr_legacy,169230,sodium_mg,17.0,mg,imported,8,,,
+usda_fdc_sr_legacy,169230,sugars_g,1.0,g,imported,0,,,T: Taken from another source--other tables of food composition
+usda_fdc_sr_legacy,169230,thiamin_mg,0.2,mg,imported,1,,,
+usda_fdc_sr_legacy,169230,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169230,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169230,vitamin_b6_mg,1.235,mg,imported,0,,,
+usda_fdc_sr_legacy,169230,vitamin_c_mg,31.2,mg,imported,11,,,
+usda_fdc_sr_legacy,169230,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169230,vitamin_e_mg,0.08,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,169230,vitamin_k_ug,1.7,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,169230,water_g,58.58,g,imported,8,,,
+usda_fdc_sr_legacy,169230,zinc_mg,1.16,mg,imported,0,,,
+usda_fdc_sr_legacy,169291,ash_g,0.58,g,imported,9,0.49,0.7,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,calcium_mg,16.0,mg,imported,10,10,22,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,carbohydrate_g,3.11,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169291,energy_kcal,17.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,energy_kj,70.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,fat_g,0.32,g,imported,7,0.1,0.45,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,fat_mono_g,0.011,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,fat_poly_g,0.091,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,fat_sat_g,0.084,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,fiber_g,1.0,g,imported,12,0.7,1.6,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,folate_ug,24.0,ug,imported,8,7,40,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,iron_mg,0.37,mg,imported,10,0.3,0.45,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,magnesium_mg,18.0,mg,imported,10,15,23,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,niacin_mg,0.451,mg,imported,10,0.37,0.54,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,phosphorus_mg,38.0,mg,imported,10,32,42,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,potassium_mg,261.0,mg,imported,10,227,290,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,protein_g,1.21,g,imported,10,0.91,1.5,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,169291,riboflavin_mg,0.094,mg,imported,10,0.02,0.6,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,sodium_mg,8.0,mg,imported,10,0,53,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,sugars_g,2.5,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,thiamin_mg,0.045,mg,imported,10,0.034,0.06,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,vitamin_a_rae_ug,10.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169291,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169291,vitamin_b6_mg,0.163,mg,imported,9,0.06,0.8,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,vitamin_c_mg,17.9,mg,imported,9,12.8,21,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169291,vitamin_e_mg,0.12,mg,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,169291,vitamin_k_ug,4.3,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,169291,water_g,94.79,g,imported,18,93.3,95.8,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169291,zinc_mg,0.32,mg,imported,10,0.23,0.51,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169292,ash_g,0.59,g,imported,4,0.44,0.7,A: Analytical
+usda_fdc_sr_legacy,169292,calcium_mg,18.0,mg,imported,4,16,20,A: Analytical
+usda_fdc_sr_legacy,169292,carbohydrate_g,2.69,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169292,energy_kcal,15.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,energy_kj,64.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,fat_g,0.36,g,imported,4,0.3,0.44,A: Analytical
+usda_fdc_sr_legacy,169292,fat_mono_g,0.029,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,fat_poly_g,0.151,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,fat_sat_g,0.072,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,fiber_g,1.0,g,imported,4,0.8,1.3,A: Analytical
+usda_fdc_sr_legacy,169292,folate_ug,28.0,ug,imported,2,27,29,A: Analytical
+usda_fdc_sr_legacy,169292,iron_mg,0.37,mg,imported,4,0.3,0.43,A: Analytical
+usda_fdc_sr_legacy,169292,magnesium_mg,19.0,mg,imported,4,14,22,A: Analytical
+usda_fdc_sr_legacy,169292,niacin_mg,0.51,mg,imported,4,0.45,0.56,A: Analytical
+usda_fdc_sr_legacy,169292,phosphorus_mg,37.0,mg,imported,4,31,41,A: Analytical
+usda_fdc_sr_legacy,169292,potassium_mg,264.0,mg,imported,4,228,303,A: Analytical
+usda_fdc_sr_legacy,169292,protein_g,1.14,g,imported,4,1.06,1.31,A: Analytical
+usda_fdc_sr_legacy,169292,riboflavin_mg,0.024,mg,imported,4,0.015,0.03,A: Analytical
+usda_fdc_sr_legacy,169292,sodium_mg,3.0,mg,imported,4,2,7,A: Analytical
+usda_fdc_sr_legacy,169292,sugars_g,1.71,g,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,169292,thiamin_mg,0.035,mg,imported,4,0.03,0.04,A: Analytical
+usda_fdc_sr_legacy,169292,vitamin_a_rae_ug,56.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169292,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169292,vitamin_b6_mg,0.08,mg,imported,4,0.074,0.091,A: Analytical
+usda_fdc_sr_legacy,169292,vitamin_c_mg,12.9,mg,imported,4,9.9,19.7,A: Analytical
+usda_fdc_sr_legacy,169292,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169292,vitamin_e_mg,0.12,mg,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,169292,vitamin_k_ug,4.2,ug,imported,2,4,4.4,A: Analytical
+usda_fdc_sr_legacy,169292,water_g,95.22,g,imported,4,94.74,95.67,A: Analytical
+usda_fdc_sr_legacy,169292,zinc_mg,0.33,mg,imported,4,0.27,0.43,A: Analytical
+usda_fdc_sr_legacy,169721,ash_g,1.78,g,imported,38,,,
+usda_fdc_sr_legacy,169721,calcium_mg,34.0,mg,imported,37,,,
+usda_fdc_sr_legacy,169721,carbohydrate_g,71.13,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169721,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169721,energy_kcal,339.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169721,energy_kj,1418.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,169721,fat_g,2.47,g,imported,18,,,
+usda_fdc_sr_legacy,169721,fat_mono_g,0.344,g,imported,0,,,
+usda_fdc_sr_legacy,169721,fat_poly_g,0.978,g,imported,0,,,
+usda_fdc_sr_legacy,169721,fat_sat_g,0.454,g,imported,0,,,
+usda_fdc_sr_legacy,169721,folate_ug,43.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169721,iron_mg,3.52,mg,imported,2,,,
+usda_fdc_sr_legacy,169721,magnesium_mg,144.0,mg,imported,39,,,
+usda_fdc_sr_legacy,169721,niacin_mg,6.738,mg,imported,30,,,
+usda_fdc_sr_legacy,169721,phosphorus_mg,508.0,mg,imported,37,,,
+usda_fdc_sr_legacy,169721,potassium_mg,431.0,mg,imported,37,,,
+usda_fdc_sr_legacy,169721,protein_g,13.68,g,imported,28,,,
+usda_fdc_sr_legacy,169721,riboflavin_mg,0.121,mg,imported,30,,,
+usda_fdc_sr_legacy,169721,sodium_mg,2.0,mg,imported,9,,,
+usda_fdc_sr_legacy,169721,thiamin_mg,0.419,mg,imported,30,,,
+usda_fdc_sr_legacy,169721,vitamin_a_rae_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169721,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169721,vitamin_b6_mg,0.419,mg,imported,31,,,
+usda_fdc_sr_legacy,169721,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,169721,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169721,water_g,10.94,g,imported,31,,,
+usda_fdc_sr_legacy,169721,zinc_mg,4.16,mg,imported,37,,,
+usda_fdc_sr_legacy,169757,ash_g,0.41,g,imported,20,,,
+usda_fdc_sr_legacy,169757,calcium_mg,10.0,mg,imported,33,,,
+usda_fdc_sr_legacy,169757,carbohydrate_g,28.17,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169757,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169757,energy_kcal,130.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169757,energy_kj,544.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,169757,fat_g,0.28,g,imported,6,,,
+usda_fdc_sr_legacy,169757,fat_mono_g,0.088,g,imported,0,,,
+usda_fdc_sr_legacy,169757,fat_poly_g,0.076,g,imported,0,,,
+usda_fdc_sr_legacy,169757,fat_sat_g,0.077,g,imported,0,,,
+usda_fdc_sr_legacy,169757,fiber_g,0.4,g,imported,0,,,
+usda_fdc_sr_legacy,169757,folate_ug,3.0,ug,imported,8,,,
+usda_fdc_sr_legacy,169757,iron_mg,0.2,mg,imported,1,,,
+usda_fdc_sr_legacy,169757,magnesium_mg,12.0,mg,imported,38,,,
+usda_fdc_sr_legacy,169757,niacin_mg,0.4,mg,imported,1,,,
+usda_fdc_sr_legacy,169757,phosphorus_mg,43.0,mg,imported,27,,,
+usda_fdc_sr_legacy,169757,potassium_mg,35.0,mg,imported,34,,,
+usda_fdc_sr_legacy,169757,protein_g,2.69,g,imported,20,,,
+usda_fdc_sr_legacy,169757,riboflavin_mg,0.013,mg,imported,9,,,
+usda_fdc_sr_legacy,169757,sodium_mg,1.0,mg,imported,13,,,
+usda_fdc_sr_legacy,169757,sugars_g,0.05,g,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,169757,thiamin_mg,0.02,mg,imported,1,,,
+usda_fdc_sr_legacy,169757,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169757,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169757,vitamin_b6_mg,0.093,mg,imported,12,,,
+usda_fdc_sr_legacy,169757,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,169757,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169757,vitamin_e_mg,0.04,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,169757,vitamin_k_ug,0.0,ug,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,169757,water_g,68.44,g,imported,23,,,
+usda_fdc_sr_legacy,169757,zinc_mg,0.49,mg,imported,43,,,
+usda_fdc_sr_legacy,169760,ash_g,0.58,g,imported,17,,,
+usda_fdc_sr_legacy,169760,calcium_mg,9.0,mg,imported,2,,,
+usda_fdc_sr_legacy,169760,carbohydrate_g,79.34,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169760,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169760,energy_kcal,360.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169760,energy_kj,1506.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,169760,fat_g,0.58,g,imported,6,,,
+usda_fdc_sr_legacy,169760,fat_mono_g,0.181,g,imported,0,,,
+usda_fdc_sr_legacy,169760,fat_poly_g,0.155,g,imported,0,,,
+usda_fdc_sr_legacy,169760,fat_sat_g,0.158,g,imported,0,,,
+usda_fdc_sr_legacy,169760,folate_ug,9.0,ug,imported,2,,,
+usda_fdc_sr_legacy,169760,iron_mg,0.8,mg,imported,1,,,
+usda_fdc_sr_legacy,169760,magnesium_mg,35.0,mg,imported,2,,,
+usda_fdc_sr_legacy,169760,niacin_mg,1.6,mg,imported,1,,,
+usda_fdc_sr_legacy,169760,phosphorus_mg,108.0,mg,imported,4,,,
+usda_fdc_sr_legacy,169760,potassium_mg,86.0,mg,imported,5,,,
+usda_fdc_sr_legacy,169760,protein_g,6.61,g,imported,18,,,
+usda_fdc_sr_legacy,169760,riboflavin_mg,0.048,mg,imported,5,,,
+usda_fdc_sr_legacy,169760,sodium_mg,1.0,mg,imported,2,,,
+usda_fdc_sr_legacy,169760,thiamin_mg,0.07,mg,imported,1,,,
+usda_fdc_sr_legacy,169760,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169760,vitamin_b6_mg,0.145,mg,imported,2,,,
+usda_fdc_sr_legacy,169760,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,169760,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169760,water_g,12.89,g,imported,16,,,
+usda_fdc_sr_legacy,169760,zinc_mg,1.16,mg,imported,2,,,
+usda_fdc_sr_legacy,169761,ash_g,0.47,g,imported,61,,,
+usda_fdc_sr_legacy,169761,calcium_mg,15.0,mg,imported,113,,,
+usda_fdc_sr_legacy,169761,carbohydrate_g,76.31,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169761,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169761,energy_kcal,364.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169761,energy_kj,1523.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,169761,fat_g,0.98,g,imported,29,,,
+usda_fdc_sr_legacy,169761,fat_mono_g,0.087,g,imported,0,,,
+usda_fdc_sr_legacy,169761,fat_poly_g,0.413,g,imported,0,,,
+usda_fdc_sr_legacy,169761,fat_sat_g,0.155,g,imported,0,,,
+usda_fdc_sr_legacy,169761,fiber_g,2.7,g,imported,1,,,
+usda_fdc_sr_legacy,169761,folate_ug,26.0,ug,imported,15,,,
+usda_fdc_sr_legacy,169761,iron_mg,1.17,mg,imported,1,,,
+usda_fdc_sr_legacy,169761,magnesium_mg,22.0,mg,imported,129,,,
+usda_fdc_sr_legacy,169761,niacin_mg,1.25,mg,imported,1,,,
+usda_fdc_sr_legacy,169761,phosphorus_mg,108.0,mg,imported,47,,,
+usda_fdc_sr_legacy,169761,potassium_mg,107.0,mg,imported,94,,,
+usda_fdc_sr_legacy,169761,protein_g,10.33,g,imported,61,,,
+usda_fdc_sr_legacy,169761,riboflavin_mg,0.04,mg,imported,1,,,
+usda_fdc_sr_legacy,169761,sodium_mg,2.0,mg,imported,82,,,
+usda_fdc_sr_legacy,169761,sugars_g,0.27,g,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,169761,thiamin_mg,0.12,mg,imported,1,,,
+usda_fdc_sr_legacy,169761,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169761,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169761,vitamin_b6_mg,0.044,mg,imported,45,,,
+usda_fdc_sr_legacy,169761,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,169761,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169761,vitamin_e_mg,0.06,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,169761,vitamin_k_ug,0.3,ug,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,169761,water_g,11.92,g,imported,72,,,
+usda_fdc_sr_legacy,169761,zinc_mg,0.7,mg,imported,136,,,
+usda_fdc_sr_legacy,169975,ash_g,0.64,g,imported,4,0.6,0.76,A: Analytical
+usda_fdc_sr_legacy,169975,calcium_mg,40.0,mg,imported,30,28,70,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169975,carbohydrate_g,5.8,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169975,energy_kcal,25.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,energy_kj,103.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,fat_g,0.1,g,imported,13,0,0.3,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,169975,fat_mono_g,0.017,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,fat_poly_g,0.017,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,fat_sat_g,0.034,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,fiber_g,2.5,g,imported,2,2.2,2.7,
+usda_fdc_sr_legacy,169975,folate_ug,43.0,ug,imported,19,,,
+usda_fdc_sr_legacy,169975,iron_mg,0.47,mg,imported,31,0.21,1.46,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169975,magnesium_mg,12.0,mg,imported,31,9,19,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169975,niacin_mg,0.234,mg,imported,4,0.037,0.355,A: Analytical
+usda_fdc_sr_legacy,169975,phosphorus_mg,26.0,mg,imported,30,18,35,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169975,potassium_mg,170.0,mg,imported,31,130,257,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169975,protein_g,1.28,g,imported,4,1.1,1.46,A: Analytical
+usda_fdc_sr_legacy,169975,riboflavin_mg,0.04,mg,imported,4,0.037,0.046,A: Analytical
+usda_fdc_sr_legacy,169975,sodium_mg,18.0,mg,imported,46,,,
+usda_fdc_sr_legacy,169975,sugars_g,3.2,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169975,thiamin_mg,0.061,mg,imported,4,0.039,0.072,A: Analytical
+usda_fdc_sr_legacy,169975,vitamin_a_rae_ug,5.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169975,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169975,vitamin_b6_mg,0.124,mg,imported,4,0.085,0.181,A: Analytical
+usda_fdc_sr_legacy,169975,vitamin_c_mg,36.6,mg,imported,4,29.2,45.1,A: Analytical
+usda_fdc_sr_legacy,169975,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169975,vitamin_e_mg,0.15,mg,imported,9,0.09,0.27,A: Analytical
+usda_fdc_sr_legacy,169975,vitamin_k_ug,76.0,ug,imported,11,56.6,131.4,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,169975,water_g,92.18,g,imported,20,90.84,94.18,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,169975,zinc_mg,0.18,mg,imported,31,0.09,0.41,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169976,ash_g,0.59,g,imported,4,0.56,0.65,A: Analytical
+usda_fdc_sr_legacy,169976,calcium_mg,48.0,mg,imported,4,38,65,A: Analytical
+usda_fdc_sr_legacy,169976,carbohydrate_g,5.51,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169976,energy_kcal,23.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,energy_kj,97.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,fat_g,0.06,g,imported,4,0.02,0.11,A: Analytical
+usda_fdc_sr_legacy,169976,fat_mono_g,0.019,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,fat_poly_g,0.023,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,fat_sat_g,0.0,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,fiber_g,1.9,g,imported,5,1.8,2.1,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169976,folate_ug,30.0,ug,imported,4,24,39,A: Analytical
+usda_fdc_sr_legacy,169976,iron_mg,0.17,mg,imported,29,,,
+usda_fdc_sr_legacy,169976,magnesium_mg,15.0,mg,imported,4,13,17,A: Analytical
+usda_fdc_sr_legacy,169976,niacin_mg,0.248,mg,imported,4,0.233,0.264,A: Analytical
+usda_fdc_sr_legacy,169976,phosphorus_mg,33.0,mg,imported,4,32,35,A: Analytical
+usda_fdc_sr_legacy,169976,potassium_mg,196.0,mg,imported,4,186,221,A: Analytical
+usda_fdc_sr_legacy,169976,protein_g,1.27,g,imported,4,1.16,1.44,A: Analytical
+usda_fdc_sr_legacy,169976,riboflavin_mg,0.038,mg,imported,4,0.027,0.047,A: Analytical
+usda_fdc_sr_legacy,169976,sodium_mg,8.0,mg,imported,29,,,
+usda_fdc_sr_legacy,169976,sugars_g,2.79,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,169976,thiamin_mg,0.061,mg,imported,4,0.052,0.074,A: Analytical
+usda_fdc_sr_legacy,169976,vitamin_a_rae_ug,4.0,ug,imported,0,,,
+usda_fdc_sr_legacy,169976,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169976,vitamin_b6_mg,0.112,mg,imported,4,0.104,0.119,A: Analytical
+usda_fdc_sr_legacy,169976,vitamin_c_mg,37.5,mg,imported,4,34.2,40.5,A: Analytical
+usda_fdc_sr_legacy,169976,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,169976,vitamin_e_mg,0.14,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,169976,vitamin_k_ug,108.7,ug,imported,4,57.5,136.4,A: Analytical
+usda_fdc_sr_legacy,169976,water_g,92.57,g,imported,6,91.4,94.3,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,169976,zinc_mg,0.2,mg,imported,4,0.14,0.26,A: Analytical
+usda_fdc_sr_legacy,170000,ash_g,0.35,g,imported,24,0.2,0.43,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,calcium_mg,23.0,mg,imported,89,10,36,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,carbohydrate_g,9.34,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170000,energy_kcal,40.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,energy_kj,166.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,fat_g,0.1,g,imported,22,0.02,0.12,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170000,fat_mono_g,0.013,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,fat_poly_g,0.017,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,fat_sat_g,0.042,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,fiber_g,1.7,g,imported,10,1.4,1.9,
+usda_fdc_sr_legacy,170000,folate_ug,19.0,ug,imported,17,18,25,
+usda_fdc_sr_legacy,170000,iron_mg,0.21,mg,imported,90,0,0.55,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,magnesium_mg,10.0,mg,imported,90,5,13,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,niacin_mg,0.116,mg,imported,15,0.037,0.151,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,phosphorus_mg,29.0,mg,imported,89,14,41,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,potassium_mg,146.0,mg,imported,89,84,228,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,protein_g,1.1,g,imported,25,0.79,1.19,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170000,riboflavin_mg,0.027,mg,imported,12,0.021,0.039,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,sodium_mg,4.0,mg,imported,81,1,8,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,sugars_g,4.24,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,thiamin_mg,0.046,mg,imported,25,0.04,0.063,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170000,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170000,vitamin_b6_mg,0.12,mg,imported,25,0.059,0.222,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170000,vitamin_c_mg,7.4,mg,imported,17,7.3,8.2,
+usda_fdc_sr_legacy,170000,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170000,vitamin_e_mg,0.02,mg,imported,5,0.01,0.04,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170000,vitamin_k_ug,0.4,ug,imported,9,0.2,0.7,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170000,water_g,89.11,g,imported,34,85.57,93.2,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170000,zinc_mg,0.17,mg,imported,90,0.07,0.28,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170001,ash_g,0.44,g,imported,0,,,
+usda_fdc_sr_legacy,170001,calcium_mg,22.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,carbohydrate_g,10.15,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170001,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170001,energy_kcal,44.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170001,energy_kj,184.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,170001,fat_g,0.19,g,imported,0,,,
+usda_fdc_sr_legacy,170001,fat_mono_g,0.027,g,imported,0,,,
+usda_fdc_sr_legacy,170001,fat_poly_g,0.073,g,imported,0,,,
+usda_fdc_sr_legacy,170001,fat_sat_g,0.031,g,imported,0,,,
+usda_fdc_sr_legacy,170001,fiber_g,1.4,g,imported,0,,,
+usda_fdc_sr_legacy,170001,folate_ug,15.0,ug,imported,0,,,
+usda_fdc_sr_legacy,170001,iron_mg,0.24,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,magnesium_mg,11.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,niacin_mg,0.165,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,phosphorus_mg,35.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,potassium_mg,166.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,protein_g,1.36,g,imported,0,,,
+usda_fdc_sr_legacy,170001,riboflavin_mg,0.023,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,sodium_mg,3.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,sugars_g,4.73,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170001,thiamin_mg,0.042,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170001,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170001,vitamin_b6_mg,0.129,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,vitamin_c_mg,5.2,mg,imported,0,,,
+usda_fdc_sr_legacy,170001,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170001,vitamin_e_mg,0.02,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170001,vitamin_k_ug,0.5,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170001,water_g,87.86,g,imported,0,,,
+usda_fdc_sr_legacy,170001,zinc_mg,0.21,mg,imported,0,,,
+usda_fdc_sr_legacy,170026,ash_g,1.11,g,imported,11,0.7,1.38,A: Analytical
+usda_fdc_sr_legacy,170026,calcium_mg,12.0,mg,imported,11,6,16,A: Analytical
+usda_fdc_sr_legacy,170026,carbohydrate_g,17.49,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170026,energy_kcal,77.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,energy_kj,322.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,fat_g,0.09,g,imported,11,0.08,0.2,A: Analytical
+usda_fdc_sr_legacy,170026,fat_mono_g,0.002,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,fat_poly_g,0.042,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,fat_sat_g,0.025,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,fiber_g,2.1,g,imported,5,1.6,2.4,A: Analytical
+usda_fdc_sr_legacy,170026,folate_ug,15.0,ug,imported,11,9,34,A: Analytical
+usda_fdc_sr_legacy,170026,iron_mg,0.81,mg,imported,11,0.47,1.24,A: Analytical
+usda_fdc_sr_legacy,170026,magnesium_mg,23.0,mg,imported,11,19,25,A: Analytical
+usda_fdc_sr_legacy,170026,niacin_mg,1.061,mg,imported,10,0.932,1.3,A: Analytical
+usda_fdc_sr_legacy,170026,phosphorus_mg,57.0,mg,imported,11,48,75,A: Analytical
+usda_fdc_sr_legacy,170026,potassium_mg,425.0,mg,imported,11,368,506,A: Analytical
+usda_fdc_sr_legacy,170026,protein_g,2.05,g,imported,11,1.44,2.22,A: Analytical
+usda_fdc_sr_legacy,170026,riboflavin_mg,0.032,mg,imported,11,0.016,0.053,A: Analytical
+usda_fdc_sr_legacy,170026,sodium_mg,6.0,mg,imported,73,,,
+usda_fdc_sr_legacy,170026,sugars_g,0.82,g,imported,5,0.5,1.6,A: Analytical
+usda_fdc_sr_legacy,170026,thiamin_mg,0.081,mg,imported,11,0.06,0.095,A: Analytical
+usda_fdc_sr_legacy,170026,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170026,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170026,vitamin_b6_mg,0.298,mg,imported,11,0.11,0.604,A: Analytical
+usda_fdc_sr_legacy,170026,vitamin_c_mg,19.7,mg,imported,141,,,
+usda_fdc_sr_legacy,170026,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170026,vitamin_e_mg,0.01,mg,imported,2,0,0.01,A: Analytical
+usda_fdc_sr_legacy,170026,vitamin_k_ug,2.0,ug,imported,11,0.8,3.6,A: Analytical
+usda_fdc_sr_legacy,170026,water_g,79.25,g,imported,11,77.7,83.92,A: Analytical
+usda_fdc_sr_legacy,170026,zinc_mg,0.3,mg,imported,11,0.27,0.35,A: Analytical
+usda_fdc_sr_legacy,170287,ash_g,0.34,g,imported,4,,,
+usda_fdc_sr_legacy,170287,calcium_mg,10.0,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,carbohydrate_g,18.58,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170287,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170287,energy_kcal,83.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170287,energy_kj,347.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,170287,fat_g,0.24,g,imported,7,,,
+usda_fdc_sr_legacy,170287,fat_mono_g,0.031,g,imported,0,,,
+usda_fdc_sr_legacy,170287,fat_poly_g,0.098,g,imported,0,,,
+usda_fdc_sr_legacy,170287,fat_sat_g,0.042,g,imported,0,,,
+usda_fdc_sr_legacy,170287,fiber_g,4.5,g,imported,0,,,
+usda_fdc_sr_legacy,170287,folate_ug,18.0,ug,imported,3,,,
+usda_fdc_sr_legacy,170287,iron_mg,0.96,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,magnesium_mg,32.0,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,niacin_mg,1.0,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,phosphorus_mg,40.0,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,potassium_mg,68.0,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,protein_g,3.08,g,imported,4,,,
+usda_fdc_sr_legacy,170287,riboflavin_mg,0.028,mg,imported,5,,,
+usda_fdc_sr_legacy,170287,sodium_mg,5.0,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,sugars_g,0.1,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170287,thiamin_mg,0.057,mg,imported,5,,,
+usda_fdc_sr_legacy,170287,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170287,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170287,vitamin_b6_mg,0.083,mg,imported,3,,,
+usda_fdc_sr_legacy,170287,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170287,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170287,vitamin_e_mg,0.01,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170287,vitamin_k_ug,0.5,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170287,water_g,77.76,g,imported,7,,,
+usda_fdc_sr_legacy,170287,zinc_mg,0.57,mg,imported,3,,,
+usda_fdc_sr_legacy,170393,ash_g,0.97,g,imported,19,0.74,1.5,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,calcium_mg,33.0,mg,imported,75,9,42,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,carbohydrate_g,9.58,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170393,energy_kcal,41.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,energy_kj,173.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,fat_g,0.24,g,imported,26,0.1,0.4,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170393,fat_mono_g,0.012,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,fat_poly_g,0.102,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,fat_sat_g,0.032,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,fiber_g,2.8,g,imported,4,2.7,3,A: Analytical
+usda_fdc_sr_legacy,170393,folate_ug,19.0,ug,imported,19,0,70,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,iron_mg,0.3,mg,imported,75,0.12,1.15,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,magnesium_mg,12.0,mg,imported,75,7,19,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,niacin_mg,0.983,mg,imported,19,0.577,1.41,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,phosphorus_mg,35.0,mg,imported,75,20,44,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,potassium_mg,320.0,mg,imported,76,217,430,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,protein_g,0.93,g,imported,19,0.68,1.19,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170393,riboflavin_mg,0.058,mg,imported,19,0.04,0.087,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,sodium_mg,69.0,mg,imported,81,23,104,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,sugars_g,4.74,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,thiamin_mg,0.066,mg,imported,21,0.02,0.085,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,vitamin_a_rae_ug,835.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170393,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170393,vitamin_b6_mg,0.138,mg,imported,19,0.09,0.231,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,vitamin_c_mg,5.9,mg,imported,21,0.9,9.2,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170393,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170393,vitamin_e_mg,0.66,mg,imported,11,0.25,1.46,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170393,vitamin_k_ug,13.2,ug,imported,4,11.4,14.8,A: Analytical
+usda_fdc_sr_legacy,170393,water_g,88.29,g,imported,33,85.7,91.23,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170393,zinc_mg,0.24,mg,imported,76,0.14,0.37,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170394,ash_g,0.67,g,imported,4,0.58,0.78,A: Analytical
+usda_fdc_sr_legacy,170394,calcium_mg,30.0,mg,imported,4,27,33,A: Analytical
+usda_fdc_sr_legacy,170394,carbohydrate_g,8.22,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170394,energy_kcal,35.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,energy_kj,147.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,fat_g,0.18,g,imported,4,0.02,0.34,A: Analytical
+usda_fdc_sr_legacy,170394,fat_mono_g,0.006,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,fat_poly_g,0.089,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,fat_sat_g,0.03,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,fiber_g,3.0,g,imported,4,2.9,3.1,A: Analytical
+usda_fdc_sr_legacy,170394,folate_ug,14.0,ug,imported,12,,,
+usda_fdc_sr_legacy,170394,iron_mg,0.34,mg,imported,4,0.25,0.41,A: Analytical
+usda_fdc_sr_legacy,170394,magnesium_mg,10.0,mg,imported,4,9,11,A: Analytical
+usda_fdc_sr_legacy,170394,niacin_mg,0.645,mg,imported,4,0.57,0.698,A: Analytical
+usda_fdc_sr_legacy,170394,phosphorus_mg,30.0,mg,imported,4,27,35,A: Analytical
+usda_fdc_sr_legacy,170394,potassium_mg,235.0,mg,imported,4,201,283,A: Analytical
+usda_fdc_sr_legacy,170394,protein_g,0.76,g,imported,4,0.62,0.83,A: Analytical
+usda_fdc_sr_legacy,170394,riboflavin_mg,0.044,mg,imported,4,0.04,0.048,A: Analytical
+usda_fdc_sr_legacy,170394,sodium_mg,58.0,mg,imported,4,46,71,A: Analytical
+usda_fdc_sr_legacy,170394,sugars_g,3.45,g,imported,0,,,
+usda_fdc_sr_legacy,170394,thiamin_mg,0.066,mg,imported,4,0.057,0.07,A: Analytical
+usda_fdc_sr_legacy,170394,vitamin_a_rae_ug,852.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170394,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170394,vitamin_b6_mg,0.153,mg,imported,4,0.144,0.163,A: Analytical
+usda_fdc_sr_legacy,170394,vitamin_c_mg,3.6,mg,imported,4,2,5.8,A: Analytical
+usda_fdc_sr_legacy,170394,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170394,vitamin_e_mg,1.03,mg,imported,4,0.79,1.19,A: Analytical
+usda_fdc_sr_legacy,170394,vitamin_k_ug,13.7,ug,imported,4,10.8,18.2,A: Analytical
+usda_fdc_sr_legacy,170394,water_g,90.17,g,imported,4,89.59,90.43,A: Analytical
+usda_fdc_sr_legacy,170394,zinc_mg,0.2,mg,imported,4,0.19,0.23,A: Analytical
+usda_fdc_sr_legacy,170419,ash_g,0.87,g,imported,7,,,
+usda_fdc_sr_legacy,170419,calcium_mg,25.0,mg,imported,8,,,
+usda_fdc_sr_legacy,170419,carbohydrate_g,14.45,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170419,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170419,energy_kcal,81.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170419,energy_kj,339.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170419,fat_g,0.4,g,imported,7,,,
+usda_fdc_sr_legacy,170419,fat_mono_g,0.035,g,imported,0,,,
+usda_fdc_sr_legacy,170419,fat_poly_g,0.187,g,imported,0,,,
+usda_fdc_sr_legacy,170419,fat_sat_g,0.071,g,imported,0,,,
+usda_fdc_sr_legacy,170419,fiber_g,5.7,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170419,folate_ug,65.0,ug,imported,1,,,
+usda_fdc_sr_legacy,170419,iron_mg,1.47,mg,imported,8,,,
+usda_fdc_sr_legacy,170419,magnesium_mg,33.0,mg,imported,8,,,
+usda_fdc_sr_legacy,170419,niacin_mg,2.09,mg,imported,7,,,
+usda_fdc_sr_legacy,170419,phosphorus_mg,108.0,mg,imported,8,,,
+usda_fdc_sr_legacy,170419,potassium_mg,244.0,mg,imported,10,,,
+usda_fdc_sr_legacy,170419,protein_g,5.42,g,imported,7,,,
+usda_fdc_sr_legacy,170419,riboflavin_mg,0.132,mg,imported,7,,,
+usda_fdc_sr_legacy,170419,sodium_mg,5.0,mg,imported,7,,,
+usda_fdc_sr_legacy,170419,sugars_g,5.67,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170419,thiamin_mg,0.266,mg,imported,7,,,
+usda_fdc_sr_legacy,170419,vitamin_a_rae_ug,38.0,ug,imported,0,,,
+usda_fdc_sr_legacy,170419,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170419,vitamin_b6_mg,0.169,mg,imported,7,,,
+usda_fdc_sr_legacy,170419,vitamin_c_mg,40.0,mg,imported,1,,,
+usda_fdc_sr_legacy,170419,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170419,vitamin_e_mg,0.13,mg,imported,1,,,
+usda_fdc_sr_legacy,170419,vitamin_k_ug,24.8,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170419,water_g,78.86,g,imported,10,,,
+usda_fdc_sr_legacy,170419,zinc_mg,1.24,mg,imported,7,,,
+usda_fdc_sr_legacy,170420,ash_g,0.92,g,imported,14,,,
+usda_fdc_sr_legacy,170420,calcium_mg,27.0,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,carbohydrate_g,15.63,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170420,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170420,energy_kcal,84.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170420,energy_kj,352.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170420,fat_g,0.22,g,imported,14,,,
+usda_fdc_sr_legacy,170420,fat_mono_g,0.019,g,imported,0,,,
+usda_fdc_sr_legacy,170420,fat_poly_g,0.102,g,imported,0,,,
+usda_fdc_sr_legacy,170420,fat_sat_g,0.039,g,imported,0,,,
+usda_fdc_sr_legacy,170420,fiber_g,5.5,g,imported,0,,,
+usda_fdc_sr_legacy,170420,folate_ug,63.0,ug,imported,0,,,
+usda_fdc_sr_legacy,170420,iron_mg,1.54,mg,imported,14,,,
+usda_fdc_sr_legacy,170420,magnesium_mg,39.0,mg,imported,13,,,
+usda_fdc_sr_legacy,170420,niacin_mg,2.021,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,phosphorus_mg,117.0,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,potassium_mg,271.0,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,protein_g,5.36,g,imported,14,,,
+usda_fdc_sr_legacy,170420,riboflavin_mg,0.149,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,sodium_mg,3.0,mg,imported,8,,,
+usda_fdc_sr_legacy,170420,sugars_g,5.93,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170420,thiamin_mg,0.259,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,vitamin_a_rae_ug,40.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170420,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170420,vitamin_b6_mg,0.216,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,vitamin_c_mg,14.2,mg,imported,12,,,
+usda_fdc_sr_legacy,170420,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170420,vitamin_e_mg,0.14,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170420,vitamin_k_ug,25.9,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170420,water_g,77.87,g,imported,14,,,
+usda_fdc_sr_legacy,170420,zinc_mg,1.19,mg,imported,14,,,
+usda_fdc_sr_legacy,170440,ash_g,0.72,g,imported,6,,,
+usda_fdc_sr_legacy,170440,calcium_mg,8.0,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,carbohydrate_g,20.01,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170440,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170440,energy_kcal,86.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170440,energy_kj,360.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,170440,fat_g,0.1,g,imported,0,,,
+usda_fdc_sr_legacy,170440,fat_mono_g,0.002,g,imported,0,,,
+usda_fdc_sr_legacy,170440,fat_poly_g,0.043,g,imported,0,,,
+usda_fdc_sr_legacy,170440,fat_sat_g,0.026,g,imported,0,,,
+usda_fdc_sr_legacy,170440,fiber_g,1.8,g,imported,0,,,
+usda_fdc_sr_legacy,170440,folate_ug,9.0,ug,imported,6,,,
+usda_fdc_sr_legacy,170440,iron_mg,0.31,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,magnesium_mg,20.0,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,niacin_mg,1.312,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,phosphorus_mg,40.0,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,potassium_mg,328.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170440,protein_g,1.71,g,imported,6,,,
+usda_fdc_sr_legacy,170440,riboflavin_mg,0.019,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,sodium_mg,5.0,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,sugars_g,0.89,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170440,thiamin_mg,0.098,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170440,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170440,vitamin_b6_mg,0.269,mg,imported,6,,,
+usda_fdc_sr_legacy,170440,vitamin_c_mg,7.4,mg,imported,3,,,
+usda_fdc_sr_legacy,170440,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170440,vitamin_e_mg,0.01,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170440,vitamin_k_ug,2.2,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,170440,water_g,77.46,g,imported,6,,,
+usda_fdc_sr_legacy,170440,zinc_mg,0.27,mg,imported,6,,,
+usda_fdc_sr_legacy,170457,ash_g,0.5,g,imported,19,0.37,0.6,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,calcium_mg,10.0,mg,imported,69,7,18,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,carbohydrate_g,3.89,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170457,energy_kcal,18.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,energy_kj,74.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,fat_g,0.2,g,imported,26,0.07,0.8,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170457,fat_mono_g,0.031,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,fat_poly_g,0.083,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,fat_sat_g,0.028,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,fiber_g,1.2,g,imported,5,0.7,2,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,folate_ug,15.0,ug,imported,19,1,36,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,iron_mg,0.27,mg,imported,70,0.14,0.79,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,magnesium_mg,11.0,mg,imported,70,7,15,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,niacin_mg,0.594,mg,imported,19,0.445,0.819,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,phosphorus_mg,24.0,mg,imported,69,15,37,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,potassium_mg,237.0,mg,imported,67,144,385,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,protein_g,0.88,g,imported,19,0.59,1.06,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170457,riboflavin_mg,0.019,mg,imported,19,0.012,0.028,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,sodium_mg,5.0,mg,imported,66,1,24,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,sugars_g,2.63,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170457,thiamin_mg,0.037,mg,imported,19,0.02,0.06,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,vitamin_a_rae_ug,42.0,ug,imported,0,,,
+usda_fdc_sr_legacy,170457,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170457,vitamin_b6_mg,0.08,mg,imported,19,0.06,0.097,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,vitamin_c_mg,13.7,mg,imported,25,7.8,19.8,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170457,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170457,vitamin_e_mg,0.54,mg,imported,16,0.05,1.02,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170457,vitamin_k_ug,7.9,ug,imported,15,2.2,60,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170457,water_g,94.52,g,imported,39,92.7,95.73,"JO: Aggregated data involving combinations of data with different source codes when at least one code is not 1, 6, 12, or 13"
+usda_fdc_sr_legacy,170457,zinc_mg,0.17,mg,imported,70,0.05,2.42,JA: Aggregated data involving combinations of data with only source codes 1 and 12 and/or 13
+usda_fdc_sr_legacy,170688,ash_g,1.51,g,imported,7,,,
+usda_fdc_sr_legacy,170688,calcium_mg,35.0,mg,imported,10,,,
+usda_fdc_sr_legacy,170688,carbohydrate_g,75.87,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170688,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170688,energy_kcal,342.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170688,energy_kj,1431.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,170688,fat_g,1.33,g,imported,7,,,
+usda_fdc_sr_legacy,170688,fat_mono_g,0.173,g,imported,0,,,
+usda_fdc_sr_legacy,170688,fat_poly_g,0.541,g,imported,0,,,
+usda_fdc_sr_legacy,170688,fat_sat_g,0.232,g,imported,0,,,
+usda_fdc_sr_legacy,170688,fiber_g,12.5,g,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,170688,folate_ug,27.0,ug,imported,5,,,
+usda_fdc_sr_legacy,170688,iron_mg,2.46,mg,imported,9,,,
+usda_fdc_sr_legacy,170688,magnesium_mg,164.0,mg,imported,9,,,
+usda_fdc_sr_legacy,170688,niacin_mg,5.114,mg,imported,5,,,
+usda_fdc_sr_legacy,170688,phosphorus_mg,300.0,mg,imported,9,,,
+usda_fdc_sr_legacy,170688,potassium_mg,410.0,mg,imported,9,,,
+usda_fdc_sr_legacy,170688,protein_g,12.29,g,imported,5,,,
+usda_fdc_sr_legacy,170688,riboflavin_mg,0.115,mg,imported,6,,,
+usda_fdc_sr_legacy,170688,sodium_mg,17.0,mg,imported,6,,,
+usda_fdc_sr_legacy,170688,sugars_g,0.41,g,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,170688,thiamin_mg,0.232,mg,imported,6,,,
+usda_fdc_sr_legacy,170688,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,170688,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,170688,vitamin_b6_mg,0.342,mg,imported,5,,,
+usda_fdc_sr_legacy,170688,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,170688,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,170688,vitamin_e_mg,0.06,mg,imported,0,,,
+usda_fdc_sr_legacy,170688,vitamin_k_ug,1.9,ug,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,170688,water_g,9.0,g,imported,6,,,
+usda_fdc_sr_legacy,170688,zinc_mg,1.93,mg,imported,11,,,
+usda_fdc_sr_legacy,171284,ash_g,0.72,g,imported,0,,,
+usda_fdc_sr_legacy,171284,calcium_mg,121.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,carbohydrate_g,4.66,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171284,cholesterol_mg,13.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,energy_kcal,61.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171284,energy_kj,257.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171284,fat_g,3.25,g,imported,0,,,
+usda_fdc_sr_legacy,171284,fat_mono_g,0.893,g,imported,0,,,
+usda_fdc_sr_legacy,171284,fat_poly_g,0.092,g,imported,0,,,
+usda_fdc_sr_legacy,171284,fat_sat_g,2.096,g,imported,0,,,
+usda_fdc_sr_legacy,171284,fiber_g,0.0,g,imported,0,,,
+usda_fdc_sr_legacy,171284,folate_ug,7.0,ug,imported,0,,,
+usda_fdc_sr_legacy,171284,iron_mg,0.05,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,magnesium_mg,12.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,niacin_mg,0.075,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,phosphorus_mg,95.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,potassium_mg,155.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,protein_g,3.47,g,imported,0,,,
+usda_fdc_sr_legacy,171284,riboflavin_mg,0.142,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,sodium_mg,46.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,sugars_g,4.66,g,imported,0,,,"NR: Nutrient that is based on other nutrient/s; value used directly, ex. Nut.#204 from Nut.#298"
+usda_fdc_sr_legacy,171284,thiamin_mg,0.029,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,vitamin_a_rae_ug,27.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171284,vitamin_b12_ug,0.37,ug,imported,0,,,
+usda_fdc_sr_legacy,171284,vitamin_b6_mg,0.032,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,vitamin_c_mg,0.5,mg,imported,0,,,
+usda_fdc_sr_legacy,171284,vitamin_d_ug,0.1,ug,imported,0,,,
+usda_fdc_sr_legacy,171284,vitamin_e_mg,0.06,mg,imported,0,,,BFFN: Based on another form of the food or similar food; Concentration adjustment; Fat; Retention factors not used
+usda_fdc_sr_legacy,171284,vitamin_k_ug,0.2,ug,imported,0,,,BFFN: Based on another form of the food or similar food; Concentration adjustment; Fat; Retention factors not used
+usda_fdc_sr_legacy,171284,water_g,87.9,g,imported,0,,,
+usda_fdc_sr_legacy,171284,zinc_mg,0.59,mg,imported,0,,,
+usda_fdc_sr_legacy,171287,ash_g,1.06,g,imported,12,0.92,1.33,A: Analytical
+usda_fdc_sr_legacy,171287,calcium_mg,56.0,mg,imported,6,54,58,A: Analytical
+usda_fdc_sr_legacy,171287,carbohydrate_g,0.72,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171287,cholesterol_mg,372.0,mg,imported,12,344,405,A: Analytical
+usda_fdc_sr_legacy,171287,energy_kcal,143.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171287,energy_kj,599.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171287,fat_g,9.51,g,imported,12,8.78,10.3,A: Analytical
+usda_fdc_sr_legacy,171287,fat_mono_g,3.658,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171287,fat_poly_g,1.911,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171287,fat_sat_g,3.126,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171287,fiber_g,0.0,g,imported,1,,,A: Analytical
+usda_fdc_sr_legacy,171287,folate_ug,47.0,ug,imported,23,,,A: Analytical
+usda_fdc_sr_legacy,171287,iron_mg,1.75,mg,imported,6,1.63,1.93,A: Analytical
+usda_fdc_sr_legacy,171287,magnesium_mg,12.0,mg,imported,6,11,13,A: Analytical
+usda_fdc_sr_legacy,171287,niacin_mg,0.075,mg,imported,6,0.07,0.08,A: Analytical
+usda_fdc_sr_legacy,171287,phosphorus_mg,198.0,mg,imported,6,193,205,A: Analytical
+usda_fdc_sr_legacy,171287,potassium_mg,138.0,mg,imported,6,132,142,A: Analytical
+usda_fdc_sr_legacy,171287,protein_g,12.56,g,imported,12,11.81,13.06,A: Analytical
+usda_fdc_sr_legacy,171287,riboflavin_mg,0.457,mg,imported,6,0.41,0.52,A: Analytical
+usda_fdc_sr_legacy,171287,sodium_mg,142.0,mg,imported,6,139,147,A: Analytical
+usda_fdc_sr_legacy,171287,sugars_g,0.37,g,imported,6,0.34,0.4,A: Analytical
+usda_fdc_sr_legacy,171287,thiamin_mg,0.04,mg,imported,6,0.03,0.05,A: Analytical
+usda_fdc_sr_legacy,171287,vitamin_a_rae_ug,160.0,ug,imported,0,,,
+usda_fdc_sr_legacy,171287,vitamin_b12_ug,0.89,ug,imported,6,0.65,1.2,A: Analytical
+usda_fdc_sr_legacy,171287,vitamin_b6_mg,0.17,mg,imported,6,0.16,0.185,A: Analytical
+usda_fdc_sr_legacy,171287,vitamin_c_mg,0.0,mg,imported,2,,,A: Analytical
+usda_fdc_sr_legacy,171287,vitamin_d_ug,2.0,ug,imported,10,,,
+usda_fdc_sr_legacy,171287,vitamin_e_mg,1.05,mg,imported,6,0.77,1.47,A: Analytical
+usda_fdc_sr_legacy,171287,vitamin_k_ug,0.3,ug,imported,2,,,A: Analytical
+usda_fdc_sr_legacy,171287,water_g,76.15,g,imported,12,75.43,76.94,A: Analytical
+usda_fdc_sr_legacy,171287,zinc_mg,1.29,mg,imported,6,1.24,1.34,A: Analytical
+usda_fdc_sr_legacy,171413,ash_g,0.0,g,imported,4,0,0,A: Analytical
+usda_fdc_sr_legacy,171413,calcium_mg,1.0,mg,imported,4,1,1,A: Analytical
+usda_fdc_sr_legacy,171413,carbohydrate_g,0.0,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171413,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171413,energy_kcal,884.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171413,energy_kj,3699.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171413,fat_g,100.0,g,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,171413,fat_mono_g,72.961,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171413,fat_poly_g,10.523,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171413,fat_sat_g,13.808,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171413,fiber_g,0.0,g,imported,0,,,
+usda_fdc_sr_legacy,171413,folate_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,171413,iron_mg,0.56,mg,imported,4,0.44,0.79,A: Analytical
+usda_fdc_sr_legacy,171413,magnesium_mg,0.0,mg,imported,4,0,0,A: Analytical
+usda_fdc_sr_legacy,171413,niacin_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171413,phosphorus_mg,0.0,mg,imported,4,0,0,A: Analytical
+usda_fdc_sr_legacy,171413,potassium_mg,1.0,mg,imported,4,0,1,A: Analytical
+usda_fdc_sr_legacy,171413,protein_g,0.0,g,imported,4,0,0,A: Analytical
+usda_fdc_sr_legacy,171413,riboflavin_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171413,sodium_mg,2.0,mg,imported,4,2,3,A: Analytical
+usda_fdc_sr_legacy,171413,sugars_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,171413,thiamin_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171413,vitamin_a_rae_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,171413,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,171413,vitamin_b6_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171413,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,171413,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,171413,vitamin_e_mg,14.35,mg,imported,6,10.01,19.19,A: Analytical
+usda_fdc_sr_legacy,171413,vitamin_k_ug,60.2,ug,imported,2,50.1,70.3,A: Analytical
+usda_fdc_sr_legacy,171413,water_g,0.0,g,imported,4,0,0,A: Analytical
+usda_fdc_sr_legacy,171413,zinc_mg,0.0,mg,imported,4,0,0,A: Analytical
+usda_fdc_sr_legacy,171688,ash_g,0.19,g,imported,29,0.07,0.48,A: Analytical
+usda_fdc_sr_legacy,171688,calcium_mg,6.0,mg,imported,26,4,9,A: Analytical
+usda_fdc_sr_legacy,171688,carbohydrate_g,13.81,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171688,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,171688,energy_kcal,52.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171688,energy_kj,218.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171688,fat_g,0.17,g,imported,35,0.05,0.31,A: Analytical
+usda_fdc_sr_legacy,171688,fat_mono_g,0.007,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171688,fat_poly_g,0.051,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171688,fat_sat_g,0.028,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,171688,fiber_g,2.4,g,imported,29,1.4,3.5,A: Analytical
+usda_fdc_sr_legacy,171688,folate_ug,3.0,ug,imported,23,,,
+usda_fdc_sr_legacy,171688,iron_mg,0.12,mg,imported,16,0.09,0.18,A: Analytical
+usda_fdc_sr_legacy,171688,magnesium_mg,5.0,mg,imported,26,4,6,A: Analytical
+usda_fdc_sr_legacy,171688,niacin_mg,0.091,mg,imported,13,0.07,0.13,A: Analytical
+usda_fdc_sr_legacy,171688,phosphorus_mg,11.0,mg,imported,23,10,13,A: Analytical
+usda_fdc_sr_legacy,171688,potassium_mg,107.0,mg,imported,26,88,136,A: Analytical
+usda_fdc_sr_legacy,171688,protein_g,0.26,g,imported,29,0.17,0.57,A: Analytical
+usda_fdc_sr_legacy,171688,riboflavin_mg,0.026,mg,imported,20,0.015,0.049,A: Analytical
+usda_fdc_sr_legacy,171688,sodium_mg,1.0,mg,imported,6,1,2,A: Analytical
+usda_fdc_sr_legacy,171688,sugars_g,10.39,g,imported,25,8.77,12.01,A: Analytical
+usda_fdc_sr_legacy,171688,thiamin_mg,0.017,mg,imported,23,0.007,0.03,A: Analytical
+usda_fdc_sr_legacy,171688,vitamin_a_rae_ug,3.0,ug,imported,0,,,
+usda_fdc_sr_legacy,171688,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,171688,vitamin_b6_mg,0.041,mg,imported,23,0.028,0.056,A: Analytical
+usda_fdc_sr_legacy,171688,vitamin_c_mg,4.6,mg,imported,3,4,5.5,A: Analytical
+usda_fdc_sr_legacy,171688,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,171688,vitamin_e_mg,0.18,mg,imported,10,0.08,0.38,A: Analytical
+usda_fdc_sr_legacy,171688,vitamin_k_ug,2.2,ug,imported,20,0.9,4.3,A: Analytical
+usda_fdc_sr_legacy,171688,water_g,85.56,g,imported,38,82.39,87.52,A: Analytical
+usda_fdc_sr_legacy,171688,zinc_mg,0.04,mg,imported,26,0.01,0.08,A: Analytical
+usda_fdc_sr_legacy,172420,ash_g,2.71,g,imported,46,2.3,3.47,A: Analytical
+usda_fdc_sr_legacy,172420,calcium_mg,35.0,mg,imported,38,17,58,A: Analytical
+usda_fdc_sr_legacy,172420,carbohydrate_g,63.35,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172420,energy_kcal,352.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,energy_kj,1473.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,fat_g,1.06,g,imported,9,0.8,2,A: Analytical
+usda_fdc_sr_legacy,172420,fat_mono_g,0.193,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,fat_poly_g,0.526,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,fat_sat_g,0.154,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,fiber_g,10.7,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,172420,folate_ug,479.0,ug,imported,8,380,596,A: Analytical
+usda_fdc_sr_legacy,172420,iron_mg,6.51,mg,imported,38,4.19,25.43,A: Analytical
+usda_fdc_sr_legacy,172420,magnesium_mg,47.0,mg,imported,38,18,82,A: Analytical
+usda_fdc_sr_legacy,172420,niacin_mg,2.605,mg,imported,8,2.36,2.77,A: Analytical
+usda_fdc_sr_legacy,172420,phosphorus_mg,281.0,mg,imported,28,207,403,A: Analytical
+usda_fdc_sr_legacy,172420,potassium_mg,677.0,mg,imported,38,528,894,A: Analytical
+usda_fdc_sr_legacy,172420,protein_g,24.63,g,imported,56,18.98,28.3,A: Analytical
+usda_fdc_sr_legacy,172420,riboflavin_mg,0.211,mg,imported,8,0.195,0.23,A: Analytical
+usda_fdc_sr_legacy,172420,sodium_mg,6.0,mg,imported,4,2,9,A: Analytical
+usda_fdc_sr_legacy,172420,sugars_g,2.03,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,thiamin_mg,0.873,mg,imported,8,0.7,1.02,A: Analytical
+usda_fdc_sr_legacy,172420,vitamin_a_rae_ug,2.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172420,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172420,vitamin_b6_mg,0.54,mg,imported,8,0.48,0.612,A: Analytical
+usda_fdc_sr_legacy,172420,vitamin_c_mg,4.5,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,172420,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172420,vitamin_e_mg,0.49,mg,imported,1,,,A: Analytical
+usda_fdc_sr_legacy,172420,vitamin_k_ug,5.0,ug,imported,0,,,T: Taken from another source--other tables of food composition
+usda_fdc_sr_legacy,172420,water_g,8.26,g,imported,55,6.98,9.97,A: Analytical
+usda_fdc_sr_legacy,172420,zinc_mg,3.27,mg,imported,38,2.07,6.99,A: Analytical
+usda_fdc_sr_legacy,172421,ash_g,0.83,g,imported,22,,,
+usda_fdc_sr_legacy,172421,calcium_mg,19.0,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,carbohydrate_g,20.13,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172421,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172421,energy_kcal,116.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172421,energy_kj,487.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172421,fat_g,0.38,g,imported,22,,,
+usda_fdc_sr_legacy,172421,fat_mono_g,0.064,g,imported,0,,,
+usda_fdc_sr_legacy,172421,fat_poly_g,0.175,g,imported,0,,,
+usda_fdc_sr_legacy,172421,fat_sat_g,0.053,g,imported,0,,,
+usda_fdc_sr_legacy,172421,fiber_g,7.9,g,imported,0,,,
+usda_fdc_sr_legacy,172421,folate_ug,181.0,ug,imported,8,,,
+usda_fdc_sr_legacy,172421,iron_mg,3.33,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,magnesium_mg,36.0,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,niacin_mg,1.06,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,phosphorus_mg,180.0,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,potassium_mg,369.0,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,protein_g,9.02,g,imported,23,,,
+usda_fdc_sr_legacy,172421,riboflavin_mg,0.073,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,sodium_mg,2.0,mg,imported,16,,,
+usda_fdc_sr_legacy,172421,sugars_g,1.8,g,imported,0,,,T: Taken from another source--other tables of food composition
+usda_fdc_sr_legacy,172421,thiamin_mg,0.169,mg,imported,20,,,
+usda_fdc_sr_legacy,172421,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172421,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,172421,vitamin_b6_mg,0.178,mg,imported,8,,,
+usda_fdc_sr_legacy,172421,vitamin_c_mg,1.5,mg,imported,0,,,
+usda_fdc_sr_legacy,172421,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172421,vitamin_e_mg,0.11,mg,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,172421,vitamin_k_ug,1.7,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,172421,water_g,69.64,g,imported,23,,,
+usda_fdc_sr_legacy,172421,zinc_mg,1.27,mg,imported,21,,,
+usda_fdc_sr_legacy,172544,ash_g,1.14,g,imported,0,,,
+usda_fdc_sr_legacy,172544,calcium_mg,22.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,carbohydrate_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172544,cholesterol_mg,97.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,energy_kcal,283.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172544,energy_kj,1184.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,172544,fat_g,19.65,g,imported,0,,,
+usda_fdc_sr_legacy,172544,fat_mono_g,8.32,g,imported,0,,,
+usda_fdc_sr_legacy,172544,fat_poly_g,1.4,g,imported,0,,,
+usda_fdc_sr_legacy,172544,fat_sat_g,8.12,g,imported,0,,,
+usda_fdc_sr_legacy,172544,fiber_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172544,folate_ug,19.0,ug,imported,0,,,
+usda_fdc_sr_legacy,172544,iron_mg,1.79,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,magnesium_mg,24.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,niacin_mg,6.7,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,phosphorus_mg,201.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,potassium_mg,339.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,protein_g,24.75,g,imported,0,,,
+usda_fdc_sr_legacy,172544,riboflavin_mg,0.25,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,sodium_mg,81.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,sugars_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172544,thiamin_mg,0.1,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172544,vitamin_b12_ug,2.61,ug,imported,0,,,
+usda_fdc_sr_legacy,172544,vitamin_b6_mg,0.14,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,vitamin_c_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,172544,vitamin_d_ug,0.1,ug,imported,80,,,
+usda_fdc_sr_legacy,172544,vitamin_e_mg,0.14,mg,imported,0,,,
+usda_fdc_sr_legacy,172544,vitamin_k_ug,5.3,ug,imported,0,,,BFYN: Based on another form of the food or similar food; Concentration adjustment; Yield; Retention factors not used
+usda_fdc_sr_legacy,172544,water_g,55.09,g,imported,0,,,
+usda_fdc_sr_legacy,172544,zinc_mg,4.67,mg,imported,0,,,
+usda_fdc_sr_legacy,172816,ash_g,1.9,g,imported,14,,,
+usda_fdc_sr_legacy,172816,calcium_mg,86.0,mg,imported,38,,,
+usda_fdc_sr_legacy,172816,carbohydrate_g,55.7,g,imported,0,,,
+usda_fdc_sr_legacy,172816,cholesterol_mg,0.0,mg,imported,2,,,
+usda_fdc_sr_legacy,172816,energy_kcal,275.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172816,energy_kj,1151.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,172816,fat_g,1.2,g,imported,36,,,
+usda_fdc_sr_legacy,172816,fat_mono_g,0.105,g,imported,0,,,
+usda_fdc_sr_legacy,172816,fat_poly_g,0.535,g,imported,0,,,
+usda_fdc_sr_legacy,172816,fat_sat_g,0.166,g,imported,0,,,
+usda_fdc_sr_legacy,172816,fiber_g,2.2,g,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,172816,folate_ug,24.0,ug,imported,10,,,
+usda_fdc_sr_legacy,172816,iron_mg,1.4,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,172816,magnesium_mg,26.0,mg,imported,13,,,
+usda_fdc_sr_legacy,172816,niacin_mg,2.142,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,172816,phosphorus_mg,97.0,mg,imported,13,,,
+usda_fdc_sr_legacy,172816,potassium_mg,120.0,mg,imported,17,,,
+usda_fdc_sr_legacy,172816,protein_g,9.1,g,imported,37,,,
+usda_fdc_sr_legacy,172816,riboflavin_mg,0.097,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,172816,sodium_mg,536.0,mg,imported,24,,,
+usda_fdc_sr_legacy,172816,thiamin_mg,0.267,mg,imported,0,,,BFZN: Based on another form of the food or similar food; Concentration adjustment; No adjustment; Retention factors not used
+usda_fdc_sr_legacy,172816,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,172816,vitamin_b12_ug,0.0,ug,imported,1,,,
+usda_fdc_sr_legacy,172816,vitamin_b6_mg,0.034,mg,imported,11,,,
+usda_fdc_sr_legacy,172816,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,172816,water_g,32.1,g,imported,17,,,
+usda_fdc_sr_legacy,172816,zinc_mg,0.84,mg,imported,13,,,
+usda_fdc_sr_legacy,173424,ash_g,1.08,g,imported,14,,,
+usda_fdc_sr_legacy,173424,calcium_mg,50.0,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,carbohydrate_g,1.12,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173424,cholesterol_mg,373.0,mg,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,173424,energy_kcal,155.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173424,energy_kj,649.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,173424,fat_g,10.61,g,imported,7,,,
+usda_fdc_sr_legacy,173424,fat_mono_g,4.077,g,imported,0,,,
+usda_fdc_sr_legacy,173424,fat_poly_g,1.414,g,imported,0,,,
+usda_fdc_sr_legacy,173424,fat_sat_g,3.267,g,imported,0,,,
+usda_fdc_sr_legacy,173424,fiber_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,173424,folate_ug,44.0,ug,imported,14,,,
+usda_fdc_sr_legacy,173424,iron_mg,1.19,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,magnesium_mg,10.0,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,niacin_mg,0.064,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,phosphorus_mg,172.0,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,potassium_mg,126.0,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,protein_g,12.58,g,imported,14,,,
+usda_fdc_sr_legacy,173424,riboflavin_mg,0.513,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,sodium_mg,124.0,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,sugars_g,1.12,g,imported,0,,,"NR: Nutrient that is based on other nutrient/s; value used directly, ex. Nut.#204 from Nut.#298"
+usda_fdc_sr_legacy,173424,thiamin_mg,0.066,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,vitamin_a_rae_ug,149.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173424,vitamin_b12_ug,1.11,ug,imported,14,,,
+usda_fdc_sr_legacy,173424,vitamin_b6_mg,0.121,mg,imported,14,,,
+usda_fdc_sr_legacy,173424,vitamin_c_mg,0.0,mg,imported,2,,,
+usda_fdc_sr_legacy,173424,vitamin_d_ug,2.2,ug,imported,0,,,
+usda_fdc_sr_legacy,173424,vitamin_e_mg,1.03,mg,imported,0,,,BFFN: Based on another form of the food or similar food; Concentration adjustment; Fat; Retention factors not used
+usda_fdc_sr_legacy,173424,vitamin_k_ug,0.3,ug,imported,0,,,BFFN: Based on another form of the food or similar food; Concentration adjustment; Fat; Retention factors not used
+usda_fdc_sr_legacy,173424,water_g,74.62,g,imported,14,,,
+usda_fdc_sr_legacy,173424,zinc_mg,1.05,mg,imported,14,,,
+usda_fdc_sr_legacy,173753,ash_g,0.81,g,imported,8,,,
+usda_fdc_sr_legacy,173753,calcium_mg,36.0,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,carbohydrate_g,19.65,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173753,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,173753,energy_kcal,110.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173753,energy_kj,460.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,173753,fat_g,0.4,g,imported,8,,,
+usda_fdc_sr_legacy,173753,fat_mono_g,0.079,g,imported,0,,,
+usda_fdc_sr_legacy,173753,fat_poly_g,0.164,g,imported,0,,,
+usda_fdc_sr_legacy,173753,fat_sat_g,0.066,g,imported,0,,,
+usda_fdc_sr_legacy,173753,fiber_g,5.4,g,imported,0,,,
+usda_fdc_sr_legacy,173753,folate_ug,104.0,ug,imported,8,,,
+usda_fdc_sr_legacy,173753,iron_mg,1.5,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,magnesium_mg,43.0,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,niacin_mg,0.711,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,phosphorus_mg,125.0,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,potassium_mg,268.0,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,protein_g,7.6,g,imported,8,,,
+usda_fdc_sr_legacy,173753,riboflavin_mg,0.089,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,sodium_mg,5.0,mg,imported,4,,,
+usda_fdc_sr_legacy,173753,sugars_g,1.82,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,173753,thiamin_mg,0.097,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,vitamin_a_rae_ug,1.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173753,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,173753,vitamin_b6_mg,0.072,mg,imported,8,,,
+usda_fdc_sr_legacy,173753,vitamin_c_mg,0.3,mg,imported,0,,,
+usda_fdc_sr_legacy,173753,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,173753,vitamin_e_mg,0.02,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,173753,vitamin_k_ug,2.9,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,173753,water_g,71.54,g,imported,8,,,
+usda_fdc_sr_legacy,173753,zinc_mg,1.01,mg,imported,8,,,
+usda_fdc_sr_legacy,173944,ash_g,0.82,g,imported,12,0.43,1,A: Analytical
+usda_fdc_sr_legacy,173944,calcium_mg,5.0,mg,imported,45,4,7,A: Analytical
+usda_fdc_sr_legacy,173944,carbohydrate_g,22.84,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173944,cholesterol_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,173944,energy_kcal,89.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173944,energy_kj,371.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173944,fat_g,0.33,g,imported,19,0.07,0.7,A: Analytical
+usda_fdc_sr_legacy,173944,fat_mono_g,0.032,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173944,fat_poly_g,0.073,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173944,fat_sat_g,0.112,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,173944,fiber_g,2.6,g,imported,13,1.7,3.7,A: Analytical
+usda_fdc_sr_legacy,173944,folate_ug,20.0,ug,imported,11,8,27,A: Analytical
+usda_fdc_sr_legacy,173944,iron_mg,0.26,mg,imported,42,0.19,0.41,A: Analytical
+usda_fdc_sr_legacy,173944,magnesium_mg,27.0,mg,imported,45,18,38,A: Analytical
+usda_fdc_sr_legacy,173944,niacin_mg,0.665,mg,imported,12,0.544,0.749,A: Analytical
+usda_fdc_sr_legacy,173944,phosphorus_mg,22.0,mg,imported,45,15,29,A: Analytical
+usda_fdc_sr_legacy,173944,potassium_mg,358.0,mg,imported,45,308,426,A: Analytical
+usda_fdc_sr_legacy,173944,protein_g,1.09,g,imported,12,0.75,1.31,A: Analytical
+usda_fdc_sr_legacy,173944,riboflavin_mg,0.073,mg,imported,12,0.05,0.115,A: Analytical
+usda_fdc_sr_legacy,173944,sodium_mg,1.0,mg,imported,45,0,5,A: Analytical
+usda_fdc_sr_legacy,173944,sugars_g,12.23,g,imported,8,7.51,16.21,A: Analytical
+usda_fdc_sr_legacy,173944,thiamin_mg,0.031,mg,imported,12,0.01,0.051,A: Analytical
+usda_fdc_sr_legacy,173944,vitamin_a_rae_ug,3.0,ug,imported,0,,,
+usda_fdc_sr_legacy,173944,vitamin_b12_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,173944,vitamin_b6_mg,0.367,mg,imported,12,0.302,0.42,A: Analytical
+usda_fdc_sr_legacy,173944,vitamin_c_mg,8.7,mg,imported,8,8,9.5,A: Analytical
+usda_fdc_sr_legacy,173944,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,173944,vitamin_e_mg,0.1,mg,imported,15,0.03,0.37,A: Analytical
+usda_fdc_sr_legacy,173944,vitamin_k_ug,0.5,ug,imported,6,0.2,0.9,A: Analytical
+usda_fdc_sr_legacy,173944,water_g,74.91,g,imported,20,71.3,78.2,A: Analytical
+usda_fdc_sr_legacy,173944,zinc_mg,0.15,mg,imported,45,0.11,0.24,A: Analytical
+usda_fdc_sr_legacy,174370,ash_g,0.87,g,imported,0,,,
+usda_fdc_sr_legacy,174370,calcium_mg,16.0,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,carbohydrate_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,174370,cholesterol_mg,73.0,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,energy_kcal,282.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,174370,energy_kj,1180.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,174370,fat_g,23.41,g,imported,0,,,
+usda_fdc_sr_legacy,174370,fat_mono_g,9.6,g,imported,0,,,
+usda_fdc_sr_legacy,174370,fat_poly_g,1.85,g,imported,0,,,
+usda_fdc_sr_legacy,174370,fat_sat_g,10.19,g,imported,0,,,
+usda_fdc_sr_legacy,174370,fiber_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,174370,folate_ug,18.0,ug,imported,0,,,
+usda_fdc_sr_legacy,174370,iron_mg,1.55,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,magnesium_mg,21.0,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,niacin_mg,5.96,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,phosphorus_mg,157.0,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,potassium_mg,222.0,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,protein_g,16.56,g,imported,0,,,
+usda_fdc_sr_legacy,174370,riboflavin_mg,0.21,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,sodium_mg,59.0,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,sugars_g,0.0,g,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,174370,thiamin_mg,0.11,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,174370,vitamin_b12_ug,2.31,ug,imported,0,,,
+usda_fdc_sr_legacy,174370,vitamin_b6_mg,0.13,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,vitamin_c_mg,0.0,mg,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,174370,vitamin_d_ug,0.1,ug,imported,80,,,
+usda_fdc_sr_legacy,174370,vitamin_e_mg,0.2,mg,imported,0,,,
+usda_fdc_sr_legacy,174370,vitamin_k_ug,3.6,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,174370,water_g,59.47,g,imported,0,,,
+usda_fdc_sr_legacy,174370,zinc_mg,3.41,mg,imported,0,,,
+usda_fdc_sr_legacy,175202,ash_g,4.2,g,imported,6,,,
+usda_fdc_sr_legacy,175202,calcium_mg,240.0,mg,imported,5,,,
+usda_fdc_sr_legacy,175202,carbohydrate_g,60.27,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175202,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175202,energy_kcal,333.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175202,energy_kj,1393.0,kJ,imported,0,,,
+usda_fdc_sr_legacy,175202,fat_g,0.85,g,imported,10,,,
+usda_fdc_sr_legacy,175202,fat_mono_g,0.074,g,imported,0,,,
+usda_fdc_sr_legacy,175202,fat_poly_g,0.364,g,imported,0,,,
+usda_fdc_sr_legacy,175202,fat_sat_g,0.219,g,imported,0,,,
+usda_fdc_sr_legacy,175202,fiber_g,15.2,g,imported,0,,,
+usda_fdc_sr_legacy,175202,folate_ug,388.0,ug,imported,0,,,
+usda_fdc_sr_legacy,175202,iron_mg,10.44,mg,imported,5,,,
+usda_fdc_sr_legacy,175202,magnesium_mg,190.0,mg,imported,3,,,
+usda_fdc_sr_legacy,175202,niacin_mg,0.479,mg,imported,4,,,
+usda_fdc_sr_legacy,175202,phosphorus_mg,301.0,mg,imported,3,,,
+usda_fdc_sr_legacy,175202,potassium_mg,1795.0,mg,imported,5,,,
+usda_fdc_sr_legacy,175202,protein_g,23.36,g,imported,12,,,
+usda_fdc_sr_legacy,175202,riboflavin_mg,0.146,mg,imported,6,,,
+usda_fdc_sr_legacy,175202,sodium_mg,16.0,mg,imported,1,,,
+usda_fdc_sr_legacy,175202,sugars_g,2.11,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,175202,thiamin_mg,0.437,mg,imported,6,,,
+usda_fdc_sr_legacy,175202,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175202,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,175202,vitamin_b6_mg,0.318,mg,imported,1,,,
+usda_fdc_sr_legacy,175202,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175202,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,175202,vitamin_e_mg,0.21,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,175202,vitamin_k_ug,5.6,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,175202,water_g,11.32,g,imported,9,,,
+usda_fdc_sr_legacy,175202,zinc_mg,3.67,mg,imported,5,,,
+usda_fdc_sr_legacy,175203,ash_g,1.75,g,imported,0,,,
+usda_fdc_sr_legacy,175203,calcium_mg,90.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,carbohydrate_g,25.09,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175203,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,energy_kcal,139.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175203,energy_kj,581.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175203,fat_g,0.35,g,imported,0,,,
+usda_fdc_sr_legacy,175203,fat_mono_g,0.031,g,imported,0,,,
+usda_fdc_sr_legacy,175203,fat_poly_g,0.152,g,imported,0,,,
+usda_fdc_sr_legacy,175203,fat_sat_g,0.091,g,imported,0,,,
+usda_fdc_sr_legacy,175203,fiber_g,6.3,g,imported,0,,,
+usda_fdc_sr_legacy,175203,folate_ug,81.0,ug,imported,0,,,
+usda_fdc_sr_legacy,175203,iron_mg,3.7,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,magnesium_mg,63.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,niacin_mg,0.14,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,phosphorus_mg,113.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,potassium_mg,561.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,protein_g,9.73,g,imported,0,,,
+usda_fdc_sr_legacy,175203,riboflavin_mg,0.046,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,sodium_mg,6.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,sugars_g,0.34,g,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,175203,thiamin_mg,0.118,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,vitamin_a_rae_ug,0.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175203,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,175203,vitamin_b6_mg,0.093,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,vitamin_c_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175203,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,175203,vitamin_e_mg,0.94,mg,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,175203,vitamin_k_ug,3.5,ug,imported,0,,,BFSN: Based on another form of the food or similar food; Concentration adjustment; Solids; Retention factors not used
+usda_fdc_sr_legacy,175203,water_g,63.08,g,imported,0,,,
+usda_fdc_sr_legacy,175203,zinc_mg,1.38,mg,imported,0,,,
+usda_fdc_sr_legacy,175205,ash_g,3.08,g,imported,102,,,
+usda_fdc_sr_legacy,175205,calcium_mg,103.0,mg,imported,31,,,
+usda_fdc_sr_legacy,175205,carbohydrate_g,58.29,g,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175205,cholesterol_mg,0.0,mg,imported,0,,,
+usda_fdc_sr_legacy,175205,energy_kcal,341.0,kcal,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175205,energy_kj,1425.0,kJ,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175205,fat_g,1.53,g,imported,101,,,
+usda_fdc_sr_legacy,175205,fat_mono_g,0.303,g,imported,0,,,
+usda_fdc_sr_legacy,175205,fat_poly_g,0.627,g,imported,0,,,
+usda_fdc_sr_legacy,175205,fat_sat_g,0.254,g,imported,0,,,
+usda_fdc_sr_legacy,175205,fiber_g,25.0,g,imported,0,,,
+usda_fdc_sr_legacy,175205,folate_ug,423.0,ug,imported,8,,,
+usda_fdc_sr_legacy,175205,iron_mg,6.7,mg,imported,30,,,
+usda_fdc_sr_legacy,175205,magnesium_mg,192.0,mg,imported,10,,,
+usda_fdc_sr_legacy,175205,niacin_mg,2.832,mg,imported,11,,,
+usda_fdc_sr_legacy,175205,phosphorus_mg,421.0,mg,imported,29,,,
+usda_fdc_sr_legacy,175205,potassium_mg,1062.0,mg,imported,8,,,
+usda_fdc_sr_legacy,175205,protein_g,26.12,g,imported,104,,,
+usda_fdc_sr_legacy,175205,riboflavin_mg,0.333,mg,imported,12,,,
+usda_fdc_sr_legacy,175205,sodium_mg,13.0,mg,imported,5,,,
+usda_fdc_sr_legacy,175205,sugars_g,5.7,g,imported,0,,,T: Taken from another source--other tables of food composition
+usda_fdc_sr_legacy,175205,thiamin_mg,0.555,mg,imported,11,,,
+usda_fdc_sr_legacy,175205,vitamin_a_rae_ug,3.0,ug,imported,0,,,NC: Calculated
+usda_fdc_sr_legacy,175205,vitamin_b12_ug,0.0,ug,imported,0,,,
+usda_fdc_sr_legacy,175205,vitamin_b6_mg,0.366,mg,imported,8,,,
+usda_fdc_sr_legacy,175205,vitamin_c_mg,1.4,mg,imported,1,,,
+usda_fdc_sr_legacy,175205,vitamin_d_ug,0.0,ug,imported,0,,,"Z: Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+usda_fdc_sr_legacy,175205,vitamin_e_mg,0.05,mg,imported,0,,,T: Taken from another source--other tables of food composition
+usda_fdc_sr_legacy,175205,vitamin_k_ug,9.0,ug,imported,0,,,O: Other procedure used from imputing
+usda_fdc_sr_legacy,175205,water_g,10.98,g,imported,100,,,
+usda_fdc_sr_legacy,175205,zinc_mg,3.14,mg,imported,10,,,

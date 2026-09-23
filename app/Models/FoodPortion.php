@@ -4,16 +4,14 @@ namespace App\Models;
 
 use App\Enums\ConfidenceLevel;
 use App\Enums\PortionBasis;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** "1 cup of chickpeas = 164 g" — what converts a household measure into grams. */
 class FoodPortion extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
-        'food_id', 'measure_unit_id', 'amount', 'gram_weight',
+        'food_id', 'measure_unit_id', 'amount', 'gram_weight', 'description',
         'food_source_record_id', 'food_form_id', 'basis', 'confidence_level',
         'is_default', 'valid_from', 'valid_to', 'evidence',
     ];
@@ -42,9 +40,9 @@ class FoodPortion extends Model
         return $this->belongsTo(MeasureUnit::class);
     }
 
-    public function foodSourceRecord(): BelongsTo
+    public function sourceRecord(): BelongsTo
     {
-        return $this->belongsTo(FoodSourceRecord::class);
+        return $this->belongsTo(FoodSourceRecord::class, 'food_source_record_id');
     }
 
     public function foodForm(): BelongsTo

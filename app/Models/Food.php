@@ -2,31 +2,26 @@
 
 namespace App\Models;
 
-use App\Enums\FoodOrigin;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
+/**
+ * A food CONCEPT ("chickpeas", "tabbouleh"). Its numbers live in foodSourceRecords, one per
+ * source and form. Whether it is a "dish" or a plain ingredient is never stored — see
+ * $isRecipe below — matching decisions-and-principles.md.
+ */
 class Food extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name_ar', 'name_en', 'scientific_name', 'food_category_id', 'img', 'is_active'];
 
-    protected $fillable = [
-        'name_ar', 'name_en', 'food_category_id',
-        'is_active','img'
-    ];
-
-    protected $table = 'foods';
     protected function casts(): array
     {
-        return [
-            'is_active' => 'boolean',
-            'is_recipe' => 'boolean',
-            'origin' => FoodOrigin::class,
-        ];
+        return ['is_active' => 'boolean'];
     }
 
     public function category(): BelongsTo
@@ -34,14 +29,9 @@ class Food extends Model
         return $this->belongsTo(FoodCategory::class, 'food_category_id');
     }
 
-    public function foodSourceRecords(): HasMany
+    public function sourceRecords(): HasMany
     {
         return $this->hasMany(FoodSourceRecord::class);
-    }
-
-    public function aliases(): HasMany
-    {
-        return $this->hasMany(FoodAlias::class);
     }
 
     public function portions(): HasMany
@@ -49,19 +39,29 @@ class Food extends Model
         return $this->hasMany(FoodPortion::class);
     }
 
-    /** Present only when is_recipe = true: the cooking metadata for this dish. */
-    public function recipe(): HasOne
+    public function aliases(): HasMany
     {
-        return $this->hasOne(Recipe::class);
+        return $this->hasMany(FoodAlias::class);
     }
 
-    /** Every nutrient value across all of this food's source records, regardless of which source "wins". */
-    public function nutrientValues(): HasManyThrough
+    /** Every recipe attached to any of this food's source records (normally at most one). */
+    public function recipes(): HasManyThrough
     {
-        return $this->hasManyThrough(FoodNutrientValue::class, FoodSourceRecord::class);
+        return $this->hasManyThrough(Recipe::class, FoodSourceRecord::class, 'food_id', 'food_source_record_id');
     }
 
+    /**
+     * Computed, not stored: a food IS a dish when one of its source records has a recipe.
+     * Kept as a query (not eager-loadable count) so it stays correct without a sync step.
+     */
+    protected function isRecipe(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->recipes()->exists());
+    }
+
+    #[Scope]
+    protected function active(Builder $query): void
+    {
+        $query->where('is_active', true);
+    }
 }
-
-
-
