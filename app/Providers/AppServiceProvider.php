@@ -23,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
     }
     public function boot(): void
     {
-        Category::observe(CategoryObserver::class);
-
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
                 ->middleware(['web']);
