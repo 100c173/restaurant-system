@@ -5,6 +5,7 @@ namespace App\Filament\Clusters\FoodDatabase\Resources\Food\Resources\FoodSource
 use App\Filament\Clusters\FoodDatabase\Resources\Food\FoodResource;
 use App\Filament\Clusters\FoodDatabase\Resources\Food\Resources\FoodSourceRecords\Pages\CreateFoodSourceRecord;
 use App\Filament\Clusters\FoodDatabase\Resources\Food\Resources\FoodSourceRecords\Pages\EditFoodSourceRecord;
+use App\Filament\Clusters\FoodDatabase\Resources\Food\Resources\FoodSourceRecords\RelationManagers\PortionsRelationManager;
 use App\Filament\Clusters\FoodDatabase\Resources\Food\Resources\FoodSourceRecords\Schemas\FoodSourceRecordForm;
 use App\Filament\Clusters\FoodDatabase\Resources\Food\Resources\FoodSourceRecords\Tables\FoodSourceRecordsTable;
 use App\Models\FoodSourceRecord;
@@ -39,7 +40,7 @@ class FoodSourceRecordResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PortionsRelationManager::class,
         ];
     }
 
